@@ -44,6 +44,8 @@ def build(out: pathlib.Path | None = None) -> pathlib.Path:
 
     _start_here(wb.active, lg)
     _watchlist(wb.create_sheet("Watchlist"), rows)
+    _wr_board(wb.create_sheet("WR Board"), _load("wr_board"))
+    _te_board(wb.create_sheet("TE Board"), _load("te_board"))
     _screen(wb.create_sheet("Screen"), _load("screen"))
 
     wb.save(out)
@@ -118,6 +120,84 @@ def _watchlist(ws, rows):
             x.border = THIN
         ws.row_dimensions[r].height = 46
     ws.freeze_panes = "A2"
+
+
+def _stack_cap(ws, r, cap):
+    _cell(ws, r, 2, "STACK CAP", bold=True, size=12)
+    _cell(ws, r + 1, 2, f"{cap['team']} - bye W{cap['bye']}, max {cap['max_starters']} starters")
+    _cell(ws, r + 1, 3, cap["why"], fill=TIER_FILL["Tier 1"])
+    return r + 3
+
+
+def _wr_board(ws, board):
+    _cell(ws, 2, 2, "WR BOARD", bold=True, size=14)
+    _cell(ws, 3, 2, f"Cliff at {board['cliff']['at']}", bold=True)
+    _cell(ws, 3, 3, board["cliff"]["note"])
+    _cell(ws, 4, 2, f"{board['rule']['targets_per_game']} targets/game", bold=True)
+    _cell(ws, 4, 3, board["rule"]["note"])
+    _cell(ws, 5, 2, "Context", bold=True)
+    _cell(ws, 5, 3, board["context"])
+
+    _cell(ws, 7, 2, "VALUE BOARD", bold=True, size=12)
+    headers = ["Player", "Team", "Target Rank", "ADP", "Gap", "Round", "Flag / Note"]
+    for c, h in enumerate(headers, start=2):
+        x = _cell(ws, 8, c, h, bold=True, color="FFFFFF")
+        x.fill = NAVY
+        x.border = THIN
+    r = 9
+    for p in board["value_board"]:
+        flag = "; ".join(str(p[k]) for k in ("flag", "note") if p.get(k))
+        vals = [p["player"], p["team"], p.get("target_rank"), p.get("adp"),
+                p.get("gap"), p.get("round"), flag]
+        for c, v in enumerate(vals, start=2):
+            x = _cell(ws, r, c, "" if v is None else v)
+            x.border = THIN
+        r += 1
+
+    r = _stack_cap(ws, r + 1, board["stack_cap"])
+
+    _cell(ws, r, 2, "ROUND PLAN", bold=True, size=12)
+    r += 1
+    for rounds, plan in board["round_plan"].items():
+        _cell(ws, r, 2, f"R{rounds}", bold=True)
+        _cell(ws, r, 3, plan)
+        r += 1
+
+    for col, width in zip("BCDEFGH", [22, 90, 12, 8, 6, 7, 60]):
+        ws.column_dimensions[col].width = width
+
+
+def _te_board(ws, board):
+    _cell(ws, 2, 2, "TE BOARD", bold=True, size=14)
+    _cell(ws, 3, 2, f"Cliff at {board['cliff']['at']}", bold=True)
+    _cell(ws, 3, 3, board["cliff"]["note"])
+    _cell(ws, 4, 2, "Qualifying test", bold=True)
+    _cell(ws, 4, 3, board["qualifying_test"])
+    _cell(ws, 5, 2, "Barbell flaw", bold=True)
+    _cell(ws, 5, 3, board["barbell_flaw"])
+
+    _cell(ws, 7, 2, "PATHS", bold=True, size=12)
+    headers = ["Path", "Name", "Cost", "Who", "Verdict"]
+    for c, h in enumerate(headers, start=2):
+        x = _cell(ws, 8, c, h, bold=True, color="FFFFFF")
+        x.fill = NAVY
+        x.border = THIN
+    r = 9
+    for p in board["paths"]:
+        fill = TIER_FILL["Tier 3"] if "RECOMMENDED" in p["verdict"] else None
+        vals = [p["id"], p["name"], p["cost"], ", ".join(p["who"]), p["verdict"]]
+        for c, v in enumerate(vals, start=2):
+            x = _cell(ws, r, c, v, fill=fill)
+            x.border = THIN
+        r += 1
+
+    r = _stack_cap(ws, r + 1, board["stack_cap"])
+
+    _cell(ws, r, 2, "THE CALL", bold=True, size=12)
+    _cell(ws, r, 3, board["call"], fill=TIER_FILL["Tier 3"])
+
+    for col, width in zip("BCDEF", [14, 90, 14, 36, 50]):
+        ws.column_dimensions[col].width = width
 
 
 def _screen(ws, teams):

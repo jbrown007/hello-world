@@ -237,7 +237,7 @@ def _():
     from ffcli.workbook import build
     out = build(ROOT / "build" / "_verify.xlsx")
     wb = openpyxl.load_workbook(out)
-    for tab in ("Start Here", "Watchlist", "Screen"):
+    for tab in ("Start Here", "Watchlist", "WR Board", "TE Board", "Screen"):
         assert tab in wb.sheetnames, f"missing tab: {tab}"
     ws = wb["Watchlist"]
     assert ws.max_row > 1, "watchlist tab has no data rows"
@@ -259,6 +259,28 @@ def _():
     bad = [f for f in formulas if "Watchlist!" not in f]
     assert not bad, f"formulas not referencing Watchlist: {bad}"
     return f"{len(formulas)} formulas, all cross-referencing"
+
+
+@check("board tabs are generated from the board YAML")
+def _():
+    """Regression: wr_board.yaml and te_board.yaml were orphaned - no code read
+    them, so the workbook's board tabs could silently drift from the data."""
+    import openpyxl
+    from ffcli.config import load
+    wb = openpyxl.load_workbook(ROOT / "build" / "_verify.xlsx")
+
+    def text(sheet):
+        return " | ".join(str(c.value) for row in wb[sheet].iter_rows() for c in row if c.value is not None)
+
+    wr, te = text("WR Board"), text("TE Board")
+    for p in load("wr_board")["value_board"]:
+        assert p["player"] in wr, f"WR Board tab missing {p['player']}"
+    for path in load("te_board")["paths"]:
+        assert path["name"] in te, f"TE Board tab missing path: {path['name']}"
+    for sheet, board in (("WR Board", "wr_board"), ("TE Board", "te_board")):
+        cap = load(board)["stack_cap"]
+        assert f"max {cap['max_starters']} starters" in text(sheet), f"{sheet} missing stack cap"
+    return f"{len(load('wr_board')['value_board'])} WRs, {len(load('te_board')['paths'])} TE paths, caps on both"
 
 
 @check("CLI commands all exit cleanly")
