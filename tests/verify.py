@@ -293,6 +293,8 @@ def _():
     cases = [
         ["settings"], ["confirm"], ["qb", "--round", "4", "--gone", "15"],
         ["tree", "--slot", "1"], ["tree", "--slot", "12"],
+        ["draft", "--round", "6", "--gone", "16", "--slot", "7"],
+        ["sheet", "--slot", "1"], ["sheet", "--slot", "7"], ["sheet", "--slot", "12"],
         ["bye", "IND", "NYJ"], ["weekly", "1"], ["weekly", "4"],
     ]
     for argv in cases:
@@ -366,6 +368,37 @@ def _():
         if len(as_range(s[key])) > 1:
             assert key in pending, f"{key} is a range but not reported by unconfirmed()"
     return f"pending: {sorted(pending) or 'none'}"
+
+
+@check("round-plan commitments are satisfiable in every branch")
+def _():
+    """Regression: the boards once committed seven picks to six rounds (audit
+    2a) and nothing noticed. Commitments are now data; this proves each
+    branch's full set fits one-pick-per-round."""
+    from ffcli.draft import commitments_for, satisfiable
+    from ffcli.config import load
+    details = []
+    for label in load("commitments")["branches"]:
+        items = commitments_for(label)
+        for c in items:
+            lo, hi = c["window"]
+            assert 1 <= lo <= hi <= 15, f"{label}: bad window {c['window']} for {c['pick']}"
+        ok, detail = satisfiable(items)
+        assert ok, f"{label}: {detail}"
+        details.append(f"{label}={len(items)}")
+    assert details, "no branches in commitments.yaml"
+    return ", ".join(details) + " commitments, all schedulable"
+
+
+@check("stack caps agree across boards")
+def _():
+    """Regression: the IND cap lived only on the TE board while the WR board
+    steered into four Colts (audit 2c). Both boards carry it; they must match."""
+    from ffcli.config import load
+    wr, te = load("wr_board")["stack_cap"], load("te_board")["stack_cap"]
+    for k in ("team", "bye", "max_starters"):
+        assert wr[k] == te[k], f"stack_cap.{k} differs: wr={wr[k]!r} te={te[k]!r}"
+    return f"{wr['team']} max {wr['max_starters']}, bye W{wr['bye']}, both boards"
 
 
 @check("QB rule urgency never dips between a trigger round and the floor")

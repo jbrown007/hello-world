@@ -1,0 +1,51 @@
+# Machine-readable mandatory picks. This is the single place the round-plan
+# commitments live - the boards describe strategy, this file is what the
+# collision check and `ff draft` / `ff sheet` actually reason about.
+#
+# A commitment means "one draft pick MUST land inside this window." Value
+# notes (Pierce, Stevenson) are deliberately NOT commitments - the audit's
+# seven-into-six collision came from treating them as mandatory.
+#
+# window: [first_round, last_round] inclusive. One pick satisfies one
+# commitment. verify.py asserts every branch's full set is satisfiable.
+common:
+- pick: WR (Tiers 2-3)
+  window: [2, 4]
+  source: wr_board round_plan - minimum one WR by end of R4
+- pick: TE Tyler Warren
+  window: [4, 5]
+  source: te_board call
+- pick: QB2
+  window: [2, 6]
+  source: qb_rule hard_floor_round - in hand by end of R6, no exceptions
+- pick: WR Josh Downs
+  window: [7, 7]
+  source: wr_board round_plan - documented +15 target-rank/ADP gap
+- pick: QB3
+  window: [10, 13]
+  source: qb_rule qb3_rounds - mandatory, zero IR slots
+branches:
+  EARLY:
+  - pick: QB1 (Allen or Tier 1 arm)
+    window: [1, 3]
+    source: trees EARLY - Allen at the top or the tier falls to R2-3
+  - pick: RB (Tiers 1-2)
+    window: [1, 3]
+    source: trees EARLY R2-3 - take the scarce thing
+  MIDDLE:
+  - pick: RB (Tier 1)
+    window: [1, 1]
+    source: trees MIDDLE R1 - best Tier 1 RB, do not reach for QB
+  - pick: QB1 (Tier 1 arm)
+    window: [2, 3]
+    source: trees MIDDLE - your QB1 window
+  - pick: RB (Tiers 1-2)
+    window: [2, 3]
+    source: trees MIDDLE - pair the QB1 with an RB
+  LATE:
+  - pick: RB (elite)
+    window: [1, 2]
+    source: trees LATE - back-to-back double-tap
+  - pick: QB1 (Tier 1 arm)
+    window: [1, 4]
+    source: trees LATE - QB1 by the R3-4 turn at the latest
