@@ -1,0 +1,13 @@
+# 2026 NFL bye weeks. NOTE: "NO" MUST stay quoted - unquoted it parses
+# as the YAML boolean false and New Orleans disappears silently.
+# 2026 NFL bye weeks. Source: NFL.com schedule release, May 2026.
+# No byes in Week 12 (Thanksgiving slate). Byes run Week 5-14.
+5:  [KC, CAR]
+6:  [CIN, DET, MIA, MIN]
+7:  [BUF, JAX, LAC, WSH]
+8:  [NYG, HOU, "NO", SF]
+9:  [PIT, TEN]
+10: [CHI, DEN, PHI, TB]
+11: [SEA, LAR, ATL, NE, CLE, GB]
+13: [BAL, NYJ, IND, LV]
+14: [DAL, ARI]

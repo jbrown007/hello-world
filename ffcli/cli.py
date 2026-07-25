@@ -1,0 +1,116 @@
+"""ff - fantasy football command line toolkit."""
+from __future__ import annotations
+import argparse
+import signal
+import sys
+
+# Let `ff weekly 1 | head` exit quietly instead of raising BrokenPipeError.
+try:
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+except (AttributeError, ValueError):  # Windows / non-main thread
+    pass
+from . import __version__
+from .config import league, byes, bye_of, unconfirmed, as_range
+from .draft import qb_verdict, tree
+from .byecheck import audit
+from .weekly import session
+from .workbook import build
+
+
+def main(argv=None) -> int:
+    p = argparse.ArgumentParser(prog="ff", description="2026 fantasy football toolkit")
+    p.add_argument("--version", action="version", version=f"ff {__version__}")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    sub.add_parser("settings", help="print league settings")
+    sub.add_parser("confirm", help="show unconfirmed settings and what each one changes")
+
+    b = sub.add_parser("build", help="regenerate the Excel workbook from data/")
+    b.add_argument("-o", "--out", default=None)
+
+    q = sub.add_parser("qb", help="apply the superflex QB count rule")
+    q.add_argument("--round", type=int, required=True)
+    q.add_argument("--gone", type=int, required=True, help="QBs already off the board")
+
+    t = sub.add_parser("tree", help="print the draft branch for your slot")
+    t.add_argument("--slot", type=int, default=None)
+
+    y = sub.add_parser("bye", help="audit bye weeks for a set of teams")
+    y.add_argument("teams", nargs="+", help="team abbreviations, e.g. IND NYJ LV")
+    y.add_argument("--max", type=int, default=2, help="max starters allowed on one bye")
+
+    w = sub.add_parser("weekly", help="print an in-season session template")
+    w.add_argument("n", type=int, choices=[1, 2, 3, 4])
+
+    a = p.parse_args(argv)
+
+    if a.cmd == "settings":
+        lg = league()
+        for k, v in lg.items():
+            print(f"{k}: {v}")
+
+    elif a.cmd == "build":
+        out = build(a.out)
+        print(f"built: {out}")
+        print("NOTE: formulas have no cached values until Excel or LibreOffice opens the file.")
+
+    elif a.cmd == "qb":
+        print(qb_verdict(a.round, a.gone))
+
+    elif a.cmd == "tree":
+        slot = a.slot or league()["draft"].get("slot")
+        if not slot:
+            print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
+            return 1
+        br = tree(slot)
+        print(f"SLOT {slot} - {br['label']} (covers {br['slots']})\n")
+        for s in br["steps"]:
+            print(f"  {s['round']:<12} {s['do']}")
+
+    elif a.cmd == "confirm":
+        pend = league()["season"]["playoff_end"]
+        miss = unconfirmed()
+        if not miss:
+            print("All season settings confirmed.")
+            return 0
+        print(f"{len(miss)} setting(s) unconfirmed. Warnings stay CONDITIONAL until fixed.\n")
+        impact = {
+            "regular_weeks":
+                "Sets the seeding week - the last regular-season week, which decides the\n"
+                "     top-two first-round bye.\n"
+                "       12 -> W12 has NO byes league-wide. Seeding week is completely clean.\n"
+                "       13 -> BAL, NYJ, IND, LV are out in the week that decides your bye.",
+            "playoff_start":
+                f"Sets the playoff window (through W{pend}). Byes end in W14, so:\n"
+                "       14 -> DAL and ARI are dark in your first playoff game. Fade both.\n"
+                "       15 -> zero bye conflicts anywhere in your playoffs. Nothing to avoid.",
+        }
+        for k, vals in miss.items():
+            print(f"  {k}: currently {vals}")
+            print(f"     {impact.get(k, 'No modelled impact.')}\n")
+        print("Fix in data/league.yaml, then rerun `ff bye ...`.")
+
+
+    elif a.cmd == "bye":
+        res = audit(a.teams, a.max)
+        for wk, names in res["grouped"].items():
+            print(f"  W{wk:<3} {', '.join(names)}")
+        if res["unknown"]:
+            print(f"  ??   unknown: {', '.join(res['unknown'])}")
+        if res["warnings"]:
+            print("\nWARNINGS")
+            for x in res["warnings"]:
+                print(f"  ! {x}")
+        else:
+            print("\nNo conflicts.")
+        if res["scenarios"] > 1:
+            print(f"\n({res['scenarios']} scenarios modelled - run `ff confirm` to narrow them.)")
+
+    elif a.cmd == "weekly":
+        print(session(a.n))
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

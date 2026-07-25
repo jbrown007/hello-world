@@ -1,0 +1,65 @@
+cliff:
+  at: WR16
+  note: The tier after the first 16 is cluttered and best drafted as WR2s - three top-12 finishes between
+    the whole tier.
+rule:
+  targets_per_game: 8.0
+  note: Ten of the top 12 qualifying WRs last season averaged 8.0+ targets per game. In full PPR this
+    is the position in one number.
+context: Only 5-6 of the top-12 WRs in 2024-25 were on playoff teams, down from 8+ in 2021-23. Volume
+  beats environment.
+value_board:
+- player: Josh Downs
+  team: IND
+  target_rank: 28
+  adp: WR43
+  gap: 15
+  round: 7
+- player: Michael Wilson
+  team: ARI
+  target_rank: 32
+  adp: WR46
+  gap: 14
+  round: 8
+- player: Wan'Dale Robinson
+  team: TEN
+  target_rank: 38
+  adp: WR50
+  gap: 12
+  round: 9
+- player: Garrett Wilson
+  team: NYJ
+  target_rank: 9
+  adp: WR20
+  gap: null
+  round: 3
+- player: Alec Pierce
+  team: IND
+  target_rank: null
+  adp: null
+  gap: null
+  round: 6
+  flag: ankle injury - watch in camp
+  note: VALUE-IF-HE-FALLS ONLY, not mandatory. R6 belongs to QB2 (hard floor) - seven
+    commitments into six picks otherwise, and Pierce is the softest of the seven (no
+    target-rank or ADP data, injury flag).
+- player: Jayden Reed
+  team: GB
+  target_rank: null
+  adp: WR41
+  gap: null
+  round: 10
+stack_cap:
+  team: IND
+  bye: 13
+  max_starters: 2
+  why: Same cap as the TE board. Jones + Warren + Downs + Pierce would be four Colts
+    against a cap of two, all dark in the W13 seeding week. Run `ff bye` on any roster
+    carrying 3+ IND starters.
+round_plan:
+  1: Allen. If gone, elite RB or Nacua.
+  2-4: Split RB Tiers 1-2 and WR Tiers 2-3. Minimum one of each.
+  5-7: QB2 per count rule (in hand by end of R6, hard floor), plus Downs (R7). Pierce
+    is a value-note only - take him if he falls, never over the QB2.
+  8-11: WR3-WR5 from the value board.
+  12-15: QB3, handcuffs, rookie darts.
