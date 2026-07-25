@@ -44,6 +44,7 @@ def build(out: pathlib.Path | None = None) -> pathlib.Path:
 
     _start_here(wb.active, lg)
     _watchlist(wb.create_sheet("Watchlist"), rows)
+    _rb_board(wb.create_sheet("RB Board"), _load("rb_board"))
     _wr_board(wb.create_sheet("WR Board"), _load("wr_board"))
     _te_board(wb.create_sheet("TE Board"), _load("te_board"))
     _screen(wb.create_sheet("Screen"), _load("screen"))
@@ -127,6 +128,53 @@ def _stack_cap(ws, r, cap):
     _cell(ws, r + 1, 2, f"{cap['team']} - bye W{cap['bye']}, max {cap['max_starters']} starters")
     _cell(ws, r + 1, 3, cap["why"], fill=TIER_FILL["Tier 1"])
     return r + 3
+
+
+def _rb_board(ws, board):
+    _cell(ws, 2, 2, "RB BOARD", bold=True, size=14)
+    _cell(ws, 3, 2, "PROVENANCE", bold=True)
+    _cell(ws, 3, 3, board["provenance"], fill=TIER_FILL["Tier 1"])
+    _cell(ws, 4, 2, "Rule", bold=True)
+    _cell(ws, 4, 3, board["rule"]["note"])
+    _cell(ws, 5, 2, f"Window R{board['window']['rounds']}", bold=True)
+    _cell(ws, 5, 3, board["window"]["note"])
+
+    r = 7
+    _cell(ws, r, 2, "TIERS", bold=True, size=12)
+    r += 1
+    for t in board["tiers"]:
+        _cell(ws, r, 2, f"Tier {t['tier']}", bold=True)
+        _cell(ws, r, 3, f"{', '.join(t['who']) or '(empty)'} - {t['note']}")
+        r += 1
+
+    for title, key, fill in (("TARGETS", "targets", TIER_FILL["Tier 3"]),
+                             ("FADES", "fades", TIER_FILL["Tier 1"])):
+        r += 1
+        _cell(ws, r, 2, title, bold=True, size=12)
+        r += 1
+        headers = ["Player", "Team", "ADP", "Round", "Why"]
+        for c, h in enumerate(headers, start=2):
+            x = _cell(ws, r, c, h, bold=True, color="FFFFFF")
+            x.fill = NAVY
+            x.border = THIN
+        r += 1
+        for p in board[key]:
+            vals = [p["player"], p["team"], p.get("adp"), p.get("round"), p["why"]]
+            for c, v in enumerate(vals, start=2):
+                x = _cell(ws, r, c, "" if v is None else v, fill=fill)
+                x.border = THIN
+            r += 1
+
+    r += 1
+    _cell(ws, r, 2, "ROUND PLAN", bold=True, size=12)
+    r += 1
+    for rounds, plan in board["round_plan"].items():
+        _cell(ws, r, 2, f"R{rounds}", bold=True)
+        _cell(ws, r, 3, plan)
+        r += 1
+
+    for col, width in zip("BCDEF", [30, 60, 12, 8, 90]):
+        ws.column_dimensions[col].width = width
 
 
 def _wr_board(ws, board):
