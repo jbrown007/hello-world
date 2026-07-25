@@ -1,0 +1,320 @@
+- team: Raiders
+  new_hc: Klint Kubiak
+  new_oc: Andrew Janocko
+  t1: Y
+  t2: Y
+  t3: TBV
+  t4: TBV
+  t5: Y
+  t6: ''
+  note: Cousins likely opens, Mendoza takes over. Late SF stash on Mendoza only.
+- team: Cardinals
+  new_hc: Mike LaFleur
+  new_oc: Nathaniel Hackett
+  t1: Y
+  t2: Y
+  t3: TBV
+  t4: Y
+  t5: ''
+  t6: ''
+  note: Murray gone. Brissett in a contract standoff. Low-ceiling room, avoid.
+- team: Titans
+  new_hc: Robert Saleh
+  new_oc: Brian Daboll
+  t1: Y
+  t2: ''
+  t3: ''
+  t4: ''
+  t5: Y
+  t6: ''
+  note: Ward Year 2 with a QB-run play caller. Your best value SF QB2.
+- team: Dolphins
+  new_hc: Jeff Hafley
+  new_oc: Bobby Slowik
+  t1: Y
+  t2: Y
+  t3: TBV
+  t4: Y
+  t5: Y
+  t6: ''
+  note: Full teardown. Hill, Waddle, Tua all gone. Skip the pass catchers.
+- team: Giants
+  new_hc: John Harbaugh
+  new_oc: Matt Nagy
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: Y
+  t6: Y
+  note: Nabers possibly on PUP. Malachi Fields is the live rookie WR2.
+- team: Bills
+  new_hc: Joe Brady
+  new_oc: Pete Carmichael Jr.
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Allen is QB1 overall. Nothing to solve here.
+- team: Ravens
+  new_hc: Jesse Minter
+  new_oc: Declan Doyle
+  t1: Y
+  t2: ''
+  t3: ''
+  t4: ''
+  t5: ''
+  t6: Y
+  note: Lamar bounce-back candidate after a down 2025 under a new play caller.
+- team: Steelers
+  new_hc: Mike McCarthy
+  new_oc: Brian Angelichio
+  t1: Y
+  t2: TBV
+  t3: Y
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Warren/Dowdle split caps both at RB3. ADPs RB27/RB31. Fade.
+- team: Browns
+  new_hc: Todd Monken
+  new_oc: Travis Switzer
+  t1: Y
+  t2: Y
+  t3: TBV
+  t4: ''
+  t5: Y
+  t6: ''
+  note: Open QB battle plus two rookie WRs. Watch, do not draft yet.
+- team: Jets
+  new_hc: '-'
+  new_oc: Frank Reich
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: Y
+  t6: ''
+  note: Sadiq at TE20 ADP is your punt-TE play. Geno starts.
+- team: Chargers
+  new_hc: '-'
+  new_oc: Mike McDaniel
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: ''
+  t5: Y
+  t6: Y
+  note: Thompson is a real late dart. McDaniel suppresses the TE room.
+- team: Buccaneers
+  new_hc: '-'
+  new_oc: Zac Robinson
+  t1: Y
+  t2: ''
+  t3: ''
+  t4: Y
+  t5: Y
+  t6: ''
+  note: Lost Mike Evans. Egbuka is the new alpha. Downgrade the room.
+- team: 49ers
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: Y
+  t6: ''
+  note: Evans arrives. Kaelon Black is the best handcuff on the board.
+- team: Commanders
+  new_hc: '-'
+  new_oc: David Blough
+  t1: Y
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: Y
+  t6: ''
+  note: Draft BOTH White and JCM late. Antonio Williams is a live WR2.
+- team: Chiefs
+  new_hc: '-'
+  new_oc: Eric Bieniemy
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: New OC on a known offense. Usage priors are unreliable.
+- team: Eagles
+  new_hc: '-'
+  new_oc: Sean Mannion
+  t1: Y
+  t2: ''
+  t3: ''
+  t4: Y
+  t5: ''
+  t6: ''
+  note: A.J. Brown traded to NE. Hurts under center more. Target vacancy is real.
+- team: Bears
+  new_hc: '-'
+  new_oc: Press Taylor
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: New play caller under Ben Johnson. Needs a pass.
+- team: Rams
+  new_hc: '-'
+  new_oc: Nathan Scheelhaase
+  t1: Y
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: New play caller. Needs a pass.
+- team: Patriots
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: ''
+  t6: ''
+  note: A.J. Brown ADDED. Fade Henderson RB21, target Stevenson RB28.
+- team: Colts
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: ''
+  t3: ''
+  t4: ''
+  t5: ''
+  t6: ''
+  note: Jones cleared off a torn Achilles. Priority cheap SF QB2.
+- team: Vikings
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: Y
+  t3: Y
+  t4: ''
+  t5: ''
+  t6: ''
+  note: Open Murray/McCarthy battle. Highest SF ceiling, unresolved.
+- team: Broncos
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: Y
+  t6: ''
+  note: Waddle added. RB committee, fade both Dobbins and Harvey at cost.
+- team: Seahawks
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: ''
+  t6: Y
+  note: Jadarian Price 1st round with Charbonnet hurt. Target ahead of ADP.
+- team: Saints
+  new_hc: '-'
+  new_oc: '-'
+  t1: ''
+  t2: ''
+  t3: TBV
+  t4: ''
+  t5: ''
+  t6: ''
+  note: Shough locked. Cheap SF QB3.
+- team: Jaguars
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: Y
+  t4: ''
+  t5: ''
+  t6: ''
+  note: Three-way RB rotation. No bell cow. Fade.
+- team: Cowboys
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Week 14 bye. Needs a pass on the backfield.
+- team: Packers
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Needs a pass. Willis departed for MIA.
+- team: Lions
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Gibbs is the consensus RB1 on offensive environment. Nothing to solve.
+- team: Falcons
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Bijan is a bell cow. Added Brian Robinson as the complement.
+- team: Panthers
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: TBV
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Pickett signed here. Needs a pass.
+- team: Bengals
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: ''
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: Chase Brown is role-secure in RB Tier 2.
+- team: Texans
+  new_hc: '-'
+  new_oc: '-'
+  t1: TBV
+  t2: Y
+  t3: TBV
+  t4: TBV
+  t5: ''
+  t6: ''
+  note: David Montgomery reported as the featured back - solid end-of-R5 value.

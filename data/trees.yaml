@@ -1,0 +1,34 @@
+# Draft-day branches by slot. Read only yours.
+- slots: [1, 2, 3, 4]
+  label: EARLY
+  steps:
+    - round: "1"
+      do: "Josh Allen if available. If gone, Gibbs or Bijan. Do not reach for the QB2-5 tier."
+    - round: "2-3"
+      do: "You wait 20+ picks between turns. Take the scarce thing - two backs from RB Tiers 1-2, or a back plus an elite WR."
+    - round: "4-6"
+      do: "QB2 per the count rule. From an early slot the run usually accelerates past you; expect to buy at the high end."
+    - round: "RISK"
+      do: "Long gaps empty tiers while you wait. When in doubt, take from the thinner tier."
+- slots: [5, 6, 7, 8]
+  label: MIDDLE
+  steps:
+    - round: "1"
+      do: "Allen likely gone. Take the best Tier 1 RB. Do NOT reach for QB2 at 1.05 unless 3+ QBs are already off."
+    - round: "2-3"
+      do: "Your QB1 window. Tier 1 arms fall through here in a normal room. Take one, pair with an RB."
+    - round: "4-6"
+      do: "QB2 per the count rule, then WR. Most balanced turns on the board - use them."
+    - round: "RISK"
+      do: "Worst slot for elite talent, best for reading the room. Let two rounds tell you if this league runs QBs early."
+- slots: [9, 10, 11, 12]
+  label: LATE
+  steps:
+    - round: "1-2 turn"
+      do: "Back-to-back picks. Best double-tap on the board: elite RB + Tier 1 QB, or two elite skill if the QB run hasn't started."
+    - round: "3-4 turn"
+      do: "Second double-tap. If you took QB in R1-2, two skill players here. If not, QB1 now at the latest."
+    - round: "5-6"
+      do: "QB2 per the count rule. From this slot you can usually push to the back of the window and still get Tier 2. Round 6 is the hard floor - do not let the turn pass without QB2."
+    - round: "RISK"
+      do: "You never get the top of a tier. Compensate with volume at the turns."

@@ -1,0 +1,25 @@
+# Superflex QB count rule. Thresholds are set against PUBLIC superflex ADP.
+# RECALIBRATE in late August against the ESPN league draft board.
+#
+# Pool math: 12 teams x 2 QB slots = 24 arms of demand.
+# Supply: Tier 1 (5) + Tier 2 (11) + Tier 3 (8) = ~24. Deep, but not bottomless.
+anchor: Josh Allen at 1.01. If gone, best Tier 1 arm or pivot to elite RB.
+hard_floor_round: 6      # QB2 in hand by end of this round, no exceptions
+qb3_rounds: [10, 13]     # mandatory - zero IR slots
+rules:
+  - max_round: 4
+    thresholds:
+      - {gone: 14, action: TAKE_QB2_NOW, note: "Tier 2 is emptying."}
+      - {gone: 10, action: NORMAL, note: "Take the skill player. Re-check next round."}
+      - {gone: 0,  action: WAIT, note: "The room is waiting. You wait too."}
+  - max_round: 5
+    thresholds:
+      - {gone: 16, action: TAKE_QB2_NOW, note: "No exceptions."}
+      - {gone: 12, action: BY_ROUND_6, note: "QB2 by the end of Round 6."}
+      - {gone: 0,  action: WAIT_TO_6, note: "May wait one more round. QB2 in hand by end of Round 6 - that is the hard floor."}
+tier_beats_round: >
+  If the last Tier 2 arm is on the board and everything behind him is Tier 3,
+  take him a full round early. Tier gaps cost more than draft capital.
+stack_tiebreak: >
+  Weekly high-score payouts reward correlation. When two QBs grade close, take
+  the one whose WR1 you own or can get.

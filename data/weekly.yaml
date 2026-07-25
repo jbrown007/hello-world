@@ -1,0 +1,25 @@
+# In-season loop. Anchored to Tuesday-night waiver processing.
+1:
+  name: Waiver & Drop
+  when: Mon night to Tue afternoon
+  deadline: Before Tuesday night processing
+  bring: [Roster changes since last week, Names available on your wire (or "scan leaguewide"), Weekend injury headlines]
+  rule: Rolling priority is a depleting asset. Burn it only for season-long workhorse upside, never a one-week streamer.
+2:
+  name: Scan, Trades & TNF
+  when: Wed to Thu
+  deadline: Before TNF kickoff (~8:15pm ET)
+  bring: [Trade offers received, Players you want to buy or sell, Thursday-night starters, News worth flagging]
+  rule: Get ahead of role changes before they hit the box score. Snap share and target share lead production.
+3:
+  name: Lineup Lock
+  when: Sunday ~10am ET
+  deadline: Before 1pm games
+  bring: [Roster, Inactives and morning injury news, Your close calls]
+  rule: Your two QB slots plus superflex are your highest floor. A QB on bye or out is the week's priority problem.
+4:
+  name: Debrief & Intake
+  when: Sunday night or Monday
+  deadline: None
+  bring: [Results, What surprised you good and bad]
+  rule: Do not overreact to one week. Separate noise from signal, then set next week's targets.

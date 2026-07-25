@@ -1,0 +1,36 @@
+cliff:
+  at: TE8-TE9
+  note: One analyst trusts a group of 8 and cuts before Kelce at TE9; another cuts at Pitts TE7-8.
+qualifying_test: Is he a top-two receiving option in his own offense? Every TE above the cutoff passes
+  it. LaPorta fails it.
+barbell_flaw: A punt needs MULTIPLE cheap shots. One rookie post-hernia with zero IR slots is a single
+  point of failure.
+paths:
+- id: A
+  name: Pay up
+  cost: mid R2-R3
+  who:
+  - Brock Bowers
+  - Trey McBride
+  verdict: Too expensive - collides with the RB window.
+- id: B
+  name: Anchor in the middle
+  cost: R4-R5
+  who:
+  - Tyler Warren
+  verdict: RECOMMENDED. Stacks with Daniel Jones.
+- id: C
+  name: Punt properly
+  cost: R12-R15 x2
+  who:
+  - Kenyon Sadiq
+  - Sam LaPorta
+  - Grant Stowers
+  verdict: Fallback. Never punt with one player.
+stack_cap:
+  team: IND
+  bye: 13
+  max_starters: 2
+  why: Jones + Warren + Downs + Pierce are all recommended, but a W13 bye in the seeding week would be
+    self-inflicted.
+call: Tyler Warren R4-R5. Keep Sadiq as an R13-15 upside dart, not the starter.
