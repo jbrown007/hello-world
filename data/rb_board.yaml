@@ -1,0 +1,83 @@
+# Rebuilt 7/25. The original RB Board tab lived only in the old 7-tab xlsx and
+# its one-off build script was never in this package (HANDOFF section 1), so this
+# file is synthesized from the framework's own cross-references: trees.yaml R1,
+# the wr_board round plan, the HANDOFF 4b window claim (R2-3), and the five RB
+# rows on the watchlist. REVIEW BEFORE DRAFT DAY - tier membership below Tier 1
+# and all ADP figures are single-source and move weekly.
+provenance: Synthesized from trees.yaml, wr_board.yaml and watchlist.yaml - not
+  recovered from the original xlsx tab. Review before draft day.
+rule:
+  note: Full PPR - the passing-down role is the fantasy-relevant one in every
+    committee. Zero IR slots make injury-prone bell cows costlier in this league
+    than their ADP assumes.
+window:
+  rounds: 2-3
+  note: The RB window. Coordinated with the rest of the plan - the WR board
+    requires minimum one RB and one WR from Rounds 2-4, and the MIDDLE tree pairs
+    the QB1 with an RB in R2-3. Adds NO commitments to Rounds 5-7, which belong
+    to QB2 (hard floor R6) and Downs (R7).
+tiers:
+- tier: 1
+  who:
+  - Jahmyr Gibbs
+  - Bijan Robinson
+  note: The R1 pivot if Josh Allen is gone (trees.yaml). Do not reach for QB2-5
+    tier arms over these.
+- tier: 2
+  who: []
+  note: UNKNOWN - the original tier membership was never captured in YAML. Fill
+    from the August ADP pass before building slot trees.
+targets:
+- player: Rhamondre Stevenson
+  team: NE
+  adp: RB28
+  round: 7-8
+  why: The value side of the Patriots committee - primary back in the playoff run
+    (5.7 YPC over the final 8 games), beat writers project him as the 2026 starter.
+    Value-if-available only - never over the QB2 floor or Downs (R7).
+- player: Jadarian Price
+  team: SEA
+  adp: null
+  round: null
+  why: First-round rookie into a vacated job with Charbonnet expected to miss the
+    start of the season. Target ahead of ADP - cleanest path to early-season
+    volume in the league. Still Unsettled - confirm Charbonnet's timeline in camp.
+- player: Kaelon Black
+  team: SF
+  adp: null
+  round: 12-15
+  why: Highest handcuff EV in the league - McCaffrey is 30, led the NFL in touches
+    again, and the front office wants his workload cut. The 49ers RB2 has
+    standalone value in this scheme.
+- player: Rachaad White + Jacory Croskey-Merritt
+  team: WSH
+  adp: null
+  round: 12-15
+  why: Buy the whole Commanders backfield late and own the winner. White is the
+    PPR play (50+ catches in three of four seasons); JCM is the grinder.
+fades:
+- player: TreVeyon Henderson
+  team: NE
+  adp: RB21
+  why: Priced as a lead back he has not been - pass-blocking graded poorly and
+    Stevenson finished the playoff run as the primary back. Fade at RB21.
+- player: R.J. Harvey / J.K. Dobbins
+  team: DEN
+  adp: RB21 / RB41
+  why: Committee with no bell cow - Harvey averaged 7.5 touches with Dobbins
+    active, and Denver re-signed Dobbins AND drafted Coleman. Flex, not RB2.
+- player: Veteran timeshares (Pollard, Spears, Dowdle/Warren, JAX rotation)
+  team: multi
+  adp: null
+  why: Fade all at bell-cow ADP. Committee until proven otherwise - flex bodies,
+    not RB2s. Let someone else pay.
+round_plan:
+  1: Elite RB (Gibbs or Bijan) if Allen is gone. Otherwise best Tier 1 RB per
+    your slot tree.
+  2-3: The RB window. At least one back from Tiers 1-2 here, paired with the QB1
+    per the slot tree.
+  4: Backstop - if R2-3 went QB1 + WR, the RB minimum must land here (WR board
+    requires one RB by end of R4).
+  5-7: NOTHING. These rounds belong to QB2 (hard floor R6) and Downs (R7).
+    Stevenson only as value-if-available, never over those.
+  12-15: Handcuffs and darts - Black, the White+JCM pair, Price if he slides.
