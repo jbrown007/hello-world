@@ -11,7 +11,7 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, tree, draft_screen, sheet
+from .draft import qb_verdict, tree, draft_screen, sheet, grade, parse_picks
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -43,6 +43,12 @@ def main(argv=None) -> int:
     s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
     s.add_argument("--slot", type=int, default=None)
     s.add_argument("--all", action="store_true", help="write every branch to build/sheet_*.txt")
+
+    g = sub.add_parser("grade", help="score a drafted roster against the plan's commitments")
+    g.add_argument("file", help="picks file: one 'ROUND POS TEAM Player Name' per line")
+    g.add_argument("--slot", type=int, default=None)
+    g.add_argument("--oneqb", action="store_true",
+                   help="1-QB practice room: QB commitments become observation-only")
 
     y = sub.add_parser("bye", help="audit bye weeks for a set of teams")
     y.add_argument("teams", nargs="+", help="team abbreviations, e.g. IND NYJ LV")
@@ -104,6 +110,15 @@ def main(argv=None) -> int:
                 print("No slot set. Pass --slot N, --all, or set draft.slot in data/league.yaml.")
                 return 1
             print(sheet(slot))
+
+    elif a.cmd == "grade":
+        slot = a.slot or league()["draft"].get("slot")
+        if not slot:
+            print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
+            return 1
+        import pathlib
+        picks = parse_picks(pathlib.Path(a.file).read_text(encoding="utf-8"))
+        print(grade(picks, tree(slot)["label"], oneqb=a.oneqb))
 
     elif a.cmd == "confirm":
         pend = league()["season"]["playoff_end"]

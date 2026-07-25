@@ -290,8 +290,12 @@ def _():
 @check("CLI commands all exit cleanly")
 def _():
     from ffcli.cli import main
+    gpath = ROOT / "build" / "_grade_smoke.txt"
+    gpath.parent.mkdir(parents=True, exist_ok=True)
+    gpath.write_text("1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n", encoding="utf-8")
     cases = [
         ["settings"], ["confirm"], ["qb", "--round", "4", "--gone", "15"],
+        ["grade", str(gpath), "--slot", "7", "--oneqb"],
         ["tree", "--slot", "1"], ["tree", "--slot", "12"],
         ["draft", "--round", "6", "--gone", "16", "--slot", "7"],
         ["sheet", "--slot", "1"], ["sheet", "--slot", "7"], ["sheet", "--slot", "12"],
@@ -399,6 +403,36 @@ def _():
     for k in ("team", "bye", "max_starters"):
         assert wr[k] == te[k], f"stack_cap.{k} differs: wr={wr[k]!r} te={te[k]!r}"
     return f"{wr['team']} max {wr['max_starters']}, bye W{wr['bye']}, both boards"
+
+
+@check("grade scores a mock draft correctly")
+def _():
+    """A perfect MIDDLE script hits every commitment; removing Downs and adding
+    a third Colt reports the miss and the stack-cap breach; --oneqb demotes QB
+    commitments to observation instead of misses."""
+    from ffcli.draft import grade, parse_picks
+    perfect = parse_picks(
+        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "4 WR NYJ Garrett Wilson\n5 TE IND Tyler Warren\n6 QB TEN Cam Ward\n"
+        "7 WR IND Josh Downs\n10 QB NO Tyler Shough\n")
+    rep = grade(perfect, "MIDDLE")
+    assert "8/8 commitments hit" in rep, f"perfect script not 8/8: {rep.splitlines()[-8:]}"
+    assert "MISS" not in rep and "BREACH" not in rep, "false negatives on a perfect script"
+
+    flawed = parse_picks(
+        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "4 WR IND Alec Pierce\n5 TE IND Tyler Warren\n6 QB IND Daniel Jones\n"
+        "7 RB NE Rhamondre Stevenson\n10 QB NO Tyler Shough\n")
+    rep = grade(flawed, "MIDDLE")
+    assert "MISS" in rep and "Downs" in rep, "missed Downs not reported"
+    assert "BREACH" in rep, "3 Colts vs cap 2 not flagged"
+    assert "7/8 commitments hit" in rep, "flawed score wrong"
+
+    rep = grade(parse_picks("1 RB ATL Bijan Robinson\n4 WR NYJ Garrett Wilson\n"
+                            "5 TE IND Tyler Warren\n7 WR IND Josh Downs\n"), "MIDDLE", oneqb=True)
+    assert "OBS" in rep and "4/5 commitments hit" in rep and "MISS" in rep, \
+        "oneqb should demote 3 QB items to OBS, leaving RB R2-3 as the only miss"
+    return "perfect 8/8, flawed 7/8+BREACH, oneqb demotes QBs"
 
 
 @check("QB rule urgency never dips between a trigger round and the floor")

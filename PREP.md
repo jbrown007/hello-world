@@ -54,6 +54,25 @@ through it automatically and opens PRs when something changes.
   debrief), anchored to Tuesday-night rolling-priority processing. Rolling
   priority is a depleting asset: burn it only for season-long workhorse upside.
 
+## Mock practice in 1-QB rooms
+
+ESPN's standard mock lobbies are 1-QB. The plan is built for superflex
+scarcity, so grade yourself honestly on what transfers and ignore what doesn't:
+
+**Practice faithfully:** R1 elite RB discipline (no QB reaches), the RB/WR
+windows in R2-4, Warren at R4-5, tier-beats-round, the Colts cap count,
+Downs at R7, the value/fade lists, and clock composure.
+
+**Consciously ignore:** QB1 in R2-3 and the QB2-by-R6 floor - that urgency is
+superflex math and following it in a 1-QB room is bad value practice. Take one
+QB where the 1-QB room prices them (~R5-8) and treat the freed QB2/QB3 rounds
+as extra RB/WR depth (free-play, not plan).
+
+**Afterward:** `ff grade picks.txt --slot N --oneqb` scores the run -
+commitments hit per round, cap, byes - with QB items demoted to
+observation-only. Note the round each QB actually left the board; superflex
+mocks are rare, but the shape of any QB run is calibration color for August.
+
 ## Standing items
 - Replace the stale 2-tab workbook in the Claude project with a fresh
   `ff build` output (the project copy predates Evans/Murray/Seahawks rows).

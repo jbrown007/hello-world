@@ -147,6 +147,87 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
     return "\n".join(out)
 
 
+def parse_picks(text: str) -> list[dict]:
+    """Parse a picks file: one pick per line, 'ROUND POS TEAM Player Name'."""
+    picks = []
+    for ln, line in enumerate(text.splitlines(), start=1):
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split()
+        if len(parts) < 4:
+            raise ValueError(f"line {ln}: expected 'ROUND POS TEAM Player Name', got {line!r}")
+        picks.append({"round": int(parts[0]), "pos": parts[1].upper(),
+                      "team": parts[2].upper(), "player": " ".join(parts[3:])})
+    return picks
+
+
+def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
+    """Score a drafted roster against the branch's commitments.
+
+    oneqb demotes QB commitments to observation-only - the superflex QB
+    urgency does not apply in a standard 1-QB practice room.
+    """
+    from .byecheck import audit
+
+    items = sorted(commitments_for(label), key=lambda c: (c["window"][1], c["window"][0]))
+    used: set[int] = set()
+    lines, hits, graded = [], 0, 0
+    for c in items:
+        pos = c["pick"][:2].upper()
+        head = c["pick"].split("(")[0].strip()
+        name_req = head[2:].lstrip("0123456789").strip()  # 'TE Tyler Warren' -> 'Tyler Warren'
+        lo, hi = c["window"]
+        is_obs = oneqb and pos == "QB"
+
+        match = next((i for i, p in enumerate(picks)
+                      if i not in used and p["pos"] == pos and lo <= p["round"] <= hi
+                      and (not name_req or name_req.split()[-1].lower() in p["player"].lower())),
+                     None)
+        near = None if match is not None or not name_req else next(
+            (i for i, p in enumerate(picks)
+             if i not in used and p["pos"] == pos and lo <= p["round"] <= hi), None)
+
+        win = f"R{lo}-R{hi}"
+        if match is not None:
+            used.add(match)
+            p = picks[match]
+            tag = "OBS " if is_obs else "HIT "
+            lines.append(f"  {tag}  {win:<8} {c['pick']:<28} -> R{p['round']} {p['player']}")
+        elif near is not None:
+            used.add(near)
+            p = picks[near]
+            tag = "OBS " if is_obs else "NEAR"
+            lines.append(f"  {tag}  {win:<8} {c['pick']:<28} R{p['round']} {pos} was {p['player']} - plan called {name_req}")
+        else:
+            tag = "OBS " if is_obs else "MISS"
+            lines.append(f"  {tag}  {win:<8} {c['pick']:<28} no matching pick in window")
+        if not is_obs:
+            graded += 1
+            hits += match is not None
+
+    out = [f"GRADE - {label} branch, {len(picks)} picks", "", "COMMITMENTS"]
+    out += lines
+    obs_n = sum(1 for c in items if oneqb and c["pick"][:2].upper() == "QB")
+    out.append(f"\nSCORE {hits}/{graded} commitments hit"
+               + (f" ({obs_n} QB items observation-only, 1-QB room)" if obs_n else ""))
+
+    cap = load("te_board")["stack_cap"]
+    n_cap = sum(1 for p in picks if p["team"] == cap["team"])
+    verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
+    out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs cap {cap['max_starters']} - {verdict}")
+
+    res = audit(sorted({p["team"] for p in picks}), max_per_week=cap["max_starters"])
+    out.append("\nBYES")
+    for wk, names in sorted(res["grouped"].items()):
+        out.append(f"  W{wk:<3} {', '.join(names)}")
+    if res["unknown"]:
+        out.append(f"  ??   unknown teams: {', '.join(res['unknown'])}")
+    for w in res["warnings"]:
+        out.append(f"  ! {w}")
+    return "\n".join(out)
+
+
 def sheet(slot: int) -> str:
     """Printable one-page plan for a slot's branch."""
     br = tree(slot)
