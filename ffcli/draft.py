@@ -217,7 +217,9 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
     out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs cap {cap['max_starters']} - {verdict}")
 
-    res = audit(sorted({p["team"] for p in picks}), max_per_week=cap["max_starters"])
+    # Full team list WITH duplicates - three Cardinals are three players out,
+    # not one. audit() counts occurrences.
+    res = audit([p["team"] for p in picks], max_per_week=cap["max_starters"])
     out.append("\nBYES")
     for wk, names in sorted(res["grouped"].items()):
         out.append(f"  W{wk:<3} {', '.join(names)}")

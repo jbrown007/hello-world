@@ -427,6 +427,8 @@ def _():
     assert "MISS" in rep and "Downs" in rep, "missed Downs not reported"
     assert "BREACH" in rep, "3 Colts vs cap 2 not flagged"
     assert "7/8 commitments hit" in rep, "flawed score wrong"
+    assert "3 players out" in rep, \
+        "bye audit must count duplicate teams as separate players (3 IND on the W13 bye)"
 
     rep = grade(parse_picks("1 RB ATL Bijan Robinson\n4 WR NYJ Garrett Wilson\n"
                             "5 TE IND Tyler Warren\n7 WR IND Josh Downs\n"), "MIDDLE", oneqb=True)
