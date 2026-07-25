@@ -230,38 +230,101 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     return "\n".join(out)
 
 
+def _bye(team: str) -> str:
+    from .config import bye_of
+    wk = bye_of(team)
+    return f"bye W{wk}" if wk else "bye ?"
+
+
+def _targets_at(rnd: int) -> list[str]:
+    """Board names in play at a round, each with team and bye."""
+    names = []
+    for p in load("wr_board")["value_board"]:
+        span = _round_span(p.get("round"))
+        if span and span[0] <= rnd <= span[1]:
+            tag = " VALUE-ONLY, never over a commitment" if "not mandatory" in str(p.get("note", "")) else ""
+            flag = f" [{p['flag']}]" if p.get("flag") else ""
+            names.append(f"WR {p['player']} ({p['team']}, {_bye(p['team'])}){flag}{tag}")
+    for p in load("rb_board")["targets"]:
+        span = _round_span(p.get("round"))
+        if span and span[0] <= rnd <= span[1]:
+            names.append(f"RB {p['player']} ({p['team']}, {_bye(p['team'])}) value-if-available")
+    if 4 <= rnd <= 5:
+        names.append(f"TE Tyler Warren (IND, {_bye('IND')}) THE CALL")
+    return names
+
+
+def _bye_danger_lines() -> list[str]:
+    """The bye weeks that can sink the season, computed from live settings."""
+    from .config import byes, league, as_range
+    b = byes()
+    season = league()["season"]
+    out = []
+    worst = max(b.items(), key=lambda kv: len(kv[1]))
+    out.append(f"W{worst[0]} six-team bye: {', '.join(worst[1])}")
+    for w in as_range(season["regular_weeks"]):
+        if b.get(w):
+            out.append(f"W{w} SEEDING WEEK candidate: {', '.join(b[w])} out - decides the first-round bye")
+    for w in sorted(b):
+        if any(st <= w <= season["playoff_end"] for st in as_range(season["playoff_start"])):
+            out.append(f"W{w} PLAYOFF candidate: {', '.join(b[w])} dark in a possible playoff game - never 2+, never a QB")
+    return out
+
+
 def sheet(slot: int) -> str:
-    """Printable one-page plan for a slot's branch."""
+    """Self-sufficient printable draft script for a slot's branch.
+
+    Designed to be used alone under a pick clock: byes inline on every name,
+    a tally grid to mark before confirming each pick, and the commitments
+    merged into a single R1-R15 walk - no cross-referencing.
+    """
+    from .config import byes
     br = tree(slot)
     label = br["label"]
     cap = load("te_board")["stack_cap"]
     rule = load("qb_rule")
-    ok, plan = satisfiable(commitments_for(label))
+    commits = commitments_for(label)
+    ok, plan = satisfiable(commits)
 
     out = [
         f"FF2026 DRAFT SHEET - {label} (slots {min(br['slots'])}-{max(br['slots'])})",
-        "=" * 72,
+        "=" * 78,
         f"HARD RULES: QB2 by end of R{rule['hard_floor_round']}. "
         f"QB3 in R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]} (zero IR). "
-        f"Max {cap['max_starters']} {cap['team']} starters (bye W{cap['bye']}).",
+        f"Max {cap['max_starters']} {cap['team']} starters ({cap['team']} {_bye(cap['team'])}).",
         "",
-        "TREE",
+        "BYE TALLY - write every pick's bye here BEFORE confirming it. Cap 2 per week.",
+        "  " + "   ".join(f"W{w} [ ][ ]" for w in sorted(byes())),
+        "DANGER WEEKS:",
     ]
-    for s in br["steps"]:
-        out.append(f"  {s['round']:<12} {s['do']}")
-    out += ["", f"COMMITMENTS ({'satisfiable' if ok else 'NOT SATISFIABLE'})"]
-    for c in sorted(commitments_for(label), key=lambda c: c["window"]):
-        lo, hi = c["window"]
-        out.append(f"  R{lo}-R{hi:<4} {c['pick']:<28} ({c['source']})")
-    out += ["  One workable order: " + plan if ok else "  !! " + plan, "", "VALUE (take if they fall, never over a commitment)"]
-    for p in load("wr_board")["value_board"]:
-        flag = str(p.get("flag") or p.get("note") or "").split(".")[0]
-        out.append(f"  R{p.get('round', '?'):<5} WR {p['player']:<22} {p['team']:<4} {flag}")
-    for p in load("rb_board")["targets"]:
-        out.append(f"  R{p.get('round') or '?':<5} RB {p['player']:<22} {p['team']:<4} {str(p['why']).split('.')[0][:60]}")
-    out += ["", "FADES"]
+    out += [f"  ! {line}" for line in _bye_danger_lines()]
+
+    out += ["", "ROUND SCRIPT", "-" * 78]
+    steps = [(s, _round_span(s["round"])) for s in br["steps"]]
+    for rnd in range(1, 16):
+        step = next((s for s, span in steps if span and span[0] == rnd), None)
+        body = []
+        if step:
+            body.append(f"PLAN {step['round']}: {step['do']}")
+        if rnd == 1:
+            body.append(f"PIVOT: {load('wr_board')['round_plan'][1]}")
+        for c in commits:
+            lo, hi = c["window"]
+            if hi == rnd:
+                body.append(f"MUST by end of this round: {c['pick']}")
+            elif lo == rnd and lo != hi:
+                body.append(f"window opens: {c['pick']} (R{lo}-R{hi})")
+        for t in _targets_at(rnd):
+            body.append(f"target: {t}")
+        if not body:
+            body.append("free pick - best value, check the bye tally first")
+        out.append(f"  R{rnd:<3} " + body[0])
+        out += [f"       {b}" for b in body[1:]]
+    out += ["", f"COMMITMENT ORDER ({'satisfiable' if ok else 'NOT SATISFIABLE'}): {plan}"]
+
+    out += ["", "FADES - let someone else pay"]
     for p in load("rb_board")["fades"]:
-        out.append(f"  {p['player']} ({p['team']}, {p.get('adp') or 'ADP n/a'}) - {str(p['why']).split('.')[0]}")
+        out.append(f"  {p['player']} ({p['team']}, {p.get('adp') or 'ADP n/a'}) - {str(p['why']).split('. ')[0]}")
     out += ["", "TIEBREAK: " + str(rule["stack_tiebreak"]).strip(),
             "TIER GAP: " + str(rule["tier_beats_round"]).strip()]
     return "\n".join(out)

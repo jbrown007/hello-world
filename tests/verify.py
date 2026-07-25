@@ -405,6 +405,30 @@ def _():
     return f"{wr['team']} max {wr['max_starters']}, bye W{wr['bye']}, both boards"
 
 
+@check("draft sheet is self-sufficient for a live draft")
+def _():
+    """Regression from the 7/25 mock: the sheet must work with no back-and-forth.
+    Byes on every named target (a 4-player W14 stack slipped through without
+    them), a tally grid, danger weeks, and the R1 pivot all printed."""
+    import re
+    from ffcli.draft import sheet, tree
+    from ffcli.config import league
+    seen = set()
+    for slot in range(1, league()["teams"] + 1):
+        label = tree(slot)["label"]
+        if label in seen:
+            continue
+        seen.add(label)
+        text = sheet(slot)
+        for token in ("BYE TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES"):
+            assert token in text, f"{label}: sheet missing {token}"
+        bare = [ln for ln in text.splitlines()
+                if "target:" in ln and not re.search(r"bye W\d+", ln)]
+        assert not bare, f"{label}: target lines without a bye: {bare[:2]}"
+        assert re.search(r"W14.*(ARI|DAL)", text), f"{label}: W14 playoff danger not spelled out"
+    return f"{len(seen)} branches, byes on every target line"
+
+
 @check("grade scores a mock draft correctly")
 def _():
     """A perfect MIDDLE script hits every commitment; removing Downs and adding
