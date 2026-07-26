@@ -290,9 +290,15 @@ def _():
 @check("CLI commands all exit cleanly")
 def _():
     from ffcli.cli import main
+    gpath = ROOT / "build" / "_grade_smoke.txt"
+    gpath.parent.mkdir(parents=True, exist_ok=True)
+    gpath.write_text("1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n", encoding="utf-8")
     cases = [
         ["settings"], ["confirm"], ["qb", "--round", "4", "--gone", "15"],
+        ["grade", str(gpath), "--slot", "7", "--oneqb"],
         ["tree", "--slot", "1"], ["tree", "--slot", "12"],
+        ["draft", "--round", "6", "--gone", "16", "--slot", "7"],
+        ["sheet", "--slot", "1"], ["sheet", "--slot", "7"], ["sheet", "--slot", "12"],
         ["bye", "IND", "NYJ"], ["weekly", "1"], ["weekly", "4"],
     ]
     for argv in cases:
@@ -366,6 +372,94 @@ def _():
         if len(as_range(s[key])) > 1:
             assert key in pending, f"{key} is a range but not reported by unconfirmed()"
     return f"pending: {sorted(pending) or 'none'}"
+
+
+@check("round-plan commitments are satisfiable in every branch")
+def _():
+    """Regression: the boards once committed seven picks to six rounds (audit
+    2a) and nothing noticed. Commitments are now data; this proves each
+    branch's full set fits one-pick-per-round."""
+    from ffcli.draft import commitments_for, satisfiable
+    from ffcli.config import load
+    details = []
+    for label in load("commitments")["branches"]:
+        items = commitments_for(label)
+        for c in items:
+            lo, hi = c["window"]
+            assert 1 <= lo <= hi <= 15, f"{label}: bad window {c['window']} for {c['pick']}"
+        ok, detail = satisfiable(items)
+        assert ok, f"{label}: {detail}"
+        details.append(f"{label}={len(items)}")
+    assert details, "no branches in commitments.yaml"
+    return ", ".join(details) + " commitments, all schedulable"
+
+
+@check("stack caps agree across boards")
+def _():
+    """Regression: the IND cap lived only on the TE board while the WR board
+    steered into four Colts (audit 2c). Both boards carry it; they must match."""
+    from ffcli.config import load
+    wr, te = load("wr_board")["stack_cap"], load("te_board")["stack_cap"]
+    for k in ("team", "bye", "max_starters"):
+        assert wr[k] == te[k], f"stack_cap.{k} differs: wr={wr[k]!r} te={te[k]!r}"
+    return f"{wr['team']} max {wr['max_starters']}, bye W{wr['bye']}, both boards"
+
+
+@check("draft sheet is self-sufficient for a live draft")
+def _():
+    """Regression from the 7/25 mock: the sheet must work with no back-and-forth.
+    Byes on every named target (a 4-player W14 stack slipped through without
+    them), a tally grid, danger weeks, and the R1 pivot all printed."""
+    import re
+    from ffcli.draft import sheet, tree
+    from ffcli.config import league
+    seen = set()
+    for slot in range(1, league()["teams"] + 1):
+        label = tree(slot)["label"]
+        if label in seen:
+            continue
+        seen.add(label)
+        text = sheet(slot)
+        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES"):
+            assert token in text, f"{label}: sheet missing {token}"
+        assert "14[!]" in text and "16[!]" in text, f"{label}: QB tally trigger marks missing"
+        bare = [ln for ln in text.splitlines()
+                if "target:" in ln and not re.search(r"bye W\d+", ln)]
+        assert not bare, f"{label}: target lines without a bye: {bare[:2]}"
+        assert re.search(r"W14.*(ARI|DAL)", text), f"{label}: W14 playoff danger not spelled out"
+    return f"{len(seen)} branches, byes on every target line"
+
+
+@check("grade scores a mock draft correctly")
+def _():
+    """A perfect MIDDLE script hits every commitment; removing Downs and adding
+    a third Colt reports the miss and the stack-cap breach; --oneqb demotes QB
+    commitments to observation instead of misses."""
+    from ffcli.draft import grade, parse_picks
+    perfect = parse_picks(
+        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "4 WR NYJ Garrett Wilson\n5 TE IND Tyler Warren\n6 QB TEN Cam Ward\n"
+        "7 WR IND Josh Downs\n10 QB NO Tyler Shough\n")
+    rep = grade(perfect, "MIDDLE")
+    assert "8/8 commitments hit" in rep, f"perfect script not 8/8: {rep.splitlines()[-8:]}"
+    assert "MISS" not in rep and "BREACH" not in rep, "false negatives on a perfect script"
+
+    flawed = parse_picks(
+        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "4 WR IND Alec Pierce\n5 TE IND Tyler Warren\n6 QB IND Daniel Jones\n"
+        "7 RB NE Rhamondre Stevenson\n10 QB NO Tyler Shough\n")
+    rep = grade(flawed, "MIDDLE")
+    assert "MISS" in rep and "Downs" in rep, "missed Downs not reported"
+    assert "BREACH" in rep, "3 Colts vs cap 2 not flagged"
+    assert "7/8 commitments hit" in rep, "flawed score wrong"
+    assert "3 players out" in rep, \
+        "bye audit must count duplicate teams as separate players (3 IND on the W13 bye)"
+
+    rep = grade(parse_picks("1 RB ATL Bijan Robinson\n4 WR NYJ Garrett Wilson\n"
+                            "5 TE IND Tyler Warren\n7 WR IND Josh Downs\n"), "MIDDLE", oneqb=True)
+    assert "OBS" in rep and "4/5 commitments hit" in rep and "MISS" in rep, \
+        "oneqb should demote 3 QB items to OBS, leaving RB R2-3 as the only miss"
+    return "perfect 8/8, flawed 7/8+BREACH, oneqb demotes QBs"
 
 
 @check("QB rule urgency never dips between a trigger round and the floor")

@@ -11,7 +11,7 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, tree
+from .draft import qb_verdict, tree, draft_screen, sheet, grade, parse_picks
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -34,6 +34,21 @@ def main(argv=None) -> int:
 
     t = sub.add_parser("tree", help="print the draft branch for your slot")
     t.add_argument("--slot", type=int, default=None)
+
+    d = sub.add_parser("draft", help="live pick screen: tree + QB rule + commitments + board, one view")
+    d.add_argument("--round", type=int, required=True)
+    d.add_argument("--gone", type=int, required=True, help="QBs already off the board")
+    d.add_argument("--slot", type=int, default=None)
+
+    s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
+    s.add_argument("--slot", type=int, default=None)
+    s.add_argument("--all", action="store_true", help="write every branch to build/sheet_*.txt")
+
+    g = sub.add_parser("grade", help="score a drafted roster against the plan's commitments")
+    g.add_argument("file", help="picks file: one 'ROUND POS TEAM Player Name' per line")
+    g.add_argument("--slot", type=int, default=None)
+    g.add_argument("--oneqb", action="store_true",
+                   help="1-QB practice room: QB commitments become observation-only")
 
     y = sub.add_parser("bye", help="audit bye weeks for a set of teams")
     y.add_argument("teams", nargs="+", help="team abbreviations, e.g. IND NYJ LV")
@@ -66,6 +81,44 @@ def main(argv=None) -> int:
         print(f"SLOT {slot} - {br['label']} (covers {br['slots']})\n")
         for s in br["steps"]:
             print(f"  {s['round']:<12} {s['do']}")
+
+    elif a.cmd == "draft":
+        slot = a.slot or league()["draft"].get("slot")
+        if not slot:
+            print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
+            return 1
+        print(draft_screen(slot, a.round, a.gone))
+
+    elif a.cmd == "sheet":
+        if a.all:
+            from .config import ROOT
+            from .draft import tree as _tree
+            outdir = ROOT / "build"
+            outdir.mkdir(parents=True, exist_ok=True)
+            done = set()
+            for slot in range(1, league()["teams"] + 1):
+                label = _tree(slot)["label"]
+                if label in done:
+                    continue
+                done.add(label)
+                path = outdir / f"sheet_{label}.txt"
+                path.write_text(sheet(slot) + "\n", encoding="utf-8")
+                print(f"wrote: {path}")
+        else:
+            slot = a.slot or league()["draft"].get("slot")
+            if not slot:
+                print("No slot set. Pass --slot N, --all, or set draft.slot in data/league.yaml.")
+                return 1
+            print(sheet(slot))
+
+    elif a.cmd == "grade":
+        slot = a.slot or league()["draft"].get("slot")
+        if not slot:
+            print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
+            return 1
+        import pathlib
+        picks = parse_picks(pathlib.Path(a.file).read_text(encoding="utf-8"))
+        print(grade(picks, tree(slot)["label"], oneqb=a.oneqb))
 
     elif a.cmd == "confirm":
         pend = league()["season"]["playoff_end"]
