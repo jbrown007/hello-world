@@ -420,8 +420,9 @@ def _():
             continue
         seen.add(label)
         text = sheet(slot)
-        for token in ("BYE TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES"):
+        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES"):
             assert token in text, f"{label}: sheet missing {token}"
+        assert "14[!]" in text and "16[!]" in text, f"{label}: QB tally trigger marks missing"
         bare = [ln for ln in text.splitlines()
                 if "target:" in ln and not re.search(r"bye W\d+", ln)]
         assert not bare, f"{label}: target lines without a bye: {bare[:2]}"

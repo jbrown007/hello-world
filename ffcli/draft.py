@@ -271,6 +271,16 @@ def _bye_danger_lines() -> list[str]:
     return out
 
 
+def _qb_trigger_rows(rule: dict) -> list[tuple[int, int, str]]:
+    """(round, gone, action) for every non-zero threshold in the count rule."""
+    return [(band["max_round"], t["gone"], t["action"])
+            for band in rule["rules"] for t in band["thresholds"] if t["gone"] > 0]
+
+
+def _qb_triggers(rule: dict) -> set[int]:
+    return {gone for _, gone, _ in _qb_trigger_rows(rule)}
+
+
 def sheet(slot: int) -> str:
     """Self-sufficient printable draft script for a slot's branch.
 
@@ -295,6 +305,13 @@ def sheet(slot: int) -> str:
         "",
         "BYE TALLY - write every pick's bye here BEFORE confirming it. Cap 2 per week.",
         "  " + "   ".join(f"W{w} [ ][ ]" for w in sorted(byes())),
+        "",
+        "QB COUNT TALLY - tick every QB taken by ANYONE in the room. ! marks fire the rule:",
+        "  " + " ".join(f"{n}[{'!' if n in _qb_triggers(rule) else ' '}]" for n in range(1, 25)),
+    ] + [f"  ! at {gone} gone by your R{rnd} pick -> {action}"
+         for rnd, gone, action in sorted(_qb_trigger_rows(rule))] + [
+        f"  Floor: QB2 in hand by end of R{rule['hard_floor_round']} at ANY count. No exceptions.",
+        "",
         "DANGER WEEKS:",
     ]
     out += [f"  ! {line}" for line in _bye_danger_lines()]

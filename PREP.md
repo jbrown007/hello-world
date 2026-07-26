@@ -38,6 +38,17 @@ through it automatically and opens PRs when something changes.
 - Rerun `python3 tests/verify.py` after every data edit — the collision check
   will catch any round-plan conflict a recalibration introduces.
 
+### ~Aug 29-30: roster cut-downs
+- NFL teams cut to 53. Depth charts and committee answers finalize a week
+  before your draft - the last big information event.
+
+### September 5-6: final sweep
+- Re-verify EVERY planned target after cuts: health, role, depth-chart spot.
+  One camp-watch pass focused on the sheet's named players (Warren, Downs,
+  Stevenson, Price, Black, Ward, the value board).
+- Apply any last edits to the boards, run `python3 tests/verify.py`, then
+  `ff sheet --all` and PRINT fresh sheets. Do not draft off a stale printout.
+
 ### September 7, draft morning
 - Slot is revealed. Set `draft.slot` in `data/league.yaml`.
 - Print the cheat sheet: `ff sheet` (or grab the pre-built
