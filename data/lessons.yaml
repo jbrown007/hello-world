@@ -1,0 +1,33 @@
+# Josh's carried lessons from the 2025 season, recorded 7/25/2026.
+# Read by `ff sheet` (draft items) and the in-season loop (season items).
+# These are PERSONAL priors, not verified 2026 facts - each starred target
+# must survive a camp-watch verification before draft day.
+draft:
+  qb4_dart: >
+    2025 lesson says draft 4 QBs. Framework commits to 3. Compromise until the
+    room's QB-run history settles it: QB4 only as a last-two-rounds dart from
+    the SF-dart tier (Shough / Willis / Klubnik), never a committed pick.
+  kicker: >
+    Top-3 kicker matters (2025 lesson) - but K_DEF is 'optional' in
+    league.yaml. CONFIRM on Aug 1 whether a started K scores. If yes, take a
+    top-3 K with the final pick. If no, skip kickers entirely.
+season:
+  week5_patience: >
+    Give a drafted player until Week 5 before releasing him. One bad month is
+    noise. Exception: season-ending injury with zero IR slots - that roster
+    spot is dead capital and triage applies immediately.
+stars:
+  # 2025 targets that earned the star. Verify each in camp before trusting.
+- player: Puka Nacua
+  pos: WR
+  team: LAR
+  status: already the R1 pivot in the plan
+- player: Amon-Ra St. Brown
+  pos: WR
+  team: DET
+  status: not on any board - verify 2026 situation, then place him
+- player: Caleb Williams
+  pos: QB
+  team: CHI
+  status: starred SF arm absent from the entire QB analysis - verify 2026
+    situation (coaching, weapons, rushing usage) and add a watchlist row

@@ -393,6 +393,24 @@
     Charbonnet is expected to miss the start of the year.'
 - priority: Tier 2
   pos: QB
+  team: Bears
+  bye: 10
+  situation: Caleb Williams - starred personal target with no analysis behind it (NEW 7/25)
+  players: Caleb Williams (QB1); Rome Odunze, DJ Moore, Colston Loveland
+  why: Josh starred him in the 2025 lessons as a superflex target, but the framework has zero analysis
+    on the 2026 Bears - no coaching read, no weapons read, no rushing-usage read. A starred arm with no
+    verification is exactly the pattern the audit warned about.
+  read: Hold until verified. If the 2026 situation supports it, he becomes a QB1/QB2 candidate and the
+    QB board needs updating; if not, the star comes off.
+  watch_for: 2026 coaching staff and scheme; rushing usage in camp; weapons health; where his ADP sits
+    for superflex.
+  implication: No action until the camp watch verifies the situation. Do not draft on a 2025 star alone.
+  confidence: Low
+  status: Unsettled
+  notes: 7/25 NEW ROW from Josh's 2025 lessons (data/lessons.yaml). Created so the camp watch sweeps it;
+    everything here needs verification against current reporting.
+- priority: Tier 2
+  pos: QB
   team: Dolphins
   bye: 6
   situation: Malik Willis as a rushing-floor SF dart (NEW 7/24)

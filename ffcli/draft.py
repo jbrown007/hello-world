@@ -302,6 +302,9 @@ def sheet(slot: int) -> str:
         f"HARD RULES: QB2 by end of R{rule['hard_floor_round']}. "
         f"QB3 in R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]} (zero IR). "
         f"Max {cap['max_starters']} {cap['team']} starters ({cap['team']} {_bye(cap['team'])}).",
+        "PERSONAL STARS (2025 lesson - each must survive camp verification): "
+        + "; ".join(f"{s['pos']} {s['player']} ({s['team']}, {_bye(s['team'])})"
+                    for s in load("lessons")["stars"]),
         "",
         "BYE TALLY - write every pick's bye here BEFORE confirming it. Cap 2 per week.",
         "  " + "   ".join(f"W{w} [ ][ ]" for w in sorted(byes())),
@@ -325,6 +328,10 @@ def sheet(slot: int) -> str:
             body.append(f"PLAN {step['round']}: {step['do']}")
         if rnd == 1:
             body.append(f"PIVOT: {load('wr_board')['round_plan'][1]}")
+        if rnd == 14:
+            body.append(f"JOSH RULE: {' '.join(str(load('lessons')['draft']['qb4_dart']).split())}")
+        if rnd == 15:
+            body.append(f"JOSH RULE: {' '.join(str(load('lessons')['draft']['kicker']).split())}")
         for c in commits:
             lo, hi = c["window"]
             if hi == rnd:

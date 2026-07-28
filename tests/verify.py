@@ -327,7 +327,7 @@ def _():
     from ffcli.workbook import _load
     from ffcli.config import bye_of
     NAME = {
-        "Titans": "TEN", "Buccaneers": "TB", "Saints": "NO", "Colts": "IND",
+        "Titans": "TEN", "Buccaneers": "TB", "Saints": "NO", "Colts": "IND", "Bears": "CHI",
         "Jets": "NYJ", "Raiders": "LV", "Cardinals": "ARI", "Commanders": "WSH",
         "Broncos": "DEN", "Patriots": "NE", "49ers": "SF", "Dolphins": "MIA",
         "Browns": "CLE", "Chargers": "LAC", "Vikings": "MIN", "Seahawks": "SEA",
@@ -348,7 +348,7 @@ def _():
     from ffcli.workbook import _load
     from ffcli.config import bye_of
     NAME = {
-        "Titans": "TEN", "Buccaneers": "TB", "Saints": "NO", "Colts": "IND",
+        "Titans": "TEN", "Buccaneers": "TB", "Saints": "NO", "Colts": "IND", "Bears": "CHI",
         "Jets": "NYJ", "Raiders": "LV", "Cardinals": "ARI", "Commanders": "WSH",
         "Broncos": "DEN", "Patriots": "NE", "49ers": "SF", "Dolphins": "MIA",
         "Browns": "CLE", "Chargers": "LAC", "Vikings": "MIN", "Seahawks": "SEA",
@@ -420,7 +420,8 @@ def _():
             continue
         seen.add(label)
         text = sheet(slot)
-        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES"):
+        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES",
+                      "PERSONAL STARS", "JOSH RULE"):
             assert token in text, f"{label}: sheet missing {token}"
         assert "14[!]" in text and "16[!]" in text, f"{label}: QB tally trigger marks missing"
         bare = [ln for ln in text.splitlines()
