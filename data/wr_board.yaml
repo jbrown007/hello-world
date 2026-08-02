@@ -15,6 +15,10 @@ value_board:
   adp: WR43
   gap: 15
   round: 7
+  note: 'History check (8/2): in THIS room he went pick 145 (R13, to Griddy) in 2025. The R7 window is
+    deliberately early vs room history - the +15 gap is the 2026 thesis, but if the room still sleeps
+    on him, later value is real. Do not chase him at R7 if the board says he falls; re-read at the Aug
+    25 ADP pass.'
 - player: Michael Wilson
   team: ARI
   target_rank: 32

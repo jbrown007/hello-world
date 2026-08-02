@@ -444,6 +444,27 @@ def _():
     return f"{len(seen)} branches, byes on every target line"
 
 
+@check("room model is structurally complete")
+def _():
+    """room.yaml must hold Josh + 11 managers with every profile field, the
+    league reads, and slot_2026 fields ready for draft morning. TBD entries
+    are allowed (the fill is human work) but counted so progress is visible."""
+    from ffcli.config import load
+    from ffcli.draft import room_report
+    room = load("room")
+    assert len(room["managers"]) == 11, f"expected 11 managers, found {len(room['managers'])}"
+    for m in room["managers"]:
+        for k in ("name", "qb_habit", "leans", "attention", "trades", "notes", "slot_2026"):
+            assert k in m, f"manager {m.get('name')} missing '{k}'"
+    for k in ("sharpest", "qb_run_2025", "patterns", "draft_order_method"):
+        assert k in room["league"], f"league reads missing '{k}'"
+    text = room_report(5)
+    assert "SLOT 5 GEOMETRY" in text and "R5/R6 turn: picks 53 and 68" in text, \
+        "slot geometry math wrong for slot 5 (DRAFT_BOARD_2025: slots 5-8 pick 53-56 then 65-68)"
+    filled = sum(1 for m in room["managers"] if not str(m["name"]).startswith("TBD"))
+    return f"{filled}/11 profiled, geometry checks out"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.
@@ -487,7 +508,12 @@ def _():
     for pos in ("K", "DST"):
         c = next(c for c in common if c["pick"].split()[0] == pos)
         assert c["window"][0] >= 16, f"{pos} committed before R16"
-    return f"{len(rbs_by_4)} RBs by R4, QB2 opens R{qb2['window'][0]}, K/DST R16+"
+    qb3 = next(c for c in common if c["pick"].startswith("QB3"))
+    assert qb3["window"][0] >= 9 and qb3["window"][1] <= 13, \
+        f"QB3 window {qb3['window']} outside the R9-13 ladder band (QB_LADDER.md)"
+    assert not any(c["pick"].startswith("QB4") for c in common), \
+        "QB4 must never be a draft commitment - in-season only (QB_LADDER.md)"
+    return f"{len(rbs_by_4)} RBs by R4, QB2 opens R{qb2['window'][0]}, QB3 R{qb3['window'][0]}-{qb3['window'][1]}, K/DST R16+"
 
 
 @check("grade scores a mock draft correctly")

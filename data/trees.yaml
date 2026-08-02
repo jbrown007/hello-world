@@ -7,7 +7,7 @@
     - round: "2-3"
       do: "You wait 20+ picks between turns. Take the scarce thing - two backs from RB Tiers 1-2, or a back plus an elite WR."
     - round: "4-6"
-      do: "QB2 per the count rule. From an early slot the run usually accelerates past you; expect to buy at the high end."
+      do: "Early slots pick at ~49 then wait ~23 picks to ~72 - this room's QB run fires INSIDE that gap. At pick 49 only 8 QBs were gone in 2025, which feels early and is the trap. Take QB2 at your R5 pick even though the count looks low."
     - round: "RISK"
       do: "Long gaps empty tiers while you wait. When in doubt, take from the thinner tier."
 - slots: [5, 6, 7, 8]
@@ -29,6 +29,6 @@
     - round: "3-4 turn"
       do: "Second double-tap. If you took QB in R1-2, two skill players here. If not, QB1 now at the latest."
     - round: "5-6"
-      do: "QB2 per the count rule. From this slot you can usually push to the back of the window and still get Tier 2. Round 6 is the hard floor - do not let the turn pass without QB2."
+      do: "Late slots pick at the FRONT of the R6 run (Herbert went 6.02, Murray 6.03 in 2025), then face a 21-pick gap that swallowed 6+ QBs. Spend one of the two turn picks on QB2. The gap, not the run, is what kills a deferral."
     - round: "RISK"
       do: "You never get the top of a tier. Compensate with volume at the turns."

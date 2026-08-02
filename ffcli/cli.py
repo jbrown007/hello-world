@@ -11,7 +11,7 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks
+from .draft import qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks, room_report
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -40,6 +40,9 @@ def main(argv=None) -> int:
 
     t = sub.add_parser("tree", help="print the draft branch for your slot")
     t.add_argument("--slot", type=int, default=None)
+
+    rm = sub.add_parser("room", help="manager profiles; with --slot, who picks around you")
+    rm.add_argument("--slot", type=int, default=None)
 
     d = sub.add_parser("draft", help="live pick screen: tree + QB rule + commitments + board, one view")
     d.add_argument("--round", type=int, required=True)
@@ -80,6 +83,9 @@ def main(argv=None) -> int:
 
     elif a.cmd == "rb":
         print(rb_verdict(a.round, a.held))
+
+    elif a.cmd == "room":
+        print(room_report(a.slot or league()["draft"].get("slot")))
 
     elif a.cmd == "tree":
         slot = a.slot or league()["draft"].get("slot")
