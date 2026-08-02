@@ -15,10 +15,24 @@ class Verdict:
         return f"{out}\n{self.detail}" if self.detail else out
 
 
-def qb_verdict(rnd: int, gone: int) -> Verdict:
-    """Apply the superflex QB count rule for a given round and QB count."""
+def qb_verdict(rnd: int, gone: int, window: int | None = None) -> Verdict:
+    """Apply the superflex QB count rule for a given round and QB count.
+
+    window: QBs taken in the last 12 picks. The rate trigger (3+ in 12)
+    overrides the count thresholds - this room's 2025 board sat at 8 gone for
+    14 straight picks and then moved to 14 in twelve. Level cannot catch that.
+    """
     rule = load("qb_rule")
     floor = rule["hard_floor_round"]
+
+    trig = rule.get("run_trigger", {})
+    if window is not None and rnd <= floor and window >= trig.get("qbs", 3):
+        return Verdict(
+            "TAKE_QB2_NOW",
+            f"RUN DETECTED: {window} QBs inside the last {trig.get('window_picks', 12)} picks.",
+            "The run has started. Take QB2 on this pick regardless of round or count. "
+            "Rate overrides level.",
+        )
 
     if rnd > floor:
         return Verdict(
@@ -51,6 +65,24 @@ def qb_verdict(rnd: int, gone: int) -> Verdict:
     )
 
 
+def rb_verdict(rnd: int, held: int) -> Verdict:
+    """Apply the RB floor rule (NEW 8/1). Mirrors the QB count rule - the 2025
+    failure (first RB at pick 65 feeding three starting slots) had no rule to
+    stop it."""
+    gates = load("rb_rule")["rb_floor"]
+    for g in gates:
+        if rnd >= g["by_end_of_round"] and held < g["min_held"]:
+            return Verdict(
+                g["verdict_if_short"],
+                f"{held} RB held at R{rnd}; floor is {g['min_held']} by end of R{g['by_end_of_round']}.",
+                " ".join(str(g["note"]).split()),
+            )
+    nxt = next((g for g in gates if g["by_end_of_round"] >= rnd), None)
+    detail = (f"Next gate: {nxt['min_held']} by end of R{nxt['by_end_of_round']}."
+              if nxt else "All RB gates passed.")
+    return Verdict("ON_TRACK", f"{held} RB held at R{rnd}.", detail)
+
+
 def tree(slot: int) -> dict:
     """Return the draft branch for a given slot."""
     n = league()["teams"]
@@ -68,7 +100,7 @@ def commitments_for(label: str) -> list[dict]:
     return data["common"] + data["branches"].get(label, [])
 
 
-def satisfiable(items: list[dict], rounds: int = 15) -> tuple[bool, str]:
+def satisfiable(items: list[dict], rounds: int = 17) -> tuple[bool, str]:
     """Can one pick per round satisfy every commitment window?
 
     Earliest-deadline greedy, which is optimal for unit jobs with release
@@ -140,10 +172,10 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
         out.append("\nBOARD names listed for this round:")
         out.append("\n".join(board_lines))
 
-    cap = load("te_board")["stack_cap"]
-    if cap["team"] in cap_teams:
-        out.append(f"\nCAP   {cap['team']} max {cap['max_starters']} starters (bye W{cap['bye']}). "
-                   "Count your Colts before this pick.")
+    for cap in load("stack_caps"):
+        if cap["team"] in cap_teams:
+            out.append(f"\nCAP   {cap['team']} max {cap['max_starters']} starters (bye W{cap['bye']}). "
+                       "Count before this pick - the Dec 4 deadline sits inside W13, no trading out later.")
     return "\n".join(out)
 
 
@@ -174,9 +206,9 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     used: set[int] = set()
     lines, hits, graded = [], 0, 0
     for c in items:
-        pos = c["pick"][:2].upper()
-        head = c["pick"].split("(")[0].strip()
-        name_req = head[2:].lstrip("0123456789").strip()  # 'TE Tyler Warren' -> 'Tyler Warren'
+        head = c["pick"].split("(")[0].strip().split()
+        pos = "".join(ch for ch in head[0] if ch.isalpha()).upper()  # QB1->QB, DST->DST, K->K
+        name_req = " ".join(head[1:])  # 'TE Tyler Warren' -> 'Tyler Warren'
         lo, hi = c["window"]
         is_obs = oneqb and pos == "QB"
 
@@ -212,10 +244,23 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     out.append(f"\nSCORE {hits}/{graded} commitments hit"
                + (f" ({obs_n} QB items observation-only, 1-QB room)" if obs_n else ""))
 
-    cap = load("te_board")["stack_cap"]
-    n_cap = sum(1 for p in picks if p["team"] == cap["team"])
-    verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
-    out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs cap {cap['max_starters']} - {verdict}")
+    for cap in load("stack_caps"):
+        n_cap = sum(1 for p in picks if p["team"] == cap["team"])
+        verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
+        out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs cap {cap['max_starters']} - {verdict}")
+
+    from .config import bye_of
+    qb_byes: dict[int, list[str]] = {}
+    for p in picks:
+        if p["pos"] == "QB" and bye_of(p["team"]):
+            qb_byes.setdefault(bye_of(p["team"]), []).append(p["player"])
+    shared = {w: names for w, names in qb_byes.items() if len(names) > 1}
+    if shared:
+        for w, names in shared.items():
+            out.append(f"QB TRIANGULATION FAIL: {' + '.join(names)} share bye W{w} - "
+                       "QB1/QB2/QB3 must hold three different byes.")
+    elif len(qb_byes) >= 2:
+        out.append(f"QB triangulation ok: byes {', '.join(f'W{w}' for w in sorted(qb_byes))}.")
 
     # Full team list WITH duplicates - three Cardinals are three players out,
     # not one. audit() counts occurrences.
@@ -264,10 +309,15 @@ def _bye_danger_lines() -> list[str]:
     out.append(f"W{worst[0]} six-team bye: {', '.join(worst[1])}")
     for w in as_range(season["regular_weeks"]):
         if b.get(w):
-            out.append(f"W{w} SEEDING WEEK candidate: {', '.join(b[w])} out - decides the first-round bye")
+            out.append(f"W{w} SEEDING WEEK: {', '.join(b[w])} out in the week that decides the "
+                       "first-round bye - never 2+, never a QB")
     for w in sorted(b):
         if any(st <= w <= season["playoff_end"] for st in as_range(season["playoff_start"])):
-            out.append(f"W{w} PLAYOFF candidate: {', '.join(b[w])} dark in a possible playoff game - never 2+, never a QB")
+            out.append(f"W{w} PLAYOFF week: {', '.join(b[w])} dark in a playoff game")
+    for cap in load("stack_caps"):
+        out.append(f"W{cap['bye']} stack cap: {cap['team']} max {cap['max_starters']} - "
+                   f"{' '.join(str(cap['resolved_note']).split())}")
+    out.append("QB BYE TRIANGULATION: QB1, QB2, QB3 must hold three DIFFERENT bye weeks.")
     return out
 
 
@@ -291,7 +341,7 @@ def sheet(slot: int) -> str:
     from .config import byes
     br = tree(slot)
     label = br["label"]
-    cap = load("te_board")["stack_cap"]
+    cap = load("stack_caps")[0]
     rule = load("qb_rule")
     commits = commitments_for(label)
     ok, plan = satisfiable(commits)
@@ -299,9 +349,17 @@ def sheet(slot: int) -> str:
     out = [
         f"FF2026 DRAFT SHEET - {label} (slots {min(br['slots'])}-{max(br['slots'])})",
         "=" * 78,
-        f"HARD RULES: QB2 by end of R{rule['hard_floor_round']}. "
-        f"QB3 in R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]} (zero IR). "
-        f"Max {cap['max_starters']} {cap['team']} starters ({cap['team']} {_bye(cap['team'])}).",
+        f"HARD RULES: RB floor 2 by R4 / 3 by R8 / 5 by R12. "
+        f"QB2 in R{rule['qb2_earliest_round']}-{rule['hard_floor_round']} only. "
+        f"QB3 in R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]}. "
+        f"Max {cap['max_starters']} {cap['team']} starters ({cap['team']} {_bye(cap['team'])}). "
+        "K + DST in R16-17, never earlier, no backups.",
+        f"RUN TRIGGER: {rule['run_trigger']['qbs']}+ QBs inside any "
+        f"{rule['run_trigger']['window_picks']} picks = the run started -> take QB2 NEXT pick, "
+        "overrides everything. Use the QB tally to see it live.",
+        "PERSONAL STARS (2025 lesson - each must survive camp verification): "
+        + "; ".join(f"{s['pos']} {s['player']} ({s['team']}, {_bye(s['team'])})"
+                    for s in load("lessons")["stars"]),
         "",
         "BYE TALLY - write every pick's bye here BEFORE confirming it. Cap 2 per week.",
         "  " + "   ".join(f"W{w} [ ][ ]" for w in sorted(byes())),
@@ -316,15 +374,33 @@ def sheet(slot: int) -> str:
     ]
     out += [f"  ! {line}" for line in _bye_danger_lines()]
 
+    out += ["", "QB1 BRANCH MAP - which fires depends on the board at your pick, not your slot",
+            "  (elite = top-6 arm; six were gone by pick 23 in 2025, all rushing/elite-volume)"]
+    for b in load("commitments")["branch_map"]:
+        out.append(f"  {b['id']}: {b['fires']}")
+        out.append(f"     {b['map']}")
+
     out += ["", "ROUND SCRIPT", "-" * 78]
     steps = [(s, _round_span(s["round"])) for s in br["steps"]]
-    for rnd in range(1, 16):
+    rb_gates = {g["by_end_of_round"]: g for g in load("rb_rule")["rb_floor"]}
+    for rnd in range(1, 18):
         step = next((s for s, span in steps if span and span[0] == rnd), None)
         body = []
         if step:
             body.append(f"PLAN {step['round']}: {step['do']}")
-        if rnd == 1:
-            body.append(f"PIVOT: {load('wr_board')['round_plan'][1]}")
+        if rnd in rb_gates:
+            g = rb_gates[rnd]
+            body.append(f"RB FLOOR GATE: {g['min_held']} RBs in hand by the END of this round "
+                        f"or next pick is {g['verdict_if_short']}.")
+        if rnd == 5:
+            body.append("WARREN GATE: below 2 RBs arriving here -> RB wins, Warren released, "
+                        "backfill TE R7-8. NO TE2 ever (FLEX excludes TE).")
+        if rnd == 8:
+            body.append(f"DEPTH LEDGER: {' '.join(str(load('commitments')['depth_fill']).split())}")
+        if rnd == 14:
+            body.append(f"JOSH RULE: {' '.join(str(load('lessons')['draft']['qb4_dart']).split())}")
+        if rnd == 16:
+            body.append(f"JOSH RULE: {' '.join(str(load('lessons')['draft']['kicker']).split())}")
         for c in commits:
             lo, hi = c["window"]
             if hi == rnd:

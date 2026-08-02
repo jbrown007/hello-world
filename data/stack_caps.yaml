@@ -1,0 +1,15 @@
+# Stack caps - single source of truth. The WR and TE boards point here
+# instead of carrying their own copies (the audit's 2c drift, fixed at the
+# root). Read by ff draft, ff sheet, ff grade, and the workbook.
+- team: IND
+  bye: 13
+  max_starters: 2
+  severity: conditional
+  why: Jones + Warren + Downs + Pierce are all recommended, but W13 is the
+    penultimate regular-season week - live for seeding and the weekly payout.
+  resolved_note: >
+    regular_weeks confirmed at 14. Week 13 is penultimate, live for seeding
+    and payout but not the final week - severity stays conditional, not hard.
+    ENFORCE AT THE DRAFT: the Dec 4 trade deadline falls inside Week 13, so
+    trading out of Colts exposure ahead of their bye is not available - every
+    manager sees the bye coming.

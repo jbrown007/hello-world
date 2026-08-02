@@ -123,10 +123,14 @@ def _watchlist(ws, rows):
     ws.freeze_panes = "A2"
 
 
-def _stack_cap(ws, r, cap):
+def _stack_cap(ws, r, board):
+    # Caps live in data/stack_caps.yaml (single source); boards carry a pointer.
     _cell(ws, r, 2, "STACK CAP", bold=True, size=12)
-    _cell(ws, r + 1, 2, f"{cap['team']} - bye W{cap['bye']}, max {cap['max_starters']} starters")
-    _cell(ws, r + 1, 3, cap["why"], fill=TIER_FILL["Tier 1"])
+    for cap in _load("stack_caps"):
+        _cell(ws, r + 1, 2, f"{cap['team']} - bye W{cap['bye']}, max {cap['max_starters']} starters")
+        _cell(ws, r + 1, 3, f"{cap['why']} {cap.get('resolved_note', '')}", fill=TIER_FILL["Tier 1"])
+        r += 1
+    _cell(ws, r + 1, 3, board.get("stack_cap_ref", ""))
     return r + 3
 
 
@@ -202,7 +206,7 @@ def _wr_board(ws, board):
             x.border = THIN
         r += 1
 
-    r = _stack_cap(ws, r + 1, board["stack_cap"])
+    r = _stack_cap(ws, r + 1, board)
 
     _cell(ws, r, 2, "ROUND PLAN", bold=True, size=12)
     r += 1
@@ -239,7 +243,7 @@ def _te_board(ws, board):
             x.border = THIN
         r += 1
 
-    r = _stack_cap(ws, r + 1, board["stack_cap"])
+    r = _stack_cap(ws, r + 1, board)
 
     _cell(ws, r, 2, "THE CALL", bold=True, size=12)
     _cell(ws, r, 3, board["call"], fill=TIER_FILL["Tier 3"])

@@ -14,27 +14,36 @@ through it automatically and opens PRs when something changes.
 - 7 watchlist rows are Trending/Unsettled. Each row's `watch_for` field is the
   exact trigger the camp watch searches for.
 
-### August 1: confirm league settings
-- Check the ESPN league settings and pin `regular_weeks` (12 or 13) and
-  `playoff_start` (14 or 15) in `data/league.yaml` — replace each list with a
-  single number.
-- Then `ff confirm` reports clean and every CONDITIONAL bye warning sharpens
-  to CERTAIN (or disappears). If `regular_weeks` is 13, the IND/BAL/NYJ/LV
-  W13 bye lands in the seeding week — the stack cap becomes non-negotiable.
+### August 1: league settings — ✅ DONE (FRAMEWORK_RECONCILIATION.md)
+- ALL settings confirmed and migrated 8/2. The big corrections: **roster is
+  17** (not 20 — bench is 7, zero slack), **K and D/ST are mandatory
+  starters** (R16-17 picks), **regular season is 14 weeks** with playoffs
+  W15-17. `ff confirm` reports clean.
+- Consequences now live in the framework: **W14 is the seeding week and ARI +
+  DAL are on bye in it** (never 2+, never a QB); the playoff window W15-17 has
+  zero bye conflicts; W13 (IND bye) is the penultimate week with the **Dec 4
+  trade deadline inside it** — Colts exposure cannot be traded away, cap
+  enforced at the draft.
+- 2025 draft board analyzed (DRAFT_BOARD_2025.md): thresholds retuned to the
+  room's real behavior, **RB floor rule added** (2 by R4 / 3 by R8 / 5 by
+  R12 — the 2025 7th-place fix), **QB2 confined to R5-6**, **3-in-12 run
+  trigger** added. `ff rb` and `ff qb --window` are live.
+- Still unverified (non-blocking): playoff team count (likely 6), and the
+  FLEX = RB/WR (TE excluded) read, which came from a screenshot — confirm in
+  settings text.
 
 ### ~August 13: preseason games begin
 - Snap share, target share, and first-team reps become real data. Trending
   rows should start flipping. Treat beat-writer camp hype with the audit's
   rule: two independent sources for any status change.
 
-### ~August 25: ADP pass (the big one)
-- League draft board becomes available — recalibrate against the actual room:
-  - Fill **RB Tier 2** in `data/rb_board.yaml` (deliberately left empty).
-  - Pressure-test the **QB count-rule thresholds** (`data/qb_rule.yaml`) —
-    they're calibrated to public ADP, and twelve veterans who've drafted
-    together for a decade are not public ADP.
-  - Refresh WR value-board gaps and every ADP figure (all single-source and
-    stale by design until now).
+### ~August 25: ADP pass
+- Fill **RB Tier 2** in `data/rb_board.yaml` (still deliberately empty — now
+  the single biggest data gap, since the RB floor makes RB timing the plan's
+  spine).
+- Refresh WR value-board gaps and ADP figures (single-source and stale by
+  design until now). The QB thresholds are already recalibrated to the
+  room's 2025 board; check them against current superflex ADP for drift only.
 - Rerun `python3 tests/verify.py` after every data edit — the collision check
   will catch any round-plan conflict a recalibration introduces.
 

@@ -1,39 +1,57 @@
 # Single source of truth for league settings.
 # Everything in the toolkit reads from here. Edit this, not the code.
+# ALL SETTINGS CONFIRMED 8/1/2026 against the open ESPN league
+# (FRAMEWORK_RECONCILIATION.md). One item still unverified: playoff team
+# count (likely 6) - does not block anything.
 name: 2026 Redraft
 platform: espn
 teams: 12
 scoring: full_ppr
-superflex: true          # optional 2QB start
-roster_size: 20
-ir_slots: 0              # CONFIRMED - no injured reserve
-bench_slots: [8, 12]
+scoring_detail:
+  pass_yards_per_point: 25   # 0.04/yd - confirmed
+  pass_td: 4                 # drives the rushing-QB premium
+  interception: -2           # confirmed
+  two_point_conversion: 2
+superflex: true              # OP slot: QB/RB/WR/TE - second QB starts here weekly
+roster_size: 17              # CONFIRMED 8/1 - was wrongly assumed 20
+bench_slots: 7               # was assumed ~12; a 42% cut - zero slack for darts
+ir_slots: 0                  # CONFIRMED - no injured reserve
 
-starters:
+starters:                    # 10 total, confirmed 8/1
   QB: 1
   RB: 2
-  WR: 3
-  TE: 1
-  SUPERFLEX: 1
-  FLEX: [1, 2]
-  K_DEF: optional
+  WR: 2
+  TE: 1                      # one slot, no TE-eligible FLEX -> no TE2 ever
+  FLEX: 1                    # RB/WR only - TE EXCLUDED (confirmed verbally;
+                             # re-verify in settings text before draft day)
+  OP: 1                      # QB/RB/WR/TE - this is the superflex slot
+  DST: 1                     # MANDATORY starter - was unmodeled
+  K: 1                       # MANDATORY starter - was unmodeled
 
 draft:
   type: snake
-  date: 2026-09-07       # Labor Day
-  slot: null             # revealed draft morning; set it then run `ff tree`
+  date: 2026-09-07           # Labor Day
+  rounds: 17                 # one per roster spot
+  slot: null                 # revealed draft morning; set it then run `ff tree`
 
 waivers:
   type: rolling_priority
   process: tuesday_night
 
+trade_deadline: 2026-12-04T03:00:00-05:00   # Friday of Week 13 - cannot trade
+                                            # out of the IND bye once it looms
+
 season:
-  # UNCONFIRMED values are written as a list. The toolkit then emits CONDITIONAL
-  # warnings covering every scenario instead of guessing one. Replace a list with
-  # a single number once you check the league settings; warnings sharpen to CERTAIN.
-  regular_weeks: [12, 13]   # CONFIRM - notes said 12; playoffs starting W14 implies 13
-  playoff_start: [14, 15]   # CONFIRM - Josh said "14 or 15"
+  regular_weeks: 14          # CONFIRMED 8/1 - was uncertain 12/13. W14 is the
+                             # seeding week and ARI + DAL are on bye in it.
+  playoff_start: 15          # CONFIRMED 8/1
   playoff_end: 17
+  playoff_teams: 6           # likely - the one setting still unverified
+
+seeding:
+  divisions: none            # single 12-team pool
+  first_round_bye: top_2
+  tiebreaker: head_to_head   # contender matchups carry double weight
 
 payouts:
   weekly_high_score: true

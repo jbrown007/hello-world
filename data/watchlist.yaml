@@ -59,21 +59,21 @@
   why: A muddy room can produce a cheap startable SF arm OR a value trap. Whoever wins gets volume in
     a run-heavy offense.
   read: Buy. The Achilles discount is still in his price, but 'cleared for camp' is not 'cleared for games.'
-  watch_for: First full-contact 11-on-11 team reps in camp (opens 7/29) - that is the flip-to-Resolved trigger,
-    knowable early August. Also Steichen's public ordering; Richardson trade status.
-  implication: Priority cheap SF QB2 target. Best remaining value-vs-cost arm on the board with Ward. The
-    whole Colts stack (Warren R4-5 included) rests on this resolving.
+  watch_for: First full-contact 11-on-11 team reps in camp (opens 7/29) - that is the flip-to-Resolved
+    trigger, knowable early August. Also Steichen's public ordering; Richardson trade status.
+  implication: Priority cheap SF QB2 target. Best remaining value-vs-cost arm on the board with Ward.
+    The whole Colts stack (Warren R4-5 included) rests on this resolving.
   confidence: High
   status: Trending
-  notes: '7/25 CAMP WATCH: Steichen confirms Jones WILL be a full participant including 11-on-11 when camp
-    opens 7/29 (Colts.com camp preview + SI, multi-source). Flip to Resolved only after he actually takes
-    the full-contact team reps, not on the announcement. | 7/25 REOPENED TO TRENDING - the 7/24 RESOLVED
-    call was premature. Jones is fully cleared (''doing
-    everything''), signed 2yr/$88M, unquestioned QB1. But camp had not opened when the row was marked resolved,
-    he was held out of 11-on-11 in June minicamp, and he has not taken a competitive team-drill snap since
-    the tear. Steichen: ''on track, or maybe a little bit ahead'' - not done. Flip to Resolved after full-contact
-    team reps. 2025 line before the injury: 68% comp, 3,101 yds, 19 TD, 8 INT, 5 rush TD in 13 games. Weapons:
-    Alec Pierce, Tyler Warren, Josh Downs. Richardson is a backup the team is trying to trade.'
+  notes: '7/25 CAMP WATCH: Steichen confirms Jones WILL be a full participant including 11-on-11 when
+    camp opens 7/29 (Colts.com camp preview + SI, multi-source). Flip to Resolved only after he actually
+    takes the full-contact team reps, not on the announcement. | 7/25 REOPENED TO TRENDING - the 7/24
+    RESOLVED call was premature. Jones is fully cleared (''doing everything''), signed 2yr/$88M, unquestioned
+    QB1. But camp had not opened when the row was marked resolved, he was held out of 11-on-11 in June
+    minicamp, and he has not taken a competitive team-drill snap since the tear. Steichen: ''on track,
+    or maybe a little bit ahead'' - not done. Flip to Resolved after full-contact team reps. 2025 line
+    before the injury: 68% comp, 3,101 yds, 19 TD, 8 INT, 5 rush TD in 13 games. Weapons: Alec Pierce,
+    Tyler Warren, Josh Downs. Richardson is a backup the team is trying to trade.'
 - priority: Tier 1
   pos: QB
   team: Jets
@@ -249,7 +249,9 @@
   read: No draftable WR here. The one interesting piece is Willis himself - he ran 6.2 YPC in relief for
     GB in 2025.
   watch_for: Who starts at QB; which rookie wins outside snaps; Washington's slot role.
-  implication: Skip the receivers entirely. Willis is a last-round SF dart on rushing floor only.
+  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
+    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
+    read: Skip the receivers entirely. Willis is a last-round SF dart on rushing floor only.'
   confidence: High
   status: Resolved
   notes: 7/24 RESOLVED - AVOID. Complete teardown. Tua, Tyreek Hill and Jaylen Waddle are all gone. New
@@ -267,7 +269,9 @@
     a real role.
   read: Too many mouths and no QB. Concepcion has the draft capital; Boston is the red-zone/50-50 body.
   watch_for: Whether Boston earns a 3-WR-set role; QB play stabilizing.
-  implication: Not worth a pick until the QB job settles. Pure August watch item.
+  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
+    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
+    read: Not worth a pick until the QB job settles. Pure August watch item.'
   confidence: Med
   status: Trending
   notes: '7/24 CORRECTION. Boston went 2nd round No. 39, but the file''s competition list was wrong -
@@ -286,8 +290,10 @@
   read: Real production plus real speed in a McDaniel offense with Herbert. Path is crowded but the coach
     wants him on the field.
   watch_for: Deep-target usage; whether he's more than a gadget piece.
-  implication: Last-round dart with actual ceiling weeks, not just a lottery ticket. Worth a pick in a
-    20-man roster league.
+  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
+    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
+    read: Last-round dart with actual ceiling weeks, not just a lottery ticket. Worth a pick in a 20-man
+    roster league.'
   confidence: Med
   status: Trending
   notes: '7/24 UPGRADE (corrected 7/24b: McDaniel is the Chargers OFFENSIVE COORDINATOR, not head coach
@@ -305,7 +311,9 @@
   why: Not draftable now, but injuries open target share fast. Pure waiver-wire watch list for the season.
   read: Both are live rookie WR2 candidates, not waiver-wire filler.
   watch_for: Depth-chart climbs in August; any injuries ahead of them.
-  implication: Late-round darts, not just watch names. Fields gains the most if Nabers misses time.
+  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
+    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
+    read: Late-round darts, not just watch names. Fields gains the most if Nabers misses time.'
   confidence: Med
   status: Trending
   notes: 7/24 PREMISE WAS WRONG - neither is buried. Antonio Williams went 3rd round (No. 71) to Washington
@@ -323,8 +331,10 @@
     A cheap producer is real edge in a 1-TE league.
   read: This is the barbell-punt play. First-round TE talent at a TE20 price.
   watch_for: First-team reps; red-zone usage; which rookie the staff trusts in 3-WR sets.
-  implication: If you punt TE, Sadiq is the punt. Draft him as your TE1 in the last few rounds and let
-    the upside play out.
+  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
+    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
+    read: If you punt TE, Sadiq is the punt. Draft him as your TE1 in the last few rounds and let the
+    upside play out.'
   confidence: High
   status: Resolved
   notes: '7/24 RESOLVED - THE NAME IS KENYON SADIQ. Jets took him No. 16 overall. Ran 4.39 at the combine,
@@ -388,9 +398,27 @@
   notes: '7/25 CAMP WATCH - UNSETTLED -> TRENDING. Seattle officially placed Charbonnet (ACL torn 1/17
     playoffs, surgery 2/20) on the PUP list before camp (Heavy, ClutchPoints, SI, Yahoo - multi-source).
     If he remains on PUP into the season he must sit at least 4 games. Staff reportedly impressed with
-    Price''s open-field vision. Watch: Charbonnet''s late-July knee check-up and whether he comes off PUP
-    during camp. | 7/24 NEW ROW. Flagged during the camp sweep - Seattle took Price 32nd overall and
+    Price''s open-field vision. Watch: Charbonnet''s late-July knee check-up and whether he comes off
+    PUP during camp. | 7/24 NEW ROW. Flagged during the camp sweep - Seattle took Price 32nd overall and
     Charbonnet is expected to miss the start of the year.'
+- priority: Tier 2
+  pos: QB
+  team: Bears
+  bye: 10
+  situation: Caleb Williams - starred personal target with no analysis behind it (NEW 7/25)
+  players: Caleb Williams (QB1); Rome Odunze, DJ Moore, Colston Loveland
+  why: Josh starred him in the 2025 lessons as a superflex target, but the framework has zero analysis
+    on the 2026 Bears - no coaching read, no weapons read, no rushing-usage read. A starred arm with no
+    verification is exactly the pattern the audit warned about.
+  read: Hold until verified. If the 2026 situation supports it, he becomes a QB1/QB2 candidate and the
+    QB board needs updating; if not, the star comes off.
+  watch_for: 2026 coaching staff and scheme; rushing usage in camp; weapons health; where his ADP sits
+    for superflex.
+  implication: No action until the camp watch verifies the situation. Do not draft on a 2025 star alone.
+  confidence: Low
+  status: Unsettled
+  notes: 7/25 NEW ROW from Josh's 2025 lessons (data/lessons.yaml). Created so the camp watch sweeps it;
+    everything here needs verification against current reporting.
 - priority: Tier 2
   pos: QB
   team: Dolphins
