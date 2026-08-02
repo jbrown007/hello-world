@@ -2,8 +2,10 @@ me:
   name: Josh (Crushing Dreams)
   slot_2025: 8
   slot_2026: null
-  draft_2025: Lamar (1.08), Hurts (2.05), McBride (3), McConkey (4), Ridley (5), Pacheco (6), T.McMillan
-    (7), J.Warren (8)
+  draft_2025: Lamar (1.08), Hurts (2.05), McBride (3.08), McConkey (4.05), Ridley (5.08), Pacheco (6.05),
+    T.McMillan (7.08), J.Warren (8.05), R9 unknown, JCM (10.05), Diggs (11.08), Tuten (12.05), Shaheed
+    (13.08), Ferguson TE (14.05), JAXSON DART QB (15.08 - the disqualified QB3 profile QB_LADDER is built
+    on), Lions DST (16.05), Fairbairn K (17.08)
   self_scout: Only team with two QBs by pick 17. Hurts at 2.05 cost Puka (2.06) or Jonathan Taylor (2.07).
     In a room where QB9 lasted to pick 62, that premium bought insurance the market was not charging for.
     McBride R3 was strong; R5-8 skill was volume without a hit. The 2026 edge is riding skill through
@@ -82,7 +84,8 @@ managers:
   notes: 'TOP RIVAL, best friend, 3rd place 2025. Most direct competitor for QB value in R2-3 - if he
     picks ahead of you, assume a QB comes off. Structural leak: earliest D/ST in the league (R8) + early
     K hands the room two skill players every year. 2025: Henry, Daniels 2.04, Mayfield 3.09, McLaurin,
-    Worthy, Etienne, Waddle, Texans D/ST R8.'
+    Worthy, Etienne, Waddle, Texans D/ST R8, AUBREY K AT 12.04 - CONFIRMED by the full board, the rep
+    is real. Two burned picks verified.'
   slot_2026: null
 - name: Da LockDownGoon
   slot_2025: 6
@@ -107,22 +110,26 @@ managers:
   slot_2026: null
 - name: Easy money
   slot_2025: 2
-  qb_habit: unknown
-  leans: rep says "hoards QBs" - NOT CONFIRMED, exactly one QB through nine rounds in 2025
+  qb_habit: waits_too_long
+  leans: 'rep said "hoards QBs" - REFUTED by the full 2025 board: ONE QB in seventeen rounds (Burrow R2).
+    The opposite of a hoarder.'
   attention: unknown
   trades: unknown
-  notes: 'Do NOT count him as QB-aggressive in run math until R9+ data confirms the rep. 2025: Bijan,
-    Burrow R2, Higgins, Harvey, Flowers, Sutton, Andrews, DJ Moore, Ravens D/ST R9.'
+  notes: 'Rep fully busted 8/2 with the complete R1-17 board: Burrow was his only QB all draft. Zero threat
+    in any QB window; if anything he is a QB2/QB3 trade customer by midseason. 2025 full: Bijan, Burrow,
+    Higgins, Harvey, Flowers, Sutton, Andrews, DJ Moore, Ravens DST R9, Chubb, Meyers, Loop K R12, Goedert,
+    Bateman, Najee, Burden, Arroyo.'
   slot_2026: null
 - name: Kleenex Gang
   slot_2025: 10
   qb_habit: normal
-  leans: RB-heavy CONFIRMED (four RBs in ten rounds, three by R5); QB hoarding rep NOT confirmed (one
-    QB through eight)
+  leans: RB-heavy CONFIRMED across all 17 rounds (Jacobs, Walker, Tracy, Skattebo, B.Allen, Sampson, Judkins);
+    QB hoarding REFUTED - two QBs total (Kyler R6, Flacco R14)
   attention: unknown
   trades: unknown
-  notes: 'Treat as an RB-heavy drafter competing with the RB floor windows, downgrade the QB threat pending
-    R9+ data. 2025: Jefferson, Jacobs, London, Walker, Tracy, Kyler R6, Jeudy, Hockenson, Stevenson R10.'
+  notes: 'Full-board read 8/2: the RB appetite is real and extends late - he is the standing competition
+    for every RB depth window (took Stevenson R10 in 2025). QB threat: minimal. Early-ish K (R11) and
+    DST (R13).'
   slot_2026: null
 league:
   sharpest:
@@ -131,9 +138,10 @@ league:
   - Shaun DeNiro
   qb_run_2025: 'From the real board (DRAFT_BOARD_2025.md): 2 QBs in R1, 6 by pick 23 (the elite rushing/volume
     arms), 8 through R4, ZERO in R5, six in R6 (picks 62-72), 18 by R7, 23 total by pick 110. The room
-    queues, then panics. Rate trigger (3-in-12) exists because of this shape.
-
-    '
+    queues, then panics. Rate trigger (3-in-12) exists because of this shape. FULL-BOARD CONFIRMATION
+    (8/2, R1-17): 34 QBs drafted in total - the QB_LADDER supply figure is exact. Cumulative: 8 by R4,
+    8 by R5, 14 by R6, 18 by R7, 21 by R8, ~25 by R9 (Goff/Ward/Geno/Lawrence tier), 28 by R10, then a
+    trickle to 34 by R17.'
   patterns:
   - Ten of twelve managers took at most one QB through R2 in 2025 - the room waits on QB, and Josh's two-QBs-early
     was the outlier position
@@ -148,7 +156,6 @@ league:
     pick.'
   draft_order_method: unknown
   gaps:
-  - R9+ of the 2025 board (Aubrey rep, Easy money / Kleenex hoarding reps, true QB depth for the QB3-inventory
-    market)
+  - Josh's own 9.08 pick (only R9 picks 1-4 captured)
   - Full 2025 final standings (bottom four = the reactive trade marks)
   - 2026 slots on draft morning - rerun every profile against the new map
