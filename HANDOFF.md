@@ -102,7 +102,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 | When | What |
 |---|---|
-| Now | **Room model fill** - data/room.yaml scaffold + `ff room` are built; Josh owes 11 manager profiles + sharpest/patterns/draft-order-method. Largest untapped edge. |
+| Done 8/2 | **Room model FILLED** from the 2025 board (managerprofiles.md): all 11 profiled, threat board set (Trey Action Fake / #TheMoneyTeam / Shaun DeNiro), reps corrected by data (CHAMP is anchor-QB not QB-early but IS Warren competition; Jag FLu is the R2-3 QB threat; Griddy counts as 2 QBs at turns; Easy money / Kleenex hoarding reps unconfirmed). Remaining room gaps: R9+ of the 2025 board, final standings, draft-order method. |
 | ~Aug 15 | Vikings name a starter (Murray favorite, split reps as of 8/2). Highest-value open row. Also watch: Jones vs Richardson REP SHARE (health resolved 8/2, share is the open question), Browns QB, Dolphins QB, Commanders/Giants rookie depth charts. |
 | ~Aug 25 | **RB Tier 2 fill** (rb_board tier 2 is deliberately empty - Jeremiyah Love went R2/R3 in both mocks and the boards don't know him; biggest data gap) + ADP refresh (Price's ADP spiking - discount closing). |
 | Aug 29-30 | NFL cut-downs - depth charts finalize. |
