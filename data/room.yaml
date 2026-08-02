@@ -1,0 +1,108 @@
+# The room model - 15 years of scouting on the other 11 managers, structured.
+# This is the one dataset no tool or ADP feed can substitute for.
+#
+# Fill each manager's profile (shorthand is fine). Fields:
+#   qb_habit:  early_hoarder | normal | waits_too_long | unknown
+#   leans:     free text - rookie-chaser / vet-heavy / homer for <NFL team> / pure ADP
+#   attention: sharp | casual | autodrafts | unknown
+#   trades:    active | rare | panics_when_losing | unknown
+#   notes:     anything 15 years taught you - famous reaches, rituals, tells
+#   slot_2026: fill on draft morning when slots are revealed; ff room --slot
+#              then computes who picks around you.
+#
+# League-level facts learned from data live under `league:`. The QB-run
+# summary comes from DRAFT_BOARD_2025.md, not memory.
+me:
+  name: Josh
+  slot_2025: 8
+  slot_2026: null
+  draft_2025: Lamar (8), Hurts (17), McBride (32), McConkey (41), Ridley (56),
+    Pacheco (65), T.McMillan (80), J.Warren (89) - the QB/QB/TE start the RB
+    floor now prevents
+managers:
+- name: TBD-1
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-2
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-3
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-4
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-5
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-6
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-7
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-8
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-9
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-10
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+- name: TBD-11
+  qb_habit: unknown
+  leans: ''
+  attention: unknown
+  trades: unknown
+  notes: ''
+  slot_2026: null
+league:
+  sharpest: []          # Josh's call - the 2-3 drafters actually being competed with
+  qb_run_2025: >
+    From the real board (DRAFT_BOARD_2025.md): 2 QBs in R1, 6 by pick 23
+    (the elite rushing/volume arms), 8 through R4, ZERO in R5, six in R6
+    (picks 62-72), 18 by R7, 23 total by pick 110. The room queues, then
+    panics. Rate trigger (3-in-12) exists because of this shape.
+  patterns: []          # repeating behaviors 15 years have shown - Josh's call
+  draft_order_method: unknown   # how slots get assigned draft morning

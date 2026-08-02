@@ -179,6 +179,64 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
     return "\n".join(out)
 
 
+def room_report(slot: int | None = None) -> str:
+    """The room model: manager profiles, and with a slot, who picks around you.
+
+    Snake math for 12 teams: after your odd-round pick at slot s, every slot
+    ABOVE s picks twice before you pick again; after an even-round pick, every
+    slot BELOW s does. The double-pickers alternate sides each turn - that is
+    who can snipe your queue.
+    """
+    room = load("room")
+    n = league()["teams"]
+    filled = [m for m in room["managers"] if not str(m["name"]).startswith("TBD")]
+    out = [f"ROOM MODEL - {len(filled)}/{len(room['managers'])} managers profiled"]
+
+    for m in room["managers"]:
+        if str(m["name"]).startswith("TBD"):
+            continue
+        bits = [f"QB: {m['qb_habit']}", f"attention: {m['attention']}", f"trades: {m['trades']}"]
+        if m.get("leans"):
+            bits.append(f"leans: {m['leans']}")
+        s26 = f" [slot {m['slot_2026']}]" if m.get("slot_2026") else ""
+        out.append(f"  {m['name']}{s26}: " + " | ".join(bits))
+        if m.get("notes"):
+            out.append(f"      {m['notes']}")
+    if not filled:
+        out.append("  (all TBD - dump your read on each manager and Claude will fill this in)")
+
+    lg = room["league"]
+    out += ["", "LEAGUE READS"]
+    out.append(f"  Sharpest: {', '.join(lg['sharpest']) or 'TBD'}")
+    out.append(f"  2025 QB run: {' '.join(str(lg['qb_run_2025']).split())}")
+    for p in lg["patterns"]:
+        out.append(f"  Pattern: {p}")
+
+    if slot:
+        gap_after_odd = 2 * (n - slot)
+        gap_after_even = 2 * (slot - 1)
+        out += ["", f"SLOT {slot} GEOMETRY (snake, {n} teams)"]
+        out.append(f"  After your ODD-round pick: {gap_after_odd} picks pass - slots {slot + 1}-{n} go twice."
+                   if slot < n else "  After your ODD-round pick: you pick again immediately (the turn).")
+        out.append(f"  After your EVEN-round pick: {gap_after_even} picks pass - slots 1-{slot - 1} go twice."
+                   if slot > 1 else "  After your EVEN-round pick: you pick again immediately (the turn).")
+        out.append(f"  R5/R6 turn: picks {4 * n + slot} and {6 * n + 1 - slot} - "
+                   f"{2 * (n - slot)} picks apart. The 2025 QB run fired at picks 62-72.")
+        by_slot = {m.get("slot_2026"): m for m in room["managers"] if m.get("slot_2026")}
+        if by_slot:
+            for s26 in (slot - 1, slot + 1):
+                if s26 in by_slot:
+                    m = by_slot[s26]
+                    out.append(f"  Neighbor slot {s26}: {m['name']} (QB: {m['qb_habit']} - {m.get('leans', '')})")
+            hoarders_above = [m["name"] for s, m in by_slot.items() if s > slot and m["qb_habit"] == "early_hoarder"]
+            hoarders_below = [m["name"] for s, m in by_slot.items() if s < slot and m["qb_habit"] == "early_hoarder"]
+            out.append(f"  QB hoarders who double-pick after your odd rounds: {', '.join(hoarders_above) or 'none known'}")
+            out.append(f"  QB hoarders who double-pick after your even rounds: {', '.join(hoarders_below) or 'none known'}")
+        else:
+            out.append("  Fill slot_2026 fields on draft morning for neighbor analysis.")
+    return "\n".join(out)
+
+
 def parse_picks(text: str) -> list[dict]:
     """Parse a picks file: one pick per line, 'ROUND POS TEAM Player Name'."""
     picks = []
