@@ -1,68 +1,79 @@
-# Machine-readable mandatory picks. Single place the round-plan commitments
-# live - the collision check and `ff draft` / `ff sheet` reason about this.
-# REBUILT 8/1 against the confirmed 17-round draft and the roster ledger
-# (ROSTER_LEDGER.md): 3 QB + 6 RB + 5 WR + 1 TE + 1 K + 1 DST = 17, slack ZERO.
-#
-# A commitment means "one draft pick MUST land inside this window." Value
-# notes (Pierce, Stevenson) are NOT commitments. The R8-15 depth fill
-# (to 6 RB / 5 WR / 3 QB) is guidance, not windows - see sheet.
 common:
 - pick: QB1 (Tier 1 arm)
-  window: [1, 3]
-  source: branch map A/B/C - R1 if elite arm falls, R2 normally, R3 at worst
-    (Mayfield went 33 in 2025)
+  window:
+  - 1
+  - 3
+  source: branch map A/B/C - R1 if elite arm falls, R2 normally, R3 at worst (Mayfield went 33 in 2025)
 - pick: RB (starter)
-  window: [1, 4]
+  window:
+  - 1
+  - 4
   source: rb_rule floor - 2 RBs by end of R4, non-negotiable
 - pick: RB (starter)
-  window: [1, 4]
+  window:
+  - 1
+  - 4
   source: rb_rule floor - the 2025 failure was sourcing RBs from pick 65
 - pick: WR (Tiers 2-3)
-  window: [1, 4]
+  window:
+  - 1
+  - 4
   source: wr_board - one of R1-R4 goes to the WR room
 - pick: TE Tyler Warren
-  window: [4, 5]
-  source: te_board call - GATED by the RB floor; if below 2 RBs at R5, RB wins
-    and Warren is released (backfill TE R7-8)
+  window:
+  - 4
+  - 5
+  source: te_board call - GATED by the RB floor; if below 2 RBs at R5, RB wins and Warren is released
+    (backfill TE R7-8)
 - pick: QB2
-  window: [5, 6]
-  source: qb_rule - earliest R5 (NEW), hard floor end of R6. R6 is the round
-    this room's run happens in.
+  window:
+  - 5
+  - 6
+  source: qb_rule - earliest R5 (NEW), hard floor end of R6. R6 is the round this room's run happens in.
 - pick: WR Josh Downs
-  window: [7, 7]
+  window:
+  - 7
+  - 7
   source: wr_board - documented +15 target-rank/ADP gap
 - pick: RB (flex depth)
-  window: [5, 8]
+  window:
+  - 5
+  - 8
   source: rb_rule floor - 3 RBs by end of R8; R9+ backs are committee profiles
 - pick: QB3
-  window: [10, 13]
-  source: qb_rule - mandatory. OP starts a second QB weekly; byes + zero IR
-    demand a third arm. Must triangulate byes with QB1/QB2.
+  window:
+  - 9
+  - 13
+  source: qb_rule - mandatory (OP starts a second QB weekly, zero IR). Target the R9-10 vet-starter tier
+    per QB_LADDER; must pass the Week-1-starter test and triangulate byes with QB1/QB2.
 - pick: K
-  window: [16, 17]
+  window:
+  - 16
+  - 17
   source: roster ledger - mandatory starter, never earlier than R16
 - pick: DST
-  window: [16, 17]
+  window:
+  - 16
+  - 17
   source: roster ledger - mandatory starter, never earlier than R16
 branches:
   EARLY: []
   MIDDLE: []
   LATE: []
-# QB1 decision - which branch fires depends on the board at your pick, not
-# your slot. Elite = top-6 by this room's behavior (six QBs gone by pick 23
-# in 2025, all rushing-profile or elite-volume arms).
 branch_map:
 - id: A
   fires: elite QB available at your R1 pick (likely slots 1-3)
-  map: "R1 QB1 | R2 RB | R3 RB (floor met) | R4 WR | R5 Warren | R6 QB2 | R7 Downs"
+  map: R1 QB1 | R2 RB | R3 RB (floor met) | R4 WR | R5 Warren | R6 QB2 | R7 Downs
 - id: B
   fires: elite QB available at R2, not R1
-  map: "R1 RB/WR best available | R2 QB1 | R3 RB | R4 RB if under 2 held else WR | R5 Warren | R6 QB2 | R7 Downs"
+  map: R1 RB/WR best available | R2 QB1 | R3 RB | R4 RB if under 2 held else WR | R5 Warren | R6 QB2 |
+    R7 Downs
 - id: C
   fires: no elite QB through R2
-  map: "R1 RB/WR | R2 RB/WR | R3 QB1 (Mayfield went 33, Nix 37 in 2025) | R4 RB if under 2 held else WR | R5 Warren | R6 QB2 | R7 Downs"
-depth_fill: >
-  R8-R15 is exactly 8 picks for 4 RB + 3 WR + 1 QB (QB3) to reach the ledger
-  floors of 6 RB / 5 WR / 3 QB. SLACK IS ZERO: every dart must displace a
-  named RB or WR explicitly - the Tier 3 watchlist names are a Week 1 waiver
-  list, not draft targets.
+  map: R1 RB/WR | R2 RB/WR | R3 QB1 (Mayfield went 33, Nix 37 in 2025) | R4 RB if under 2 held else WR
+    | R5 Warren | R6 QB2 | R7 Downs
+depth_fill: 'R8-R15 is exactly 8 picks for 4 RB + 3 WR + 1 QB (QB3) to reach the ledger floors of 6 RB
+  / 5 WR / 3 QB. SLACK IS ZERO: every dart must displace a named RB or WR explicitly - the Tier 3 watchlist
+  names are a Week 1 waiver list, not draft targets.
+
+  '

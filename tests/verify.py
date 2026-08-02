@@ -508,7 +508,12 @@ def _():
     for pos in ("K", "DST"):
         c = next(c for c in common if c["pick"].split()[0] == pos)
         assert c["window"][0] >= 16, f"{pos} committed before R16"
-    return f"{len(rbs_by_4)} RBs by R4, QB2 opens R{qb2['window'][0]}, K/DST R16+"
+    qb3 = next(c for c in common if c["pick"].startswith("QB3"))
+    assert qb3["window"][0] >= 9 and qb3["window"][1] <= 13, \
+        f"QB3 window {qb3['window']} outside the R9-13 ladder band (QB_LADDER.md)"
+    assert not any(c["pick"].startswith("QB4") for c in common), \
+        "QB4 must never be a draft commitment - in-season only (QB_LADDER.md)"
+    return f"{len(rbs_by_4)} RBs by R4, QB2 opens R{qb2['window'][0]}, QB3 R{qb3['window'][0]}-{qb3['window'][1]}, K/DST R16+"
 
 
 @check("grade scores a mock draft correctly")
