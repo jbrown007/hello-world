@@ -26,11 +26,11 @@ paths:
   - Kenyon Sadiq
   - Sam LaPorta
   - Grant Stowers
-  verdict: Fallback. Never punt with one player.
-stack_cap:
-  team: IND
-  bye: 13
-  max_starters: 2
-  why: Jones + Warren + Downs + Pierce are all recommended, but a W13 bye in the seeding week would be
-    self-inflicted.
-call: Tyler Warren R4-R5. Keep Sadiq as an R13-15 upside dart, not the starter.
+  verdict: NOT AVAILABLE at 17 spots (8/1). FLEX excludes TE and OP belongs to QB2, so a TE2 is a bench
+    spot that can never score. Never punt with multiple TEs; stream from waivers if Warren goes down.
+call: 'Tyler Warren R4-R5, GATED: if arriving at R5 below two RBs, RB wins and Warren is released - backfill
+  TE R7-8. No TE2 ever. Sadiq is a waiver watch, not a draft pick.'
+stack_cap_ref: See data/stack_caps.yaml (IND, single source of truth).
+te2_rule: One and done. Warren is the only TE on the roster - no second starting path exists (FLEX is
+  RB/WR, OP belongs to QB2). Do not draft a TE2; stream if he is hurt. Rookie TE watchlist row is a waiver
+  monitor, not a pick.

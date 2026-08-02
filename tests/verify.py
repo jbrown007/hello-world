@@ -280,9 +280,9 @@ def _():
     for p in load("rb_board")["targets"] + load("rb_board")["fades"]:
         assert p["player"] in rb, f"RB Board tab missing {p['player']}"
     assert "provenance" in rb.lower(), "RB Board missing provenance warning (synthesized data)"
-    for sheet, board in (("WR Board", "wr_board"), ("TE Board", "te_board")):
-        cap = load(board)["stack_cap"]
-        assert f"max {cap['max_starters']} starters" in text(sheet), f"{sheet} missing stack cap"
+    for sheet in ("WR Board", "TE Board"):
+        for cap in load("stack_caps"):
+            assert f"max {cap['max_starters']} starters" in text(sheet), f"{sheet} missing stack cap"
     n_rb = len(load("rb_board")["targets"]) + len(load("rb_board")["fades"])
     return f"{n_rb} RBs, {len(load('wr_board')['value_board'])} WRs, {len(load('te_board')['paths'])} TE paths"
 
@@ -298,6 +298,8 @@ def _():
         ["grade", str(gpath), "--slot", "7", "--oneqb"],
         ["tree", "--slot", "1"], ["tree", "--slot", "12"],
         ["draft", "--round", "6", "--gone", "16", "--slot", "7"],
+        ["rb", "--round", "4", "--held", "1"], ["rb", "--round", "8", "--held", "3"],
+        ["qb", "--round", "5", "--gone", "8", "--window", "4"],
         ["sheet", "--slot", "1"], ["sheet", "--slot", "7"], ["sheet", "--slot", "12"],
         ["bye", "IND", "NYJ"], ["weekly", "1"], ["weekly", "4"],
     ]
@@ -386,7 +388,7 @@ def _():
         items = commitments_for(label)
         for c in items:
             lo, hi = c["window"]
-            assert 1 <= lo <= hi <= 15, f"{label}: bad window {c['window']} for {c['pick']}"
+            assert 1 <= lo <= hi <= 17, f"{label}: bad window {c['window']} for {c['pick']}"
         ok, detail = satisfiable(items)
         assert ok, f"{label}: {detail}"
         details.append(f"{label}={len(items)}")
@@ -394,15 +396,22 @@ def _():
     return ", ".join(details) + " commitments, all schedulable"
 
 
-@check("stack caps agree across boards")
+@check("stack caps are centralized, boards only point")
 def _():
-    """Regression: the IND cap lived only on the TE board while the WR board
-    steered into four Colts (audit 2c). Both boards carry it; they must match."""
+    """8/1: caps moved to data/stack_caps.yaml (single source). Boards must
+    carry a pointer and must NOT carry their own copy - that duplication is
+    how audit 2c's drift happened."""
     from ffcli.config import load
-    wr, te = load("wr_board")["stack_cap"], load("te_board")["stack_cap"]
-    for k in ("team", "bye", "max_starters"):
-        assert wr[k] == te[k], f"stack_cap.{k} differs: wr={wr[k]!r} te={te[k]!r}"
-    return f"{wr['team']} max {wr['max_starters']}, bye W{wr['bye']}, both boards"
+    caps = load("stack_caps")
+    assert caps and isinstance(caps, list), "stack_caps.yaml empty"
+    for cap in caps:
+        for k in ("team", "bye", "max_starters", "severity", "resolved_note"):
+            assert k in cap, f"cap {cap.get('team')} missing {k}"
+    for board in ("wr_board", "te_board"):
+        b = load(board)
+        assert "stack_cap" not in b, f"{board} still carries an inline stack_cap"
+        assert "stack_cap_ref" in b, f"{board} missing the stack_caps pointer"
+    return f"{len(caps)} cap(s) central, both boards point"
 
 
 @check("draft sheet is self-sufficient for a live draft")
@@ -420,15 +429,65 @@ def _():
             continue
         seen.add(label)
         text = sheet(slot)
-        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "PIVOT:", "FADES",
-                      "PERSONAL STARS", "JOSH RULE"):
+        for token in ("BYE TALLY", "QB COUNT TALLY", "DANGER WEEKS", "ROUND SCRIPT", "QB1 BRANCH MAP",
+                      "RB FLOOR GATE", "WARREN GATE", "RUN TRIGGER", "FADES", "PERSONAL STARS",
+                      "JOSH RULE", "TRIANGULATION"):
             assert token in text, f"{label}: sheet missing {token}"
-        assert "14[!]" in text and "16[!]" in text, f"{label}: QB tally trigger marks missing"
+        from ffcli.draft import _qb_trigger_rows
+        from ffcli.config import load as _ld
+        for _, gone, _a in _qb_trigger_rows(_ld("qb_rule")):
+            assert f"{gone}[!]" in text, f"{label}: QB tally missing trigger mark at {gone}"
         bare = [ln for ln in text.splitlines()
                 if "target:" in ln and not re.search(r"bye W\d+", ln)]
         assert not bare, f"{label}: target lines without a bye: {bare[:2]}"
         assert re.search(r"W14.*(ARI|DAL)", text), f"{label}: W14 playoff danger not spelled out"
     return f"{len(seen)} branches, byes on every target line"
+
+
+@check("QB run trigger fires on rate and overrides count")
+def _():
+    """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.
+    Level-based thresholds cannot catch that; 3-in-12 rate can."""
+    from ffcli.draft import qb_verdict
+    hot = qb_verdict(5, 8, window=3)
+    assert hot.action == "TAKE_QB2_NOW" and "RUN" in hot.note, \
+        f"rate trigger did not fire: {hot.action}"
+    cold = qb_verdict(5, 8, window=2)
+    assert cold.action != "TAKE_QB2_NOW", f"trigger fired below threshold: {cold.action}"
+    late = qb_verdict(8, 20, window=5)
+    assert late.action == "PAST_FLOOR", "past-floor verdict must win over the rate trigger"
+    return "fires at 3-in-12, quiet at 2, floor still wins"
+
+
+@check("RB floor rule enforces 2/3/5 at rounds 4/8/12")
+def _():
+    """NEW 8/1: the 2025 failure (first RB at pick 65) had no rule to stop
+    it. Mirror of the QB count rule."""
+    from ffcli.draft import rb_verdict
+    assert rb_verdict(4, 1).action == "TAKE_RB_NOW", "short at R4 gate not flagged"
+    assert rb_verdict(4, 2).action == "ON_TRACK", "meeting the R4 gate flagged anyway"
+    assert rb_verdict(8, 2).action == "TAKE_RB_NOW", "short at R8 gate not flagged"
+    assert rb_verdict(12, 4).action == "PRIORITIZE_RB", "short at R12 gate not flagged"
+    assert rb_verdict(12, 5).action == "ON_TRACK", "5 held at R12 flagged anyway"
+    return "gates fire short, quiet when met"
+
+
+@check("commitments encode the ledger: RB floor, QB2 window, K/DST last")
+def _():
+    """Structural guards from ROSTER_LEDGER.md: two RB commitments inside
+    R1-4, QB2 no earlier than qb2_earliest_round, K and DST in R16-17."""
+    from ffcli.config import load
+    common = load("commitments")["common"]
+    rbs_by_4 = [c for c in common if c["pick"].startswith("RB") and c["window"][1] <= 4]
+    assert len(rbs_by_4) >= 2, f"RB floor not encoded: {len(rbs_by_4)} RB commitments by R4"
+    qb2 = next(c for c in common if c["pick"].startswith("QB2"))
+    earliest = load("qb_rule")["qb2_earliest_round"]
+    assert qb2["window"][0] >= earliest, \
+        f"QB2 window opens R{qb2['window'][0]}, earlier than qb2_earliest_round {earliest}"
+    for pos in ("K", "DST"):
+        c = next(c for c in common if c["pick"].split()[0] == pos)
+        assert c["window"][0] >= 16, f"{pos} committed before R16"
+    return f"{len(rbs_by_4)} RBs by R4, QB2 opens R{qb2['window'][0]}, K/DST R16+"
 
 
 @check("grade scores a mock draft correctly")
@@ -438,29 +497,36 @@ def _():
     commitments to observation instead of misses."""
     from ffcli.draft import grade, parse_picks
     perfect = parse_picks(
-        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "1 RB ATL Bijan Robinson\n2 QB TB Baker Mayfield\n3 RB DET Jahmyr Gibbs\n"
         "4 WR NYJ Garrett Wilson\n5 TE IND Tyler Warren\n6 QB TEN Cam Ward\n"
-        "7 WR IND Josh Downs\n10 QB NO Tyler Shough\n")
+        "7 WR IND Josh Downs\n8 RB NE Rhamondre Stevenson\n10 QB NO Tyler Shough\n"
+        "16 K JAX Cam Little\n17 DST TB Buccaneers\n")
     rep = grade(perfect, "MIDDLE")
-    assert "8/8 commitments hit" in rep, f"perfect script not 8/8: {rep.splitlines()[-8:]}"
+    assert "11/11 commitments hit" in rep, f"perfect script not 11/11: {rep.splitlines()[:14]}"
     assert "MISS" not in rep and "BREACH" not in rep, "false negatives on a perfect script"
+    assert "triangulation ok" in rep, "distinct QB byes (W10/W9/W8) not confirmed"
 
     flawed = parse_picks(
-        "1 RB ATL Bijan Robinson\n2 QB CIN Joe Burrow\n3 RB DET Jahmyr Gibbs\n"
+        "1 RB ATL Bijan Robinson\n2 QB TB Baker Mayfield\n3 RB DET Jahmyr Gibbs\n"
         "4 WR IND Alec Pierce\n5 TE IND Tyler Warren\n6 QB IND Daniel Jones\n"
-        "7 RB NE Rhamondre Stevenson\n10 QB NO Tyler Shough\n")
+        "7 RB NE Rhamondre Stevenson\n10 QB NYJ Geno Smith\n"
+        "16 K JAX Cam Little\n17 DST TB Buccaneers\n")
     rep = grade(flawed, "MIDDLE")
     assert "MISS" in rep and "Downs" in rep, "missed Downs not reported"
     assert "BREACH" in rep, "3 Colts vs cap 2 not flagged"
-    assert "7/8 commitments hit" in rep, "flawed score wrong"
-    assert "3 players out" in rep, \
-        "bye audit must count duplicate teams as separate players (3 IND on the W13 bye)"
+    assert "10/11 commitments hit" in rep, "flawed score wrong"
+    assert "4 players out" in rep, \
+        "bye audit must count duplicate teams as separate players (3 IND + NYJ on W13)"
+    assert "TRIANGULATION FAIL" in rep and "W13" in rep, \
+        "Jones + Geno sharing the W13 bye must fail triangulation"
 
-    rep = grade(parse_picks("1 RB ATL Bijan Robinson\n4 WR NYJ Garrett Wilson\n"
-                            "5 TE IND Tyler Warren\n7 WR IND Josh Downs\n"), "MIDDLE", oneqb=True)
-    assert "OBS" in rep and "4/5 commitments hit" in rep and "MISS" in rep, \
-        "oneqb should demote 3 QB items to OBS, leaving RB R2-3 as the only miss"
-    return "perfect 8/8, flawed 7/8+BREACH, oneqb demotes QBs"
+    rep = grade(parse_picks("1 RB ATL Bijan Robinson\n3 RB DET Jahmyr Gibbs\n"
+                            "4 WR NYJ Garrett Wilson\n5 TE IND Tyler Warren\n"
+                            "7 WR IND Josh Downs\n8 RB NE Rhamondre Stevenson\n"
+                            "16 K JAX Cam Little\n17 DST TB Buccaneers\n"), "MIDDLE", oneqb=True)
+    assert "OBS" in rep and "8/8 commitments hit" in rep, \
+        "oneqb should demote the 3 QB commitments to OBS and grade the rest 8/8"
+    return "perfect 11/11, flawed 10/11 + BREACH + triangulation fail, oneqb demotes QBs"
 
 
 @check("QB rule urgency never dips between a trigger round and the floor")

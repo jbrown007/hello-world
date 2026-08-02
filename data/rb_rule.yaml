@@ -1,0 +1,31 @@
+# RB floor rule. NEW 8/1 (FRAMEWORK_RECONCILIATION.md section 2).
+#
+# The 2025 post-mortem: QB, QB, TE with three of the first four picks left
+# every RB to be sourced from pick 65 onward - RB1 was a committee back, RB2
+# was a backup, feeding THREE starting slots (RB, RB, RB/WR flex). That is
+# the 7th-place finish. QB had a count rule with a hard floor; RB had nothing.
+# This mirrors the QB rule so the same drift cannot happen live at the table.
+rb_floor:
+  - by_end_of_round: 4
+    min_held: 2
+    verdict_if_short: TAKE_RB_NOW
+    note: >
+      Non-negotiable. Two RB slots plus a RB/WR flex means three starting
+      slots. Sourcing RB1 and RB2 after Round 5 is what produced the 2025
+      7th-place finish.
+  - by_end_of_round: 8
+    min_held: 3
+    verdict_if_short: TAKE_RB_NOW
+    note: >
+      Third starter for the flex. Round 9+ RBs are committee and handcuff
+      profiles.
+  - by_end_of_round: 12
+    min_held: 5
+    verdict_if_short: PRIORITIZE_RB
+    note: >
+      Rolling waivers plus zero IR make in-season RB repair expensive.
+      Depth is drafted, not acquired.
+warren_gate: >
+  If arriving at R5 would leave you below two RBs, RB wins and Warren is
+  released. Backfill TE in Round 7-8. The RB floor protects three starting
+  slots; the TE commitment protects one.

@@ -1,22 +1,40 @@
-# Superflex QB count rule. Thresholds are set against PUBLIC superflex ADP.
-# RECALIBRATE in late August against the ESPN league draft board.
+# Superflex QB count rule. RETUNED 8/1 against the room's actual 2025 draft
+# board (DRAFT_BOARD_2025.md) - no longer public-ADP guesswork.
 #
-# Pool math: 12 teams x 2 QB slots = 24 arms of demand.
-# Supply: Tier 1 (5) + Tier 2 (11) + Tier 3 (8) = ~24. Deep, but not bottomless.
+# The 2025 finding: this room does not deplete QBs steadily. It sits still and
+# then panics. 8 gone through R4, ZERO taken in all of R5, then six in R6
+# alone. Round 6 is not the last round a QB exists - it is the round the run
+# happens in. The widest gap: 25 straight picks (38-62) with no QB taken.
+#
+# Cumulative 2025: R1:2  R2:6  R3:7  R4:8  R5:8  R6:14  R7:18  R8:21
 anchor: Josh Allen at 1.01. If gone, best Tier 1 arm or pivot to elite RB.
-hard_floor_round: 6      # QB2 in hand by end of this round, no exceptions
-qb3_rounds: [10, 13]     # mandatory - zero IR slots
+hard_floor_round: 6      # QB2 in hand by end of this round, no exceptions.
+                         # Kept after 2025 data review - R6 IS the run.
+qb2_earliest_round: 5    # NEW 8/1. QB9-14 all sat in R6 in 2025. Spending
+                         # R2-R4 on QB2 buys almost nothing and costs a
+                         # top-40 RB or WR - that trade produced the 2025
+                         # 7th-place finish.
+qb3_rounds: [10, 13]     # mandatory - OP starts a second QB every week and
+                         # zero IR means no parking an injured arm
+run_trigger:             # NEW 8/1 - rate beats level for this room
+  qbs: 3
+  window_picks: 12
+  note: >
+    3+ QBs off the board inside any 12-pick window means the run has started.
+    Take QB2 on your NEXT pick regardless of round or count. Overrides the
+    count thresholds. Against 2025 this fires at pick 66; counting totals
+    instead got you Stafford.
 rules:
   - max_round: 4
     thresholds:
-      - {gone: 14, action: TAKE_QB2_NOW, note: "Tier 2 is emptying."}
-      - {gone: 10, action: NORMAL, note: "Take the skill player. Re-check next round."}
-      - {gone: 0,  action: WAIT, note: "The room is waiting. You wait too."}
+      - {gone: 10, action: TAKE_QB2_NOW, note: "Above 2025 pace (8 through R4). The room is running hot - do not wait for the R6 run."}
+      - {gone: 7,  action: NORMAL, note: "At 2025 pace. Take the skill player. Re-check next round."}
+      - {gone: 0,  action: WAIT, note: "Below pace. The room is waiting. You wait too - but never spend R2-R4 on QB2 (earliest is R5)."}
   - max_round: 5
     thresholds:
-      - {gone: 16, action: TAKE_QB2_NOW, note: "No exceptions."}
-      - {gone: 12, action: BY_ROUND_6, note: "QB2 by the end of Round 6."}
-      - {gone: 0,  action: WAIT_TO_6, note: "May wait one more round. QB2 in hand by end of Round 6 - that is the hard floor."}
+      - {gone: 12, action: TAKE_QB2_NOW, note: "Run started a round early. Take yours now."}
+      - {gone: 9,  action: BY_ROUND_6, note: "Above pace. QB2 by the end of Round 6, front of the run."}
+      - {gone: 0,  action: WAIT_TO_6, note: "R5 was this room's DEAD ZONE in 2025 (zero QBs taken). EARLY slots: take QB2 at your R5 pick anyway - you wait ~23 picks to R6 and the run fires inside that gap. Everyone else: R5 is the value window (Kelce/Conner/G.Wilson tier fell here in 2025) - buy, then take QB2 at R6."}
 tier_beats_round: >
   If the last Tier 2 arm is on the board and everything behind him is Tier 3,
   take him a full round early. Tier gaps cost more than draft capital.

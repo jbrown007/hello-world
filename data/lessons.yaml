@@ -1,23 +1,16 @@
-# Josh's carried lessons from the 2025 season, recorded 7/25/2026.
-# Read by `ff sheet` (draft items) and the in-season loop (season items).
-# These are PERSONAL priors, not verified 2026 facts - each starred target
-# must survive a camp-watch verification before draft day.
 draft:
-  qb4_dart: >
-    2025 lesson says draft 4 QBs. Framework commits to 3. Compromise until the
-    room's QB-run history settles it: QB4 only as a last-two-rounds dart from
-    the SF-dart tier (Shough / Willis / Klubnik), never a committed pick.
-  kicker: >
-    Top-3 kicker matters (2025 lesson) - but K_DEF is 'optional' in
-    league.yaml. CONFIRM on Aug 1 whether a started K scores. If yes, take a
-    top-3 K with the final pick. If no, skip kickers entirely.
+  qb4_dart: 'OVERRULED 8/1 by the confirmed 17-spot roster: 3 QBs are locked in the ledger and slack is
+    zero, so a 4th QB has no pick to live in. The 2025 lesson survives as in-season guidance: churn the
+    last bench spot toward a 4th arm when byes approach, never at the draft.'
+  kicker: 'RESOLVED 8/1: K is a MANDATORY starter (was assumed optional). Top-3 kicker lesson applies
+    - take the best available K at R16/R17, never earlier, no backup. Stream K/DST in-season with free
+    adds only, never a priority burn.'
 season:
-  week5_patience: >
-    Give a drafted player until Week 5 before releasing him. One bad month is
-    noise. Exception: season-ending injury with zero IR slots - that roster
-    spot is dead capital and triage applies immediately.
+  week5_patience: 'Give a drafted player until Week 5 before releasing him. One bad month is noise. Exception:
+    season-ending injury with zero IR slots - that roster spot is dead capital and triage applies immediately.
+
+    '
 stars:
-  # 2025 targets that earned the star. Verify each in camp before trusting.
 - player: Puka Nacua
   pos: WR
   team: LAR
@@ -29,5 +22,5 @@ stars:
 - player: Caleb Williams
   pos: QB
   team: CHI
-  status: starred SF arm absent from the entire QB analysis - verify 2026
-    situation (coaching, weapons, rushing usage) and add a watchlist row
+  status: starred SF arm absent from the entire QB analysis - verify 2026 situation (coaching, weapons,
+    rushing usage) and add a watchlist row

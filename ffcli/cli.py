@@ -11,7 +11,7 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, tree, draft_screen, sheet, grade, parse_picks
+from .draft import qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -31,6 +31,12 @@ def main(argv=None) -> int:
     q = sub.add_parser("qb", help="apply the superflex QB count rule")
     q.add_argument("--round", type=int, required=True)
     q.add_argument("--gone", type=int, required=True, help="QBs already off the board")
+    q.add_argument("--window", type=int, default=None,
+                   help="QBs taken in the last 12 picks; 3+ fires the run trigger")
+
+    rb = sub.add_parser("rb", help="apply the RB floor rule")
+    rb.add_argument("--round", type=int, required=True)
+    rb.add_argument("--held", type=int, required=True, help="RBs currently on your roster")
 
     t = sub.add_parser("tree", help="print the draft branch for your slot")
     t.add_argument("--slot", type=int, default=None)
@@ -70,7 +76,10 @@ def main(argv=None) -> int:
         print("NOTE: formulas have no cached values until Excel or LibreOffice opens the file.")
 
     elif a.cmd == "qb":
-        print(qb_verdict(a.round, a.gone))
+        print(qb_verdict(a.round, a.gone, a.window))
+
+    elif a.cmd == "rb":
+        print(rb_verdict(a.round, a.held))
 
     elif a.cmd == "tree":
         slot = a.slot or league()["draft"].get("slot")

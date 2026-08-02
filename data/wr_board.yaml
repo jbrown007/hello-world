@@ -38,28 +38,21 @@ value_board:
   target_rank: null
   adp: null
   gap: null
-  round: 6
+  round: 9-11
   flag: ankle injury - watch in camp
-  note: VALUE-IF-HE-FALLS ONLY, not mandatory. R6 belongs to QB2 (hard floor) - seven
-    commitments into six picks otherwise, and Pierce is the softest of the seven (no
-    target-rank or ADP data, injury flag).
+  note: CONDITIONAL ONLY if he falls past R8 (8/1 amendment). Not mandatory, never over a commitment,
+    and he is a third Colt against a cap of 2.
 - player: Jayden Reed
   team: GB
   target_rank: null
   adp: WR41
   gap: null
   round: 10
-stack_cap:
-  team: IND
-  bye: 13
-  max_starters: 2
-  why: Same cap as the TE board. Jones + Warren + Downs + Pierce would be four Colts
-    against a cap of two, all dark in the W13 seeding week. Run `ff bye` on any roster
-    carrying 3+ IND starters.
 round_plan:
-  1: Allen. If gone, elite RB or Nacua.
-  2-4: Split RB Tiers 1-2 and WR Tiers 2-3. Minimum one of each.
-  5-7: QB2 per count rule (in hand by end of R6, hard floor), plus Downs (R7). Pierce
-    is a value-note only - take him if he falls, never over the QB2.
-  8-11: WR3-WR5 from the value board.
-  12-15: QB3, handcuffs, rookie darts.
+  1-4: QB1 (branch A/B/C), two RBs (floor), one WR. See commitments.yaml branch_map.
+  5-6: Warren R4-5 (gated on RB floor), QB2 at the R5/R6 turn - earliest R5, floor R6.
+  '7': Downs (R7). Pierce is conditional-if-he-falls-past-R8 only.
+  8-15: 'Depth fill, zero slack: 4 RB + 3 WR + QB3 (R10-13) in exactly 8 picks.'
+  16-17: K and D/ST. Never earlier.
+stack_cap_ref: See data/stack_caps.yaml (IND, single source of truth). Four Colts are recommended across
+  boards against a cap of 2 - count before every IND pick.
