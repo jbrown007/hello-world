@@ -1,0 +1,106 @@
+# QB tier board - WHO to take in each window. The count tally decides WHEN.
+# Named 8/3 from national consensus (ESPN/CBS/SI/FTN superflex rankings and
+# industry mocks) mapped onto the framework windows. National ADP prices the
+# QB2 tier at R4; this room waited to R6 in 2025 - trust the tally, not ADP.
+# REFRESH: at the Aug 25 ADP pass, and when the Vikings (~Aug 14) and Jets
+# QB rows resolve.
+provenance: 'Sources 8/3: ESPN superflex rankings (Karabell), CBS QB tiers (Richard,
+  Cummings), SI QB tiers, FTN QB tiers (Ratcliffe), CBS industry superflex mock,
+  ESPN superflex mock. Cross-checked against watchlist.yaml camp status.'
+
+elite:
+  note: 'The top-6 arms the QB1 branch map keys on. 2025 comp: six gone by pick
+    23, all rushing/elite-volume.'
+  trap: Allen and Daniels share the W7 bye - after either, QB2 cannot come from
+    BUF/JAX/LAC/WSH.
+  who:
+  - player: Josh Allen
+    team: BUF
+    why: The anchor. Consensus QB1 everywhere. 1.01 if the chance ever comes.
+  - player: Drake Maye
+    team: NE
+    why: QB2 overall finish in 2025; ESPN has him SF QB2.
+  - player: Jalen Hurts
+    team: PHI
+    why: Rushing TD equity, highest floor in the tier.
+  - player: Jayden Daniels
+    team: WSH
+    why: Discounted bounce-back off the injured 2025; top-2 upside.
+  - player: Lamar Jackson
+    team: BAL
+    why: Down 2025, still consensus top tier; strongest rebound bet.
+  - player: Joe Burrow
+    team: CIN
+    why: The one pure-volume arm in the tier - no rushing, elite passing.
+
+tier2_qb1:
+  note: 'Branch C anchors (R3) when the elite six are gone by R2. 2025 comps:
+    Mayfield 3.09, Nix pick 37.'
+  who:
+  - player: Caleb Williams
+    team: CHI
+    tag: personal star
+    why: Verified 8/2. Went pick 70 in this room in 2025 - that discount will
+      not repeat now that national tiers rank him top-8. R3 anchor or EARLY R5
+      QB2, not a wait-and-see.
+  - player: Patrick Mahomes
+    team: KC
+  - player: C.J. Stroud
+    team: HOU
+  - player: Justin Herbert
+    team: LAC
+
+qb2_window:
+  rounds: [5, 6]
+  note: Preference order for the R5-6 window. The tally fires the trigger; this
+    list answers who.
+  who:
+  - player: Cam Ward
+    team: TEN
+    why: 'Repo #1 value: Daboll hired to develop him, designed QB runs coming,
+      priced as a QB3 (watchlist Tier 1 row).'
+  - player: Baker Mayfield
+    team: TB
+    why: Value QB1 who falls. Contract standoff is the camp watch item.
+  - player: Daniel Jones
+    team: IND
+    tag: count the IND cap
+    why: Unquestioned Colts QB1 (8/3 camp watch). Jones + Warren is the whole
+      cap - Jones + Warren + Downs is the mock-B breach.
+  - player: Bo Nix
+    team: DEN
+  - player: Jordan Love
+    team: GB
+  - player: Kyler Murray
+    team: MIN
+    tag: only if named starter
+    why: Vikings decision ~Aug 14 (watchlist). Also the Jefferson-stack question.
+
+qb3_vets:
+  rounds: [9, 13]
+  note: 'Trade-inventory tier - target R9-10 (2025 comps went picks 101-107).
+    All three tests: named Week 1 starter, THIRD distinct bye, R9-13 price.
+    Do not telegraph - Trey Action Fake, TheMoneyTeam and Kleenex shop here.'
+  who:
+  - player: Jared Goff
+    team: DET
+  - player: Trevor Lawrence
+    team: JAX
+  - player: Geno Smith
+    team: NYJ
+    tag: confirm he is NAMED
+    why: Leads the Jets battle (watchlist) - a named starter is the test, a
+      lean is not.
+  - player: Aaron Rodgers
+    team: PIT
+  fallback:
+    player: Tyler Shough
+    team: 'NO'
+    why: Cheap QB3 with rushing usage if the vet tier evaporates by the R13
+      deadline (screen.yaml).
+
+never:
+- player: Dak Prescott
+  team: DAL
+  why: W14 seeding-week bye - never a QB on the W14 bye. Off the board entirely,
+    at any price.

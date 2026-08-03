@@ -339,6 +339,12 @@ def _bye(team: str) -> str:
     return f"bye W{wk}" if wk else "bye ?"
 
 
+def _qb_name(p: dict) -> str:
+    """'Player (TEAM, bye Wn[, tag])' for a qb_board entry."""
+    tag = f", {p['tag']}" if p.get("tag") else ""
+    return f"{p['player']} ({p['team']}, {_bye(p['team'])}{tag})"
+
+
 def _targets_at(rnd: int) -> list[str]:
     """Board names in play at a round, each with team and bye."""
     names = []
@@ -438,6 +444,14 @@ def sheet(slot: int) -> str:
         out.append(f"  {b['id']}: {b['fires']}")
         out.append(f"     {b['map']}")
 
+    qb = load("qb_board")
+    out += ["", "QB TIERS - who to take in each window; the tally decides when"]
+    out.append("  ELITE SIX: " + "; ".join(_qb_name(p) for p in qb["elite"]["who"]))
+    out.append(f"  ! {qb['elite']['trap']}")
+    out.append("  BRANCH C ANCHORS (R3): " + "; ".join(_qb_name(p) for p in qb["tier2_qb1"]["who"]))
+    out.append("  NEVER: " + "; ".join(f"{_qb_name(p)} - {str(p['why']).split(' - ')[0]}"
+                                       for p in qb["never"]))
+
     out += ["", "ROUND SCRIPT", "-" * 78]
     steps = [(s, _round_span(s["round"])) for s in br["steps"]]
     rb_gates = {g["by_end_of_round"]: g for g in load("rb_rule")["rb_floor"]}
@@ -465,6 +479,15 @@ def sheet(slot: int) -> str:
                 body.append(f"MUST by end of this round: {c['pick']}")
             elif lo == rnd and lo != hi:
                 body.append(f"window opens: {c['pick']} (R{lo}-R{hi})")
+        if rnd == qb["qb2_window"]["rounds"][0]:
+            body.append("QB2 ORDER: " + " > ".join(_qb_name(p) for p in qb["qb2_window"]["who"]))
+        if rnd == qb["qb3_vets"]["rounds"][0]:
+            body.append("QB3 VETS (target R9-10): "
+                        + "; ".join(_qb_name(p) for p in qb["qb3_vets"]["who"]))
+        if rnd == qb["qb3_vets"]["rounds"][1]:
+            fb = qb["qb3_vets"]["fallback"]
+            body.append(f"QB3 FALLBACK if the vet tier is gone: {_qb_name(fb)} - "
+                        f"{str(fb['why']).split('.')[0]}.")
         for t in _targets_at(rnd):
             body.append(f"target: {t}")
         if not body:

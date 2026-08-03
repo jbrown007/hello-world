@@ -414,6 +414,34 @@ def _():
     return f"{len(caps)} cap(s) central, both boards point"
 
 
+@check("qb_board is coherent: six elite arms, real teams, windows match the rule")
+def _():
+    """The QB tiers say WHO for each window the qb_rule times. Six named elite
+    arms (the branch map's premise), every team resolves to a real bye, the
+    QB2/QB3 windows agree with qb_rule, and every never-list arm has a reason.
+    Sheet must print the tiers so the table copy is never memory-dependent."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import sheet
+    qb = load("qb_board")
+    rule = load("qb_rule")
+    assert len(qb["elite"]["who"]) == 6, f"elite tier has {len(qb['elite']['who'])} arms, needs 6"
+    groups = [qb["elite"]["who"], qb["tier2_qb1"]["who"], qb["qb2_window"]["who"],
+              qb["qb3_vets"]["who"], [qb["qb3_vets"]["fallback"]], qb["never"]]
+    for p in (p for g in groups for p in g):
+        assert bye_of(p["team"]), f"{p['player']}: team {p['team']!r} has no bye - not a real team code"
+    assert qb["qb2_window"]["rounds"] == [rule["qb2_earliest_round"], rule["hard_floor_round"]], \
+        "qb2_window rounds disagree with qb_rule"
+    assert qb["qb3_vets"]["rounds"] == rule["qb3_rounds"], "qb3_vets rounds disagree with qb_rule"
+    for p in qb["never"]:
+        assert p.get("why"), f"never-list {p['player']} has no reason"
+    text = sheet(1)
+    for token in ("ELITE SIX", "QB2 ORDER", "QB3 VETS", "NEVER:"):
+        assert token in text, f"sheet missing {token}"
+    for p in qb["elite"]["who"]:
+        assert p["player"] in text, f"sheet missing elite arm {p['player']}"
+    return "6 elite arms, all teams resolve, windows match qb_rule, tiers on the sheet"
+
+
 @check("draft sheet is self-sufficient for a live draft")
 def _():
     """Regression from the 7/25 mock: the sheet must work with no back-and-forth.

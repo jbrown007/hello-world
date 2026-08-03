@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 34/34 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 35/35 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -38,7 +38,9 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   So: QB1 by R3 (A/B/C branch map keys on whether an elite arm reaches your
   pick), **QB2 in R5-6 only** (earliest 5, hard floor 6 - R6 IS the run),
   QB3 mandatory R10-13 with a bye different from QB1/QB2 (OP starts a second
-  QB weekly). **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
+  QB weekly). Named tiers live in **data/qb_board.yaml** (elite six, Branch C
+  anchors, QB2 order, QB3 vets, never-list) and print on every sheet - refresh
+  at the Aug 25 ADP pass and when the Vikings/Jets rows resolve. **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
   pick regardless of count** (`ff qb --window`). EARLY slots: take QB2 at the
   R5 pick even though the count feels low - the run fires inside their
   23-pick R5->R6 gap.
