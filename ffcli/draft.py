@@ -395,6 +395,163 @@ def _qb_triggers(rule: dict) -> set[int]:
     return {gone for _, gone, _ in _qb_trigger_rows(rule)}
 
 
+def picks_for_slot(slot: int) -> list[int]:
+    """Overall pick number in each round for a snake slot."""
+    from .config import league
+    teams = league()["teams"]
+    return [(r - 1) * teams + (slot if r % 2 else teams - slot + 1) for r in range(1, 18)]
+
+
+def _abbr(name: str) -> str:
+    """'Josh Allen' -> 'J.Allen' so dense rows fit."""
+    parts = name.split()
+    return f"{parts[0][0]}.{parts[-1]}" if len(parts) > 1 else name
+
+
+def _qb_row(entries: list[dict], sep: str = "/") -> str:
+    """Names with team+bye glued on: 'J.Allen(BUF7)'."""
+    from .config import bye_of
+    return sep.join(f"{_abbr(p['player'])}({p['team']}{bye_of(p['team'])})" for p in entries)
+
+
+def _short_pick(pick: str) -> str:
+    for long, tight in ((" (starter)", ""), (" (Tiers 2-3)", ""), (" (flex depth)", ""),
+                        (" (Tier 1 arm)", ""), ("TE Tyler Warren", "Warren"),
+                        ("WR Josh Downs", "Downs")):
+        pick = pick.replace(long, tight)
+    return pick
+
+
+def _new_targets(rnd: int) -> list[str]:
+    """Targets in their FIRST round only - stops the same name repeating R12-R15."""
+    from .config import bye_of
+
+    def tight(rn):
+        out = []
+        for t in _targets_at(rn):
+            rest = t.split(" ", 1)[1]
+            name, team = rest.split(" (")[0], rest.split("(")[1].split(",")[0]
+            out.append(f"{_abbr(name)}({team}{bye_of(team)})")
+        return out
+
+    prev = set(tight(rnd - 1)) if rnd > 1 else set()
+    return [t for t in tight(rnd) if t not in prev]
+
+
+def sheet_twocol(slot: int, width_left: int = 62) -> str:
+    """One-page landscape sheet: round script left, permanent reference right.
+
+    Chosen 8/4 over the long-form sheet. The right column keeps the bye weeks
+    WITH their team lists next to the QB trigger table, because the mocks kept
+    stacking 4-5 byes in one week - a tally of empty boxes did not stop it,
+    but seeing 'W13 BAL,NYJ,IND,LV' while holding a Raven does.
+    """
+    from .config import byes, bye_of, as_range
+    br = tree(slot)
+    label = br["label"]
+    commits = commitments_for(label)
+    rule, qb, cap = load("qb_rule"), load("qb_board"), load("stack_caps")[0]
+    rb_gates = {g["by_end_of_round"]: g for g in load("rb_rule")["rb_floor"]}
+    pk = picks_for_slot(slot)
+    b = byes()
+
+    left = ["RND  PICK  DO", "-" * (width_left - 2)]
+    for r in range(1, 18):
+        bits = []
+        due = [_short_pick(c["pick"]) for c in commits if c["window"][1] == r]
+        if due:
+            bits.append("MUST " + "/".join(due))
+        if r in rb_gates:
+            bits.append(f"[GATE {rb_gates[r]['min_held']}RB]")
+        if r == 5:
+            bits.append("<2RB?RB wins,TE->R7")
+        tg = _new_targets(r)
+        if tg:
+            bits.append("+" + ", ".join(tg))
+        line = " ".join(bits) or "free - best value, check byes"
+        room = width_left - 13
+        if len(line) > room:
+            line = line[:room - 2] + ".."
+        left.append(f"R{r:<3} {pk[r-1]:<5} {line}")
+
+    right = ["HARD RULES",
+             " RB floor 2by4 / 3by8 / 5by12",
+             f" QB2 R{rule['qb2_earliest_round']}-{rule['hard_floor_round']} ONLY | "
+             f"QB3 R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]}, 3rd bye",
+             " ONE TE EVER - FLEX excludes TE",
+             f" {cap['team']} max {cap['max_starters']} starters | K,DST R16-17",
+             f" RUN: {rule['run_trigger']['qbs']} QBs in {rule['run_trigger']['window_picks']} "
+             "picks -> QB2 NEXT PICK",
+             ""]
+    trig = _qb_triggers(rule)
+    right.append("QBs GONE - tick every QB, anyone's")
+    right.append(" " + "".join(f"{n}{'!' if n in trig else '.'} " for n in range(1, 13)))
+    right.append(" " + "".join(f"{n}{'!' if n in trig else '.'} " for n in range(13, 25)))
+    for r, g, a in sorted(_qb_trigger_rows(rule)):
+        right.append(f" {g} gone by R{r} -> {a}")
+    right += ["", "BYES USED - CAP 2 PER WEEK"]
+    for w in sorted(b):
+        note = ""
+        if w == 14:
+            note = " SEEDING"
+        elif w == 13:
+            note = " +DEADLINE"
+        elif len(b[w]) >= 6:
+            note = " SIX-TEAM"
+        right.append(f" W{w:<2}[_][_] {','.join(b[w])}{note}")
+    right += ["", "QB1 BRANCH MAP - board decides, not slot"]
+    for x in load("commitments")["branch_map"]:
+        fires = " ".join(str(x["fires"]).split()).split(" (")[0]
+        plan = ",".join(p.strip().split(" (")[0].replace("if under 2 held else", "or")
+                        for p in str(x["map"]).split("|")[:4])
+        right.append(f" {x['id']} {fires}")
+        right.append(f"   {plan}")
+    right += ["", "QB TIERS - triangulate 3 byes"]
+    right.append(" E6  " + _qb_row(qb["elite"]["who"][:3]))
+    right.append("     " + _qb_row(qb["elite"]["who"][3:]))
+    right.append(" R3  " + _qb_row(qb["tier2_qb1"]["who"][:2]))
+    right.append("     " + _qb_row(qb["tier2_qb1"]["who"][2:]))
+    right.append(" QB2 " + _qb_row(qb["qb2_window"]["who"][:3], sep=" > "))
+    right.append("     " + _qb_row(qb["qb2_window"]["who"][3:], sep=" > "))
+    right.append(" QB3 " + _qb_row(qb["qb3_vets"]["who"][:2]))
+    right.append("     " + _qb_row(qb["qb3_vets"]["who"][2:])
+                 + " fb:" + _abbr(qb["qb3_vets"]["fallback"]["player"]))
+    right.append(" NEVER " + _qb_row(qb["never"]) + " W14 bye")
+
+    room_right = 119 - width_left - 2
+    right = [r if len(r) <= room_right else r[:room_right - 2] + ".." for r in right]
+    out = [f"FF2026 DRAFT SHEET - SLOT {slot} ({label})   picks "
+           + ",".join(str(p) for p in pk[:6]) + ",...", "=" * 119]
+    for i in range(max(len(left), len(right))):
+        l = left[i] if i < len(left) else ""
+        rr = right[i] if i < len(right) else ""
+        out.append(f"{l:<{width_left}}| {rr}".rstrip())
+    out.append("=" * 119)
+    worst = max(b.items(), key=lambda kv: len(kv[1]))
+    season = load("league")["season"]
+    last = max(as_range(season["regular_weeks"]))
+    foot = [
+        "STARS (verify in camp): "
+        + "; ".join(f"{s['pos']} {s['player']} ({s['team']},W{bye_of(s['team'])})"
+                    for s in load("lessons")["stars"]),
+        f"DANGER: W{last} SEEDING WEEK {','.join(b.get(last, []))} - never 2+, never a QB "
+        f"| W{cap['bye']} {cap['team']} bye + TRADE DEADLINE inside it | W{worst[0]} six-team bye "
+        "| QB1/QB2/QB3 = 3 DIFFERENT byes",
+        "FADE: " + "; ".join(p["player"].split(" (")[0] for p in load("rb_board")["fades"]),
+        "K: mandatory starter, top-3 at R16-17, never earlier, no backup "
+        "| QB4: in-season churn only, FIRST DROP when RB/WR attrition bites",
+        "TIEBREAK: correlate - take the QB whose WR1 you own "
+        "| TIER GAP: last Tier-2 arm with only Tier 3 behind = take him a round early",
+    ]
+    for line in foot:
+        while len(line) > 119:
+            cut = line.rfind(" ", 0, 119)
+            out.append(line[:cut])
+            line = "   " + line[cut + 1:]
+        out.append(line)
+    return "\n".join(out)
+
+
 def sheet(slot: int) -> str:
     """Self-sufficient printable draft script for a slot's branch.
 

@@ -52,6 +52,8 @@ def main(argv=None) -> int:
     s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
     s.add_argument("--slot", type=int, default=None)
     s.add_argument("--all", action="store_true", help="write every branch to build/sheet_*.txt")
+    s.add_argument("--format", choices=["twocol", "long"], default="twocol",
+                   help="twocol: one landscape page (default). long: the full prose script.")
 
     g = sub.add_parser("grade", help="score a drafted roster against the plan's commitments")
     g.add_argument("file", help="picks file: one 'ROUND POS TEAM Player Name' per line")
@@ -105,6 +107,8 @@ def main(argv=None) -> int:
         print(draft_screen(slot, a.round, a.gone))
 
     elif a.cmd == "sheet":
+        from .draft import sheet_twocol
+        render = sheet if a.format == "long" else sheet_twocol
         if a.all:
             from .config import ROOT
             from .draft import tree as _tree
@@ -116,15 +120,16 @@ def main(argv=None) -> int:
                 if label in done:
                     continue
                 done.add(label)
-                path = outdir / f"sheet_{label}.txt"
-                path.write_text(sheet(slot) + "\n", encoding="utf-8")
+                suffix = "" if a.format == "twocol" else f"_{a.format}"
+                path = outdir / f"sheet_{label}{suffix}.txt"
+                path.write_text(render(slot) + "\n", encoding="utf-8")
                 print(f"wrote: {path}")
         else:
             slot = a.slot or league()["draft"].get("slot")
             if not slot:
                 print("No slot set. Pass --slot N, --all, or set draft.slot in data/league.yaml.")
                 return 1
-            print(sheet(slot))
+            print(render(slot))
 
     elif a.cmd == "grade":
         slot = a.slot or league()["draft"].get("slot")

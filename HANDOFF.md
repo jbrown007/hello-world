@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 35/35 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 37/37 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -27,6 +27,13 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 - **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|grade|bye|weekly`.
   `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
   is the live one-screen pick view; `ff grade` scores a finished draft.
+- **Sheet format (chosen 8/4)**: `ff sheet` defaults to `--format twocol` -
+  ONE landscape page (55 lines, 119 cols): round script left, permanent
+  reference right. The right column carries the bye weeks **with their team
+  lists** beside the QB trigger table, because five mocks kept stacking 4-5
+  byes in a week and a grid of empty boxes never stopped it. `--format long`
+  still prints the original prose script. Two checks guard the compression:
+  no rule/tier/bye-list may vanish, and it must stay inside one page.
 
 ## 2. The strategy, as it now stands
 

@@ -442,6 +442,60 @@ def _():
     return "6 elite arms, all teams resolve, windows match qb_rule, tiers on the sheet"
 
 
+@check("two-column sheet fits one page and drops no rule")
+def _():
+    """The printable sheet chosen 8/4. Compression is where lessons die, so
+    every hard rule, tally, tier and danger week must survive it - and it must
+    stay inside one landscape page (119 cols, <=60 lines) for every branch."""
+    import re
+    from ffcli.draft import sheet_twocol, tree, picks_for_slot
+    from ffcli.config import league, load, byes
+    teams = league()["teams"]
+    seen = set()
+    for slot in range(1, teams + 1):
+        label = tree(slot)["label"]
+        if label in seen:
+            continue
+        seen.add(label)
+        text = sheet_twocol(slot)
+        lines = text.splitlines()
+        assert len(lines) <= 60, f"{label}: {len(lines)} lines - past one page"
+        wide = [l for l in lines if len(l) > 119]
+        assert not wide, f"{label}: {len(wide)} lines wider than 119 cols"
+        for token in ("HARD RULES", "ONE TE EVER", "QBs GONE", "BYES USED - CAP 2",
+                      "QB1 BRANCH MAP", "QB TIERS", "NEVER", "STARS", "DANGER",
+                      "FADE", "TIEBREAK", "TIER GAP", "GATE", "RUN:", "QB4", "K:"):
+            assert token in text, f"{label}: two-col sheet lost {token}"
+        # every bye week must show its teams, not just empty boxes
+        for w, tms in byes().items():
+            assert re.search(rf"W{w}\s*\[_\]\[_\] {re.escape(tms[0])}", text), \
+                f"{label}: bye week W{w} missing its team list"
+        # the QB tier names have to physically reach the page
+        for p in load("qb_board")["elite"]["who"] + load("qb_board")["qb2_window"]["who"]:
+            assert p["player"].split()[-1] in text, f"{label}: sheet lost {p['player']}"
+        # slot-specific pick numbers, so the sheet is usable at the table
+        assert str(picks_for_slot(slot)[0]) in text, f"{label}: no pick numbers"
+    return f"{len(seen)} branches, <=60 lines, 119 cols, all rules + byes + tiers survive"
+
+
+@check("snake pick numbers are right at both ends of the board")
+def _():
+    """picks_for_slot drives the sheet's pick column. Slot 1 and slot N are
+    where an off-by-one shows up, and a wrong pick number at the table is
+    worse than none."""
+    from ffcli.draft import picks_for_slot
+    from ffcli.config import league
+    teams = league()["teams"]
+    assert picks_for_slot(1)[:4] == [1, 24, 25, 48], picks_for_slot(1)[:4]
+    assert picks_for_slot(teams)[:4] == [teams, teams + 1, 3 * teams, 3 * teams + 1], \
+        picks_for_slot(teams)[:4]
+    for slot in range(1, teams + 1):
+        pk = picks_for_slot(slot)
+        assert len(pk) == 17 and pk == sorted(pk), f"slot {slot}: picks not ascending"
+        assert all(1 <= p <= 17 * teams for p in pk), f"slot {slot}: pick out of range"
+    return f"slots 1-{teams} produce 17 ascending picks each"
+
+
 @check("draft sheet is self-sufficient for a live draft")
 def _():
     """Regression from the 7/25 mock: the sheet must work with no back-and-forth.
