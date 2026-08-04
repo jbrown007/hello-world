@@ -172,7 +172,7 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
         out.append("\nBOARD names listed for this round:")
         out.append("\n".join(board_lines))
 
-    for cap in load("stack_caps"):
+    for cap in named_caps():
         if cap["team"] in cap_teams:
             out.append(f"\nCAP   {cap['team']} max {cap['max_starters']} starters (bye W{cap['bye']}). "
                        "Count before this pick - the Dec 4 deadline sits inside W13, no trading out later.")
@@ -302,12 +302,34 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     out.append(f"\nSCORE {hits}/{graded} commitments hit"
                + (f" ({obs_n} QB items observation-only, 1-QB room)" if obs_n else ""))
 
-    for cap in load("stack_caps"):
-        n_cap = sum(1 for p in picks if p["team"] == cap["team"])
-        verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
-        out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs cap {cap['max_starters']} - {verdict}")
-
     from .config import bye_of
+
+    counts = team_counts(picks)
+    named = {c["team"]: c for c in named_caps()}
+    for cap in named_caps():
+        n_cap = counts.get(cap["team"], 0)
+        verdict = "BREACH - over the cap" if n_cap > cap["max_starters"] else "ok"
+        out.append(f"STACK CAP {cap['team']} (bye W{cap['bye']}): {n_cap} drafted vs "
+                   f"cap {cap['max_starters']} - {verdict}")
+
+    # General concentration rule (8/4). Named caps already reported above are
+    # skipped so a Colts breach is not billed twice.
+    flag_at = general_cap().get("flag_at", 3)
+    stacked = sorted(((t, n) for t, n in counts.items() if n >= flag_at and t not in named),
+                     key=lambda kv: (-kv[1], kv[0]))
+    if stacked:
+        for t, n in stacked:
+            who = [p["player"] for p in picks if p["team"] == t]
+            wk = bye_of(t)
+            out.append(f"TEAM CONCENTRATION {t}: {n} players (flag at {flag_at}) - "
+                       f"{', '.join(who)} - all out W{wk}" if wk else
+                       f"TEAM CONCENTRATION {t}: {n} players (flag at {flag_at}) - {', '.join(who)}")
+        out.append(f"  Deliberate correlation is a strategy; an accidental {flag_at}rd body is not. "
+                   "Weekly payouts cut both ways.")
+    top = max(counts.values()) if counts else 0
+    spread = sum(1 for n in counts.values() if n >= flag_at)
+    out.append(f"TEAM SPREAD: {len(counts)} clubs across {len(picks)} picks, "
+               f"most from one club {top}, {spread} club(s) at {flag_at}+")
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
         if p["pos"] == "QB" and bye_of(p["team"]):
@@ -378,7 +400,7 @@ def _bye_danger_lines() -> list[str]:
     for w in sorted(b):
         if any(st <= w <= season["playoff_end"] for st in as_range(season["playoff_start"])):
             out.append(f"W{w} PLAYOFF week: {', '.join(b[w])} dark in a playoff game")
-    for cap in load("stack_caps"):
+    for cap in named_caps():
         out.append(f"W{cap['bye']} stack cap: {cap['team']} max {cap['max_starters']} - "
                    f"{' '.join(str(cap['resolved_note']).split())}")
     out.append("QB BYE TRIANGULATION: QB1, QB2, QB3 must hold three DIFFERENT bye weeks.")
@@ -393,6 +415,25 @@ def _qb_trigger_rows(rule: dict) -> list[tuple[int, int, str]]:
 
 def _qb_triggers(rule: dict) -> set[int]:
     return {gone for _, gone, _ in _qb_trigger_rows(rule)}
+
+
+def named_caps() -> list[dict]:
+    """Hard team-specific caps. Tolerates the pre-8/4 bare-list file shape."""
+    data = load("stack_caps")
+    return data["named"] if isinstance(data, dict) else data
+
+
+def general_cap() -> dict:
+    """The catch-all 'N from one club' rule. Defaults to 3 on the old shape."""
+    data = load("stack_caps")
+    return data.get("general", {"flag_at": 3}) if isinstance(data, dict) else {"flag_at": 3}
+
+
+def team_counts(picks: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for p in picks:
+        counts[p["team"]] = counts.get(p["team"], 0) + 1
+    return counts
 
 
 def picks_for_slot(slot: int) -> list[int]:
@@ -450,7 +491,7 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
     br = tree(slot)
     label = br["label"]
     commits = commitments_for(label)
-    rule, qb, cap = load("qb_rule"), load("qb_board"), load("stack_caps")[0]
+    rule, qb, cap = load("qb_rule"), load("qb_board"), named_caps()[0]
     rb_gates = {g["by_end_of_round"]: g for g in load("rb_rule")["rb_floor"]}
     pk = picks_for_slot(slot)
     b = byes()
@@ -499,6 +540,10 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
         elif len(b[w]) >= 6:
             note = " SIX-TEAM"
         right.append(f" W{w:<2}[_][_] {','.join(b[w])}{note}")
+    gen = general_cap()
+    n_flag = gen.get("flag_at", 3)
+    right += ["", f"TEAMS - {n_flag}+ from one club = FLAG (1 bye, 1 offense)",
+              f" {cap['team']}[_][_] HARD cap {cap['max_starters']}   others: ______ ______"]
     right += ["", "QB1 BRANCH MAP - board decides, not slot"]
     for x in load("commitments")["branch_map"]:
         fires = " ".join(str(x["fires"]).split()).split(" (")[0]
@@ -562,7 +607,7 @@ def sheet(slot: int) -> str:
     from .config import byes
     br = tree(slot)
     label = br["label"]
-    cap = load("stack_caps")[0]
+    cap = named_caps()[0]
     rule = load("qb_rule")
     commits = commitments_for(label)
     ok, plan = satisfiable(commits)

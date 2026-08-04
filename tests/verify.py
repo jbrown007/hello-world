@@ -281,7 +281,8 @@ def _():
         assert p["player"] in rb, f"RB Board tab missing {p['player']}"
     assert "provenance" in rb.lower(), "RB Board missing provenance warning (synthesized data)"
     for sheet in ("WR Board", "TE Board"):
-        for cap in load("stack_caps"):
+        from ffcli.draft import named_caps
+        for cap in named_caps():
             assert f"max {cap['max_starters']} starters" in text(sheet), f"{sheet} missing stack cap"
     n_rb = len(load("rb_board")["targets"]) + len(load("rb_board")["fades"])
     return f"{n_rb} RBs, {len(load('wr_board')['value_board'])} WRs, {len(load('te_board')['paths'])} TE paths"
@@ -402,16 +403,50 @@ def _():
     carry a pointer and must NOT carry their own copy - that duplication is
     how audit 2c's drift happened."""
     from ffcli.config import load
-    caps = load("stack_caps")
-    assert caps and isinstance(caps, list), "stack_caps.yaml empty"
+    from ffcli.draft import named_caps, general_cap
+    caps = named_caps()
+    assert caps, "stack_caps.yaml has no named caps"
     for cap in caps:
         for k in ("team", "bye", "max_starters", "severity", "resolved_note"):
             assert k in cap, f"cap {cap.get('team')} missing {k}"
+    gen = general_cap()
+    assert isinstance(gen.get("flag_at"), int) and gen["flag_at"] >= 2, \
+        "general cap needs an integer flag_at of 2 or more"
+    assert gen.get("why"), "general cap has no rationale"
+    for cap in caps:
+        assert cap["max_starters"] < gen["flag_at"], \
+            f"named cap {cap['team']} ({cap['max_starters']}) is not tighter than the " \
+            f"general flag ({gen['flag_at']}) - the named cap would be pointless"
     for board in ("wr_board", "te_board"):
         b = load(board)
         assert "stack_cap" not in b, f"{board} still carries an inline stack_cap"
         assert "stack_cap_ref" in b, f"{board} missing the stack_caps pointer"
-    return f"{len(caps)} cap(s) central, both boards point"
+    return f"{len(caps)} named cap(s) + general flag at {gen['flag_at']}, both boards point"
+
+
+@check("grade flags any club at the general stack threshold")
+def _():
+    """8/4: the IND cap covered Indianapolis and nothing else, so a mock with
+    three Bears (all W10) passed clean. Any club reaching flag_at must be
+    named in the grade, with its bye, and a named cap must not double-report."""
+    from ffcli.draft import grade, general_cap, team_counts
+    flag = general_cap()["flag_at"]
+    stack = [{"round": i + 1, "pos": "WR", "team": "CHI", "player": f"Bear{i}"} for i in range(flag)]
+    text = grade(stack, "LATE")
+    assert "TEAM CONCENTRATION CHI" in text, f"a {flag}-Bear roster did not flag"
+    assert f"all out W{__import__('ffcli.config', fromlist=['x']).bye_of('CHI')}" in text, \
+        "concentration flag omits the shared bye week"
+    assert "TEAM SPREAD" in text, "grade lost the spread summary"
+    # one under the threshold stays quiet
+    quiet = grade(stack[:-1], "LATE")
+    assert "TEAM CONCENTRATION" not in quiet, f"{flag - 1} players should not flag"
+    # a named cap reports once, as a cap - not also as a concentration
+    colts = [{"round": i + 1, "pos": "WR", "team": "IND", "player": f"Colt{i}"} for i in range(flag)]
+    ctext = grade(colts, "LATE")
+    assert "BREACH" in ctext, "over-cap IND did not breach"
+    assert "TEAM CONCENTRATION IND" not in ctext, "IND double-reported as cap AND concentration"
+    assert team_counts(colts)["IND"] == flag
+    return f"flags at {flag}, quiet at {flag - 1}, named caps report once"
 
 
 @check("qb_board is coherent: six elite arms, real teams, windows match the rule")

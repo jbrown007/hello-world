@@ -126,9 +126,16 @@ def _watchlist(ws, rows):
 def _stack_cap(ws, r, board):
     # Caps live in data/stack_caps.yaml (single source); boards carry a pointer.
     _cell(ws, r, 2, "STACK CAP", bold=True, size=12)
-    for cap in _load("stack_caps"):
+    _caps = _load("stack_caps")
+    _named = _caps["named"] if isinstance(_caps, dict) else _caps
+    _gen = _caps.get("general", {}) if isinstance(_caps, dict) else {}
+    for cap in _named:
         _cell(ws, r + 1, 2, f"{cap['team']} - bye W{cap['bye']}, max {cap['max_starters']} starters")
         _cell(ws, r + 1, 3, f"{cap['why']} {cap.get('resolved_note', '')}", fill=TIER_FILL["Tier 1"])
+        r += 1
+    if _gen:
+        _cell(ws, r + 1, 2, f"ANY team: {_gen.get('flag_at', 3)}+ players = FLAG")
+        _cell(ws, r + 1, 3, " ".join(str(_gen.get("why", "")).split()))
         r += 1
     _cell(ws, r + 1, 3, board.get("stack_cap_ref", ""))
     return r + 3

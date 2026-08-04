@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 37/37 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 38/38 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -59,7 +59,13 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   released, backfill TE R7-8. Never two TEs.
 - **Fixed windows**: Warren R4-5, Downs R7 (+15 target-rank/ADP gap, the
   board's best documented mispricing), K/DST R16-17 only.
-- **Stack cap (data/stack_caps.yaml, single source)**: max 2 IND starters.
+- **Stack caps (data/stack_caps.yaml, single source)**: two kinds. The
+  GENERAL rule (added 8/4) flags **any club at 3+ players** - `ff grade`
+  names them with their shared bye, and the sheet carries a team strip.
+  Added after a slot-10 mock drafted three Bears (all W10) and only
+  Indianapolis had a rule. Three is a flag, not a ban: deliberate
+  correlation is strategy, an accidental third body is not. NAMED cap:
+  max 2 IND starters.
   W13 (IND bye) is the penultimate seeding-stretch week AND holds the Dec 4
   deadline - Colts exposure cannot be traded away. Enforce at the draft.
 - **Bye danger (auto-computed on the sheets)**: W14 is the SEEDING WEEK with

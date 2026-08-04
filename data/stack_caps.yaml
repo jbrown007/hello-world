@@ -1,6 +1,25 @@
 # Stack caps - single source of truth. The WR and TE boards point here
 # instead of carrying their own copies (the audit's 2c drift, fixed at the
 # root). Read by ff draft, ff sheet, ff grade, and the workbook.
+#
+# Two kinds of cap. NAMED caps are hard, team-specific, and exist for a
+# reason tied to that team's own bye. The GENERAL rule is the catch-all
+# added 8/4, after a mock drafted three Bears (all bye W10) and nothing
+# flagged it - the IND cap covered Indianapolis and only Indianapolis.
+general:
+  flag_at: 3
+  why: >
+    Three players from one club is one bye week, one offense and one bad
+    Sunday. In a weekly high-score payout league the correlation cuts both
+    ways: a stack wins you a week and loses you the ones it sits out. Three
+    is a FLAG, not a ban - deliberate correlation is a real strategy, an
+    accidental third body is not. Count before every pick after R8, which is
+    where the depth rounds quietly pile them up.
+  learned: >
+    8/4 slot-10 mock: Caleb Williams + Rome Odunze + Luther Burden, all CHI,
+    all bye W10 - a three-player hole in a payout week, with no rule to catch
+    it. That same draft put seven of seventeen picks on three clubs.
+named:
 - team: IND
   bye: 13
   max_starters: 2
