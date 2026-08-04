@@ -424,6 +424,62 @@ def _():
     return f"{len(caps)} named cap(s) + general flag at {gen['flag_at']}, both boards point"
 
 
+@check("grade enforces the 17-spot roster ledger")
+def _():
+    """Commitments police WHEN a pick lands; nothing policed WHAT the roster
+    became, so two slot-4 mocks drafted a TE2 - unstartable here, FLEX excludes
+    TE and OP is QB2's - and graded clean. The ledger must sum to the roster
+    and a second TE must be called out by name."""
+    from ffcli.draft import grade, ledger_report
+    from ffcli.config import load, league
+    want = load("commitments")["ledger"]
+    assert sum(want.values()) == league()["roster_size"], \
+        f"ledger sums to {sum(want.values())}, roster is {league()['roster_size']}"
+    assert want["TE"] == 1, "ledger must hold exactly one TE - FLEX excludes TE, OP is QB2's"
+    good = ([{"round": 1, "pos": p, "team": "KC", "player": f"{p}{i}"}
+             for p, n in want.items() for i in range(n)])
+    assert "ledger met" in ledger_report(good), "a ledger-perfect roster did not pass"
+    # swap a WR for a second TE: must flag BOTH the over and the short
+    bad = [dict(p) for p in good]
+    next(p for p in bad if p["pos"] == "WR")["pos"] = "TE"
+    rep = ledger_report(bad)
+    assert "LEDGER OVER TE: 2 vs 1" in rep, f"TE2 not flagged: {rep}"
+    assert "LEDGER SHORT WR: 4 vs 5" in rep, f"WR shortfall not flagged: {rep}"
+    assert "can never score" in rep, "TE2 flagged without the reason"
+    assert "ROSTER LEDGER" in grade(bad, "EARLY"), "grade does not print the ledger"
+    return f"ledger {sum(want.values())} spots, TE2 + WR shortfall both caught"
+
+
+@check("mock log aggregates into a pattern report")
+def _():
+    """Josh is repping all 12 slots before Sept 7. The log has to answer which
+    slots remain, which errors repeat, and whether a fix held - not just store
+    rows. Every logged error must be a real recurring-error key."""
+    from ffcli.draft import mocks_report
+    from ffcli.config import load, league
+    rows = load("mocks")
+    assert rows, "mocks.yaml empty"
+    teams = league()["teams"]
+    for i, m in enumerate(rows, start=1):
+        for k in ("date", "slot", "format", "notes", "errors"):
+            assert k in m, f"mock row {i} missing {k}"
+        assert 1 <= m["slot"] <= teams, f"row {i}: slot {m['slot']} outside 1-{teams}"
+        assert isinstance(m["errors"], list), f"row {i}: errors must be a list"
+        if m.get("score") is not None:
+            assert 0 <= m["score"] <= m["of"], f"row {i}: score {m['score']}/{m['of']}"
+    text = mocks_report()
+    for token in ("SLOT COVERAGE", "SCORES", "RECURRING ERRORS"):
+        assert token in text, f"mocks report missing {token}"
+    done = {m["slot"] for m in rows}
+    missing = [s for s in range(1, teams + 1) if s not in done]
+    if missing:
+        assert "STILL TO DO" in text, "unrepped slots not surfaced"
+        assert str(missing[0]) in text.split("STILL TO DO")[1], "missing slot not listed"
+    else:
+        assert "ALL SLOTS REPPED" in text
+    return f"{len(rows)} reps, {len(done)}/{teams} slots, report renders"
+
+
 @check("grade flags any club at the general stack threshold")
 def _():
     """8/4: the IND cap covered Indianapolis and nothing else, so a mock with

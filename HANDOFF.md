@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 38/38 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 40/40 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -22,9 +22,9 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   deadline (inside Week 13), rolling waivers Tuesday night, weekly high-score
   payouts W1-12. Unverified but non-blocking: playoff team count (likely 6);
   FLEX exclusion read from a screenshot - confirm in settings text.
-- **Watchlist: 23 rows, 15 Resolved / 8 Trending / 0 Unsettled** as of the
-  8/2 camp watch.
-- **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|grade|bye|weekly`.
+- **Watchlist: 23 rows, 16 Resolved / 7 Trending / 0 Unsettled** as of the
+  8/4 camp watch (Dolphins QB resolved: Willis named).
+- **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
   `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
   is the live one-screen pick view; `ff grade` scores a finished draft.
 - **Sheet format (chosen 8/4)**: `ff sheet` defaults to `--format twocol` -
@@ -77,7 +77,22 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   8/2, on the R5-6 QB2 candidate list with Cam Ward - he went QB13/pick 70
   in this room in 2025).
 
-## 3. What the two mocks taught
+## 3. What the mocks taught
+
+**`ff mocks` is the live answer** - data/mocks.yaml logs every rep and the
+report aggregates them: slot coverage (Josh is repping all 12 before the
+Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
+three drafts vs fixed. Read it before writing new strategy; the per-rep
+detail below is history.
+
+As of 8/4: 9 reps, 6/12 slots done (1, 2, 3, 6, 8, 11 remain), scores
+6->6->9->5->8->7->9->8 (first four avg 6.5, last four 8.0). Fixed and
+holding: RB floor, no-QB3, IND breach. Still live: **Downs's R7 window
+missed in all 8 superflex reps** (either he falls to R10-14 or the room
+prices him differently - re-read at the Aug 25 ADP pass rather than
+forcing R7), bye stacking, and the QB2 window from the early side.
+
+### The original two, for the record
 
 - **Mock 1 (slot 5, 1-QB room, 7/25)**: structure held, but drafted a
   4-starter W14 bye stack with the co-pilot watching. Lessons: live
@@ -103,10 +118,9 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   as UNCONFIRMED with date + source. Only edit data/watchlist.yaml. Branch
   `claude/camp-watch` from origin/master, run the suite (must stay green),
   push, PR titled "Camp watch: watchlist updates" - **never self-merge**.
-  Scheduled automation is still blocked on an MCP permission
-  (claude-code-remote create_trigger/send_later return "requires approval");
-  if that gets fixed, arm a daily 7am ET fresh-session Routine with the
-  same procedure.
+  **Automation is LIVE as of 8/3**: Routine `trig_017jrg9AUhwiB4dJM9YNVG5F`
+  ("ff2026 daily camp watch") fires a fresh session daily at 7am ET with this
+  procedure, push notification on completion. Quiet exit when nothing moved.
 - **Repo flow**: work on `claude/setup-github-wsl-5uucrx` restarted from
   origin/master after each merge. PRs only when Josh asks; Josh says
   "merge". Commit style: what + why, mutation-test note.

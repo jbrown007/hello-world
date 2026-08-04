@@ -1,3 +1,26 @@
+# The finished roster, as counts. Stated in prose since 8/1 (depth_fill,
+# HANDOFF) but never checked - so the 8/3 and 8/4 slot-4 mocks both drafted a
+# TE2 (Freiermuth, then Sadiq) that ate WR5 and graded clean. Now enforced by
+# ff grade. 17 spots, zero slack: every number here is exact.
+ledger:
+  QB: 3
+  RB: 6
+  WR: 5
+  TE: 1
+  K: 1
+  DST: 1
+ledger_notes:
+  TE: >
+    EXACTLY ONE, and this is the hardest rule on the sheet. One TE starting
+    slot, FLEX excludes TE, OP belongs to QB2 - a TE2 can never score a point.
+    He is a bench spot that displaces a WR or RB who can.
+  QB: >
+    Three arms: QB1, QB2 (R5-6), QB3 (R9-13, trade inventory). A fourth is
+    in-season churn only - drafting one breaks the 6RB/5WR floor.
+  RB: >
+    Six, because zero IR plus RB attrition is what actually breaks a season.
+    The floor gates (2 by R4, 3 by R8, 5 by R12) exist to get here.
+
 common:
 - pick: QB1 (Tier 1 arm)
   window:

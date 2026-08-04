@@ -11,7 +11,8 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks, room_report
+from .draft import (qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks,
+                    room_report, mocks_report)
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -54,6 +55,8 @@ def main(argv=None) -> int:
     s.add_argument("--all", action="store_true", help="write every branch to build/sheet_*.txt")
     s.add_argument("--format", choices=["twocol", "long"], default="twocol",
                    help="twocol: one landscape page (default). long: the full prose script.")
+
+    sub.add_parser("mocks", help="pattern report across every logged mock draft")
 
     g = sub.add_parser("grade", help="score a drafted roster against the plan's commitments")
     g.add_argument("file", help="picks file: one 'ROUND POS TEAM Player Name' per line")
@@ -130,6 +133,9 @@ def main(argv=None) -> int:
                 print("No slot set. Pass --slot N, --all, or set draft.slot in data/league.yaml.")
                 return 1
             print(render(slot))
+
+    elif a.cmd == "mocks":
+        print(mocks_report())
 
     elif a.cmd == "grade":
         slot = a.slot or league()["draft"].get("slot")

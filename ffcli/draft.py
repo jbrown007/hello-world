@@ -330,6 +330,8 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     spread = sum(1 for n in counts.values() if n >= flag_at)
     out.append(f"TEAM SPREAD: {len(counts)} clubs across {len(picks)} picks, "
                f"most from one club {top}, {spread} club(s) at {flag_at}+")
+
+    out.append(ledger_report(picks))
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
         if p["pos"] == "QB" and bye_of(p["team"]):
@@ -434,6 +436,87 @@ def team_counts(picks: list[dict]) -> dict[str, int]:
     for p in picks:
         counts[p["team"]] = counts.get(p["team"], 0) + 1
     return counts
+
+
+def ledger_report(picks: list[dict]) -> str:
+    """Check the finished roster against the 17-spot ledger.
+
+    Commitments police WHEN a pick happens; nothing policed WHAT the roster
+    ended up as. Two slot-4 mocks drafted a second TE - who cannot score in
+    this league, FLEX excludes TE and OP is QB2's - and graded clean because
+    every commitment still landed in its window.
+    """
+    want = load("commitments")["ledger"]
+    got: dict[str, int] = {}
+    for p in picks:
+        got[p["pos"]] = got.get(p["pos"], 0) + 1
+    bits, bad = [], []
+    for pos, n in want.items():
+        have = got.get(pos, 0)
+        mark = "ok" if have == n else ("OVER" if have > n else "SHORT")
+        bits.append(f"{pos} {have}/{n}{'' if mark == 'ok' else ' ' + mark}")
+        if have != n:
+            bad.append((pos, have, n))
+    extra = sorted(set(got) - set(want))
+    line = "ROSTER LEDGER: " + ", ".join(bits) + (f" | unknown pos: {','.join(extra)}" if extra else "")
+    if not bad:
+        return line + " - ledger met"
+    notes = load("commitments").get("ledger_notes", {})
+    for pos, have, n in bad:
+        why = " ".join(str(notes.get(pos, "")).split())
+        head = f"  LEDGER {'OVER' if have > n else 'SHORT'} {pos}: {have} vs {n}"
+        line += "\n" + (f"{head} - {why}" if why else head)
+    return line
+
+
+def mocks_report() -> str:
+    """Aggregate every logged mock into a pattern report.
+
+    A single grade says whether one draft went well. The point of repping all
+    12 slots is the pattern ACROSS drafts: which rule keeps breaking, whether
+    the last fix held, and which slots are still unpracticed on draft morning.
+    """
+    from .config import league
+    rows = load("mocks")
+    teams = league()["teams"]
+    sf = [m for m in rows if m.get("format") == "superflex" and m.get("score") is not None]
+
+    out = [f"MOCK LOG - {len(rows)} reps, {len(sf)} graded superflex", ""]
+
+    done = {m["slot"] for m in rows}
+    missing = [s for s in range(1, teams + 1) if s not in done]
+    cover = " ".join(f"{s}{'x' if s in done else '.'}" for s in range(1, teams + 1))
+    out.append(f"SLOT COVERAGE  {cover}")
+    out.append(f"  {len(done)}/{teams} slots repped"
+               + (f" | STILL TO DO: {', '.join(map(str, missing))}" if missing else " | ALL SLOTS REPPED"))
+    out.append("")
+
+    out.append("SCORES (superflex, in order)")
+    line = "  " + " -> ".join(f"{m['score']}/{m['of']}" for m in sf)
+    out.append(line)
+    if len(sf) >= 4:
+        half = len(sf) // 2
+        early = sum(m["score"] for m in sf[:half]) / half
+        late = sum(m["score"] for m in sf[half:]) / (len(sf) - half)
+        out.append(f"  first {half}: {early:.1f} avg | last {len(sf) - half}: {late:.1f} avg "
+                   f"({'improving' if late > early else 'flat or slipping'})")
+    out.append("")
+
+    tally: dict[str, list[str]] = {}
+    for m in rows:
+        for e in m.get("errors", []):
+            tally.setdefault(e, []).append(f"s{m['slot']}")
+    out.append("RECURRING ERRORS (most repeated first)")
+    for err, where in sorted(tally.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        recent = [m for m in rows[-3:] if err in m.get("errors", [])]
+        flag = "  <-- STILL LIVE in the last 3" if recent else ""
+        out.append(f"  {len(where):>2}x {err:<18} {' '.join(where)}{flag}")
+    out.append("")
+
+    fixed = [e for e, w in tally.items() if not any(e in m.get("errors", []) for m in rows[-3:])]
+    if fixed:
+        out.append("FIXED - not seen in the last 3 reps: " + ", ".join(sorted(fixed)))
+    return "\n".join(out)
 
 
 def picks_for_slot(slot: int) -> list[int]:

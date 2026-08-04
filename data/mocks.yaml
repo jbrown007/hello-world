@@ -1,0 +1,100 @@
+# Mock draft log. Every rep, in order. `ff mocks` aggregates this into the
+# pattern report - which commitments fail repeatedly, which slots are still
+# unpracticed, and whether a fix held.
+#
+# Josh is repping all 12 slots before the Sept 7 draft (slot revealed that
+# morning). The point is not the individual score: it is which rule breaks
+# and whether the last fix survived contact.
+#
+# Add a row per mock: date, slot, format, score/graded, then the flags the
+# grade printed. picks_file is the scratchpad path when kept.
+- date: '2026-07-25'
+  slot: 5
+  format: 1QB
+  score: null
+  of: null
+  notes: >
+    Mock 1. Structure held but drafted a 4-starter W14 bye stack with the
+    co-pilot watching. Lessons: the sheets became self-sufficient; duplicate
+    teams must count separately in the bye audit.
+  errors: [bye_stack_w14]
+- date: '2026-08-02'
+  slot: 4
+  format: superflex
+  score: 6
+  of: 11
+  notes: >
+    Mock 2. RB floor discipline FIXED. New failure layer: QB/TE windows -
+    R6-tier arms bought at R2/R4, no WR by R4, no TE in window then TWO TEs,
+    board fade in Downs's R7 window, no QB3 with QB1's bye on W14.
+  errors: [qb2_early, te2, no_qb3, downs_missed, wr_late]
+- date: '2026-08-03'
+  slot: 7
+  format: superflex
+  score: 6
+  of: 11
+  notes: >
+    Shough R4 (outside window, fails named-starter test), never took QB3 -
+    finished with 2 QBs in a superflex league. Three triple-bye weeks.
+  errors: [qb2_early, no_qb3, downs_missed, wr_late, bye_stack]
+- date: '2026-08-03'
+  slot: 4
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    ESPN graded it an A; the framework found a BREACH. Best structure to
+    date at the time, but 3 Colts (untradeable before the W13 deadline),
+    3 Steelers on W9, and a TE2 that ate RB6.
+  errors: [qb2_late, downs_missed, ind_breach, te2, bye_stack]
+- date: '2026-08-03'
+  slot: 10
+  format: superflex
+  score: 5
+  of: 11
+  notes: >
+    Bowers R3 - the TE board's rejected "pay up" path - collided with the RB
+    window exactly as predicted: RB2 at R5, WR1 at R8. Herbert R4 + Love R7
+    overcorrected the QB timing. FIVE players on the W13 bye.
+  errors: [qb2_early, qb3_early, downs_missed, wr_late, bye_stack, rb_floor]
+- date: '2026-08-03'
+  slot: 12
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    First clean R1-R6 scaffold - all six opening commitments plus Warren at
+    the turn. QB2 window HIT for the first time (Murray R6, asterisk: not a
+    named starter yet). Remaining misses were one-round timing errors.
+  errors: [qb3_early, downs_missed, rb_flex_late, bye_stack]
+- date: '2026-08-03'
+  slot: 9
+  format: superflex
+  score: 7
+  of: 11
+  notes: >
+    QB2 window held a second time (Love R6) but broke TRIANGULATION - Maye
+    and Love both W11, in the six-team bye week. R2/R3/R4 all RBs left zero
+    WRs through six rounds; the RB floor is a floor, not a target.
+  errors: [triangulation, wr_late, qb3_early, downs_missed, bye_stack]
+- date: '2026-08-04'
+  slot: 10
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    First rep with the two-column sheet. Best clean draft: no cap breach, no
+    triangulation fail, Ward R6 as QB2 and Geno R9 as QB3 - correct market
+    price at all three QB slots for the first time. Three Bears (all W10)
+    passed silently, which is why the general stack flag was added.
+  errors: [downs_missed, rb_flex_late, team_stack_chi]
+- date: '2026-08-04'
+  slot: 4
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    Mayfield R4 is outside the QB2 window again. TE2 (Sadiq R14) for the
+    second time at this slot - it ate WR5, leaving 4 WR against a floor of 5.
+    That repeat is what put the roster ledger into ff grade.
+  errors: [qb2_early, te2, downs_missed, wr_short, bye_stack]
