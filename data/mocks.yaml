@@ -98,3 +98,15 @@
     second time at this slot - it ate WR5, leaving 4 WR against a floor of 5.
     That repeat is what put the roster ledger into ff grade.
   errors: [qb2_early, te2, downs_missed, wr_short, bye_stack]
+- date: '2026-08-04'
+  slot: 8
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Best rep to date and the FIRST ledger-perfect roster (3/6/5/1/1/1 exactly).
+    Every commitment hit but Downs. QB room bought at market for the second
+    straight rep: Allen R1, Ward R6, Geno R9. Depth-round byes are now the
+    only live discipline problem - 3 Texans (W8, and one is the kicker),
+    3 on W5, 4 on W13.
+  errors: [downs_missed, team_stack_hou, bye_stack]
