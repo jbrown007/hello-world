@@ -14,11 +14,13 @@ value_board:
   target_rank: 28
   adp: WR43
   gap: 15
-  round: 7
-  note: 'History check (8/2): in THIS room he went pick 145 (R13, to Griddy) in 2025. The R7 window is
-    deliberately early vs room history - the +15 gap is the 2026 thesis, but if the room still sleeps
-    on him, later value is real. Do not chase him at R7 if the board says he falls; re-read at the Aug
-    25 ADP pass.'
+  round: 7-10
+  note: 'WINDOW WIDENED 8/4 (was a hard R7). Mock evidence settled it: Downs survived past R7 in 9 of 9
+    superflex reps and was actually taken at R10, R11 and R14 - the R7 rule produced nine straight misses
+    and cost a pick that could have been a starter. History agrees: in THIS room he went pick 145 (R13,
+    to Griddy) in 2025. The +15 target-rank/ADP gap is the thesis for his VALUE, not for his price. Take
+    him when he falls; R10 is the deadline; never reach at R7 over a live commitment. Re-price at the
+    Aug 25 ADP pass - if his ADP has climbed into the R7-8 range by then, tighten the window back.'
 - player: Michael Wilson
   team: ARI
   target_rank: 32

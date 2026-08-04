@@ -57,8 +57,15 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 - **TE is one-and-done**: FLEX excludes TE and OP belongs to QB2, so a TE2
   can never score. Warren R4-5, GATED: below 2 RBs at R5, RB wins, Warren is
   released, backfill TE R7-8. Never two TEs.
-- **Fixed windows**: Warren R4-5, Downs R7 (+15 target-rank/ADP gap, the
-  board's best documented mispricing), K/DST R16-17 only.
+- **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
+  K/DST R16-17 only.
+- **Downs window widened 8/4, the first strategy change driven by the mock
+  log**: a hard R7 produced 9 misses in 9 superflex reps because he was never
+  there - he actually went R10, R11, R14, and this room had him at pick 145
+  in 2025. The +15 target-rank/ADP gap is a thesis about his VALUE, not his
+  price. Take him when he falls, R10 is the deadline, never reach at R7 over
+  a live commitment. Re-price at the Aug 25 ADP pass and tighten back if his
+  ADP has climbed into R7-8.
 - **Stack caps (data/stack_caps.yaml, single source)**: two kinds. The
   GENERAL rule (added 8/4) flags **any club at 3+ players** - `ff grade`
   names them with their shared bye, and the sheet carries a team strip.
@@ -85,12 +92,13 @@ Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
 three drafts vs fixed. Read it before writing new strategy; the per-rep
 detail below is history.
 
-As of 8/4: 9 reps, 6/12 slots done (1, 2, 3, 6, 8, 11 remain), scores
-6->6->9->5->8->7->9->8 (first four avg 6.5, last four 8.0). Fixed and
-holding: RB floor, no-QB3, IND breach. Still live: **Downs's R7 window
-missed in all 8 superflex reps** (either he falls to R10-14 or the room
-prices him differently - re-read at the Aug 25 ADP pass rather than
-forcing R7), bye stacking, and the QB2 window from the early side.
+As of 8/4: 10 reps, 7/12 slots done (1, 2, 3, 6, 11 remain), scores
+6->6->9->5->8->7->9->8->10 (first four avg 6.5, last five 8.4). The slot-8
+rep was the first ledger-perfect roster and regrades to 11/11 under the
+widened Downs window. Fixed and holding: RB floor, no-QB3, IND breach,
+triangulation. **Still live: bye stacking in the depth rounds** - it is now
+the only recurring discipline problem, appearing in 7 of 10 reps, and the
+general stack flag caught 3 Bears and 3 Texans on consecutive days.
 
 ### The original two, for the record
 

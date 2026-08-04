@@ -56,8 +56,15 @@ common:
 - pick: WR Josh Downs
   window:
   - 7
-  - 7
-  source: wr_board - documented +15 target-rank/ADP gap
+  - 10
+  source: >
+    wr_board - documented +15 target-rank/ADP gap. WINDOW WIDENED 8/4 from a
+    hard R7 on mock evidence: Downs was gone-past-R7 in 9 of 9 superflex reps
+    (he actually landed R10, R11, R14), so R7-only was a guaranteed miss that
+    burned the pick. This room also had him at 145 (R13) in 2025. The gap
+    thesis is about his VALUE, not his price - take him when he falls, R10 is
+    the deadline, and never reach at R7 over a live commitment. Re-price at
+    the Aug 25 ADP pass.
 - pick: RB (flex depth)
   window:
   - 5

@@ -6,6 +6,12 @@
 # morning). The point is not the individual score: it is which rule breaks
 # and whether the last fix survived contact.
 #
+#
+# RULE CHANGE 8/4: the Downs commitment moved from a hard R7 to R7-R10 after
+# this log showed 9 misses in 9 superflex reps (he actually went R10/R11/R14).
+# Rows where he landed inside the new window were retagged - they were never
+# really errors, the rule was. Rows where he came R11+ now read downs_late.
+#
 # Add a row per mock: date, slot, format, score/graded, then the flags the
 # grade printed. picks_file is the scratchpad path when kept.
 - date: '2026-07-25'
@@ -27,7 +33,7 @@
     Mock 2. RB floor discipline FIXED. New failure layer: QB/TE windows -
     R6-tier arms bought at R2/R4, no WR by R4, no TE in window then TWO TEs,
     board fade in Downs's R7 window, no QB3 with QB1's bye on W14.
-  errors: [qb2_early, te2, no_qb3, downs_missed, wr_late]
+  errors: [qb2_early, te2, no_qb3, downs_not_drafted, wr_late]
 - date: '2026-08-03'
   slot: 7
   format: superflex
@@ -36,7 +42,7 @@
   notes: >
     Shough R4 (outside window, fails named-starter test), never took QB3 -
     finished with 2 QBs in a superflex league. Three triple-bye weeks.
-  errors: [qb2_early, no_qb3, downs_missed, wr_late, bye_stack]
+  errors: [qb2_early, no_qb3, downs_late, wr_late, bye_stack]  # downs R14
 - date: '2026-08-03'
   slot: 4
   format: superflex
@@ -46,7 +52,7 @@
     ESPN graded it an A; the framework found a BREACH. Best structure to
     date at the time, but 3 Colts (untradeable before the W13 deadline),
     3 Steelers on W9, and a TE2 that ate RB6.
-  errors: [qb2_late, downs_missed, ind_breach, te2, bye_stack]
+  errors: [qb2_late, ind_breach, te2, bye_stack]  # downs R10 - inside the widened window
 - date: '2026-08-03'
   slot: 10
   format: superflex
@@ -56,7 +62,7 @@
     Bowers R3 - the TE board's rejected "pay up" path - collided with the RB
     window exactly as predicted: RB2 at R5, WR1 at R8. Herbert R4 + Love R7
     overcorrected the QB timing. FIVE players on the W13 bye.
-  errors: [qb2_early, qb3_early, downs_missed, wr_late, bye_stack, rb_floor]
+  errors: [qb2_early, qb3_early, downs_late, wr_late, bye_stack, rb_floor]  # downs R11
 - date: '2026-08-03'
   slot: 12
   format: superflex
@@ -66,7 +72,7 @@
     First clean R1-R6 scaffold - all six opening commitments plus Warren at
     the turn. QB2 window HIT for the first time (Murray R6, asterisk: not a
     named starter yet). Remaining misses were one-round timing errors.
-  errors: [qb3_early, downs_missed, rb_flex_late, bye_stack]
+  errors: [qb3_early, downs_not_drafted, rb_flex_late, bye_stack]
 - date: '2026-08-03'
   slot: 9
   format: superflex
@@ -76,7 +82,7 @@
     QB2 window held a second time (Love R6) but broke TRIANGULATION - Maye
     and Love both W11, in the six-team bye week. R2/R3/R4 all RBs left zero
     WRs through six rounds; the RB floor is a floor, not a target.
-  errors: [triangulation, wr_late, qb3_early, downs_missed, bye_stack]
+  errors: [triangulation, wr_late, qb3_early, downs_late, bye_stack]  # downs R11
 - date: '2026-08-04'
   slot: 10
   format: superflex
@@ -87,7 +93,7 @@
     triangulation fail, Ward R6 as QB2 and Geno R9 as QB3 - correct market
     price at all three QB slots for the first time. Three Bears (all W10)
     passed silently, which is why the general stack flag was added.
-  errors: [downs_missed, rb_flex_late, team_stack_chi]
+  errors: [downs_late, rb_flex_late, team_stack_chi]  # downs R14
 - date: '2026-08-04'
   slot: 4
   format: superflex
@@ -97,7 +103,7 @@
     Mayfield R4 is outside the QB2 window again. TE2 (Sadiq R14) for the
     second time at this slot - it ate WR5, leaving 4 WR against a floor of 5.
     That repeat is what put the roster ledger into ff grade.
-  errors: [qb2_early, te2, downs_missed, wr_short, bye_stack]
+  errors: [qb2_early, te2, wr_short, bye_stack]  # downs R10 - inside the widened window
 - date: '2026-08-04'
   slot: 8
   format: superflex
@@ -109,4 +115,4 @@
     straight rep: Allen R1, Ward R6, Geno R9. Depth-round byes are now the
     only live discipline problem - 3 Texans (W8, and one is the kicker),
     3 on W5, 4 on W13.
-  errors: [downs_missed, team_stack_hou, bye_stack]
+  errors: [team_stack_hou, bye_stack]  # downs R10 - inside the widened window; regrades 11/11
