@@ -116,3 +116,16 @@
     only live discipline problem - 3 Texans (W8, and one is the kicker),
     3 on W5, 4 on W13.
   errors: [team_stack_hou, bye_stack]  # downs R10 - inside the widened window; regrades 11/11
+- date: '2026-08-04'
+  slot: 6
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    First rep with ZERO team stacking (13 clubs, max 2 from any one) - the
+    general flag stayed quiet. QB2 hit at R5 (Mayfield), earliest legal.
+    But Warren at R4 with only ONE RB held blew the 2-by-R4 floor: the
+    Warren gate is written for R5 and did not bite at R4. Roster came out
+    5RB/6WR - the RB the gate would have forced. QB3 early again (Bryce
+    Young R8, 4th time in 5 reps that a QB3 came before R9).
+  errors: [rb_floor, qb3_early, warren_gate_r4, ledger_rb_short, bye_stack]
