@@ -165,9 +165,13 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
         if span and span[0] <= rnd <= span[1]:
             board_lines.append(f"  RB  {p['player']} ({p['team']}) [value-if-available]")
             cap_teams.add(p["team"])
+    wg = warren_gate()
     if 4 <= rnd <= 5:
         board_lines.append("  TE  Tyler Warren (IND) - the call, R4-5")
         cap_teams.add("IND")
+        if rnd in wg["applies_rounds"]:
+            board_lines.append(f"      GATE: needs {wg['min_rb_held']} RBs already held. "
+                               + " ".join(str(wg["if_short"]).split()))
     if board_lines:
         out.append("\nBOARD names listed for this round:")
         out.append("\n".join(board_lines))
@@ -419,6 +423,17 @@ def _qb_triggers(rule: dict) -> set[int]:
     return {gone for _, gone, _ in _qb_trigger_rows(rule)}
 
 
+def warren_gate() -> dict:
+    """The RB-first gate on the Warren pick, from data/te_board.yaml.
+
+    Widened 8/4 to cover BOTH rounds of his R4-R5 window: an R5-only gate let
+    the 8/4 slot-6 mock take him at R4 on one RB and miss the 2-by-R4 floor.
+    """
+    g = load("te_board").get("gate")
+    return g or {"applies_rounds": [5], "min_rb_held": 2,
+                 "if_short": "RB wins, Warren released, backfill TE R7-8."}
+
+
 def named_caps() -> list[dict]:
     """Hard team-specific caps. Tolerates the pre-8/4 bare-list file shape."""
     data = load("stack_caps")
@@ -576,6 +591,7 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
     commits = commitments_for(label)
     rule, qb, cap = load("qb_rule"), load("qb_board"), named_caps()[0]
     rb_gates = {g["by_end_of_round"]: g for g in load("rb_rule")["rb_floor"]}
+    wg = warren_gate()
     pk = picks_for_slot(slot)
     b = byes()
 
@@ -587,8 +603,8 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
             bits.append("MUST " + "/".join(due))
         if r in rb_gates:
             bits.append(f"[GATE {rb_gates[r]['min_held']}RB]")
-        if r == 5:
-            bits.append("<2RB?RB wins,TE->R7")
+        if r in wg["applies_rounds"]:
+            bits.append(f"<{wg['min_rb_held']}RB?RB WINS")
         tg = _new_targets(r)
         if tg:
             bits.append("+" + ", ".join(tg))
@@ -749,9 +765,11 @@ def sheet(slot: int) -> str:
             g = rb_gates[rnd]
             body.append(f"RB FLOOR GATE: {g['min_held']} RBs in hand by the END of this round "
                         f"or next pick is {g['verdict_if_short']}.")
-        if rnd == 5:
-            body.append("WARREN GATE: below 2 RBs arriving here -> RB wins, Warren released, "
-                        "backfill TE R7-8. NO TE2 ever (FLEX excludes TE).")
+        wg = warren_gate()
+        if rnd in wg["applies_rounds"]:
+            body.append(f"WARREN GATE: under {wg['min_rb_held']} RBs held arriving here -> "
+                        + " ".join(str(wg["if_short"]).split())
+                        + " NO TE2 ever (FLEX excludes TE).")
         if rnd == 8:
             body.append(f"DEPTH LEDGER: {' '.join(str(load('commitments')['depth_fill']).split())}")
         if rnd == 14:

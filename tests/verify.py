@@ -424,6 +424,32 @@ def _():
     return f"{len(caps)} named cap(s) + general flag at {gen['flag_at']}, both boards point"
 
 
+@check("Warren gate guards every round of his window")
+def _():
+    """8/4: the gate was written for R5 only, so the slot-6 mock took Warren at
+    R4 on one RB - legal by the letter - and missed the 2-by-R4 floor. A gate
+    that guards one round of a two-round window is not a gate. It must cover
+    Warren's whole commitment window and reach both the sheet and pick screen."""
+    from ffcli.draft import warren_gate, commitments_for, sheet, sheet_twocol, draft_screen
+    from ffcli.config import load
+    g = warren_gate()
+    win = next(c["window"] for c in commitments_for("MIDDLE") if "Warren" in c["pick"])
+    covered = set(g["applies_rounds"])
+    assert covered >= set(range(win[0], win[1] + 1)), \
+        f"gate covers {sorted(covered)} but Warren's window is R{win[0]}-R{win[1]}"
+    floor = {x["by_end_of_round"]: x["min_held"] for x in load("rb_rule")["rb_floor"]}
+    assert g["min_rb_held"] >= floor[max(r for r in floor if r <= win[1])], \
+        "gate's RB requirement is looser than the RB floor it protects"
+    for rnd in g["applies_rounds"]:
+        assert "GATE" in draft_screen(1, rnd, 5), f"pick screen R{rnd} lost the Warren gate"
+    for render in (sheet, sheet_twocol):
+        text = render(6)
+        hits = [l for l in text.splitlines() if "RB WINS" in l.upper() or "WARREN GATE" in l]
+        assert len(hits) >= len(g["applies_rounds"]), \
+            f"{render.__name__}: gate shown {len(hits)}x, needs {len(g['applies_rounds'])}"
+    return f"gate on R{g['applies_rounds']}, min {g['min_rb_held']} RB, on sheet + pick screen"
+
+
 @check("grade enforces the 17-spot roster ledger")
 def _():
     """Commitments police WHEN a pick lands; nothing policed WHAT the roster

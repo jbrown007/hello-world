@@ -129,3 +129,16 @@
     5RB/6WR - the RB the gate would have forced. QB3 early again (Bryce
     Young R8, 4th time in 5 reps that a QB3 came before R9).
   errors: [rb_floor, qb3_early, warren_gate_r4, ledger_rb_short, bye_stack]
+- date: '2026-08-04'
+  slot: 12
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    PERFECT COMMITMENT SCORE - first 11/11. Every window hit including Downs
+    at R10 under the widened rule, QB room at market again (Caleb R1, Ward R6,
+    Geno R9), clean triangulation, no stack, 14 clubs. Two things left: the
+    roster finished 5RB/6WR (Deebo R15 where RB6 belonged) - the SECOND
+    straight rep with that exact inversion - and three separate triple-bye
+    weeks (W7, W8, W13).
+  errors: [ledger_rb_short, ledger_wr_over, bye_stack]

@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 40/40 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 41/41 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -55,8 +55,11 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   1 TE (Warren), K, DST. Every dart must displace a named pick. The old
   Tier-3 stash names are a Week 1 waiver list, not draft targets.
 - **TE is one-and-done**: FLEX excludes TE and OP belongs to QB2, so a TE2
-  can never score. Warren R4-5, GATED: below 2 RBs at R5, RB wins, Warren is
-  released, backfill TE R7-8. Never two TEs.
+  can never score. Warren R4-5, GATED at **BOTH** rounds (widened 8/4,
+  data/te_board.yaml `gate`): under 2 RBs held, RB wins - at R4 that delays
+  Warren to R5, at R5 it releases him and TE backfills R7-8. The R5-only
+  version let the slot-6 mock take him at R4 on one RB and miss the 2-by-R4
+  floor. Never two TEs.
 - **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
   K/DST R16-17 only.
 - **Downs window widened 8/4, the first strategy change driven by the mock
@@ -92,13 +95,16 @@ Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
 three drafts vs fixed. Read it before writing new strategy; the per-rep
 detail below is history.
 
-As of 8/4: 10 reps, 7/12 slots done (1, 2, 3, 6, 11 remain), scores
-6->6->9->5->8->7->9->8->10 (first four avg 6.5, last five 8.4). The slot-8
-rep was the first ledger-perfect roster and regrades to 11/11 under the
-widened Downs window. Fixed and holding: RB floor, no-QB3, IND breach,
-triangulation. **Still live: bye stacking in the depth rounds** - it is now
-the only recurring discipline problem, appearing in 7 of 10 reps, and the
-general stack flag caught 3 Bears and 3 Texans on consecutive days.
+As of 8/4: 12 reps, 9/12 slots done (**1, 2, 3, 11 remain**), scores
+6->6->9->5->8->7->9->8->10->8->**11/11**. The slot-12 rep hit every
+commitment - the first perfect score. Fixed and holding: RB floor, no-QB3,
+IND breach, triangulation, team stacking (two straight reps at max 2 per
+club). Two live problems, both now in the DEPTH rounds:
+1. **Bye stacking** - 9 of 12 reps. Still the top recurring fault.
+2. **Roster inversion 5RB/6WR** - the last two reps both finished a back
+   short and a receiver long. The widened Downs window freed R7, and the
+   freed picks are going to WRs. The ledger check catches it after the
+   fact; the fix is spending R13-R15 on RB6 rather than a fifth/sixth WR.
 
 ### The original two, for the record
 

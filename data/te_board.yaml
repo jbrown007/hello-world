@@ -5,6 +5,23 @@ qualifying_test: Is he a top-two receiving option in his own offense? Every TE a
   it. LaPorta fails it.
 barbell_flaw: A punt needs MULTIPLE cheap shots. One rookie post-hernia with zero IR slots is a single
   point of failure.
+
+# The Warren gate. WIDENED 8/4 from R5-only to BOTH rounds of his window.
+# The 8/4 slot-6 mock took Warren at R4 holding one RB - legal by the letter,
+# since his window is R4-R5 and the gate only spoke about R5 - and it blew the
+# 2-by-R4 RB floor. That roster finished 5RB/6WR: the missing back is exactly
+# what the gate exists to protect. A gate that only guards the second round of
+# a two-round window is not a gate.
+gate:
+  applies_rounds: [4, 5]
+  min_rb_held: 2
+  if_short: >
+    RB wins, Warren waits. At R4 that usually just delays him to R5. At R5 it
+    releases him for good - backfill TE at R7-8, and still never a TE2.
+  learned: >
+    8/4 slot-6 mock: Warren at pick 43 with only James Cook held. Floor missed
+    at R4, roster ended a back short, and nothing on the sheet objected.
+
 paths:
 - id: A
   name: Pay up
