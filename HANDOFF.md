@@ -95,16 +95,19 @@ Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
 three drafts vs fixed. Read it before writing new strategy; the per-rep
 detail below is history.
 
-As of 8/4: 12 reps, 9/12 slots done (**1, 2, 3, 11 remain**), scores
-6->6->9->5->8->7->9->8->10->8->**11/11**. The slot-12 rep hit every
-commitment - the first perfect score. Fixed and holding: RB floor, no-QB3,
-IND breach, triangulation, team stacking (two straight reps at max 2 per
-club). Two live problems, both now in the DEPTH rounds:
-1. **Bye stacking** - 9 of 12 reps. Still the top recurring fault.
-2. **Roster inversion 5RB/6WR** - the last two reps both finished a back
-   short and a receiver long. The widened Downs window freed R7, and the
-   freed picks are going to WRs. The ledger check catches it after the
-   fact; the fix is spending R13-R15 on RB6 rather than a fifth/sixth WR.
+As of 8/6: 13 reps, 9/12 slots done (**1, 2, 3 remain**), scores
+6->6->9->5->8->7->9->8->10->8->11->10 (first six 6.8 avg, last six 9.3).
+The 8/4 slot-12 rep was the first perfect 11/11; the 8/6 slot-11 rep had
+the cleanest ROSTER (ledger met, 16 clubs, only one week over the bye cap).
+Fixed and holding: RB floor, no-QB3, IND breach, team stacking.
+
+One live problem and one watch item:
+1. **QB BYE TRIANGULATION** - broken twice (Maye+Love W11, Burrow+Murray
+   W6), both times with the two byes printed inches apart on the sheet's
+   own tier list. Reading them was not enough, so 8/6 the sheet line became
+   a WRITE-IN: "QB TIERS - WRITE YOUR 3 QB BYES: __ __ __".
+2. **Bye stacking generally** is improving fast - the last two reps went
+   from three triple-weeks to one. Watch that it holds.
 
 ### The original two, for the record
 

@@ -142,3 +142,18 @@
     straight rep with that exact inversion - and three separate triple-bye
     weeks (W7, W8, W13).
   errors: [ledger_rb_short, ledger_wr_over, bye_stack]
+- date: '2026-08-06'
+  slot: 11
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Cleanest ROSTER yet - ledger met exactly (3/6/5/1/1/1) for the second
+    time, and the best bye spread of any rep: 16 clubs, max 2 from one, and
+    only ONE week over cap (W13 x3). W14 sat exactly at 2. But TRIANGULATION
+    BROKE: Burrow (CIN) and Murray (MIN) both bye W6 - the second
+    triangulation fail in 13 reps, and both byes were printed side by side
+    on the sheet's QB tier lines. Murray also still is not a named starter
+    (8/6 camp watch), so he is not yet a legal QB2 pick. Missed RB flex in
+    R5-R8: R7 and R8 both went WR.
+  errors: [triangulation, rb_flex_late]

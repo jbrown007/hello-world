@@ -650,7 +650,10 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
                         for p in str(x["map"]).split("|")[:4])
         right.append(f" {x['id']} {fires}")
         right.append(f"   {plan}")
-    right += ["", "QB TIERS - triangulate 3 byes"]
+    # Write-in, not a reminder: two reps broke triangulation (Maye+Love W11,
+    # Burrow+Murray W6) with both byes printed inches apart on this very list.
+    # Reading them is evidently not enough; writing them down is the check.
+    right += ["", "QB TIERS - WRITE YOUR 3 QB BYES: __ __ __"]
     right.append(" E6  " + _qb_row(qb["elite"]["who"][:3]))
     right.append("     " + _qb_row(qb["elite"]["who"][3:]))
     right.append(" R3  " + _qb_row(qb["tier2_qb1"]["who"][:2]))
