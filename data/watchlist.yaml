@@ -305,16 +305,23 @@
   players: Brenen Thompson (rookie, ~4.26 speed, specialized role)
   why: Pure speed merchant. Boom-week WR if he carves a role, which fits your weekly-ceiling payout structure
     as a late dart.
-  read: Real production plus real speed in a McDaniel offense with Herbert. Path is crowded but the coach
-    wants him on the field.
-  watch_for: Deep-target usage; whether he's more than a gadget piece.
+  read: 'ANSWERED 8/6: he is exactly the gadget/deep-threat piece the row asked about, competing for the
+    FOURTH receiver spot. Real flashes, real speed, no path to draftable volume. Week 1 waiver watch.'
+  watch_for: CLOSED for draft purposes - reopen only if an injury ahead of him (McConkey, Johnston, Harris)
+    clears a path to real volume.
   implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
     zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
     read: Last-round dart with actual ceiling weeks, not just a lottery ticket. Worth a pick in a 20-man
     roster league.'
   confidence: Med
-  status: Trending
-  notes: '7/24 UPGRADE (corrected 7/24b: McDaniel is the Chargers OFFENSIVE COORDINATOR, not head coach
+  status: Resolved
+  notes: '8/6 CAMP WATCH - TRENDING -> RESOLVED, and the answer is no. Thompson is flashing exactly as
+    advertised: a pair of long catches from Herbert in the first days of camp, repeatedly targeted in
+    team drills, praise from coaches and teammates (Chargers.com "Continues to Flash" + SI Chargers
+    roster spotlight, multi-source). But the role is settled - gadget/deep threat, competing with
+    KeAndre Lambert-Smith for the WR4 job behind McConkey, Johnston and Tre Harris. A WR4 on his own
+    team is not a pick in a 17-round zero-slack draft. File as a Week 1 waiver name with real speed;
+    reopen on an injury ahead of him. | 7/24 UPGRADE (corrected 7/24b: McDaniel is the Chargers OFFENSIVE COORDINATOR, not head coach
     - Jim Harbaugh is still HC). Thompson led the SEC with 1,054 yards on 18.5 YPC with 6 TDs, second-team
     All-SEC, ran 4.26. Went 4th round (No. 105). McDaniel reportedly campaigned to draft him. Caught a
     50-yard TD from Herbert plus a contested catch in minicamp. Room ahead of him: McConkey, Quentin Johnston,
@@ -334,11 +341,18 @@
     read: Late-round darts, not just watch names. Fields gains the most if Nabers misses time.'
   confidence: Med
   status: Trending
-  notes: 7/24 PREMISE WAS WRONG - neither is buried. Antonio Williams went 3rd round (No. 71) to Washington
-    and is competing for the WR2 job opposite McLaurin with Jayden Daniels back at full health; ESPN's
+  notes: '8/6 CAMP WATCH - both rookies are placed, neither is draftable yet. Antonio Williams (WAS) is
+    in a live rotation - Washington is "mixing and matching depending on matchups and game plans", and
+    ESPN''s Jordan Reid still has him as the No. 2 underrated rookie in the league (Commanders.com camp
+    preview + Hogs Haven + Yahoo, multi-source). Malachi Fields (NYG) is now described as one of FIVE
+    Giants receiver locks - behind Nabers, Mooney, Slayton and Austin, which is a roster spot, not a
+    target share (Giants.com camp tracker + Wikipedia roster, thin sourcing on the depth order). Neither
+    clears the bar for a pick. Stays Trending because the watch_for is August depth-chart movement and
+    an injury ahead of either one changes it fast. | 7/24 PREMISE WAS WRONG - neither is buried. Antonio Williams went 3rd round (No. 71) to Washington
+    and is competing for the WR2 job opposite McLaurin with Jayden Daniels back at full health; ESPN''s
     Jordan Reid named him a top-5 underrated rookie. Malachi Fields went 3rd round (No. 74) to the Giants
     at 6-4/218 and is projected to push Darius Slayton for WR2; Malik Nabers may open on PUP. Giants HC
-    is now John Harbaugh, QB Jaxson Dart.
+    is now John Harbaugh, QB Jaxson Dart.'
 - priority: Tier 3
   pos: TE
   team: League-wide
@@ -376,7 +390,13 @@
     named starter, the Jefferson stack is your weekly-payout play.
   confidence: Med
   status: Trending
-  notes: '8/5 CAMP WATCH - STILL OPEN and the Aug 14 date is now SOFTER than it looked: O''Connell has
+  notes: '8/6 CAMP WATCH - THE REP SHARE HAS SEPARATED, and it points at Murray. Since Aug 1 he has taken
+    63 first-team reps to McCarthy''s 33 - nearly 2:1, where the first week was an even split (Star Tribune
+    rep count + NBC Sports "Murray seems to be pulling ahead, as expected" + SI "the competition looks
+    over", multi-source). Total snaps are near-even (146 vs 136), so the separation is specifically about
+    WHO runs with the ones. STILL NOT NAMED - no announcement, no timeline, so the qb_board tag holds and
+    he is not yet a legal QB2 pick. But the direction is now one-way, and if you want the Jefferson stack
+    this is the moment it starts getting expensive. | 8/5 CAMP WATCH - STILL OPEN and the Aug 14 date is now SOFTER than it looked: O''Connell has
     announced NO timeline for the decision, and is deliberately rotating both QBs through first- AND
     second-team reps to judge them on equal footing (Star Tribune + Vikings.com + SI Inside The Vikings,
     multi-source). The ~Aug 14 naming was always a Star Tribune projection, never a team commitment -
@@ -473,7 +493,13 @@
   implication: Add to the R5-6 QB2 candidate list alongside Cam Ward. The 2025 star is earned, not stale.
   confidence: Med
   status: Trending
-  notes: '8/4 CAMP WATCH - TWO-DIRECTIONAL, stays Trending. The accuracy question the row exists to answer
+  notes: '8/6 CAMP WATCH - the accuracy arrow points UP: Caleb went 9-of-10 with five touchdowns in
+    red-zone team drills on Aug 5, the best single-practice line of his camp (BVM Sports camp report +
+    BearsTalk, multi-source, single-practice sample). VERIFICATION WINDOW AT RISK: the preseason opener
+    is Sat Aug 15 vs Cleveland and Ben Johnson has NOT decided whether the starters play (NBC Chicago
+    schedule + CBS Sports). If he sits, the Sun-Times''s argument wins and camp practice reports are the
+    only evidence we get before Sept 7. Row stays Trending: one red-zone drill does not answer the 70%
+    completion question Ben Johnson raised. | 8/4 CAMP WATCH - TWO-DIRECTIONAL, stays Trending. The accuracy question the row exists to answer
     is still OPEN and now has a number on it: Ben Johnson says Williams has NOT consistently reached the
     70% completion threshold in camp practices, and names accuracy plus chunk completions on the run as
     what must improve (SI + Chicago Sun-Times 8/3, multi-source). Practice-level reads are split - he

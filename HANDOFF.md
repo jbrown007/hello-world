@@ -22,8 +22,8 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   deadline (inside Week 13), rolling waivers Tuesday night, weekly high-score
   payouts W1-12. Unverified but non-blocking: playoff team count (likely 6);
   FLEX exclusion read from a screenshot - confirm in settings text.
-- **Watchlist: 23 rows, 16 Resolved / 7 Trending / 0 Unsettled** as of the
-  8/4 camp watch (Dolphins QB resolved: Willis named).
+- **Watchlist: 23 rows, 17 Resolved / 6 Trending / 0 Unsettled** as of the
+  8/6 camp watch (Chargers WR resolved: Thompson is a WR4, not a target).
 - **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
   `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
   is the live one-screen pick view; `ff grade` scores a finished draft.
