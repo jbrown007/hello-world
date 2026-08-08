@@ -442,9 +442,23 @@ def _():
         "gate's RB requirement is looser than the RB floor it protects"
     for rnd in g["applies_rounds"]:
         assert "GATE" in draft_screen(1, rnd, 5), f"pick screen R{rnd} lost the Warren gate"
+    # R4 additionally needs the WR banked: QB1+RB+RB+WR fill R1-R4 exactly, so
+    # Warren at R4 without it does not risk the WR miss, it guarantees it.
+    r4 = min(g["applies_rounds"])
+    early = [c for c in commitments_for("EARLY") if c["window"][1] <= r4]
+    saturated = len(early) >= r4 and any("WR" in c["pick"] for c in early)
+    if saturated:
+        # R1-R4 has as many commitments as rounds and one of them is the WR, so
+        # spending R4 on Warren cannot leave room for it. The flag is not
+        # optional here - the arithmetic requires it.
+        assert g.get("r4_needs_wr"), (
+            f"R1-R{r4} holds {len(early)} commitments for {r4} rounds including a WR, so "
+            "Warren at R4 guarantees the WR miss - r4_needs_wr must be set")
+        assert "AND a WR" in draft_screen(1, r4, 5), "pick screen R4 lost the WR condition"
+        assert "no WR" in sheet_twocol(3), "two-col sheet R4 lost the WR condition"
     for render in (sheet, sheet_twocol):
         text = render(6)
-        hits = [l for l in text.splitlines() if "RB WINS" in l.upper() or "WARREN GATE" in l]
+        hits = [l for l in text.splitlines() if "WARREN WAIT" in l.upper() or "WARREN GATE" in l]
         assert len(hits) >= len(g["applies_rounds"]), \
             f"{render.__name__}: gate shown {len(hits)}x, needs {len(g['applies_rounds'])}"
     return f"gate on R{g['applies_rounds']}, min {g['min_rb_held']} RB, on sheet + pick screen"

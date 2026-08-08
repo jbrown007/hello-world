@@ -55,11 +55,13 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   1 TE (Warren), K, DST. Every dart must displace a named pick. The old
   Tier-3 stash names are a Week 1 waiver list, not draft targets.
 - **TE is one-and-done**: FLEX excludes TE and OP belongs to QB2, so a TE2
-  can never score. Warren R4-5, GATED at **BOTH** rounds (widened 8/4,
-  data/te_board.yaml `gate`): under 2 RBs held, RB wins - at R4 that delays
-  Warren to R5, at R5 it releases him and TE backfills R7-8. The R5-only
-  version let the slot-6 mock take him at R4 on one RB and miss the 2-by-R4
-  floor. Never two TEs.
+  can never score. **Warren is an R5 pick by default.** The gate (8/4, 8/6 -
+  data/te_board.yaml) covers both rounds of his window: under 2 RBs held, RB
+  wins; and at R4 he ALSO needs the WR already banked. Reason is arithmetic,
+  not preference - QB1+RB+RB+WR fill R1-R4 exactly, so the solver's only
+  satisfiable order is R1 QB1 / R2 RB / R3 RB / R4 WR / R5 Warren. Warren at
+  R4 without the WR does not risk the R1-R4 WR miss, it guarantees it (slot-6
+  mock lost an RB that way, slot-3 lost the WR). Never two TEs.
 - **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
   K/DST R16-17 only.
 - **Downs window widened 8/4, the first strategy change driven by the mock

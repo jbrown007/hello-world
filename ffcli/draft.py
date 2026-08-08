@@ -170,7 +170,10 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
         board_lines.append("  TE  Tyler Warren (IND) - the call, R4-5")
         cap_teams.add("IND")
         if rnd in wg["applies_rounds"]:
-            board_lines.append(f"      GATE: needs {wg['min_rb_held']} RBs already held. "
+            need = f"{wg['min_rb_held']} RBs"
+            if rnd == min(wg["applies_rounds"]) and wg.get("r4_needs_wr"):
+                need += " AND a WR"
+            board_lines.append(f"      GATE: needs {need} already held. "
                                + " ".join(str(wg["if_short"]).split()))
     if board_lines:
         out.append("\nBOARD names listed for this round:")
@@ -604,7 +607,10 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
         if r in rb_gates:
             bits.append(f"[GATE {rb_gates[r]['min_held']}RB]")
         if r in wg["applies_rounds"]:
-            bits.append(f"<{wg['min_rb_held']}RB?RB WINS")
+            need = f"<{wg['min_rb_held']}RB"
+            if r == min(wg["applies_rounds"]) and wg.get("r4_needs_wr"):
+                need += "/no WR"
+            bits.append(f"{need}?WARREN WAITS")
         tg = _new_targets(r)
         if tg:
             bits.append("+" + ", ".join(tg))
@@ -776,9 +782,11 @@ def sheet(slot: int) -> str:
                         f"or next pick is {g['verdict_if_short']}.")
         wg = warren_gate()
         if rnd in wg["applies_rounds"]:
-            body.append(f"WARREN GATE: under {wg['min_rb_held']} RBs held arriving here -> "
-                        + " ".join(str(wg["if_short"]).split())
-                        + " NO TE2 ever (FLEX excludes TE).")
+            line = (f"WARREN GATE: under {wg['min_rb_held']} RBs held arriving here -> "
+                    + " ".join(str(wg["if_short"]).split()))
+            if rnd == min(wg["applies_rounds"]) and wg.get("r4_needs_wr"):
+                line += " " + " ".join(str(wg["r4_note"]).split())
+            body.append(line + " NO TE2 ever (FLEX excludes TE).")
         if rnd == 8:
             body.append(f"DEPTH LEDGER: {' '.join(str(load('commitments')['depth_fill']).split())}")
         if rnd == 14:

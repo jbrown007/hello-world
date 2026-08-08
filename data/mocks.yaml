@@ -170,3 +170,17 @@
     time in five reps for that exact inversion. Byes still lumpy in the
     depth rounds (3 on W7, 3 on W10, 4 on W13).
   errors: [downs_late, ledger_rb_short, ledger_wr_over, bye_stack]
+- date: '2026-08-06'
+  slot: 3
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Ledger met (3/6/5/1/1/1), triangulation clean (W5/W7/W9), zero W14
+    exposure for the second straight rep, 15 clubs and no stack. The one
+    miss was structural, not sloppy: Warren went R4 with both RBs banked -
+    legal under the RB-only gate - and that mathematically ate the R1-R4 WR
+    commitment, because QB1+RB+RB+WR fill R1-R4 exactly. The framework's own
+    solver already said R4 WR / R5 Warren. That is what added r4_needs_wr.
+    Byes still lumpy: 3 on W6, 3 on W7, 3 on W13.
+  errors: [wr_late, warren_gate_r4_wr, bye_stack]

@@ -15,12 +15,22 @@ barbell_flaw: A punt needs MULTIPLE cheap shots. One rookie post-hernia with zer
 gate:
   applies_rounds: [4, 5]
   min_rb_held: 2
+  r4_needs_wr: true
   if_short: >
     RB wins, Warren waits. At R4 that usually just delays him to R5. At R5 it
     releases him for good - backfill TE at R7-8, and still never a TE2.
+  r4_note: >
+    WARREN IS AN R5 PICK BY DEFAULT. Four commitments - QB1, RB, RB, WR - fill
+    R1-R4 exactly, which is why the solver's only satisfiable order is
+    R1 QB1 / R2 RB / R3 RB / R4 WR / R5 Warren. Spending R4 on Warren before
+    the WR is banked does not risk the R1-R4 WR miss, it GUARANTEES it. Take
+    him at R4 only when 2 RBs AND a WR are already held.
   learned: >
     8/4 slot-6 mock: Warren at pick 43 with only James Cook held. Floor missed
     at R4, roster ended a back short, and nothing on the sheet objected.
+    8/6 slot-3 mock: Warren at R4 with both RBs banked but no WR - legal under
+    the RB-only gate, and it cost the R1-R4 WR commitment exactly as the
+    arithmetic predicts. That is what added r4_needs_wr.
 
 paths:
 - id: A
