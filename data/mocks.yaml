@@ -157,3 +157,16 @@
     (8/6 camp watch), so he is not yet a legal QB2 pick. Missed RB flex in
     R5-R8: R7 and R8 both went WR.
   errors: [triangulation, rb_flex_late]
+- date: '2026-08-06'
+  slot: 2
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Triangulation held (W7/W9/W13) and the seeding week came out COMPLETELY
+    CLEAN - zero W14 exposure, a first. QB room at market again (Allen R1,
+    Ward R6, Geno R9). Two faults, both familiar: Downs slipped to R12, past
+    the widened R10 deadline; and the roster finished 5RB/6WR - the THIRD
+    time in five reps for that exact inversion. Byes still lumpy in the
+    depth rounds (3 on W7, 3 on W10, 4 on W13).
+  errors: [downs_late, ledger_rb_short, ledger_wr_over, bye_stack]

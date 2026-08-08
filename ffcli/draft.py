@@ -623,6 +623,12 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
              f" RUN: {rule['run_trigger']['qbs']} QBs in {rule['run_trigger']['window_picks']} "
              "picks -> QB2 NEXT PICK",
              ""]
+    # Running roster tally. Three of five reps finished 5RB/6WR - a back short
+    # and a receiver long - because nobody counts the shape mid-draft. Same
+    # fix as the bye tally: a box to fill in, not a rule to remember.
+    led = load("commitments")["ledger"]
+    right.insert(1, " TALLY " + " ".join(f"{pos}__/{n}" for pos, n in led.items()
+                                         if pos not in ("K", "DST")))
     trig = _qb_triggers(rule)
     right.append("QBs GONE - tick every QB, anyone's")
     right.append(" " + "".join(f"{n}{'!' if n in trig else '.'} " for n in range(1, 13)))

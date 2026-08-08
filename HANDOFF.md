@@ -95,19 +95,23 @@ Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
 three drafts vs fixed. Read it before writing new strategy; the per-rep
 detail below is history.
 
-As of 8/6: 13 reps, 9/12 slots done (**1, 2, 3 remain**), scores
-6->6->9->5->8->7->9->8->10->8->11->10 (first six 6.8 avg, last six 9.3).
-The 8/4 slot-12 rep was the first perfect 11/11; the 8/6 slot-11 rep had
-the cleanest ROSTER (ledger met, 16 clubs, only one week over the bye cap).
+As of 8/6: 14 reps, 10/12 slots done (**1 and 3 remain**), scores
+6->6->9->5->8->7->9->8->10->8->11->10->10 (first six 6.8 avg, last seven
+9.4). The 8/4 slot-12 rep was the first perfect 11/11; slot-11 had the
+cleanest roster; slot-2 was the first with ZERO W14 seeding-week exposure.
 Fixed and holding: RB floor, no-QB3, IND breach, team stacking.
 
-One live problem and one watch item:
-1. **QB BYE TRIANGULATION** - broken twice (Maye+Love W11, Burrow+Murray
-   W6), both times with the two byes printed inches apart on the sheet's
-   own tier list. Reading them was not enough, so 8/6 the sheet line became
-   a WRITE-IN: "QB TIERS - WRITE YOUR 3 QB BYES: __ __ __".
-2. **Bye stacking generally** is improving fast - the last two reps went
-   from three triple-weeks to one. Watch that it holds.
+The sheet now carries TWO write-in boxes, both added because a printed
+reminder had already failed twice - writing the value down is what works:
+1. **QB byes** - `QB TIERS - WRITE YOUR 3 QB BYES: __ __ __`, after
+   triangulation broke on Maye+Love (W11) and Burrow+Murray (W6) with both
+   byes printed inches apart on the sheet's own tier list.
+2. **Roster shape** - `TALLY QB__/3 RB__/6 WR__/5 TE__/1`, after three of
+   five reps finished 5RB/6WR (a back short, a receiver long). The ledger
+   check catches it after the draft; this catches it during.
+
+Still lumpy: depth-round byes, though trending better - slot-11 had only
+one week over cap.
 
 ### The original two, for the record
 
