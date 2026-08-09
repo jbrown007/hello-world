@@ -21,9 +21,13 @@ starters:                    # 10 total, confirmed 8/1
   QB: 1
   RB: 2
   WR: 2
-  TE: 1                      # one slot, no TE-eligible FLEX -> no TE2 ever
-  FLEX: 1                    # RB/WR only - TE EXCLUDED (confirmed verbally;
-                             # re-verify in settings text before draft day)
+  TE: 1                      # one dedicated slot; a TE2 CAN also start at FLEX
+  FLEX: 1                    # RB/WR/TE - TE IS ELIGIBLE. CORRECTED 8/9 by Josh
+                             # from the settings themselves. The earlier
+                             # "RB/WR only" read was wrong, and it was the sole
+                             # basis for the no-TE2-ever rule. A TE2 is now a
+                             # VALUE question (does he beat your RB3/WR3 for
+                             # the FLEX slot?), not an eligibility one.
   OP: 1                      # QB/RB/WR/TE - this is the superflex slot
   DST: 1                     # MANDATORY starter - was unmodeled
   K: 1                       # MANDATORY starter - was unmodeled

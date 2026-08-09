@@ -475,7 +475,9 @@ def _():
     want = load("commitments")["ledger"]
     assert sum(want.values()) == league()["roster_size"], \
         f"ledger sums to {sum(want.values())}, roster is {league()['roster_size']}"
-    assert want["TE"] == 1, "ledger must hold exactly one TE - FLEX excludes TE, OP is QB2's"
+    assert want["TE"] >= 1, "ledger must roster at least the starting TE"
+    flex = league()["starters"].get("FLEX")
+    assert flex, "no FLEX slot in starters"
     good = ([{"round": 1, "pos": p, "team": "KC", "player": f"{p}{i}"}
              for p, n in want.items() for i in range(n)])
     assert "ledger met" in ledger_report(good), "a ledger-perfect roster did not pass"
@@ -485,7 +487,10 @@ def _():
     rep = ledger_report(bad)
     assert "LEDGER OVER TE: 2 vs 1" in rep, f"TE2 not flagged: {rep}"
     assert "LEDGER SHORT WR: 4 vs 5" in rep, f"WR shortfall not flagged: {rep}"
-    assert "can never score" in rep, "TE2 flagged without the reason"
+    assert "never score" not in rep, (
+        "grade still claims a TE2 cannot score - FLEX accepts a TE (corrected 8/9)")
+    assert "RB6" in rep or "WR5" in rep, (
+        "TE2 deviation must be framed against the spot it actually costs")
     assert "ROSTER LEDGER" in grade(bad, "EARLY"), "grade does not print the ledger"
     return f"ledger {sum(want.values())} spots, TE2 + WR shortfall both caught"
 
@@ -593,7 +598,7 @@ def _():
         assert len(lines) <= 60, f"{label}: {len(lines)} lines - past one page"
         wide = [l for l in lines if len(l) > 119]
         assert not wide, f"{label}: {len(wide)} lines wider than 119 cols"
-        for token in ("HARD RULES", "ONE TE EVER", "QBs GONE", "BYES USED - CAP 2",
+        for token in ("HARD RULES", "ONE TE default", "QBs GONE", "BYES USED - CAP 2",
                       "QB1 BRANCH MAP", "QB TIERS", "NEVER", "STARS", "DANGER",
                       "FADE", "TIEBREAK", "TIER GAP", "GATE", "RUN:", "QB4", "K:"):
             assert token in text, f"{label}: two-col sheet lost {token}"

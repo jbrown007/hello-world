@@ -29,8 +29,9 @@ through it automatically and opens PRs when something changes.
   R12 — the 2025 7th-place fix), **QB2 confined to R5-6**, **3-in-12 run
   trigger** added. `ff rb` and `ff qb --window` are live.
 - Still unverified (non-blocking): playoff team count (likely 6), and the
-  FLEX = RB/WR (TE excluded) read, which came from a screenshot — confirm in
-  settings text.
+  FLEX read — **RESOLVED 8/9: FLEX = RB/WR/TE, tight ends ARE eligible.** The
+  earlier "RB/WR only" was wrong and had been the sole basis for the
+  no-TE2-ever rule; see HANDOFF section 2.
 
 ### ~August 13: preseason games begin
 - Snap share, target share, and first-team reps become real data. Trending
@@ -68,8 +69,10 @@ through it automatically and opens PRs when something changes.
 
 ### Week 1: switch to in-season mode
 - Create `data/roster.yaml` from the drafted team.
-- Enable the two in-season Routines (Tuesday waiver brief, Sunday lineup
-  check) — they're already created, sitting disabled.
+- **BUILD the two in-season Routines** (Tuesday waiver brief, Sunday lineup
+  check). Corrected 8/9: this file previously claimed they were "already
+  created, sitting disabled" — they do not exist. Nothing in-season is built
+  yet, and Week 1 lands days after the draft.
 - The weekly loop is `ff weekly 1-4` (waivers → scan/trades → lineup lock →
   debrief), anchored to Tuesday-night rolling-priority processing. Rolling
   priority is a depleting asset: burn it only for season-long workhorse upside.

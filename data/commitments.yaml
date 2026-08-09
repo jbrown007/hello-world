@@ -1,7 +1,10 @@
-# The finished roster, as counts. Stated in prose since 8/1 (depth_fill,
-# HANDOFF) but never checked - so the 8/3 and 8/4 slot-4 mocks both drafted a
-# TE2 (Freiermuth, then Sadiq) that ate WR5 and graded clean. Now enforced by
-# ff grade. 17 spots, zero slack: every number here is exact.
+# The finished roster, as counts - the PLAN's target shape, checked by ff grade.
+# 17 spots, zero slack, so every pick displaces a named one.
+#
+# TE: 1 is a DEFAULT, not a law. Corrected 8/9: FLEX accepts a TE, so a second
+# tight end CAN start - the old "can never score" reasoning was wrong. What
+# holds is the economics: a TE2 competes with RB6/WR5 for one spot and for the
+# FLEX slot, and in full PPR a real RB3/WR3 usually wins both.
 ledger:
   QB: 3
   RB: 6
@@ -11,9 +14,11 @@ ledger:
   DST: 1
 ledger_notes:
   TE: >
-    EXACTLY ONE, and this is the hardest rule on the sheet. One TE starting
-    slot, FLEX excludes TE, OP belongs to QB2 - a TE2 can never score a point.
-    He is a bench spot that displaces a WR or RB who can.
+    One by default. CORRECTED 8/9 - FLEX is TE-eligible, so a TE2 is startable
+    and the old ban was based on a bad settings read. Judge a second TE against
+    RB6 and WR5, since that is the spot he takes: in full PPR the FLEX usually
+    scores more from a real RB3/WR3 than a TE12-20. Legitimate at R14+ once the
+    RB/WR floors are met, and it doubles as Warren insurance with zero IR.
   QB: >
     Three arms: QB1, QB2 (R5-6), QB3 (R9-13, trade inventory). A fourth is
     in-season churn only - drafting one breaks the 6RB/5WR floor.

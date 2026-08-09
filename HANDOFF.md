@@ -17,11 +17,12 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
-  bench 7, zero IR, K + D/ST mandatory starters, FLEX = RB/WR (TE excluded),
+  bench 7, zero IR, K + D/ST mandatory starters, **FLEX = RB/WR/TE (TE IS
+  eligible - corrected 8/9)**,
   OP = second QB weekly, 14-week regular season, playoffs W15-17, Dec 4 trade
   deadline (inside Week 13), rolling waivers Tuesday night, weekly high-score
-  payouts W1-12. Unverified but non-blocking: playoff team count (likely 6);
-  FLEX exclusion read from a screenshot - confirm in settings text.
+  payouts W1-12. Still unverified (non-blocking): playoff team count
+  (likely 6) - it sets how much the W14 seeding week is worth.
 - **Watchlist: 23 rows, 17 Resolved / 6 Trending / 0 Unsettled** as of the
   8/6 camp watch (Chargers WR resolved: Thompson is a WR4, not a target).
 - **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
@@ -54,14 +55,21 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 - **Zero-slack ledger (data/commitments.yaml)**: 17 picks = 3 QB, 6 RB, 5 WR,
   1 TE (Warren), K, DST. Every dart must displace a named pick. The old
   Tier-3 stash names are a Week 1 waiver list, not draft targets.
-- **TE is one-and-done**: FLEX excludes TE and OP belongs to QB2, so a TE2
-  can never score. **Warren is an R5 pick by default.** The gate (8/4, 8/6 -
+- **TE: one by default, not by law (CORRECTED 8/9).** The old rule said a TE2
+  "can never score" because FLEX was read as RB/WR only. Josh checked the
+  settings: **FLEX accepts a TE**, so a second tight end IS startable. What
+  survives is the economics, not the ban - a TE2 takes the same spot as RB6 or
+  WR5 and competes with them for the FLEX, and in full PPR a real RB3/WR3
+  usually wins. So: one TE is the plan; a high-upside TE at R14+ with the
+  RB/WR floors already met is a legitimate pick and doubles as Warren
+  insurance in a zero-IR league. `ff grade` now reports a second TE as a
+  deviation to justify, not an error. **Warren is an R5 pick by default.** The gate (8/4, 8/6 -
   data/te_board.yaml) covers both rounds of his window: under 2 RBs held, RB
   wins; and at R4 he ALSO needs the WR already banked. Reason is arithmetic,
   not preference - QB1+RB+RB+WR fill R1-R4 exactly, so the solver's only
   satisfiable order is R1 QB1 / R2 RB / R3 RB / R4 WR / R5 Warren. Warren at
   R4 without the WR does not risk the R1-R4 WR miss, it guarantees it (slot-6
-  mock lost an RB that way, slot-3 lost the WR). Never two TEs.
+  mock lost an RB that way, slot-3 lost the WR).
 - **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
   K/DST R16-17 only.
 - **Downs window widened 8/4, the first strategy change driven by the mock

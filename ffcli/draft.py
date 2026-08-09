@@ -460,9 +460,9 @@ def ledger_report(picks: list[dict]) -> str:
     """Check the finished roster against the 17-spot ledger.
 
     Commitments police WHEN a pick happens; nothing policed WHAT the roster
-    ended up as. Two slot-4 mocks drafted a second TE - who cannot score in
-    this league, FLEX excludes TE and OP is QB2's - and graded clean because
-    every commitment still landed in its window.
+    ended up as. Deviations are reported against the plan's target shape.
+    Note the TE line is a default, not a prohibition - FLEX accepts a TE
+    (corrected 8/9), so a second one is a value call against RB6/WR5.
     """
     want = load("commitments")["ledger"]
     got: dict[str, int] = {}
@@ -624,7 +624,7 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
              " RB floor 2by4 / 3by8 / 5by12",
              f" QB2 R{rule['qb2_earliest_round']}-{rule['hard_floor_round']} ONLY | "
              f"QB3 R{rule['qb3_rounds'][0]}-{rule['qb3_rounds'][1]}, 3rd bye",
-             " ONE TE EVER - FLEX excludes TE",
+             " ONE TE default - a TE2 is legal, must beat RB6/WR5",
              f" {cap['team']} max {cap['max_starters']} starters | K,DST R16-17",
              f" RUN: {rule['run_trigger']['qbs']} QBs in {rule['run_trigger']['window_picks']} "
              "picks -> QB2 NEXT PICK",
@@ -786,7 +786,8 @@ def sheet(slot: int) -> str:
                     + " ".join(str(wg["if_short"]).split()))
             if rnd == min(wg["applies_rounds"]) and wg.get("r4_needs_wr"):
                 line += " " + " ".join(str(wg["r4_note"]).split())
-            body.append(line + " NO TE2 ever (FLEX excludes TE).")
+            body.append(line + " A TE2 is legal (FLEX accepts TE) but must "
+                        "outscore RB6/WR5 for the same spot - default is still one.")
         if rnd == 8:
             body.append(f"DEPTH LEDGER: {' '.join(str(load('commitments')['depth_fill']).split())}")
         if rnd == 14:
