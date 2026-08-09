@@ -731,8 +731,8 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
         f"| W{cap['bye']} {cap['team']} bye + TRADE DEADLINE inside it | W{worst[0]} six-team bye "
         "| QB1/QB2/QB3 = 3 DIFFERENT byes",
         "FADE: " + "; ".join(p["player"].split(" (")[0] for p in load("rb_board")["fades"]),
-        "K: mandatory starter, top-3 at R16-17, never earlier, no backup "
-        "| QB4: in-season churn only, FIRST DROP when RB/WR attrition bites",
+        "K: top-3 at R16-17, never earlier, no backup - and among equals take the one whose bye is "
+        "NOT already at cap, NEVER W14 | QB4: in-season churn only, FIRST DROP on RB/WR attrition",
         "TIEBREAK: correlate - take the QB whose WR1 you own "
         "| TIER GAP: last Tier-2 arm with only Tier 3 behind = take him a round early",
     ]

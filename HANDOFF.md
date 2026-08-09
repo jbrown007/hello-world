@@ -125,11 +125,11 @@ Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
 three drafts vs fixed. Read it before writing new strategy; the per-rep
 detail below is history.
 
-As of 8/6: 14 reps, 10/12 slots done (**1 and 3 remain**), scores
-6->6->9->5->8->7->9->8->10->8->11->10->10 (first six 6.8 avg, last seven
-9.4). The 8/4 slot-12 rep was the first perfect 11/11; slot-11 had the
-cleanest roster; slot-2 was the first with ZERO W14 seeding-week exposure.
-Fixed and holding: RB floor, no-QB3, IND breach, team stacking.
+**ALL 12 SLOTS REPPED as of 8/9** - 16 reps, 15 graded superflex. Scores
+6->6->9->5->8->7->9->8->10->8->11->10->10->10->10: first seven averaged 7.1,
+last eight 9.6, and the last five are all 10 or 11. Fixed and holding: RB
+floor, no-QB3, IND breach, team stacking (four straight reps at max 2 per
+club), and the ledger has come out exact in three of the last five.
 
 The sheet now carries TWO write-in boxes, both added because a printed
 reminder had already failed twice - writing the value down is what works:
@@ -140,8 +140,17 @@ reminder had already failed twice - writing the value down is what works:
    five reps finished 5RB/6WR (a back short, a receiver long). The ledger
    check catches it after the draft; this catches it during.
 
-Still lumpy: depth-round byes, though trending better - slot-11 had only
-one week over cap.
+**The one unsolved layer is depth-round byes.** It is now the ONLY error
+appearing in most reps, and the slot-1 finale was the worst of the set -
+five players on W7 and four on W5, two payout weeks lost. The bye tally is
+printed on every sheet and simply is not being filled in. Everything else
+the framework can enforce, it now enforces; this one needs the pen.
+
+**K bye clause added 8/9** off that same rep: among kickers you rate
+equally, take the one whose bye is not already at cap, and never one on
+W14. Across 16 reps the kicker was on W14 ten times (Aubrey) and the
+slot-1 rep put Butker on a W5 that already held three players. Kickers are
+fungible at R16 - this costs nothing.
 
 ### The original two, for the record
 
