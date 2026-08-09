@@ -175,6 +175,14 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
                 need += " AND a WR"
             board_lines.append(f"      GATE: needs {need} already held. "
                                + " ".join(str(wg["if_short"]).split()))
+    from .config import bye_of as _b
+    for pos in ("rb", "wr", "te"):
+        for p in load("depth_board").get(pos, []):
+            span = _round_span(p.get("rounds"))
+            if span and span[0] <= rnd <= span[1]:
+                board_lines.append(f"  {pos.upper():<3} {p['player']} ({p['team']}, bye W{_b(p['team'])})"
+                                   f" [{p['verdict']}]")
+                cap_teams.add(p["team"])
     if board_lines:
         out.append("\nBOARD names listed for this round:")
         out.append("\n".join(board_lines))
@@ -545,9 +553,14 @@ def picks_for_slot(slot: int) -> list[int]:
 
 
 def _abbr(name: str) -> str:
-    """'Josh Allen' -> 'J.Allen' so dense rows fit."""
-    parts = name.split()
-    return f"{parts[0][0]}.{parts[-1]}" if len(parts) > 1 else name
+    """'Josh Allen' -> 'J.Allen' so dense rows fit.
+
+    Suffixes are dropped, not treated as the surname - 'Luther Burden III'
+    was rendering as 'L.III', which is not a name you can find on a draft board.
+    """
+    parts = [p for p in name.split() if p.rstrip(".").upper() not in
+             ("JR", "SR", "II", "III", "IV", "V")]
+    return f"{parts[0][0]}.{parts[-1]}" if len(parts) > 1 else (parts[0] if parts else name)
 
 
 def _qb_row(entries: list[dict], sep: str = "/") -> str:
@@ -562,6 +575,27 @@ def _short_pick(pick: str) -> str:
                         ("WR Josh Downs", "Downs")):
         pick = pick.replace(long, tight)
     return pick
+
+
+def depth_at(rnd: int) -> list[str]:
+    """Depth-board names whose window covers this round, best verdict first.
+
+    Fills the R9-R15 lines that used to read 'free - best value'. 62% of mock
+    picks were on no board at all, and every remaining error lives back here.
+    """
+    from .config import bye_of
+    board = load("depth_board")
+    rank = {"STRONG BUY": 0, "BUY": 1, "OK": 2, "SPECULATIVE": 3}
+    out = []
+    for pos in ("rb", "wr", "te"):
+        for p in board.get(pos, []):
+            span = _round_span(p.get("rounds"))
+            if not (span and span[0] <= rnd <= span[1]):
+                continue
+            v = str(p["verdict"])
+            mark = "!" if v.startswith("CAUTION") else ""
+            out.append((rank.get(v, 4), f"{mark}{_abbr(p['player'])}({p['team']}{bye_of(p['team'])})"))
+    return [n for _, n in sorted(out)]
 
 
 def _new_targets(rnd: int) -> list[str]:
@@ -611,7 +645,7 @@ def sheet_twocol(slot: int, width_left: int = 62) -> str:
             if r == min(wg["applies_rounds"]) and wg.get("r4_needs_wr"):
                 need += "/no WR"
             bits.append(f"{need}?WARREN WAITS")
-        tg = _new_targets(r)
+        tg = _new_targets(r) + [d for d in depth_at(r) if d not in _new_targets(r)]
         if tg:
             bits.append("+" + ", ".join(tg))
         line = " ".join(bits) or "free - best value, check byes"

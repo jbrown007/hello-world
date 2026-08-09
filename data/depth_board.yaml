@@ -1,0 +1,145 @@
+# DEPTH BOARD - R9 through R15. Built 8/9.
+#
+# Why this exists: an audit of all 14 mock reps found 62% of skill picks were
+# on NO board. The framework governed WHEN to take a position and said nothing
+# about WHO after R8 - and R9-R15 is exactly where every remaining error lives
+# (bye stacking, the 5RB/6WR inversion, team concentration). These are the
+# names the reps actually reached for, now with a verdict attached.
+#
+# Sources 8/9: ESPN PPR top-160 (Field Yates), FantasyPros ADP + sleepers,
+# PFF late-round WRs, FantasyLife/SI/DraftSharks tier work, RotoWire.
+# REFRESH at the Aug 25 ADP pass and again after the Aug 29-30 cuts.
+
+rule: >
+  These are ranked suggestions, never commitments. A depth name NEVER outranks
+  a live commitment, the RB/WR floors, the bye cap or the team cap. Work down
+  the list, skip anything that breaks a cap, and take the best remaining.
+
+w14_trap:
+  weeks: [14]
+  note: >
+    THE DEPTH-ROUND TRAP. W14 is the seeding week and only ARI + DAL are on
+    bye in it - a tiny pool that the depth rounds keep hitting anyway. Across
+    14 reps Tyler Allgeier (ARI) was drafted 8 times and Brandon Aubrey (DAL)
+    10 times, so most rosters walked into the seeding week with one or two
+    players dark for no reason. Both are replaceable at their cost. Check the
+    bye before taking either.
+
+rb:
+- player: Rico Dowdle
+  team: PIT
+  bye: 9
+  adp: RB37 (~109 overall)
+  rounds: 9-11
+  verdict: BUY
+  why: Moved to Pittsburgh and profiles as the clearest early-down role of
+    this tier. Highest floor of the R9-11 backs.
+- player: Kyle Monangai
+  team: CHI
+  bye: 10
+  rounds: 11-13
+  verdict: OK
+  why: Real early-down work in a Ben Johnson offense. Counts toward the CHI
+    stack - Caleb, Odunze and Burden are all on this board too, all W10.
+- player: Jordan Mason
+  team: MIN
+  bye: 6
+  rounds: 11-13
+  verdict: OK
+  why: Standalone value if the Vikings backfield thins; bye W6 is a useful
+    week to own given how often the reps piled onto W7/W10/W13.
+- player: Zach Charbonnet
+  team: SEA
+  bye: 11
+  rounds: 12-15
+  verdict: SPECULATIVE
+  why: On PUP off a torn ACL with a Week 1 return described as unlikely, but
+    activatable any time before final cuts. A late stash, not a body you can
+    start in September - and he is the direct handcuff to Price.
+- player: Blake Corum
+  team: LAR
+  bye: 11
+  rounds: 12-15
+  verdict: OK
+  why: Standard late-round backfield dart. Nothing wrong with him; nothing
+    that separates him either.
+- player: Tyler Allgeier
+  team: ARI
+  bye: 14
+  rounds: 13-15
+  verdict: 'CAUTION - W14'
+  why: Drafted in 8 of 14 reps, and he is on the SEEDING WEEK bye. Fine as a
+    body, but there is no reason to prefer him over an equivalent back on any
+    other bye. If you want this tier, take the one who is not ARI or DAL.
+
+wr:
+- player: Rome Odunze
+  team: CHI
+  bye: 10
+  adp: WR28
+  rounds: 8-10
+  verdict: STRONG BUY
+  why: The best value on this board. Consensus WR28 while functioning as the
+    focal point of Chicago's passing attack over a near two-month sample;
+    widely flagged as a potential steal. Counts toward the CHI stack.
+- player: Luther Burden III
+  team: CHI
+  bye: 10
+  rounds: 9-12
+  verdict: BUY
+  why: The DJ Moore trade to Buffalo vacated roughly 85 targets and handed
+    Burden a clear runway in Ben Johnson's offense; he averaged 2.69 yards
+    per route run as a rookie. Also CHI - Odunze plus Burden plus Caleb is
+    three Bears and a dead W10.
+- player: Jayden Higgins
+  team: HOU
+  bye: 8
+  adp: WR56 (~135-158 overall)
+  rounds: 12-15
+  verdict: BUY
+  why: Best pure price-to-role gap left this late. Christian Kirk gone, the
+    Texans room thinned, projections around 750 yards and 6-8 TDs at a
+    mid-130s ADP. Drafted in 8 of 14 reps and correctly so.
+- player: Jayden Reed
+  team: GB
+  bye: 11
+  rounds: 10-12
+  verdict: OK
+  why: Already on the WR value board; kept here so the depth rounds read as
+    one list.
+- player: Stefon Diggs
+  team: WSH
+  bye: 7
+  rounds: 14-15
+  verdict: SPECULATIVE
+  why: Late-round name-brand dart. Volume depends entirely on how Washington
+    splits behind McLaurin.
+
+te:
+- player: Kenyon Sadiq
+  team: NYJ
+  bye: 13
+  adp: TE20
+  rounds: 14-15
+  verdict: 'LEGAL, NOT DEFAULT (see te_board te2_rule)'
+  why: Reopened 8/9 once FLEX was confirmed TE-eligible. Only after the RB and
+    WR floors are met - he takes RB6 or WR5's spot and must beat them for the
+    FLEX. Doubles as Warren insurance in a zero-IR league. Note bye W13 is the
+    same as Warren's, so he does NOT cover that week.
+
+fades:
+- player: Jonathon Brooks
+  team: CAR
+  bye: 5
+  adp: RB39 (~111 overall)
+  why: Drafted in 7 of 14 reps, the most-taken name on this board, and the
+    profile does not support the price. TWO torn ACLs, 23 career NFL snaps,
+    missed all of 2025, and Chuba Hubbard may simply keep the lead role. The
+    ADP is being pushed by camp hype, which is exactly the kind of rise the
+    fade list exists for. Let someone else pay.
+- player: Rashod Bateman
+  team: BAL
+  bye: 13
+  why: Low ceiling as the WR2 behind Zay Flowers in a run-first offense,
+    coming off a 2025 the coverage calls a disaster. Boom/bust with more bust.
+    Taken in 3 reps; there are better W13-free options.

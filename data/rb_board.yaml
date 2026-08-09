@@ -15,9 +15,13 @@ tiers:
   - Bijan Robinson
   note: The R1 pivot if Josh Allen is gone (trees.yaml). Do not reach for QB2-5 tier arms over these.
 - tier: 2
-  who: []
-  note: UNKNOWN - the original tier membership was never captured in YAML. Fill from the August ADP pass
-    before building slot trees.
+  who: [Christian McCaffrey, Jonathan Taylor, Chase Brown, James Cook III, Saquon Barkley, De'Von Achane,
+    Jeremiyah Love]
+  note: 'FILLED 8/9 from consensus 2026 RB rankings (ESPN/NFL.com/Footballguys/FantasyLife) - this was
+    the single biggest data gap since 8/1. These are the RB3-RB9 range behind Gibbs and Bijan, i.e. the
+    backs your R2-R4 RB commitments should actually be buying. Jeremiyah Love (ARI) is the name the old
+    boards did not know and he went R2/R3 in early mocks. CAVEAT on McCaffrey: ranked RB3 but age, usage
+    and injury history are consensus red flags, and this league has ZERO IR - discount him accordingly.'
 targets:
 - player: Rhamondre Stevenson
   team: NE

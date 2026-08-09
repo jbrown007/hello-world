@@ -9,6 +9,23 @@ rule:
 context: Only 5-6 of the top-12 WRs in 2024-25 were on playoff teams, down from 8+ in 2021-23. Volume
   beats environment.
 value_board:
+- player: Amon-Ra St. Brown
+  team: DET
+  target_rank: 4
+  adp: WR4 (~8 overall)
+  round: 1
+  note: 'PLACED 8/9 - he had been a starred personal target sitting on NO board since 7/25, which is why
+    he never appeared in a single mock. He is not a sleeper: top-3 PPR WR finish three straight years,
+    117-1401-11 in 2025, highest team target share among his peers (29.0%), consensus WR4 and top-8
+    overall. He belongs in the R1 pivot conversation with Nacua and the elite RBs, NOT in the depth
+    rounds. New OC in Detroit is the only wrinkle and it is not enough to move him.'
+- player: Puka Nacua
+  team: LAR
+  target_rank: 5
+  adp: R1
+  round: 1
+  note: The R1 pivot already named in lessons.yaml, put on the board 8/9 so it actually prints on the
+    sheet's R1 line instead of leaving the most important pick blank.
 - player: Josh Downs
   team: IND
   target_rank: 28

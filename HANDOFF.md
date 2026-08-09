@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 41/41 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 42/42 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -72,6 +72,26 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   mock lost an RB that way, slot-3 lost the WR).
 - **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
   K/DST R16-17 only.
+- **Depth board (data/depth_board.yaml, NEW 8/9)** - the plan governed WHEN
+  but not WHO after R8, and an audit of all 14 reps found **62% of skill picks
+  were on no board at all**, in exactly the rounds where every remaining error
+  lives. R9-R15 now carries ranked names with byes and verdicts, printed on the
+  sheet's previously-blank depth lines and in `ff draft`. Headline calls:
+  Odunze STRONG BUY (WR28 ADP as Chicago's focal point), Burden BUY (~85
+  targets vacated by the DJ Moore trade), Higgins BUY (WR56 price, Kirk gone),
+  Dowdle BUY; **Brooks FADE** (two ACLs, 23 career snaps, ADP inflated by camp
+  hype - and the most-drafted name across the reps at 7 of 14); Bateman FADE.
+- **The W14 depth trap**: only ARI and DAL are on bye in the seeding week, yet
+  the reps kept hitting it - Allgeier (ARI) taken 8 times, Aubrey (DAL) 10.
+  Both are replaceable at their cost. The depth board flags Allgeier CAUTION,
+  and a check fails if any W14 depth name is listed without one.
+- **RB Tier 2 FILLED 8/9** (was the biggest data gap since 8/1): McCaffrey,
+  J.Taylor, Chase Brown, Cook, Barkley, Achane, Jeremiyah Love. McCaffrey
+  carries an explicit zero-IR discount.
+- **Amon-Ra St. Brown PLACED 8/9**: he was a starred personal target on NO
+  board since 7/25, which is why he never appeared in a single mock. He is
+  consensus WR4 / top-8 overall - an **R1 pivot** with Nacua, not a depth name.
+  Both now print on the sheet's R1 line, which used to be blank.
 - **Downs window widened 8/4, the first strategy change driven by the mock
   log**: a hard R7 produced 9 misses in 9 superflex reps because he was never
   there - he actually went R10, R11, R14, and this room had him at pick 145

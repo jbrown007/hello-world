@@ -495,6 +495,44 @@ def _():
     return f"ledger {sum(want.values())} spots, TE2 + WR shortfall both caught"
 
 
+@check("depth board covers R9-R15 and reaches the sheet")
+def _():
+    """8/9: an audit found 62% of mock skill picks were on NO board - the plan
+    said WHEN but not WHO after R8, which is exactly where the remaining errors
+    live. Every depth entry needs a real team, a round window and a verdict;
+    the depth rounds must not be left blank on the sheet; and anything on the
+    fade list must not also be recommended."""
+    from ffcli.draft import depth_at, sheet_twocol, draft_screen
+    from ffcli.config import load, bye_of
+    b = load("depth_board")
+    picks = [p for pos in ("rb", "wr", "te") for p in b.get(pos, [])]
+    assert picks, "depth board has no players"
+    for p in picks + b.get("fades", []):
+        assert bye_of(p["team"]), f"{p['player']}: {p['team']!r} is not a real team code"
+        assert p.get("why"), f"{p['player']} has no rationale"
+    for p in picks:
+        assert p.get("verdict"), f"{p['player']} has no verdict"
+        span = __import__("ffcli.draft", fromlist=["x"])._round_span(p.get("rounds"))
+        assert span and span[0] >= 8, f"{p['player']} window {p.get('rounds')} is not a depth round"
+    faded = {p["player"] for p in b.get("fades", [])}
+    assert not (faded & {p["player"] for p in picks}), \
+        f"player both recommended and faded: {faded & {p['player'] for p in picks}}"
+    # the rounds that used to read 'free - best value' must now carry names
+    blank = [r for r in range(9, 16) if not depth_at(r)]
+    assert not blank, f"depth rounds still empty: {blank}"
+    text = sheet_twocol(3)
+    for r in (9, 12, 15):
+        row = next(l for l in text.splitlines() if l.startswith(f"R{r} "))
+        assert "free - best value" not in row, f"sheet R{r} still blank"
+    assert "STRONG BUY" in draft_screen(3, 9, 8), "pick screen lost depth verdicts"
+    # W14 is the seeding week - any depth name on it must be flagged, not silent
+    for p in picks:
+        if bye_of(p["team"]) == 14:
+            assert "CAUTION" in p["verdict"], \
+                f"{p['player']} is on the W14 seeding-week bye but carries no caution"
+    return f"{len(picks)} depth names + {len(faded)} fades, R9-R15 all covered"
+
+
 @check("mock log aggregates into a pattern report")
 def _():
     """Josh is repping all 12 slots before Sept 7. The log has to answer which
