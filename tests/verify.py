@@ -501,9 +501,11 @@ def _():
     to 'skip any already rostered' - i.e. filter its own false alarms under a
     pick clock. It also could not reach the run trigger; that lived only in
     `ff qb`. Both are the tool's whole job on draft day."""
-    from ffcli.draft import draft_screen, outstanding, parse_have, commitments_for
-    assert parse_have("QB=1,RB=2") == {"QB": 1, "RB": 2}
-    assert parse_have(None) == {} and parse_have("") == {}
+    from ffcli.draft import (draft_screen, outstanding, parse_have, commitments_for,
+                             _commit_name)
+    assert parse_have("QB=1,RB=2") == ({"QB": 1, "RB": 2}, set())
+    assert parse_have("QB=1,warren") == ({"QB": 1}, {"warren"})
+    assert parse_have(None) == ({}, set()) and parse_have("") == ({}, set())
     try:
         parse_have("QB")
         assert False, "parse_have accepted a malformed pair"
@@ -516,6 +518,16 @@ def _():
     assert len(left) == len(full) - 4, f"held 4 picks, {len(full) - len(left)} commitments cleared"
     assert not any(c["pick"].startswith("QB1") for c in left), "QB1 still owed while holding a QB"
     assert any(c["pick"] == "QB2" for c in left), "QB2 wrongly cleared by the QB1 holding"
+    # a NAMED commitment must not be cleared by unrelated players at the position
+    named = [c for c in full if _commit_name(c["pick"])]
+    assert named, "no named commitments to test - Warren/Downs missing from the plan"
+    many = outstanding("MIDDLE", {"QB": 3, "RB": 6, "WR": 5, "TE": 1})
+    for c in named:
+        assert any(x["pick"] == c["pick"] for x in many), \
+            f"{c['pick']} cleared by position count alone - it names a specific player"
+    keys = {_commit_name(c["pick"]) for c in named}
+    assert not outstanding("MIDDLE", {"QB": 3, "RB": 6, "WR": 5, "TE": 1, "K": 1, "DST": 1}, keys), \
+        "naming every player plus full counts still leaves commitments owed"
     clean = draft_screen(6, 5, 9, None, have)
     assert "OVERDUE" not in clean, "satisfied commitments still shown as OVERDUE"
     assert "HELD" in clean and "4 of 17 picks made" in clean, "no roster summary"

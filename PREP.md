@@ -64,10 +64,13 @@ through it automatically and opens PRs when something changes.
 - Print the cheat sheet: `ff sheet` (or grab the pre-built
   `build/sheet_EARLY|MIDDLE|LATE.txt` from `ff sheet --all`).
 - At the table, one command per pick:
-  `ff draft --round R --gone G --slot N --window W --have "QB=1,RB=2,WR=1"`
+  `ff draft --round R --gone G --slot N --window W --have "QB=1,RB=2,WR=2,warren,downs"`
   → tree step + QB verdict (with the 3-in-12 run trigger armed by `--window`)
   + HELD tally + only what you STILL OWE + board names + Colts cap, one
-  screen. `--have` is the same numbers you write in the sheet's TALLY box.
+  screen. `--have` takes POS=N counts (the same numbers you write in the
+  sheet's TALLY box) PLUS bare names for the board-specific picks - warren,
+  downs. A named commitment only clears when you name it, so it cannot be
+  wiped out by unrelated players at the same position.
 - `ff` is on PATH after `bash setup.sh` - no venv activation, works from any
   directory. Verified 8/13. Re-run setup.sh after pulling if it ever misses.
 

@@ -129,17 +129,32 @@ def _round_span(text: str) -> tuple[int, int] | None:
     return lo, int(m.group(2) or lo)
 
 
-def parse_have(text: str | None) -> dict[str, int]:
-    """'QB=1,RB=2,WR=1' -> {'QB': 1, 'RB': 2, 'WR': 1}. Empty/None -> {}."""
-    out: dict[str, int] = {}
+def parse_have(text: str | None) -> tuple[dict[str, int], set[str]]:
+    """Parse --have into (position counts, named players already drafted).
+
+    'QB=1,RB=2,WR=2,downs' -> ({'QB':1,'RB':2,'WR':2}, {'downs'}). Bare tokens
+    name a specific commitment (warren, downs) - see outstanding() for why a
+    count alone must not clear one.
+    """
+    counts: dict[str, int] = {}
+    names: set[str] = set()
     for part in (text or "").replace(" ", "").split(","):
         if not part:
             continue
-        pos, _, n = part.partition("=")
-        if not n.isdigit():
-            raise ValueError(f"--have expects POS=N pairs like 'QB=1,RB=2', got {part!r}")
-        out[pos.upper()] = int(n)
-    return out
+        if "=" in part:
+            pos, _, n = part.partition("=")
+            if not n.isdigit():
+                raise ValueError(f"--have expects POS=N pairs like 'QB=1,RB=2', got {part!r}")
+            counts[pos.upper()] = int(n)
+        elif part.upper() in ("QB", "RB", "WR", "TE", "K", "DST"):
+            # A bare position code is a dropped '=N', not a player called 'QB'.
+            raise ValueError(f"--have: {part!r} looks like a count missing its number - "
+                             f"write {part.upper()}=1")
+        elif part.isalpha():
+            names.add(part.lower())
+        else:
+            raise ValueError(f"--have: {part!r} is neither a POS=N pair nor a player name")
+    return counts, names
 
 
 def _commit_pos(pick: str) -> str:
@@ -149,17 +164,39 @@ def _commit_pos(pick: str) -> str:
     return m.group(1) if m else ""
 
 
-def outstanding(label: str, have: dict[str, int]) -> list[dict]:
+def _commit_name(pick: str) -> str:
+    """Player key for a NAMED commitment, else ''. 'WR Josh Downs' -> 'downs'.
+
+    Generic slots ('WR (Tiers 2-3)', 'QB2', 'K') return '' - the lookahead
+    rejects a parenthetical, which is what distinguishes a tier label from a
+    person.
+    """
+    import re
+    m = re.match(r"(?:DST|QB|RB|WR|TE|K)\d*\s+(?!\()(.+)$", str(pick).strip())
+    return m.group(1).split()[-1].lower() if m else ""
+
+
+def outstanding(label: str, have: dict[str, int], names: set[str] | None = None) -> list[dict]:
     """Commitments not yet covered by what you already hold.
 
-    Commitments are satisfied in deadline order: holding 2 RBs covers the two
-    earliest RB commitments. Without this the pick screen calls every early
-    commitment OVERDUE at R5 and asks you to filter the false alarms yourself -
-    exactly the cross-referencing the sheets were rebuilt to remove.
+    Generic commitments are satisfied in deadline order: holding 2 RBs covers
+    the two earliest RB commitments. Without this the pick screen calls every
+    early commitment OVERDUE at R5 and asks you to filter its false alarms.
+
+    NAMED commitments (Warren, Downs) are a different thing and only clear when
+    you say you have that player. Found in practice 8/13: holding two ordinary
+    WRs was silently clearing 'WR Josh Downs', so the one board-specific pick
+    in the middle rounds quietly disappeared off the owed list.
     """
+    names = names or set()
     left = dict(have)
     todo = []
     for c in sorted(commitments_for(label), key=lambda c: (c["window"][1], c["window"][0])):
+        who = _commit_name(c["pick"])
+        if who:
+            if who not in names:
+                todo.append(c)
+            continue
         pos = _commit_pos(c["pick"])
         if left.get(pos, 0) > 0:
             left[pos] -= 1
@@ -169,7 +206,7 @@ def outstanding(label: str, have: dict[str, int]) -> list[dict]:
 
 
 def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
-                 have: dict[str, int] | None = None) -> str:
+                 have: dict[str, int] | None = None, names: set[str] | None = None) -> str:
     """One screen for a live pick: tree step, QB verdict, commitments, boards.
 
     have: what you already hold, by position, so satisfied commitments drop off
@@ -179,6 +216,7 @@ def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
     br = tree(slot)
     label = br["label"]
     have = have or {}
+    names = names or set()
     out = [f"=== ROUND {rnd} | slot {slot} ({label}) | {gone} QBs gone ==="]
 
     step = next((s for s in br["steps"]
@@ -196,7 +234,7 @@ def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
             out.append(f"RB    [{rb.action}] {rb.note}")
 
     lines = []
-    for c in outstanding(label, have):
+    for c in outstanding(label, have, names):
         lo, hi = c["window"]
         if hi < rnd:
             lines.append(f"  !! OVERDUE  {c['pick']} (window was R{lo}-R{hi})")
