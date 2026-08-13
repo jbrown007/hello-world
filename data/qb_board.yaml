@@ -57,8 +57,21 @@ qb2_window:
   who:
   - player: Cam Ward
     team: TEN
-    why: 'Repo #1 value: Daboll hired to develop him, designed QB runs coming,
-      priced as a QB3 (watchlist Tier 1 row).'
+    tag: best value
+    why: 'Repo #1 on value-vs-cost: Daboll hired to develop him, designed QB
+      runs coming, priced as a QB3 (watchlist Tier 1 row). Default QB2 unless
+      you own Jefferson.'
+  - player: Kyler Murray
+    team: MIN
+    tag: NAMED 8/11 - ceiling play, #1 IF you own Jefferson
+    why: 'NAMED WEEK 1 STARTER 8/11 (multi-source) - the "only if named" tag is
+      retired and he is legal. Highest SF ceiling on the board: dual-threat arm
+      with Jefferson, Addison and Hockenson. The pre-registered call from the
+      watchlist fires - if you hold Jefferson, this is the weekly-payout stack
+      and Murray goes first in this order. Without Jefferson he is a very good
+      arm and Ward is the better price. CAVEATS: missed most of 2025 on a foot
+      injury, and had ugly practice miscues as late as 8/10. Price jumped on
+      the announcement - do not chase past R6.'
   - player: Baker Mayfield
     team: TB
     why: Value QB1 who falls. Contract standoff is the camp watch item.
@@ -71,10 +84,6 @@ qb2_window:
     team: DEN
   - player: Jordan Love
     team: GB
-  - player: Kyler Murray
-    team: MIN
-    tag: only if named starter
-    why: Vikings decision ~Aug 14 (watchlist). Also the Jefferson-stack question.
 
 qb3_vets:
   rounds: [9, 13]

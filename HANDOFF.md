@@ -23,8 +23,9 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   deadline (inside Week 13), rolling waivers Tuesday night, weekly high-score
   payouts W1-12. Still unverified (non-blocking): playoff team count
   (likely 6) - it sets how much the W14 seeding week is worth.
-- **Watchlist: 23 rows, 17 Resolved / 6 Trending / 0 Unsettled** as of the
-  8/6 camp watch (Chargers WR resolved: Thompson is a WR4, not a target).
+- **Watchlist: 23 rows, 18 Resolved / 5 Trending / 0 Unsettled** as of the
+  8/13 camp watch. **Vikings RESOLVED: Kyler Murray named Week 1 starter
+  8/11** - the highest-value open row on the board since July.
 - **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
   `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
   is the live one-screen pick view; `ff grade` scores a finished draft.
@@ -48,7 +49,11 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   QB3 mandatory R10-13 with a bye different from QB1/QB2 (OP starts a second
   QB weekly). Named tiers live in **data/qb_board.yaml** (elite six, Branch C
   anchors, QB2 order, QB3 vets, never-list) and print on every sheet - refresh
-  at the Aug 25 ADP pass and when the Vikings/Jets rows resolve. **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
+  at the Aug 25 ADP pass. **Murray was named 8/11**, so his "only if named"
+  gate is retired and he sits 2nd in the QB2 order: Ward stays the default on
+  value-vs-cost, Murray goes FIRST if you own Jefferson (that stack is the
+  weekly-payout thesis the watchlist pre-registered in July). Do not chase him
+  past R6 - the price moved on the announcement. **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
   pick regardless of count** (`ff qb --window`). EARLY slots: take QB2 at the
   R5 pick even though the count feels low - the run fires inside their
   23-pick R5->R6 gap.
