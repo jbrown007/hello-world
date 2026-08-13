@@ -13,7 +13,7 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 
 ## 1. Where things stand
 
-- **Suite: 42/42 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 43/43 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
@@ -27,8 +27,16 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   8/13 camp watch. **Vikings RESOLVED: Kyler Murray named Week 1 starter
   8/11** - the highest-value open row on the board since July.
 - **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
-  `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
-  is the live one-screen pick view; `ff grade` scores a finished draft.
+  `ff sheet --all` writes the printable per-branch draft scripts; `ff grade`
+  scores a finished draft.
+- **`ff draft` is the live pick view - USE THE FLAGS (fixed 8/13)**:
+  `ff draft --round R --gone G --slot N --window W --have "QB=1,RB=2,WR=1"`.
+  A dry run on 8/13 found it unusable as built: with no idea what you already
+  held it called QB1/RB/RB/WR OVERDUE at R5 and told you to "skip any already
+  rostered" - filtering its own false alarms under a pick clock. `--have` now
+  retires satisfied commitments in deadline order and prints a HELD tally
+  against the ledger; `--window` arms the 3-in-12 run trigger, which had been
+  reachable only from `ff qb`; and an RB-floor breach surfaces automatically.
 - **Sheet format (chosen 8/4)**: `ff sheet` defaults to `--format twocol` -
   ONE landscape page (55 lines, 119 cols): round script left, permanent
   reference right. The right column carries the bye weeks **with their team

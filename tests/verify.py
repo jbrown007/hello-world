@@ -495,6 +495,41 @@ def _():
     return f"ledger {sum(want.values())} spots, TE2 + WR shortfall both caught"
 
 
+@check("live pick screen tracks what you hold and arms the run trigger")
+def _():
+    """8/13 dry run: at R5 the screen called QB1/RB/RB/WR OVERDUE and told you
+    to 'skip any already rostered' - i.e. filter its own false alarms under a
+    pick clock. It also could not reach the run trigger; that lived only in
+    `ff qb`. Both are the tool's whole job on draft day."""
+    from ffcli.draft import draft_screen, outstanding, parse_have, commitments_for
+    assert parse_have("QB=1,RB=2") == {"QB": 1, "RB": 2}
+    assert parse_have(None) == {} and parse_have("") == {}
+    try:
+        parse_have("QB")
+        assert False, "parse_have accepted a malformed pair"
+    except ValueError:
+        pass
+    # holding the early picks must retire those commitments, in deadline order
+    full = commitments_for("MIDDLE")
+    have = {"QB": 1, "RB": 2, "WR": 1}
+    left = outstanding("MIDDLE", have)
+    assert len(left) == len(full) - 4, f"held 4 picks, {len(full) - len(left)} commitments cleared"
+    assert not any(c["pick"].startswith("QB1") for c in left), "QB1 still owed while holding a QB"
+    assert any(c["pick"] == "QB2" for c in left), "QB2 wrongly cleared by the QB1 holding"
+    clean = draft_screen(6, 5, 9, None, have)
+    assert "OVERDUE" not in clean, "satisfied commitments still shown as OVERDUE"
+    assert "HELD" in clean and "4 of 17 picks made" in clean, "no roster summary"
+    # the run trigger must be reachable from the pick screen, not just ff qb
+    quiet = draft_screen(6, 5, 7, None, have)
+    fired = draft_screen(6, 5, 7, 3, have)
+    assert "TAKE_QB2_NOW" not in quiet, "trigger fired without a window"
+    assert "RUN DETECTED" in fired, "3-in-12 window did not fire the run trigger"
+    # a short RB count must surface without a separate ff rb call
+    short = draft_screen(6, 8, 14, None, {"QB": 2, "RB": 2, "WR": 2, "TE": 1})
+    assert "TAKE_RB_NOW" in short, "RB floor breach not surfaced on the pick screen"
+    return "held-tracking, run trigger and RB floor all live on ff draft"
+
+
 @check("depth board covers R9-R15 and reaches the sheet")
 def _():
     """8/9: an audit found 62% of mock skill picks were on NO board - the plan

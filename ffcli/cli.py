@@ -49,6 +49,11 @@ def main(argv=None) -> int:
     d.add_argument("--round", type=int, required=True)
     d.add_argument("--gone", type=int, required=True, help="QBs already off the board")
     d.add_argument("--slot", type=int, default=None)
+    d.add_argument("--window", type=int, default=None,
+                   help="QBs taken in the last 12 picks; 3+ fires the run trigger")
+    d.add_argument("--have", default=None,
+                   help="what you already hold, e.g. 'QB=1,RB=2,WR=1' - satisfied "
+                        "commitments drop off instead of showing OVERDUE")
 
     s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
     s.add_argument("--slot", type=int, default=None)
@@ -107,7 +112,8 @@ def main(argv=None) -> int:
         if not slot:
             print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
             return 1
-        print(draft_screen(slot, a.round, a.gone))
+        from .draft import parse_have
+        print(draft_screen(slot, a.round, a.gone, a.window, parse_have(a.have)))
 
     elif a.cmd == "sheet":
         from .draft import sheet_twocol

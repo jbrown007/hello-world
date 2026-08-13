@@ -129,20 +129,74 @@ def _round_span(text: str) -> tuple[int, int] | None:
     return lo, int(m.group(2) or lo)
 
 
-def draft_screen(slot: int, rnd: int, gone: int) -> str:
-    """One screen for a live pick: tree step, QB verdict, commitments, boards."""
+def parse_have(text: str | None) -> dict[str, int]:
+    """'QB=1,RB=2,WR=1' -> {'QB': 1, 'RB': 2, 'WR': 1}. Empty/None -> {}."""
+    out: dict[str, int] = {}
+    for part in (text or "").replace(" ", "").split(","):
+        if not part:
+            continue
+        pos, _, n = part.partition("=")
+        if not n.isdigit():
+            raise ValueError(f"--have expects POS=N pairs like 'QB=1,RB=2', got {part!r}")
+        out[pos.upper()] = int(n)
+    return out
+
+
+def _commit_pos(pick: str) -> str:
+    """Leading position of a commitment label: 'QB1 (Tier 1 arm)' -> 'QB'."""
+    import re
+    m = re.match(r"(DST|QB|RB|WR|TE|K)", str(pick).strip())
+    return m.group(1) if m else ""
+
+
+def outstanding(label: str, have: dict[str, int]) -> list[dict]:
+    """Commitments not yet covered by what you already hold.
+
+    Commitments are satisfied in deadline order: holding 2 RBs covers the two
+    earliest RB commitments. Without this the pick screen calls every early
+    commitment OVERDUE at R5 and asks you to filter the false alarms yourself -
+    exactly the cross-referencing the sheets were rebuilt to remove.
+    """
+    left = dict(have)
+    todo = []
+    for c in sorted(commitments_for(label), key=lambda c: (c["window"][1], c["window"][0])):
+        pos = _commit_pos(c["pick"])
+        if left.get(pos, 0) > 0:
+            left[pos] -= 1
+        else:
+            todo.append(c)
+    return todo
+
+
+def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
+                 have: dict[str, int] | None = None) -> str:
+    """One screen for a live pick: tree step, QB verdict, commitments, boards.
+
+    have: what you already hold, by position, so satisfied commitments drop off
+    instead of shouting OVERDUE. window: QBs taken in the last 12 picks, which
+    arms the run trigger - it was previously reachable only via `ff qb`.
+    """
     br = tree(slot)
     label = br["label"]
+    have = have or {}
     out = [f"=== ROUND {rnd} | slot {slot} ({label}) | {gone} QBs gone ==="]
 
     step = next((s for s in br["steps"]
                  if (_round_span(s["round"]) or (0, -1))[0] <= rnd <= (_round_span(s["round"]) or (0, -1))[1]), None)
     out.append(f"\nTREE  {step['round']}: {step['do']}" if step else "\nTREE  (no step covers this round)")
 
-    out.append(f"\nQB    {qb_verdict(rnd, gone)}")
+    out.append(f"\nQB    {qb_verdict(rnd, gone, window)}")
+
+    if have:
+        led = load("commitments")["ledger"]
+        out.append("\nHELD  " + "  ".join(f"{p} {have.get(p, 0)}/{n}" for p, n in led.items())
+                   + f"   ({sum(have.values())} of {sum(led.values())} picks made)")
+        rb = rb_verdict(rnd, have.get("RB", 0))
+        if rb.action != "ON_TRACK":
+            out.append(f"RB    [{rb.action}] {rb.note}")
 
     lines = []
-    for c in commitments_for(label):
+    for c in outstanding(label, have):
         lo, hi = c["window"]
         if hi < rnd:
             lines.append(f"  !! OVERDUE  {c['pick']} (window was R{lo}-R{hi})")
@@ -150,8 +204,8 @@ def draft_screen(slot: int, rnd: int, gone: int) -> str:
             lines.append(f"  >> DUE NOW  {c['pick']} (last round of window)")
         elif lo <= rnd:
             lines.append(f"  -  open     {c['pick']} (R{lo}-R{hi})")
-    out.append("\nMUST-HAVES at this pick (skip any already rostered):")
-    out.append("\n".join(lines) if lines else "  none in window")
+    out.append("\nSTILL OWED" + ("" if have else " (pass --have to drop what you already hold)") + ":")
+    out.append("\n".join(lines) if lines else "  nothing outstanding in this window")
 
     board_lines, cap_teams = [], set()
     for p in load("wr_board")["value_board"]:
