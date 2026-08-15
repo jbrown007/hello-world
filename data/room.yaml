@@ -176,10 +176,10 @@ league:
     - {rank: 12, team: Kleenex Gang, manager: Cedric Brown}
     corrections:
     - >
-      JOSH FINISHED 10th, NOT 7th. Every justification in the repo - the RB floor rule, HANDOFF - cites
-      a 7th-place 2025 finish. The Final Standings screen says 10th of 12. Possible the 7th was the
-      REGULAR-SEASON finish and 10th is final; Josh to confirm which. Either way the RB floor's case
-      gets stronger, not weaker.
+      JOSH FINISHED 10th, NOT 7th - CONFIRMED 8/13. Josh verified Crushing Dreams is his team, so the
+      Final Standings 10th of 12 is his real 2025 result. Every justification in the repo cited 7th;
+      rb_rule.yaml and HANDOFF are corrected. The 7th may have been the regular-season placing before
+      playoffs. Either way the RB floor's case gets stronger, not weaker.
     - >
       TREY ACTION FAKE FINISHED 6th. His profile calls him the STRUCTURAL FAVORITE on the back of 2023
       and 2024 titles and says he "does not panic". Sixth is mid. Keep the process read - he does run
@@ -188,6 +188,15 @@ league:
     - Shaun DeNiro 2nd, Jag FLu 3rd and CHAMP top-half all match their existing profile notes.
     - '#TheMoneyTeam WON - the reigning-champ label is accurate and his blueprint is the one that won.'
     - 'Reactive trade marks (bottom four): Crushing Dreams, 4 Time 13, Kleenex Gang - plus Olave 9th.'
+    how_the_room_sees_josh: >
+      USE THIS. Crushing Dreams finished 10th of 12, which means the room's own bottom-four read
+      includes Josh - he is currently somebody else's buy-low mark, not a feared contender. That is an
+      asset in the trade game the plan already depends on. The QB3-as-inventory doctrine needs a buyer
+      who will pay; a manager who thinks he is fleecing the 10th-place team negotiates faster and
+      cheaper than one who thinks he is dealing with a shark. Do not correct the impression early. The
+      mapped customer is Shaun DeNiro (2nd, thin at QB2); Da LockDownGoon (8th, churner) is the other
+      active trader. Expect lowball offers in September - they are information about how you are
+      perceived, not about your roster.
   gaps:
   - Josh's own 9.08 pick (only R9 picks 1-4 captured)
   - 2026 slots - fill slot_2026 for all 12 the moment the order is posted

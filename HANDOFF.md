@@ -55,10 +55,10 @@ converts hedging across 12 branches into slot-specific preparation.
 
 - **RB floor (data/rb_rule.yaml)**: 2 RBs by end of R4, 3 by R8, 5 by R12.
   Exists because Josh's 2025 draft (QB/QB/TE early, first RB at pick 65) ended
-  badly. **Correction 8/13**: the repo has cited "7th place" throughout, but
-  the league's Final Standings screen shows **Crushing Dreams 10th of 12**.
-  The 7th may have been the regular-season finish - Josh to confirm - but
-  either way the rule's case is stronger, not weaker. Non-negotiable;
+  badly. **Corrected 8/13**: the repo cited "7th place" throughout; Josh
+  confirmed Crushing Dreams is his team and the Final Standings show **10th of
+  12**. The 7th may have been the regular-season placing. Either way the
+  rule's case is stronger, not weaker. Non-negotiable;
   `ff rb --round N --held X`.
 - **QB rule (data/qb_rule.yaml), retuned to the room's real 2025 board**:
   8 QBs gone through R4, ZERO in R5, six in R6. The room queues, then panics.
