@@ -7,7 +7,13 @@ source of truth.** The original audit handoff this file replaces is in git
 history (it described 20-man rosters and 23 checks - that world is gone).
 
 The goal: Josh wins his 12-team full-PPR superflex league for the first time
-in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
+in 15 years.
+
+**Draft: Sunday Sept 6, 9:00 PM EST** (corrected 8/13 - was recorded as
+Sept 7). **The draft ORDER is posted the evening of Aug 13**, so the slot is
+known roughly three and a half weeks out - the "slot unknown until draft
+morning" assumption the whole framework was built around is retired. That
+converts hedging across 12 branches into slot-specific preparation.
 
 ---
 
@@ -48,8 +54,12 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
 ## 2. The strategy, as it now stands
 
 - **RB floor (data/rb_rule.yaml)**: 2 RBs by end of R4, 3 by R8, 5 by R12.
-  Exists because Josh's 2025 draft (QB/QB/TE early, first RB at pick 65)
-  produced 7th place. Non-negotiable; `ff rb --round N --held X`.
+  Exists because Josh's 2025 draft (QB/QB/TE early, first RB at pick 65) ended
+  badly. **Correction 8/13**: the repo has cited "7th place" throughout, but
+  the league's Final Standings screen shows **Crushing Dreams 10th of 12**.
+  The 7th may have been the regular-season finish - Josh to confirm - but
+  either way the rule's case is stronger, not weaker. Non-negotiable;
+  `ff rb --round N --held X`.
 - **QB rule (data/qb_rule.yaml), retuned to the room's real 2025 board**:
   8 QBs gone through R4, ZERO in R5, six in R6. The room queues, then panics.
   So: QB1 by R3 (A/B/C branch map keys on whether an elite arm reaches your

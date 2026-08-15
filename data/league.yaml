@@ -34,9 +34,14 @@ starters:                    # 10 total, confirmed 8/1
 
 draft:
   type: snake
-  date: 2026-09-07           # Labor Day
+  date: 2026-09-06           # CORRECTED 8/13 - Sunday 9:00 PM EST, not Sept 7
+  time: '21:00 EST'
   rounds: 17                 # one per roster spot
-  slot: null                 # revealed draft morning; set it then run `ff tree`
+  slot: null                 # ORDER POSTED 8/13 ~9PM EST - set this as soon as
+                             # Josh has it, then rerun: ff tree / ff room --slot N
+                             # / ff sheet. The old "revealed draft morning"
+                             # assumption is dead; we get ~3.5 weeks of
+                             # slot-specific prep instead.
 
 waivers:
   type: rolling_priority

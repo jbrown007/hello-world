@@ -154,8 +154,40 @@ league:
   - 'The R9-10 vet-QB tier (QB3 inventory) is contested: Trey Action Fake and TheMoneyTeam are proven
     multi-QB drafters, Kleenex hoards by instinct. Eleven picks wide in 2025 - do not telegraph the QB3
     pick.'
-  draft_order_method: unknown
+  draft_order_method: 'Randomized/announced at a set time - the 2026 order was determined the evening of
+    Aug 13, roughly three and a half weeks before the draft, NOT on draft morning as the framework had
+    assumed.'
+  final_standings_2025:
+    note: >
+      CAPTURED 8/13 from the league's Final Standings screen - this closed a gap open since 8/2. Most
+      profile reps check out against it; two things did not, see below.
+    order:
+    - {rank: 1, team: '#TheMoneyTeam', manager: Chris Evans}
+    - {rank: 2, team: Shaun DeNiro, manager: Shaun Miller}
+    - {rank: 3, team: Jag FLu, manager: Justin Ray}
+    - {rank: 4, team: Griddy Committee, manager: Freddy Young}
+    - {rank: 5, team: Just call me CHAMP, manager: Jazmond Burks}
+    - {rank: 6, team: Trey Action Fake, manager: Trey Gorman}
+    - {rank: 7, team: Easy money, manager: Adrian Bradley}
+    - {rank: 8, team: Da LockDownGoon, manager: THORAN TYNER}
+    - {rank: 9, team: Olave when you call me big papa, manager: Josh Jeffrey}
+    - {rank: 10, team: Crushing Dreams, manager: Josh Brown}
+    - {rank: 11, team: 4 Time 13, manager: Bobby Brooks}
+    - {rank: 12, team: Kleenex Gang, manager: Cedric Brown}
+    corrections:
+    - >
+      JOSH FINISHED 10th, NOT 7th. Every justification in the repo - the RB floor rule, HANDOFF - cites
+      a 7th-place 2025 finish. The Final Standings screen says 10th of 12. Possible the 7th was the
+      REGULAR-SEASON finish and 10th is final; Josh to confirm which. Either way the RB floor's case
+      gets stronger, not weaker.
+    - >
+      TREY ACTION FAKE FINISHED 6th. His profile calls him the STRUCTURAL FAVORITE on the back of 2023
+      and 2024 titles and says he "does not panic". Sixth is mid. Keep the process read - he does run
+      this framework's own playbook - but the aura is one season out of date.
+    confirmed:
+    - Shaun DeNiro 2nd, Jag FLu 3rd and CHAMP top-half all match their existing profile notes.
+    - '#TheMoneyTeam WON - the reigning-champ label is accurate and his blueprint is the one that won.'
+    - 'Reactive trade marks (bottom four): Crushing Dreams, 4 Time 13, Kleenex Gang - plus Olave 9th.'
   gaps:
   - Josh's own 9.08 pick (only R9 picks 1-4 captured)
-  - Full 2025 final standings (bottom four = the reactive trade marks)
-  - 2026 slots on draft morning - rerun every profile against the new map
+  - 2026 slots - fill slot_2026 for all 12 the moment the order is posted
