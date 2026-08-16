@@ -792,6 +792,48 @@ def _():
     return f"seats 1-{lg['teams']} all distinct, Josh at {mine}, {len(intel)} intel notes render"
 
 
+@check("target board covers 17 picks and matches the ledger and byes")
+def _():
+    """targets.yaml is the round-by-round WHO. It must stay consistent with
+    the things it is derived from: one entry per round with the right pick
+    number, a position skeleton that sums to the commitments ledger, and every
+    named player's bye agreeing with byes.yaml. If a board name is retagged and
+    this file is not, the draft-day list is silently wrong."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import targets_report, picks_for_slot
+    t, lg = load("targets"), load("league")
+    slot, rounds = lg["draft"]["slot"], lg["draft"]["rounds"]
+    assert len(t["rounds"]) == rounds, f"expected {rounds} rounds, found {len(t['rounds'])}"
+    expected = picks_for_slot(slot)
+    for i, r in enumerate(t["rounds"]):
+        assert r["rnd"] == i + 1, f"rounds out of order at index {i}"
+        assert r["pick"] == expected[i], \
+            f"R{r['rnd']} pick {r['pick']} != slot-{slot} pick {expected[i]}"
+    # The need column has to spend exactly the ledger, no more and no less.
+    ledger, spend = load("commitments")["ledger"], {}
+    for r in t["rounds"]:
+        assert r["pos"] in ledger, f"R{r['rnd']} has unknown pos {r['pos']!r}"
+        spend[r["pos"]] = spend.get(r["pos"], 0) + 1
+    assert spend == ledger, f"target board spends {spend}, ledger wants {ledger}"
+    # The RB floor gates must be reachable on the skeleton as written.
+    rb = [r["rnd"] for r in t["rounds"] if r["pos"] == "RB"]
+    for by_round, need in ((4, 2), (8, 3), (12, 5)):
+        held = sum(1 for x in rb if x <= by_round)
+        assert held >= need, f"skeleton holds {held} RBs by R{by_round}, floor needs {need}"
+    # Every named player's bye must agree with byes.yaml.
+    for r in t["rounds"]:
+        for p in list(r["take"]) + list(r.get("avoid", [])):
+            if p["team"] == "-":
+                continue
+            real = bye_of(p["team"])
+            assert real == p["bye"], \
+                f"R{r['rnd']} {p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{real}"
+    text = targets_report()
+    assert "CONFLICTS" in text and "R17 (pick 197)" in text, "targets_report did not render"
+    named = sum(len(r["take"]) + len(r.get("avoid", [])) for r in t["rounds"])
+    return f"{rounds} rounds, {named} named entries, ledger {spend}, byes agree"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.

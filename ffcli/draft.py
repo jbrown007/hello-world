@@ -621,6 +621,50 @@ def ledger_report(picks: list[dict]) -> str:
     return line
 
 
+def targets_report(rnd: int | None = None) -> str:
+    """The round-by-round named target board for the drafted slot.
+
+    The sheet says WHEN each commitment is due; this says WHO to take at each
+    pick and what to refuse. Byes print inline because bye_stack is the one
+    error the mock log never cleared - it is a WHO problem, not a WHEN one.
+    """
+    t = load("targets")
+    lg = league()
+    out = [f"TARGET BOARD - SLOT {lg['draft']['slot']} ({tree(lg['draft']['slot'])['label']})",
+           "Names are ranked suggestions. A target NEVER outranks a commitment,",
+           "a floor gate, the bye cap or the team cap.", ""]
+
+    if rnd is None:
+        out.append("CONFLICTS - read once before the draft; these kill named targets")
+        for c in t["conflicts"]:
+            out.append(f"  [{c['severity']}] {c['id']}")
+            out.append("      " + " ".join(str(c["rule"]).split()))
+            for key, lbl in (("therefore_refuse", "REFUSE"), ("therefore_caution", "CAUTION")):
+                for item in c.get(key, []):
+                    out.append(f"      {lbl}: {item}")
+            if c.get("therefore"):
+                out.append("      -> " + " ".join(str(c["therefore"]).split()))
+            if c.get("note"):
+                out.append("      NOTE: " + " ".join(str(c["note"]).split()))
+        out.append("")
+
+    for r in t["rounds"]:
+        if rnd is not None and r["rnd"] != rnd:
+            continue
+        out.append(f"R{r['rnd']} (pick {r['pick']}) - {r['need']}")
+        if r.get("gate"):
+            out.append(f"  GATE: {r['gate']}")
+        out.append("  " + " ".join(str(r["do"]).split()))
+        for p in r["take"]:
+            bye = f"W{p['bye']}" if p["bye"] else "--"
+            out.append(f"    + {p['player']:<24} {p['team']:<4} {bye:<4} {' '.join(str(p['why']).split())}")
+        for p in r.get("avoid", []):
+            bye = f"W{p['bye']}" if p["bye"] else "--"
+            out.append(f"    - NO {p['player']:<21} {p['team']:<4} {bye:<4} {' '.join(str(p['why']).split())}")
+        out.append("")
+    return "\n".join(out).rstrip()
+
+
 def mocks_report() -> str:
     """Aggregate every logged mock into a pattern report.
 
