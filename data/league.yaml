@@ -37,11 +37,10 @@ draft:
   date: 2026-09-06           # CORRECTED 8/13 - Sunday 9:00 PM EST, not Sept 7
   time: '21:00 EST'
   rounds: 17                 # one per roster spot
-  slot: null                 # ORDER POSTED 8/13 ~9PM EST - set this as soon as
-                             # Josh has it, then rerun: ff tree / ff room --slot N
-                             # / ff sheet. The old "revealed draft morning"
-                             # assumption is dead; we get ~3.5 weeks of
-                             # slot-specific prep instead.
+  slot: 5                    # LOCKED 8/13 - order posted, Josh drew slot 5.
+                             # MIDDLE branch. Picks 5, 20, 29, 44, 53, 68, 77,
+                             # 92, 101, 116, 125, 140, 149, 164, 173, 188, 197.
+                             # Every ff command now defaults to this slot.
 
 waivers:
   type: rolling_priority
