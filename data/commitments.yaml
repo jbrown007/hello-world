@@ -1,3 +1,31 @@
+# The finished roster, as counts - the PLAN's target shape, checked by ff grade.
+# 17 spots, zero slack, so every pick displaces a named one.
+#
+# TE: 1 is a DEFAULT, not a law. Corrected 8/9: FLEX accepts a TE, so a second
+# tight end CAN start - the old "can never score" reasoning was wrong. What
+# holds is the economics: a TE2 competes with RB6/WR5 for one spot and for the
+# FLEX slot, and in full PPR a real RB3/WR3 usually wins both.
+ledger:
+  QB: 3
+  RB: 6
+  WR: 5
+  TE: 1
+  K: 1
+  DST: 1
+ledger_notes:
+  TE: >
+    One by default. CORRECTED 8/9 - FLEX is TE-eligible, so a TE2 is startable
+    and the old ban was based on a bad settings read. Judge a second TE against
+    RB6 and WR5, since that is the spot he takes: in full PPR the FLEX usually
+    scores more from a real RB3/WR3 than a TE12-20. Legitimate at R14+ once the
+    RB/WR floors are met, and it doubles as Warren insurance with zero IR.
+  QB: >
+    Three arms: QB1, QB2 (R5-6), QB3 (R9-13, trade inventory). A fourth is
+    in-season churn only - drafting one breaks the 6RB/5WR floor.
+  RB: >
+    Six, because zero IR plus RB attrition is what actually breaks a season.
+    The floor gates (2 by R4, 3 by R8, 5 by R12) exist to get here.
+
 common:
 - pick: QB1 (Tier 1 arm)
   window:
@@ -33,8 +61,18 @@ common:
 - pick: WR Josh Downs
   window:
   - 7
-  - 7
-  source: wr_board - documented +15 target-rank/ADP gap
+  - 9
+  source: >
+    wr_board - documented +15 target-rank/ADP gap. WIDENED 8/4 to R7-R10 on
+    mock evidence, then TIGHTENED 8/16 to R7-R9 when the pre-registered ADP
+    test fired. The 8/4 rule said in writing: re-price at the ADP pass, and if
+    his ADP has climbed into the R7-8 range, tighten back. It has - he is going
+    at pick 92, which is slot 5's R8 pick exactly, driven by the Michael
+    Pittman trade to Pittsburgh and Alec Pierce on PUP. An R10 deadline (pick
+    116) now sits 24 picks past his market price and would be a guaranteed
+    miss - the mirror image of the R7-only rule that produced nine straight
+    misses in July. R8 is the target, R9 (pick 101) is the last realistic call.
+    Still never reach at R7 over a live commitment.
 - pick: RB (flex depth)
   window:
   - 5

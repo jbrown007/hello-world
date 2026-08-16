@@ -281,7 +281,8 @@ def _():
         assert p["player"] in rb, f"RB Board tab missing {p['player']}"
     assert "provenance" in rb.lower(), "RB Board missing provenance warning (synthesized data)"
     for sheet in ("WR Board", "TE Board"):
-        for cap in load("stack_caps"):
+        from ffcli.draft import named_caps
+        for cap in named_caps():
             assert f"max {cap['max_starters']} starters" in text(sheet), f"{sheet} missing stack cap"
     n_rb = len(load("rb_board")["targets"]) + len(load("rb_board")["fades"])
     return f"{n_rb} RBs, {len(load('wr_board')['value_board'])} WRs, {len(load('te_board')['paths'])} TE paths"
@@ -402,16 +403,331 @@ def _():
     carry a pointer and must NOT carry their own copy - that duplication is
     how audit 2c's drift happened."""
     from ffcli.config import load
-    caps = load("stack_caps")
-    assert caps and isinstance(caps, list), "stack_caps.yaml empty"
+    from ffcli.draft import named_caps, general_cap
+    caps = named_caps()
+    assert caps, "stack_caps.yaml has no named caps"
     for cap in caps:
         for k in ("team", "bye", "max_starters", "severity", "resolved_note"):
             assert k in cap, f"cap {cap.get('team')} missing {k}"
+    gen = general_cap()
+    assert isinstance(gen.get("flag_at"), int) and gen["flag_at"] >= 2, \
+        "general cap needs an integer flag_at of 2 or more"
+    assert gen.get("why"), "general cap has no rationale"
+    for cap in caps:
+        assert cap["max_starters"] < gen["flag_at"], \
+            f"named cap {cap['team']} ({cap['max_starters']}) is not tighter than the " \
+            f"general flag ({gen['flag_at']}) - the named cap would be pointless"
     for board in ("wr_board", "te_board"):
         b = load(board)
         assert "stack_cap" not in b, f"{board} still carries an inline stack_cap"
         assert "stack_cap_ref" in b, f"{board} missing the stack_caps pointer"
-    return f"{len(caps)} cap(s) central, both boards point"
+    return f"{len(caps)} named cap(s) + general flag at {gen['flag_at']}, both boards point"
+
+
+@check("Warren gate guards every round of his window")
+def _():
+    """8/4: the gate was written for R5 only, so the slot-6 mock took Warren at
+    R4 on one RB - legal by the letter - and missed the 2-by-R4 floor. A gate
+    that guards one round of a two-round window is not a gate. It must cover
+    Warren's whole commitment window and reach both the sheet and pick screen."""
+    from ffcli.draft import warren_gate, commitments_for, sheet, sheet_twocol, draft_screen
+    from ffcli.config import load
+    g = warren_gate()
+    win = next(c["window"] for c in commitments_for("MIDDLE") if "Warren" in c["pick"])
+    covered = set(g["applies_rounds"])
+    assert covered >= set(range(win[0], win[1] + 1)), \
+        f"gate covers {sorted(covered)} but Warren's window is R{win[0]}-R{win[1]}"
+    floor = {x["by_end_of_round"]: x["min_held"] for x in load("rb_rule")["rb_floor"]}
+    assert g["min_rb_held"] >= floor[max(r for r in floor if r <= win[1])], \
+        "gate's RB requirement is looser than the RB floor it protects"
+    for rnd in g["applies_rounds"]:
+        assert "GATE" in draft_screen(1, rnd, 5), f"pick screen R{rnd} lost the Warren gate"
+    # R4 additionally needs the WR banked: QB1+RB+RB+WR fill R1-R4 exactly, so
+    # Warren at R4 without it does not risk the WR miss, it guarantees it.
+    r4 = min(g["applies_rounds"])
+    early = [c for c in commitments_for("EARLY") if c["window"][1] <= r4]
+    saturated = len(early) >= r4 and any("WR" in c["pick"] for c in early)
+    if saturated:
+        # R1-R4 has as many commitments as rounds and one of them is the WR, so
+        # spending R4 on Warren cannot leave room for it. The flag is not
+        # optional here - the arithmetic requires it.
+        assert g.get("r4_needs_wr"), (
+            f"R1-R{r4} holds {len(early)} commitments for {r4} rounds including a WR, so "
+            "Warren at R4 guarantees the WR miss - r4_needs_wr must be set")
+        assert "AND a WR" in draft_screen(1, r4, 5), "pick screen R4 lost the WR condition"
+        assert "no WR" in sheet_twocol(3), "two-col sheet R4 lost the WR condition"
+    for render in (sheet, sheet_twocol):
+        text = render(6)
+        hits = [l for l in text.splitlines() if "WARREN WAIT" in l.upper() or "WARREN GATE" in l]
+        assert len(hits) >= len(g["applies_rounds"]), \
+            f"{render.__name__}: gate shown {len(hits)}x, needs {len(g['applies_rounds'])}"
+    return f"gate on R{g['applies_rounds']}, min {g['min_rb_held']} RB, on sheet + pick screen"
+
+
+@check("grade enforces the 17-spot roster ledger")
+def _():
+    """Commitments police WHEN a pick lands; nothing policed WHAT the roster
+    became, so two slot-4 mocks drafted a TE2 - unstartable here, FLEX excludes
+    TE and OP is QB2's - and graded clean. The ledger must sum to the roster
+    and a second TE must be called out by name."""
+    from ffcli.draft import grade, ledger_report
+    from ffcli.config import load, league
+    want = load("commitments")["ledger"]
+    assert sum(want.values()) == league()["roster_size"], \
+        f"ledger sums to {sum(want.values())}, roster is {league()['roster_size']}"
+    assert want["TE"] >= 1, "ledger must roster at least the starting TE"
+    flex = league()["starters"].get("FLEX")
+    assert flex, "no FLEX slot in starters"
+    good = ([{"round": 1, "pos": p, "team": "KC", "player": f"{p}{i}"}
+             for p, n in want.items() for i in range(n)])
+    assert "ledger met" in ledger_report(good), "a ledger-perfect roster did not pass"
+    # swap a WR for a second TE: must flag BOTH the over and the short
+    bad = [dict(p) for p in good]
+    next(p for p in bad if p["pos"] == "WR")["pos"] = "TE"
+    rep = ledger_report(bad)
+    assert "LEDGER OVER TE: 2 vs 1" in rep, f"TE2 not flagged: {rep}"
+    assert "LEDGER SHORT WR: 4 vs 5" in rep, f"WR shortfall not flagged: {rep}"
+    assert "never score" not in rep, (
+        "grade still claims a TE2 cannot score - FLEX accepts a TE (corrected 8/9)")
+    assert "RB6" in rep or "WR5" in rep, (
+        "TE2 deviation must be framed against the spot it actually costs")
+    assert "ROSTER LEDGER" in grade(bad, "EARLY"), "grade does not print the ledger"
+    return f"ledger {sum(want.values())} spots, TE2 + WR shortfall both caught"
+
+
+@check("live pick screen tracks what you hold and arms the run trigger")
+def _():
+    """8/13 dry run: at R5 the screen called QB1/RB/RB/WR OVERDUE and told you
+    to 'skip any already rostered' - i.e. filter its own false alarms under a
+    pick clock. It also could not reach the run trigger; that lived only in
+    `ff qb`. Both are the tool's whole job on draft day."""
+    from ffcli.draft import (draft_screen, outstanding, parse_have, commitments_for,
+                             _commit_name)
+    assert parse_have("QB=1,RB=2") == ({"QB": 1, "RB": 2}, set())
+    assert parse_have("QB=1,warren") == ({"QB": 1}, {"warren"})
+    assert parse_have(None) == ({}, set()) and parse_have("") == ({}, set())
+    try:
+        parse_have("QB")
+        assert False, "parse_have accepted a malformed pair"
+    except ValueError:
+        pass
+    # holding the early picks must retire those commitments, in deadline order
+    full = commitments_for("MIDDLE")
+    have = {"QB": 1, "RB": 2, "WR": 1}
+    left = outstanding("MIDDLE", have)
+    assert len(left) == len(full) - 4, f"held 4 picks, {len(full) - len(left)} commitments cleared"
+    assert not any(c["pick"].startswith("QB1") for c in left), "QB1 still owed while holding a QB"
+    assert any(c["pick"] == "QB2" for c in left), "QB2 wrongly cleared by the QB1 holding"
+    # a NAMED commitment must not be cleared by unrelated players at the position
+    named = [c for c in full if _commit_name(c["pick"])]
+    assert named, "no named commitments to test - Warren/Downs missing from the plan"
+    many = outstanding("MIDDLE", {"QB": 3, "RB": 6, "WR": 5, "TE": 1})
+    for c in named:
+        assert any(x["pick"] == c["pick"] for x in many), \
+            f"{c['pick']} cleared by position count alone - it names a specific player"
+    keys = {_commit_name(c["pick"]) for c in named}
+    assert not outstanding("MIDDLE", {"QB": 3, "RB": 6, "WR": 5, "TE": 1, "K": 1, "DST": 1}, keys), \
+        "naming every player plus full counts still leaves commitments owed"
+    clean = draft_screen(6, 5, 9, None, have)
+    assert "OVERDUE" not in clean, "satisfied commitments still shown as OVERDUE"
+    assert "HELD" in clean and "4 of 17 picks made" in clean, "no roster summary"
+    # the run trigger must be reachable from the pick screen, not just ff qb
+    quiet = draft_screen(6, 5, 7, None, have)
+    fired = draft_screen(6, 5, 7, 3, have)
+    assert "TAKE_QB2_NOW" not in quiet, "trigger fired without a window"
+    assert "RUN DETECTED" in fired, "3-in-12 window did not fire the run trigger"
+    # a short RB count must surface without a separate ff rb call
+    short = draft_screen(6, 8, 14, None, {"QB": 2, "RB": 2, "WR": 2, "TE": 1})
+    assert "TAKE_RB_NOW" in short, "RB floor breach not surfaced on the pick screen"
+    return "held-tracking, run trigger and RB floor all live on ff draft"
+
+
+@check("depth board covers R9-R15 and reaches the sheet")
+def _():
+    """8/9: an audit found 62% of mock skill picks were on NO board - the plan
+    said WHEN but not WHO after R8, which is exactly where the remaining errors
+    live. Every depth entry needs a real team, a round window and a verdict;
+    the depth rounds must not be left blank on the sheet; and anything on the
+    fade list must not also be recommended."""
+    from ffcli.draft import depth_at, sheet_twocol, draft_screen
+    from ffcli.config import load, bye_of
+    b = load("depth_board")
+    picks = [p for pos in ("rb", "wr", "te") for p in b.get(pos, [])]
+    assert picks, "depth board has no players"
+    # Section sizes. An 8/16 edit inserted a new top-level key in the MIDDLE of
+    # the wr list, which silently reparented three receivers out of it - and
+    # every assertion below still passed, because they only ever looked at what
+    # was left. A board that quietly shrinks is the failure mode worth naming.
+    for pos, floor in (("rb", 4), ("wr", 4), ("te", 1)):
+        assert len(b.get(pos, [])) >= floor, \
+            f"depth board {pos} section has {len(b.get(pos, []))} entries, expected at least {floor}"
+    seen: dict[str, str] = {}
+    for pos in ("rb", "wr", "te", "fades", "graduated"):
+        for p in b.get(pos, []):
+            assert p["player"] not in seen, \
+                f"{p['player']} appears in both '{seen[p['player']]}' and '{pos}'"
+            seen[p["player"]] = pos
+    for p in picks + b.get("fades", []):
+        assert bye_of(p["team"]), f"{p['player']}: {p['team']!r} is not a real team code"
+        assert p.get("why"), f"{p['player']} has no rationale"
+    for p in picks:
+        assert p.get("verdict"), f"{p['player']} has no verdict"
+        span = __import__("ffcli.draft", fromlist=["x"])._round_span(p.get("rounds"))
+        assert span and span[0] >= 8, f"{p['player']} window {p.get('rounds')} is not a depth round"
+    faded = {p["player"] for p in b.get("fades", [])}
+    assert not (faded & {p["player"] for p in picks}), \
+        f"player both recommended and faded: {faded & {p['player'] for p in picks}}"
+    # the rounds that used to read 'free - best value' must now carry names
+    blank = [r for r in range(9, 16) if not depth_at(r)]
+    assert not blank, f"depth rounds still empty: {blank}"
+    text = sheet_twocol(3)
+    for r in (9, 12, 15):
+        row = next(l for l in text.splitlines() if l.startswith(f"R{r} "))
+        assert "free - best value" not in row, f"sheet R{r} still blank"
+    assert "STRONG BUY" in draft_screen(3, 9, 8), "pick screen lost depth verdicts"
+    # W14 is the seeding week - any depth name on it must be flagged, not silent
+    for p in picks:
+        if bye_of(p["team"]) == 14:
+            assert "CAUTION" in p["verdict"], \
+                f"{p['player']} is on the W14 seeding-week bye but carries no caution"
+    return f"{len(picks)} depth names + {len(faded)} fades, R9-R15 all covered"
+
+
+@check("mock log aggregates into a pattern report")
+def _():
+    """Josh is repping all 12 slots before Sept 7. The log has to answer which
+    slots remain, which errors repeat, and whether a fix held - not just store
+    rows. Every logged error must be a real recurring-error key."""
+    from ffcli.draft import mocks_report
+    from ffcli.config import load, league
+    rows = load("mocks")
+    assert rows, "mocks.yaml empty"
+    teams = league()["teams"]
+    for i, m in enumerate(rows, start=1):
+        for k in ("date", "slot", "format", "notes", "errors"):
+            assert k in m, f"mock row {i} missing {k}"
+        assert 1 <= m["slot"] <= teams, f"row {i}: slot {m['slot']} outside 1-{teams}"
+        assert isinstance(m["errors"], list), f"row {i}: errors must be a list"
+        if m.get("score") is not None:
+            assert 0 <= m["score"] <= m["of"], f"row {i}: score {m['score']}/{m['of']}"
+    text = mocks_report()
+    for token in ("SLOT COVERAGE", "SCORES", "RECURRING ERRORS"):
+        assert token in text, f"mocks report missing {token}"
+    done = {m["slot"] for m in rows}
+    missing = [s for s in range(1, teams + 1) if s not in done]
+    if missing:
+        assert "STILL TO DO" in text, "unrepped slots not surfaced"
+        assert str(missing[0]) in text.split("STILL TO DO")[1], "missing slot not listed"
+    else:
+        assert "ALL SLOTS REPPED" in text
+    return f"{len(rows)} reps, {len(done)}/{teams} slots, report renders"
+
+
+@check("grade flags any club at the general stack threshold")
+def _():
+    """8/4: the IND cap covered Indianapolis and nothing else, so a mock with
+    three Bears (all W10) passed clean. Any club reaching flag_at must be
+    named in the grade, with its bye, and a named cap must not double-report."""
+    from ffcli.draft import grade, general_cap, team_counts
+    flag = general_cap()["flag_at"]
+    stack = [{"round": i + 1, "pos": "WR", "team": "CHI", "player": f"Bear{i}"} for i in range(flag)]
+    text = grade(stack, "LATE")
+    assert "TEAM CONCENTRATION CHI" in text, f"a {flag}-Bear roster did not flag"
+    assert f"all out W{__import__('ffcli.config', fromlist=['x']).bye_of('CHI')}" in text, \
+        "concentration flag omits the shared bye week"
+    assert "TEAM SPREAD" in text, "grade lost the spread summary"
+    # one under the threshold stays quiet
+    quiet = grade(stack[:-1], "LATE")
+    assert "TEAM CONCENTRATION" not in quiet, f"{flag - 1} players should not flag"
+    # a named cap reports once, as a cap - not also as a concentration
+    colts = [{"round": i + 1, "pos": "WR", "team": "IND", "player": f"Colt{i}"} for i in range(flag)]
+    ctext = grade(colts, "LATE")
+    assert "BREACH" in ctext, "over-cap IND did not breach"
+    assert "TEAM CONCENTRATION IND" not in ctext, "IND double-reported as cap AND concentration"
+    assert team_counts(colts)["IND"] == flag
+    return f"flags at {flag}, quiet at {flag - 1}, named caps report once"
+
+
+@check("qb_board is coherent: six elite arms, real teams, windows match the rule")
+def _():
+    """The QB tiers say WHO for each window the qb_rule times. Six named elite
+    arms (the branch map's premise), every team resolves to a real bye, the
+    QB2/QB3 windows agree with qb_rule, and every never-list arm has a reason.
+    Sheet must print the tiers so the table copy is never memory-dependent."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import sheet
+    qb = load("qb_board")
+    rule = load("qb_rule")
+    assert len(qb["elite"]["who"]) == 6, f"elite tier has {len(qb['elite']['who'])} arms, needs 6"
+    groups = [qb["elite"]["who"], qb["tier2_qb1"]["who"], qb["qb2_window"]["who"],
+              qb["qb3_vets"]["who"], [qb["qb3_vets"]["fallback"]], qb["never"]]
+    for p in (p for g in groups for p in g):
+        assert bye_of(p["team"]), f"{p['player']}: team {p['team']!r} has no bye - not a real team code"
+    assert qb["qb2_window"]["rounds"] == [rule["qb2_earliest_round"], rule["hard_floor_round"]], \
+        "qb2_window rounds disagree with qb_rule"
+    assert qb["qb3_vets"]["rounds"] == rule["qb3_rounds"], "qb3_vets rounds disagree with qb_rule"
+    for p in qb["never"]:
+        assert p.get("why"), f"never-list {p['player']} has no reason"
+    text = sheet(1)
+    for token in ("ELITE SIX", "QB2 ORDER", "QB3 VETS", "NEVER:"):
+        assert token in text, f"sheet missing {token}"
+    for p in qb["elite"]["who"]:
+        assert p["player"] in text, f"sheet missing elite arm {p['player']}"
+    return "6 elite arms, all teams resolve, windows match qb_rule, tiers on the sheet"
+
+
+@check("two-column sheet fits one page and drops no rule")
+def _():
+    """The printable sheet chosen 8/4. Compression is where lessons die, so
+    every hard rule, tally, tier and danger week must survive it - and it must
+    stay inside one landscape page (119 cols, <=60 lines) for every branch."""
+    import re
+    from ffcli.draft import sheet_twocol, tree, picks_for_slot
+    from ffcli.config import league, load, byes
+    teams = league()["teams"]
+    seen = set()
+    for slot in range(1, teams + 1):
+        label = tree(slot)["label"]
+        if label in seen:
+            continue
+        seen.add(label)
+        text = sheet_twocol(slot)
+        lines = text.splitlines()
+        assert len(lines) <= 60, f"{label}: {len(lines)} lines - past one page"
+        wide = [l for l in lines if len(l) > 119]
+        assert not wide, f"{label}: {len(wide)} lines wider than 119 cols"
+        for token in ("HARD RULES", "ONE TE default", "QBs GONE", "BYES USED - CAP 2",
+                      "QB1 BRANCH MAP", "QB TIERS", "NEVER", "STARS", "DANGER",
+                      "FADE", "TIEBREAK", "TIER GAP", "GATE", "RUN:", "QB4", "K:"):
+            assert token in text, f"{label}: two-col sheet lost {token}"
+        # every bye week must show its teams, not just empty boxes
+        for w, tms in byes().items():
+            assert re.search(rf"W{w}\s*\[_\]\[_\] {re.escape(tms[0])}", text), \
+                f"{label}: bye week W{w} missing its team list"
+        # the QB tier names have to physically reach the page
+        for p in load("qb_board")["elite"]["who"] + load("qb_board")["qb2_window"]["who"]:
+            assert p["player"].split()[-1] in text, f"{label}: sheet lost {p['player']}"
+        # slot-specific pick numbers, so the sheet is usable at the table
+        assert str(picks_for_slot(slot)[0]) in text, f"{label}: no pick numbers"
+    return f"{len(seen)} branches, <=60 lines, 119 cols, all rules + byes + tiers survive"
+
+
+@check("snake pick numbers are right at both ends of the board")
+def _():
+    """picks_for_slot drives the sheet's pick column. Slot 1 and slot N are
+    where an off-by-one shows up, and a wrong pick number at the table is
+    worse than none."""
+    from ffcli.draft import picks_for_slot
+    from ffcli.config import league
+    teams = league()["teams"]
+    assert picks_for_slot(1)[:4] == [1, 24, 25, 48], picks_for_slot(1)[:4]
+    assert picks_for_slot(teams)[:4] == [teams, teams + 1, 3 * teams, 3 * teams + 1], \
+        picks_for_slot(teams)[:4]
+    for slot in range(1, teams + 1):
+        pk = picks_for_slot(slot)
+        assert len(pk) == 17 and pk == sorted(pk), f"slot {slot}: picks not ascending"
+        assert all(1 <= p <= 17 * teams for p in pk), f"slot {slot}: pick out of range"
+    return f"slots 1-{teams} produce 17 ascending picks each"
 
 
 @check("draft sheet is self-sufficient for a live draft")
@@ -463,6 +779,164 @@ def _():
         "slot geometry math wrong for slot 5 (DRAFT_BOARD_2025: slots 5-8 pick 53-56 then 65-68)"
     filled = sum(1 for m in room["managers"] if not str(m["name"]).startswith("TBD"))
     return f"{filled}/11 profiled, geometry checks out"
+
+
+@check("2026 seating is a complete permutation and the seat intel renders")
+def _():
+    """The posted order assigns every manager a distinct seat 1-12 with Josh's
+    slot matching league.yaml. A duplicate or missing seat silently corrupts
+    every gap read in room_report, so it has to be a real permutation."""
+    from ffcli.config import load
+    from ffcli.draft import room_report
+    room, lg = load("room"), load("league")
+    mine = room["me"]["slot_2026"]
+    assert mine == lg["draft"]["slot"], \
+        f"room.me.slot_2026={mine} disagrees with league draft.slot={lg['draft']['slot']}"
+    seats = [m["slot_2026"] for m in room["managers"]] + [mine]
+    assert sorted(seats) == list(range(1, lg["teams"] + 1)), \
+        f"2026 seats are not a permutation of 1-{lg['teams']}: {sorted(seats)}"
+    intel = room["league"].get(f"slot{mine}_neighbors")
+    assert isinstance(intel, list) and len(intel) >= 2, \
+        f"no seat intel list for the drafted slot {mine}"
+    text = room_report(mine)
+    assert f"SEAT {mine} INTEL" in text, "seat intel block did not render in ff room"
+    for para in intel:
+        assert " ".join(str(para).split()) in text, "seat intel paragraph dropped from ff room"
+    return f"seats 1-{lg['teams']} all distinct, Josh at {mine}, {len(intel)} intel notes render"
+
+
+@check("target board covers 17 picks and matches the ledger and byes")
+def _():
+    """targets.yaml is the round-by-round WHO. It must stay consistent with
+    the things it is derived from: one entry per round with the right pick
+    number, a position skeleton that sums to the commitments ledger, and every
+    named player's bye agreeing with byes.yaml. If a board name is retagged and
+    this file is not, the draft-day list is silently wrong."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import targets_report, picks_for_slot
+    t, lg = load("targets"), load("league")
+    slot, rounds = lg["draft"]["slot"], lg["draft"]["rounds"]
+    assert len(t["rounds"]) == rounds, f"expected {rounds} rounds, found {len(t['rounds'])}"
+    expected = picks_for_slot(slot)
+    for i, r in enumerate(t["rounds"]):
+        assert r["rnd"] == i + 1, f"rounds out of order at index {i}"
+        assert r["pick"] == expected[i], \
+            f"R{r['rnd']} pick {r['pick']} != slot-{slot} pick {expected[i]}"
+    # The need column has to spend exactly the ledger, no more and no less.
+    ledger, spend = load("commitments")["ledger"], {}
+    for r in t["rounds"]:
+        assert r["pos"] in ledger, f"R{r['rnd']} has unknown pos {r['pos']!r}"
+        spend[r["pos"]] = spend.get(r["pos"], 0) + 1
+    assert spend == ledger, f"target board spends {spend}, ledger wants {ledger}"
+    # The RB floor gates must be reachable on the skeleton as written.
+    rb = [r["rnd"] for r in t["rounds"] if r["pos"] == "RB"]
+    for by_round, need in ((4, 2), (8, 3), (12, 5)):
+        held = sum(1 for x in rb if x <= by_round)
+        assert held >= need, f"skeleton holds {held} RBs by R{by_round}, floor needs {need}"
+    # Every named player's bye must agree with byes.yaml.
+    for r in t["rounds"]:
+        for p in list(r["take"]) + list(r.get("avoid", [])):
+            if p["team"] == "-":
+                continue
+            real = bye_of(p["team"])
+            assert real == p["bye"], \
+                f"R{r['rnd']} {p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{real}"
+    text = targets_report()
+    assert "CONFLICTS" in text and "R17 (pick 197)" in text, "targets_report did not render"
+    named = sum(len(r["take"]) + len(r.get("avoid", [])) for r in t["rounds"])
+    return f"{rounds} rounds, {named} named entries, ledger {spend}, byes agree"
+
+
+@check("QB tier report catches an arm bought above its market band")
+def _():
+    """ff grade scores WHEN a QB was taken, never WHICH tier filled the slot.
+    The 8/16 slot-5 rep scored 11/11 while spending pick 20 on a qb3_vets arm
+    priced at picks 101-107. Every window hit, so nothing objected. This check
+    guards the fix: a reach must be named a reach, and a correctly-priced room
+    must stay silent."""
+    from ffcli.draft import parse_picks, qb_tier_report, qb_tier_price
+    reach = parse_picks("2 QB JAX Trevor Lawrence\n6 QB DET Jared Goff\n9 QB GB Jordan Love")
+    text = "\n".join(qb_tier_report(reach))
+    assert "REACH by 7" in text, f"7-round reach on a QB3-vet arm not flagged:\n{text}"
+    assert "VALUE" in text, f"a QB2-tier arm taken at R9 should read as value:\n{text}"
+    ok = parse_picks("1 QB BUF Josh Allen\n6 QB TEN Cam Ward\n9 QB NYJ Geno Smith")
+    clean = "\n".join(qb_tier_report(ok))
+    assert "REACH" not in clean and "above tier" not in clean, \
+        f"correctly-priced QB room produced a false positive:\n{clean}"
+    assert clean.count("at market") == 3, f"expected 3 at-market arms:\n{clean}"
+    off = qb_tier_price("Bryce Young")
+    assert off is None, f"an off-board arm resolved to a tier: {off}"
+    assert qb_tier_price("Josh Allen")[0] == "ELITE SIX"
+    return "reach, value, at-market and off-board all classified"
+
+
+@check("live bye tally names the weeks at cap and the teams that blocks")
+def _():
+    """bye_stack is the oldest unfixed error - 13 of 18 reps - and it survives
+    because the tally lives on the printed sheet as empty boxes nobody fills in
+    mid-draft. The last four reps each broke a week with the LAST body added,
+    three of them the kicker. This pins the on-screen tally: an over-cap week
+    must be named, an at-cap week must block every team on that bye, and a
+    clean W14 must say so."""
+    from ffcli.draft import bye_block, draft_screen
+    # The 8/16 rep's roster at the kicker pick: W5 and W6 already over cap.
+    held = ["NE", "LV", "KC", "CAR", "LAC", "MIN", "DAL", "NE", "CAR",
+            "MIN", "CHI", "HOU", "DET", "PIT", "NYJ"]
+    text = "\n".join(bye_block(held))
+    assert "W5" in text and "OVER CAP" in text, f"over-cap week not flagged:\n{text}"
+    assert "W11  2" in text and "AT CAP" in text, f"at-cap week not flagged:\n{text}"
+    blocked = next(l for l in text.splitlines() if "DO NOT DRAFT" in l)
+    for t in ("MIN", "IND", "KC", "CAR"):
+        assert t in blocked, f"{t} bye is at/over cap but it is not blocked:\n{blocked}"
+    assert "SEEDING WEEK" in text, "a W14 body must be called out as the seeding week"
+    # A clean roster: nothing at cap, so nothing is blocked, and W14 reads clear.
+    clean = "\n".join(bye_block(["NE", "KC", "HOU"]))
+    assert "DO NOT DRAFT" not in clean, f"false positive on a clean roster:\n{clean}"
+    assert "W14 clear" in clean, f"clean W14 not confirmed:\n{clean}"
+    assert bye_block([]) == [], "no teams should produce no block"
+    # And it has to actually reach the pick screen.
+    assert "BYES HELD" in draft_screen(5, 16, 24, teams=held), "tally missing from ff draft"
+    assert "BYES HELD" not in draft_screen(5, 16, 24), "tally shown without --teams"
+    return "over-cap, at-cap, blocked teams, seeding week and clean case all covered"
+
+
+@check("K/DST board obeys the seeding week and the shared-bye rule")
+def _():
+    """These are two MANDATORY starters and the framework named zero of them
+    until 8/16 - targets.yaml literally read 'Best available K'. The kicker
+    created or worsened a bye breach in three of the last four reps, and the
+    consensus K1 (Aubrey, DAL) is on the seeding week. This pins the rules that
+    replaced 'best available': no W14, no W13 while Warren+Downs are planned,
+    and the default K and DST must not share a bye."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import targets_report
+    b = load("k_dst_board")
+    for sec in ("kickers", "dst"):
+        for grp in ("who", "refused"):
+            for p in b[sec].get(grp, []):
+                assert bye_of(p["team"]) == p["bye"], \
+                    f"{p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{bye_of(p['team'])}"
+    # Nothing recommended may sit on the seeding week, or on W13 - Warren and
+    # Downs are both IND and spend that week before R16.
+    for sec in ("kickers", "dst"):
+        for p in b[sec]["who"]:
+            assert p["bye"] != 14, f"{p['player']} is recommended and on the SEEDING WEEK"
+            assert p["bye"] != 13, f"{p['player']} is recommended and on W13, which Warren+Downs spend"
+    # Aubrey is the consensus K1 and must be explicitly refused, not omitted.
+    refused = {p["player"] for p in b["kickers"]["refused"]}
+    assert "Brandon Aubrey" in refused, "the consensus K1 on the seeding week is not on the refuse list"
+    # The default pairing must not share a bye week.
+    k1 = b["kickers"]["who"][0]
+    dst_default = next(d for d in b["dst"]["who"] if "DEFAULT" in str(d["verdict"]))
+    assert k1["bye"] != dst_default["bye"], \
+        f"default K {k1['player']} (W{k1['bye']}) and DST {dst_default['player']} share a bye"
+    assert b["order"]["r16"] == "DST" and b["order"]["r17"] == "K", "R16/R17 order not recorded"
+    # And the names have to reach the pick screen.
+    for rnd, name in ((16, "Houston"), (17, "Cameron Dicker")):
+        text = targets_report(rnd)
+        assert name in text, f"R{rnd} target board does not name {name}"
+        assert "Best available" not in text, f"R{rnd} still says 'best available'"
+    return f"{len(b['kickers']['who'])} K + {len(b['dst']['who'])} DST named, byes verified"
 
 
 @check("QB run trigger fires on rate and overrides count")

@@ -7,50 +7,200 @@ source of truth.** The original audit handoff this file replaces is in git
 history (it described 20-man rosters and 23 checks - that world is gone).
 
 The goal: Josh wins his 12-team full-PPR superflex league for the first time
-in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
+in 15 years.
+
+**Draft: Sunday Sept 6, 9:00 PM EST** (corrected 8/13 - was recorded as
+Sept 7). **The draft ORDER is posted the evening of Aug 13**, so the slot is
+known roughly three and a half weeks out - the "slot unknown until draft
+morning" assumption the whole framework was built around is retired. That
+converts hedging across 12 branches into slot-specific preparation.
+
+---
+
+## 0. STATE AS OF AUGUST 16 — read this before section 1
+
+Sections 1+ below are the Aug 2-13 record and remain accurate except where
+this section supersedes them. **Josh has taken full-prep ownership of the
+agent role: mocks, camp watch and the dated calendar. Rule changes are
+sanctioned without prior approval** (change it, commit the evidence, explain
+after). See `CLAUDE.md`, which every session auto-loads.
+
+### Suite: 48/48 checks. Six data files are new since Aug 13.
+
+| File | What it is |
+|---|---|
+| `data/targets.yaml` | **The round-by-round board for slot 5** — all 17 picks, ranked names with byes, explicit refusals, and the derived conflict rules. `ff targets` |
+| `data/k_dst_board.yaml` | Named kickers and defenses, R16-17. Closes the "best available K" gap |
+| `data/adp.yaml` | Dated ADP snapshot with an explicit 1QB-vs-superflex health warning |
+| `data/depth_board.yaml` | R9-R15 names (built 8/9) |
+| `data/qb_board.yaml` | QB tiers by name (built 8/3) |
+| `data/mocks.yaml` | The rep log — 20 reps, `ff mocks` aggregates it |
+
+### New tooling
+
+- **`ff draft --teams "NE,LV,..."`** — live bye tally, which weeks are at or
+  over cap, and the full DO NOT DRAFT list. Built 8/16 because bye stacking is
+  the oldest unfixed error (16 of 20 reps) and the tally previously existed
+  only as empty boxes on a printed sheet. Replayed against the 8/16 rep it
+  blocks **all four** breaches.
+- **QB tier report in `ff grade`** — every arm graded REACH / at market /
+  VALUE against `qb_board`. Added after a rep scored 11/11 while spending pick
+  20 on a QB3-vet-tier arm priced at picks 101-107.
+- **`ff targets [--round N]`** — the board above, printable per round.
+
+### Rule changes since Aug 13
+
+- **Downs window R7-R10 → R7-R9.** His own pre-registered ADP test fired: he is
+  going at pick 92, which is slot 5's R8 pick exactly, after Michael Pittman Jr
+  was traded to Pittsburgh and Pierce landed on PUP.
+- **Mahomes demoted** out of the Branch C R3 anchor tier — he tore his ACL AND
+  LCL on Dec 14 and his ADP fell ~70 picks below that group.
+- **Rachaad White is RB20**, so "buy the whole Commanders backfield at R12-15"
+  is obsolete. Pick one half or pay up.
+- **Burden graduated** off the depth board to the WR value board (WR21/47th
+  overall, now ranked ahead of Odunze).
+- **Daniel Jones refusal widened** to name both paths — team cap AND bye week.
+  The 8/16 rep held Warren without Downs, so the IND cap read fine at 2 while
+  W13 still broke on Jeanty (LV).
+- **New: K and D/ST may not share a bye week.**
+
+### The seat is modelled
+
+`data/room.yaml` carries all twelve 2026 seats plus a `slot5_neighbors` intel
+block; `ff room` prints the geometry and who picks in each of Josh's gaps.
+**Pick 53 is the decision pick of the draft** — Warren or QB2, decided by the
+run trigger, because Griddy doubles at 60-61 and the 2025 run fired at 62-72,
+putting slot 5's R6 (pick 68) inside the run rather than ahead of it.
+
+### Where the reps stand — 20 logged, last ten average 10.0/11
+
+Solved: commitment windows, the ledger, RB floors, the Warren gate, QB tier
+pricing, K/DST selection. **Unsolved: bye discipline**, and it is now purely
+mechanical — the 8/16 rep put four weeks over cap and `--teams` would have
+blocked every one. Jonathon Brooks, a depth-board FADE, has been drafted in
+three straight slot-5 reps.
+
+### Open items
+
+Listed in `CLAUDE.md` under "Open items — ask Josh": the full ESPN board
+capture (the only route to measured superflex ADP, since every public host is
+egress-blocked), draft-day logistics, in-season scaffolding (nothing exists),
+the playoff team count, and the broken camp-watch Routine.
 
 ---
 
 ## 1. Where things stand
 
-- **Suite: 34/34 checks** (`python3 tests/verify.py`). Every rule described
+- **Suite: 43/43 checks** (`python3 tests/verify.py`). Every rule described
   below is enforced by a test, and every test was mutation-verified (break the
   rule, watch the test fail, restore).
 - **All league settings confirmed 8/1** (data/league.yaml): 17-man roster,
-  bench 7, zero IR, K + D/ST mandatory starters, FLEX = RB/WR (TE excluded),
+  bench 7, zero IR, K + D/ST mandatory starters, **FLEX = RB/WR/TE (TE IS
+  eligible - corrected 8/9)**,
   OP = second QB weekly, 14-week regular season, playoffs W15-17, Dec 4 trade
   deadline (inside Week 13), rolling waivers Tuesday night, weekly high-score
-  payouts W1-12. Unverified but non-blocking: playoff team count (likely 6);
-  FLEX exclusion read from a screenshot - confirm in settings text.
-- **Watchlist: 23 rows, 15 Resolved / 8 Trending / 0 Unsettled** as of the
-  8/2 camp watch.
-- **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|grade|bye|weekly`.
-  `ff sheet --all` writes the printable per-branch draft scripts; `ff draft`
-  is the live one-screen pick view; `ff grade` scores a finished draft.
+  payouts W1-12. Still unverified (non-blocking): playoff team count
+  (likely 6) - it sets how much the W14 seeding week is worth.
+- **Watchlist: 23 rows, 18 Resolved / 5 Trending / 0 Unsettled** as of the
+  8/13 camp watch. **Vikings RESOLVED: Kyler Murray named Week 1 starter
+  8/11** - the highest-value open row on the board since July.
+- **CLI**: `ff settings|confirm|build|qb|rb|tree|room|draft|sheet|mocks|grade|bye|weekly`.
+  `ff sheet --all` writes the printable per-branch draft scripts; `ff grade`
+  scores a finished draft.
+- **`ff draft` is the live pick view - USE THE FLAGS (fixed 8/13)**:
+  `ff draft --round R --gone G --slot N --window W --have "QB=1,RB=2,WR=1"`.
+  A dry run on 8/13 found it unusable as built: with no idea what you already
+  held it called QB1/RB/RB/WR OVERDUE at R5 and told you to "skip any already
+  rostered" - filtering its own false alarms under a pick clock. `--have` now
+  retires satisfied commitments in deadline order and prints a HELD tally
+  against the ledger; `--window` arms the 3-in-12 run trigger, which had been
+  reachable only from `ff qb`; and an RB-floor breach surfaces automatically.
+- **Sheet format (chosen 8/4)**: `ff sheet` defaults to `--format twocol` -
+  ONE landscape page (55 lines, 119 cols): round script left, permanent
+  reference right. The right column carries the bye weeks **with their team
+  lists** beside the QB trigger table, because five mocks kept stacking 4-5
+  byes in a week and a grid of empty boxes never stopped it. `--format long`
+  still prints the original prose script. Two checks guard the compression:
+  no rule/tier/bye-list may vanish, and it must stay inside one page.
 
 ## 2. The strategy, as it now stands
 
 - **RB floor (data/rb_rule.yaml)**: 2 RBs by end of R4, 3 by R8, 5 by R12.
-  Exists because Josh's 2025 draft (QB/QB/TE early, first RB at pick 65)
-  produced 7th place. Non-negotiable; `ff rb --round N --held X`.
+  Exists because Josh's 2025 draft (QB/QB/TE early, first RB at pick 65) ended
+  badly. **Corrected 8/13**: the repo cited "7th place" throughout; Josh
+  confirmed Crushing Dreams is his team and the Final Standings show **10th of
+  12**. The 7th may have been the regular-season placing. Either way the
+  rule's case is stronger, not weaker. Non-negotiable;
+  `ff rb --round N --held X`.
 - **QB rule (data/qb_rule.yaml), retuned to the room's real 2025 board**:
   8 QBs gone through R4, ZERO in R5, six in R6. The room queues, then panics.
   So: QB1 by R3 (A/B/C branch map keys on whether an elite arm reaches your
   pick), **QB2 in R5-6 only** (earliest 5, hard floor 6 - R6 IS the run),
   QB3 mandatory R10-13 with a bye different from QB1/QB2 (OP starts a second
-  QB weekly). **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
+  QB weekly). Named tiers live in **data/qb_board.yaml** (elite six, Branch C
+  anchors, QB2 order, QB3 vets, never-list) and print on every sheet - refresh
+  at the Aug 25 ADP pass. **Murray was named 8/11**, so his "only if named"
+  gate is retired and he sits 2nd in the QB2 order: Ward stays the default on
+  value-vs-cost, Murray goes FIRST if you own Jefferson (that stack is the
+  weekly-payout thesis the watchlist pre-registered in July). Do not chase him
+  past R6 - the price moved on the announcement. **Run trigger: 3+ QBs inside any 12-pick window = take QB2 next
   pick regardless of count** (`ff qb --window`). EARLY slots: take QB2 at the
   R5 pick even though the count feels low - the run fires inside their
   23-pick R5->R6 gap.
 - **Zero-slack ledger (data/commitments.yaml)**: 17 picks = 3 QB, 6 RB, 5 WR,
   1 TE (Warren), K, DST. Every dart must displace a named pick. The old
   Tier-3 stash names are a Week 1 waiver list, not draft targets.
-- **TE is one-and-done**: FLEX excludes TE and OP belongs to QB2, so a TE2
-  can never score. Warren R4-5, GATED: below 2 RBs at R5, RB wins, Warren is
-  released, backfill TE R7-8. Never two TEs.
-- **Fixed windows**: Warren R4-5, Downs R7 (+15 target-rank/ADP gap, the
-  board's best documented mispricing), K/DST R16-17 only.
-- **Stack cap (data/stack_caps.yaml, single source)**: max 2 IND starters.
+- **TE: one by default, not by law (CORRECTED 8/9).** The old rule said a TE2
+  "can never score" because FLEX was read as RB/WR only. Josh checked the
+  settings: **FLEX accepts a TE**, so a second tight end IS startable. What
+  survives is the economics, not the ban - a TE2 takes the same spot as RB6 or
+  WR5 and competes with them for the FLEX, and in full PPR a real RB3/WR3
+  usually wins. So: one TE is the plan; a high-upside TE at R14+ with the
+  RB/WR floors already met is a legitimate pick and doubles as Warren
+  insurance in a zero-IR league. `ff grade` now reports a second TE as a
+  deviation to justify, not an error. **Warren is an R5 pick by default.** The gate (8/4, 8/6 -
+  data/te_board.yaml) covers both rounds of his window: under 2 RBs held, RB
+  wins; and at R4 he ALSO needs the WR already banked. Reason is arithmetic,
+  not preference - QB1+RB+RB+WR fill R1-R4 exactly, so the solver's only
+  satisfiable order is R1 QB1 / R2 RB / R3 RB / R4 WR / R5 Warren. Warren at
+  R4 without the WR does not risk the R1-R4 WR miss, it guarantees it (slot-6
+  mock lost an RB that way, slot-3 lost the WR).
+- **Fixed windows**: Warren R4-5, **Downs R7-R10** (widened 8/4 - see below),
+  K/DST R16-17 only.
+- **Depth board (data/depth_board.yaml, NEW 8/9)** - the plan governed WHEN
+  but not WHO after R8, and an audit of all 14 reps found **62% of skill picks
+  were on no board at all**, in exactly the rounds where every remaining error
+  lives. R9-R15 now carries ranked names with byes and verdicts, printed on the
+  sheet's previously-blank depth lines and in `ff draft`. Headline calls:
+  Odunze STRONG BUY (WR28 ADP as Chicago's focal point), Burden BUY (~85
+  targets vacated by the DJ Moore trade), Higgins BUY (WR56 price, Kirk gone),
+  Dowdle BUY; **Brooks FADE** (two ACLs, 23 career snaps, ADP inflated by camp
+  hype - and the most-drafted name across the reps at 7 of 14); Bateman FADE.
+- **The W14 depth trap**: only ARI and DAL are on bye in the seeding week, yet
+  the reps kept hitting it - Allgeier (ARI) taken 8 times, Aubrey (DAL) 10.
+  Both are replaceable at their cost. The depth board flags Allgeier CAUTION,
+  and a check fails if any W14 depth name is listed without one.
+- **RB Tier 2 FILLED 8/9** (was the biggest data gap since 8/1): McCaffrey,
+  J.Taylor, Chase Brown, Cook, Barkley, Achane, Jeremiyah Love. McCaffrey
+  carries an explicit zero-IR discount.
+- **Amon-Ra St. Brown PLACED 8/9**: he was a starred personal target on NO
+  board since 7/25, which is why he never appeared in a single mock. He is
+  consensus WR4 / top-8 overall - an **R1 pivot** with Nacua, not a depth name.
+  Both now print on the sheet's R1 line, which used to be blank.
+- **Downs window widened 8/4, the first strategy change driven by the mock
+  log**: a hard R7 produced 9 misses in 9 superflex reps because he was never
+  there - he actually went R10, R11, R14, and this room had him at pick 145
+  in 2025. The +15 target-rank/ADP gap is a thesis about his VALUE, not his
+  price. Take him when he falls, R10 is the deadline, never reach at R7 over
+  a live commitment. Re-price at the Aug 25 ADP pass and tighten back if his
+  ADP has climbed into R7-8.
+- **Stack caps (data/stack_caps.yaml, single source)**: two kinds. The
+  GENERAL rule (added 8/4) flags **any club at 3+ players** - `ff grade`
+  names them with their shared bye, and the sheet carries a team strip.
+  Added after a slot-10 mock drafted three Bears (all W10) and only
+  Indianapolis had a rule. Three is a flag, not a ban: deliberate
+  correlation is strategy, an accidental third body is not. NAMED cap:
+  max 2 IND starters.
   W13 (IND bye) is the penultimate seeding-stretch week AND holds the Dec 4
   deadline - Colts exposure cannot be traded away. Enforce at the draft.
 - **Bye danger (auto-computed on the sheets)**: W14 is the SEEDING WEEK with
@@ -62,7 +212,42 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   8/2, on the R5-6 QB2 candidate list with Cam Ward - he went QB13/pick 70
   in this room in 2025).
 
-## 3. What the two mocks taught
+## 3. What the mocks taught
+
+**`ff mocks` is the live answer** - data/mocks.yaml logs every rep and the
+report aggregates them: slot coverage (Josh is repping all 12 before the
+Sept 7 reveal), the score trend, and which errors are STILL LIVE in the last
+three drafts vs fixed. Read it before writing new strategy; the per-rep
+detail below is history.
+
+**ALL 12 SLOTS REPPED as of 8/9** - 16 reps, 15 graded superflex. Scores
+6->6->9->5->8->7->9->8->10->8->11->10->10->10->10: first seven averaged 7.1,
+last eight 9.6, and the last five are all 10 or 11. Fixed and holding: RB
+floor, no-QB3, IND breach, team stacking (four straight reps at max 2 per
+club), and the ledger has come out exact in three of the last five.
+
+The sheet now carries TWO write-in boxes, both added because a printed
+reminder had already failed twice - writing the value down is what works:
+1. **QB byes** - `QB TIERS - WRITE YOUR 3 QB BYES: __ __ __`, after
+   triangulation broke on Maye+Love (W11) and Burrow+Murray (W6) with both
+   byes printed inches apart on the sheet's own tier list.
+2. **Roster shape** - `TALLY QB__/3 RB__/6 WR__/5 TE__/1`, after three of
+   five reps finished 5RB/6WR (a back short, a receiver long). The ledger
+   check catches it after the draft; this catches it during.
+
+**The one unsolved layer is depth-round byes.** It is now the ONLY error
+appearing in most reps, and the slot-1 finale was the worst of the set -
+five players on W7 and four on W5, two payout weeks lost. The bye tally is
+printed on every sheet and simply is not being filled in. Everything else
+the framework can enforce, it now enforces; this one needs the pen.
+
+**K bye clause added 8/9** off that same rep: among kickers you rate
+equally, take the one whose bye is not already at cap, and never one on
+W14. Across 16 reps the kicker was on W14 ten times (Aubrey) and the
+slot-1 rep put Butker on a W5 that already held three players. Kickers are
+fungible at R16 - this costs nothing.
+
+### The original two, for the record
 
 - **Mock 1 (slot 5, 1-QB room, 7/25)**: structure held, but drafted a
   4-starter W14 bye stack with the co-pilot watching. Lessons: live
@@ -88,10 +273,9 @@ in 15 years. Draft is **Sept 7, Labor Day**, slot unknown until that morning.
   as UNCONFIRMED with date + source. Only edit data/watchlist.yaml. Branch
   `claude/camp-watch` from origin/master, run the suite (must stay green),
   push, PR titled "Camp watch: watchlist updates" - **never self-merge**.
-  Scheduled automation is still blocked on an MCP permission
-  (claude-code-remote create_trigger/send_later return "requires approval");
-  if that gets fixed, arm a daily 7am ET fresh-session Routine with the
-  same procedure.
+  **Automation is LIVE as of 8/3**: Routine `trig_017jrg9AUhwiB4dJM9YNVG5F`
+  ("ff2026 daily camp watch") fires a fresh session daily at 7am ET with this
+  procedure, push notification on completion. Quiet exit when nothing moved.
 - **Repo flow**: work on `claude/setup-github-wsl-5uucrx` restarted from
   origin/master after each merge. PRs only when Josh asks; Josh says
   "merge". Commit style: what + why, mutation-test note.

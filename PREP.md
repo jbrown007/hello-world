@@ -29,8 +29,9 @@ through it automatically and opens PRs when something changes.
   R12 — the 2025 7th-place fix), **QB2 confined to R5-6**, **3-in-12 run
   trigger** added. `ff rb` and `ff qb --window` are live.
 - Still unverified (non-blocking): playoff team count (likely 6), and the
-  FLEX = RB/WR (TE excluded) read, which came from a screenshot — confirm in
-  settings text.
+  FLEX read — **RESOLVED 8/9: FLEX = RB/WR/TE, tight ends ARE eligible.** The
+  earlier "RB/WR only" was wrong and had been the sole basis for the
+  no-TE2-ever rule; see HANDOFF section 2.
 
 ### ~August 13: preseason games begin
 - Snap share, target share, and first-team reps become real data. Trending
@@ -63,35 +64,42 @@ through it automatically and opens PRs when something changes.
 - Print the cheat sheet: `ff sheet` (or grab the pre-built
   `build/sheet_EARLY|MIDDLE|LATE.txt` from `ff sheet --all`).
 - At the table, one command per pick:
-  `ff draft --round R --gone G` → tree step + QB verdict + due commitments +
-  board names + Colts cap, one screen.
+  `ff draft --round R --gone G --slot N --window W --have "QB=1,RB=2,WR=2,warren,downs"`
+  → tree step + QB verdict (with the 3-in-12 run trigger armed by `--window`)
+  + HELD tally + only what you STILL OWE + board names + Colts cap, one
+  screen. `--have` takes POS=N counts (the same numbers you write in the
+  sheet's TALLY box) PLUS bare names for the board-specific picks - warren,
+  downs. A named commitment only clears when you name it, so it cannot be
+  wiped out by unrelated players at the same position.
+- `ff` is on PATH after `bash setup.sh` - no venv activation, works from any
+  directory. Verified 8/13. Re-run setup.sh after pulling if it ever misses.
 
 ### Week 1: switch to in-season mode
 - Create `data/roster.yaml` from the drafted team.
-- Enable the two in-season Routines (Tuesday waiver brief, Sunday lineup
-  check) — they're already created, sitting disabled.
+- **BUILD the two in-season Routines** (Tuesday waiver brief, Sunday lineup
+  check). Corrected 8/9: this file previously claimed they were "already
+  created, sitting disabled" — they do not exist. Nothing in-season is built
+  yet, and Week 1 lands days after the draft.
 - The weekly loop is `ff weekly 1-4` (waivers → scan/trades → lineup lock →
   debrief), anchored to Tuesday-night rolling-priority processing. Rolling
   priority is a depleting asset: burn it only for season-long workhorse upside.
 
-## Mock practice in 1-QB rooms
+## Mock practice
 
-ESPN's standard mock lobbies are 1-QB. The plan is built for superflex
-scarcity, so grade yourself honestly on what transfers and ignore what doesn't:
+All mocks are superflex format (confirmed by Josh 8/3) - the full plan
+applies in every rep, no demotions. Mock 1 (7/25) was a 1-QB room; that
+guidance is retired and lives in git history.
 
-**Practice faithfully:** R1 elite RB discipline (no QB reaches), the RB/WR
-windows in R2-4, Warren at R4-5, tier-beats-round, the Colts cap count,
-Downs at R7, the value/fade lists, and clock composure.
+**Practice the whole plan:** QB1 branch map (by R3), QB2 in R5-6 with the
+run trigger live, QB3 in R9-13 with bye triangulation, plus the layers that
+always transfer - R1 elite RB discipline, RB floor gates, Warren at R4-5,
+Downs at R7, the Colts cap count, the value/fade lists, and clock composure.
 
-**Consciously ignore:** QB1 in R2-3 and the QB2-by-R6 floor - that urgency is
-superflex math and following it in a 1-QB room is bad value practice. Take one
-QB where the 1-QB room prices them (~R5-8) and treat the freed QB2/QB3 rounds
-as extra RB/WR depth (free-play, not plan).
-
-**Afterward:** `ff grade picks.txt --slot N --oneqb` scores the run -
-commitments hit per round, cap, byes - with QB items demoted to
-observation-only. Note the round each QB actually left the board; superflex
-mocks are rare, but the shape of any QB run is calibration color for August.
+**Afterward:** `ff grade picks.txt --slot N` scores the run in full -
+commitments hit per round, cap, byes, QB windows. (`--oneqb` stays in the
+CLI but should not be needed again.) Record the round each QB left the
+board: every mock is now a real QB-run curve for calibrating the room's
+thresholds - previously the scarcest calibration data we had.
 
 ## Standing items
 - Replace the stale 2-tab workbook in the Claude project with a fresh

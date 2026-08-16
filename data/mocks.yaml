@@ -1,0 +1,306 @@
+# Mock draft log. Every rep, in order. `ff mocks` aggregates this into the
+# pattern report - which commitments fail repeatedly, which slots are still
+# unpracticed, and whether a fix held.
+#
+# PHASE 1 (done): all 12 slots repped, because the slot was thought to be
+# unknown until draft morning.
+#
+# PHASE 2 (from 8/13): THE SLOT IS KNOWN - Josh drew 5, MIDDLE branch, draft
+# Sunday Sept 6 9PM EST. Every remaining rep should be at SLOT 5. Note the
+# irony worth acting on: slot 5 is the ONLY seat never repped in superflex -
+# the single slot-5 mock (7/25) was a 1-QB room and predates every rule the
+# framework has since added. Effectively this seat is unpracticed.
+#
+#
+# RULE CHANGE 8/4: the Downs commitment moved from a hard R7 to R7-R10 after
+# this log showed 9 misses in 9 superflex reps (he actually went R10/R11/R14).
+# Rows where he landed inside the new window were retagged - they were never
+# really errors, the rule was. Rows where he came R11+ now read downs_late.
+#
+# Add a row per mock: date, slot, format, score/graded, then the flags the
+# grade printed. picks_file is the scratchpad path when kept.
+- date: '2026-07-25'
+  slot: 5
+  format: 1QB
+  score: null
+  of: null
+  notes: >
+    Mock 1. Structure held but drafted a 4-starter W14 bye stack with the
+    co-pilot watching. Lessons: the sheets became self-sufficient; duplicate
+    teams must count separately in the bye audit.
+  errors: [bye_stack_w14]
+- date: '2026-08-02'
+  slot: 4
+  format: superflex
+  score: 6
+  of: 11
+  notes: >
+    Mock 2. RB floor discipline FIXED. New failure layer: QB/TE windows -
+    R6-tier arms bought at R2/R4, no WR by R4, no TE in window then TWO TEs,
+    board fade in Downs's R7 window, no QB3 with QB1's bye on W14.
+  errors: [qb2_early, te2, no_qb3, downs_not_drafted, wr_late]
+- date: '2026-08-03'
+  slot: 7
+  format: superflex
+  score: 6
+  of: 11
+  notes: >
+    Shough R4 (outside window, fails named-starter test), never took QB3 -
+    finished with 2 QBs in a superflex league. Three triple-bye weeks.
+  errors: [qb2_early, no_qb3, downs_late, wr_late, bye_stack]  # downs R14
+- date: '2026-08-03'
+  slot: 4
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    ESPN graded it an A; the framework found a BREACH. Best structure to
+    date at the time, but 3 Colts (untradeable before the W13 deadline),
+    3 Steelers on W9, and a TE2 that ate RB6.
+  errors: [qb2_late, ind_breach, te2, bye_stack]  # downs R10 - inside the widened window
+- date: '2026-08-03'
+  slot: 10
+  format: superflex
+  score: 5
+  of: 11
+  notes: >
+    Bowers R3 - the TE board's rejected "pay up" path - collided with the RB
+    window exactly as predicted: RB2 at R5, WR1 at R8. Herbert R4 + Love R7
+    overcorrected the QB timing. FIVE players on the W13 bye.
+  errors: [qb2_early, qb3_early, downs_late, wr_late, bye_stack, rb_floor]  # downs R11
+- date: '2026-08-03'
+  slot: 12
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    First clean R1-R6 scaffold - all six opening commitments plus Warren at
+    the turn. QB2 window HIT for the first time (Murray R6, asterisk: not a
+    named starter yet). Remaining misses were one-round timing errors.
+  errors: [qb3_early, downs_not_drafted, rb_flex_late, bye_stack]
+- date: '2026-08-03'
+  slot: 9
+  format: superflex
+  score: 7
+  of: 11
+  notes: >
+    QB2 window held a second time (Love R6) but broke TRIANGULATION - Maye
+    and Love both W11, in the six-team bye week. R2/R3/R4 all RBs left zero
+    WRs through six rounds; the RB floor is a floor, not a target.
+  errors: [triangulation, wr_late, qb3_early, downs_late, bye_stack]  # downs R11
+- date: '2026-08-04'
+  slot: 10
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    First rep with the two-column sheet. Best clean draft: no cap breach, no
+    triangulation fail, Ward R6 as QB2 and Geno R9 as QB3 - correct market
+    price at all three QB slots for the first time. Three Bears (all W10)
+    passed silently, which is why the general stack flag was added.
+  errors: [downs_late, rb_flex_late, team_stack_chi]  # downs R14
+- date: '2026-08-04'
+  slot: 4
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    Mayfield R4 is outside the QB2 window again. TE2 (Sadiq R14) for the
+    second time at this slot - it ate WR5, leaving 4 WR against a floor of 5.
+    That repeat is what put the roster ledger into ff grade.
+  errors: [qb2_early, te2, wr_short, bye_stack]  # downs R10 - inside the widened window
+- date: '2026-08-04'
+  slot: 8
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Best rep to date and the FIRST ledger-perfect roster (3/6/5/1/1/1 exactly).
+    Every commitment hit but Downs. QB room bought at market for the second
+    straight rep: Allen R1, Ward R6, Geno R9. Depth-round byes are now the
+    only live discipline problem - 3 Texans (W8, and one is the kicker),
+    3 on W5, 4 on W13.
+  errors: [team_stack_hou, bye_stack]  # downs R10 - inside the widened window; regrades 11/11
+- date: '2026-08-04'
+  slot: 6
+  format: superflex
+  score: 8
+  of: 11
+  notes: >
+    First rep with ZERO team stacking (13 clubs, max 2 from any one) - the
+    general flag stayed quiet. QB2 hit at R5 (Mayfield), earliest legal.
+    But Warren at R4 with only ONE RB held blew the 2-by-R4 floor: the
+    Warren gate is written for R5 and did not bite at R4. Roster came out
+    5RB/6WR - the RB the gate would have forced. QB3 early again (Bryce
+    Young R8, 4th time in 5 reps that a QB3 came before R9).
+  errors: [rb_floor, qb3_early, warren_gate_r4, ledger_rb_short, bye_stack]
+- date: '2026-08-04'
+  slot: 12
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    PERFECT COMMITMENT SCORE - first 11/11. Every window hit including Downs
+    at R10 under the widened rule, QB room at market again (Caleb R1, Ward R6,
+    Geno R9), clean triangulation, no stack, 14 clubs. Two things left: the
+    roster finished 5RB/6WR (Deebo R15 where RB6 belonged) - the SECOND
+    straight rep with that exact inversion - and three separate triple-bye
+    weeks (W7, W8, W13).
+  errors: [ledger_rb_short, ledger_wr_over, bye_stack]
+- date: '2026-08-06'
+  slot: 11
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Cleanest ROSTER yet - ledger met exactly (3/6/5/1/1/1) for the second
+    time, and the best bye spread of any rep: 16 clubs, max 2 from one, and
+    only ONE week over cap (W13 x3). W14 sat exactly at 2. But TRIANGULATION
+    BROKE: Burrow (CIN) and Murray (MIN) both bye W6 - the second
+    triangulation fail in 13 reps, and both byes were printed side by side
+    on the sheet's QB tier lines. Murray also still is not a named starter
+    (8/6 camp watch), so he is not yet a legal QB2 pick. Missed RB flex in
+    R5-R8: R7 and R8 both went WR.
+  errors: [triangulation, rb_flex_late]
+- date: '2026-08-06'
+  slot: 2
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Triangulation held (W7/W9/W13) and the seeding week came out COMPLETELY
+    CLEAN - zero W14 exposure, a first. QB room at market again (Allen R1,
+    Ward R6, Geno R9). Two faults, both familiar: Downs slipped to R12, past
+    the widened R10 deadline; and the roster finished 5RB/6WR - the THIRD
+    time in five reps for that exact inversion. Byes still lumpy in the
+    depth rounds (3 on W7, 3 on W10, 4 on W13).
+  errors: [downs_late, ledger_rb_short, ledger_wr_over, bye_stack]
+- date: '2026-08-06'
+  slot: 3
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Ledger met (3/6/5/1/1/1), triangulation clean (W5/W7/W9), zero W14
+    exposure for the second straight rep, 15 clubs and no stack. The one
+    miss was structural, not sloppy: Warren went R4 with both RBs banked -
+    legal under the RB-only gate - and that mathematically ate the R1-R4 WR
+    commitment, because QB1+RB+RB+WR fill R1-R4 exactly. The framework's own
+    solver already said R4 WR / R5 Warren. That is what added r4_needs_wr.
+    Byes still lumpy: 3 on W6, 3 on W7, 3 on W13.
+  errors: [wr_late, warren_gate_r4_wr, bye_stack]
+- date: '2026-08-09'
+  slot: 1
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    FINAL SLOT - all 12 now repped. Allen at 1.01 as the anchor rule says,
+    ledger met (3/6/5/1/1/1) for the third time, triangulation clean
+    (W5/W7/W9), no team stack, ZERO W14 exposure. Depth board's first live
+    rep and it worked where it was read: Odunze taken at R4 (STRONG BUY),
+    Mason and JCM off the list, Brooks correctly avoided for the first time
+    in eight reps. BUT the worst bye distribution of the entire set - FIVE
+    on W7 and FOUR on W5. The bye tally is printed and was not used; two
+    payout weeks are unwinnable. Butker (KC) is also a W5 kicker stacking
+    an already-dead week - the K-bye gap is now real, not theoretical.
+  errors: [downs_late, bye_stack_w7, bye_stack_w5, k_bye]
+- date: '2026-08-13'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    FIRST superflex rep at the REAL seat, and a perfect commitment score -
+    every window hit, ledger met exactly (3/6/5/1/1/1) for the fourth time,
+    triangulation clean (W5/W10/W13), IND cap at 2. Second 11/11 ever. BUT
+    the worst single-week hole of any rep: FOUR players out in W5 - three
+    Panthers (McMillan, Bryce Young, Brooks) plus Walker (KC). The general
+    stack flag fired on CAR exactly as designed. Two quality notes the score
+    cannot see: Brooks is a depth-board FADE and got taken anyway, and Bryce
+    Young is not on the QB3 vet list - he is neither the R9-10 tier nor
+    sellable trade inventory, which is that slot's whole purpose.
+  errors: [bye_stack_w5, team_stack_car, fade_drafted_brooks, qb3_off_board]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    SECOND rep at the real seat and the THIRD 11/11 - every window hit, ledger
+    met exactly (3/6/5/1/1/1) for the fifth time, Warren gate passed cleanly at
+    R5 with 2 RB + WR banked, triangulation clean (W6/W7/W11), 14 clubs, IND at
+    exactly 2. Downs landed at R8 - the earliest he has ever come and the first
+    time inside the window at this slot. And the score is misleading. Two things
+    it cannot see. (1) QB TIER INVERSION: pick 20 went to Trevor Lawrence, who
+    is on the qb3_vets list - market picks 101-107 - so an R9 arm was bought at
+    R2, roughly an 80-pick overpay. Goff at R6 is the same tier, 3 rounds early.
+    Jordan Love at R9 is a QB2-window arm at QB3 price, the one correct QB
+    purchase. The QB room is priced upside down and every commitment window
+    still HIT. That is what added qb_tier_report to ff grade. (2) THREE weeks
+    over the bye cap - W5, W9, W13 - and in all three the breach was the LAST
+    body added, each one already refused by the target board written that same
+    morning: Bateman (fade + W13, which Warren and Downs had already capped),
+    Brooks (fade, second straight slot-5 rep, W5 again), and Boswell as a PIT
+    kicker onto a W9 that Dowdle already occupied. All three are non-commitment
+    depth picks, so swapping them changes nothing about the 11/11 - a fully
+    clean roster was available at the same score, for free.
+  errors: [qb1_off_tier, qb2_off_tier, bye_stack_w5, bye_stack_w9, bye_stack_w13,
+    fade_drafted_brooks, fade_drafted_bateman, k_bye]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    Second rep of the day, and the score DROPPED to 9/11 after three straight
+    double-digit reps. BRANCH A FIRED FOR THE FIRST TIME AT THIS SEAT - Maye at
+    pick 5, an elite-six arm, exactly what the 8/16 superflex research said was
+    live (only 2 QBs went in R1 in this room, so four or five elite arms reach
+    pick 5). Murray at R6 as QB2 is at market and now legal. Both graded "at
+    market" by the new tier report - the QB pricing lesson from the previous
+    rep HELD. Ledger met (3/6/5/1/1/1) for the sixth time. What broke: (1) THE
+    TE1 IS ON THE SEEDING WEEK. Jake Ferguson is DAL, bye W14, and he is the
+    only tight end on a roster with no TE2 and zero IR - so the week that
+    decides the first-round bye is played with a waiver-wire tight end. That is
+    a worse version of the w14_trap than Allgeier or Aubrey, because it is a
+    STARTER. (2) THREE VIKINGS - Murray, Addison and Reichard - firing the
+    general stack flag, and Pacheco (DET) makes FOUR players out in W6. (3) The
+    kicker was the third Viking. That is three of the last four reps where the
+    KICKER created or worsened a bye breach (Butker W5, Boswell W9, now
+    Reichard W6). (4) Bryce Young at QB3 for the second time - still not on the
+    qb3_vets list, now auto-flagged OFF BOARD by the tier report. (5) Warren
+    and Downs both missed; Ferguson at R7 was the TE backfill the rule allows,
+    but Downs at R7-R9 was simply skipped. This rep is what added the live bye
+    tally to ff draft - at R16 it names MIN as unpickable, which is the exact
+    pick that went wrong.
+  errors: [te1_seeding_week, team_stack_min, bye_stack_w6, bye_stack_w5, bye_stack_w13,
+    k_bye, qb3_off_board, warren_missed, downs_not_drafted]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Third rep of the day. THE BEST QB ROOM OF THE ENTIRE LOG and the worst bye
+    result of the entire log, in the same roster. Allen at pick 5 is the anchor
+    rule executed perfectly - Branch A with the consensus QB1 - and the tier
+    report grades all three arms at market or better for the first time ever:
+    Allen ELITE SIX at market, Jones QB2-window at market, Love a QB2-window arm
+    taken at R9 for VALUE. Zero reaches. Triangulation clean (W7/W11/W13), ledger
+    met (3/6/5/1/1/1) for the seventh time, no team at 3+, Warren gate passed at
+    R5. Also real progress on the new K/DST board: correct ORDER (DST R16, K
+    R17), Aubrey refused, Colts D/ST refused, and McPherson taken straight off
+    the kicker list at W6 where it was legal at cap. BUT FOUR WEEKS OVER CAP -
+    W5, W7, W11 and W13 - which beats the previous worst of three. Replaying the
+    new `ff draft --teams` tally against this roster, it would have BLOCKED ALL
+    FOUR of the picks that caused them: Jones (IND) at R6, Love (GB) at R9,
+    Brooks (CAR) at R11 and the Chargers D/ST (LAC) at R16. The tally was
+    available and was not used. Two other notes: Brooks is a depth-board FADE
+    taken for the THIRD straight slot-5 rep, and Downs was missed again (Watson
+    filled the R7-R9 WR slot). The Jones pick also exposed a hole in the rule
+    wording - it was refused as "third Colt behind Warren and Downs", but Downs
+    was never drafted, so the IND cap read ok at 2 while W13 still broke on
+    Jeanty (LV). The refusal now names both paths.
+  errors: [bye_stack_w5, bye_stack_w7, bye_stack_w11, bye_stack_w13,
+    fade_drafted_brooks, downs_not_drafted, tally_not_used]

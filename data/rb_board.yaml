@@ -15,9 +15,13 @@ tiers:
   - Bijan Robinson
   note: The R1 pivot if Josh Allen is gone (trees.yaml). Do not reach for QB2-5 tier arms over these.
 - tier: 2
-  who: []
-  note: UNKNOWN - the original tier membership was never captured in YAML. Fill from the August ADP pass
-    before building slot trees.
+  who: [Christian McCaffrey, Jonathan Taylor, Chase Brown, James Cook III, Saquon Barkley, De'Von Achane,
+    Jeremiyah Love]
+  note: 'FILLED 8/9 from consensus 2026 RB rankings (ESPN/NFL.com/Footballguys/FantasyLife) - this was
+    the single biggest data gap since 8/1. These are the RB3-RB9 range behind Gibbs and Bijan, i.e. the
+    backs your R2-R4 RB commitments should actually be buying. Jeremiyah Love (ARI) is the name the old
+    boards did not know and he went R2/R3 in early mocks. CAVEAT on McCaffrey: ranked RB3 but age, usage
+    and injury history are consensus red flags, and this league has ZERO IR - discount him accordingly.'
 targets:
 - player: Rhamondre Stevenson
   team: NE
@@ -41,10 +45,14 @@ targets:
     office wants his workload cut. The 49ers RB2 has standalone value in this scheme.
 - player: Rachaad White + Jacory Croskey-Merritt
   team: WSH
-  adp: null
-  round: 12-15
-  why: Buy the whole Commanders backfield late and own the winner. White is the PPR play (50+ catches
-    in three of four seasons); JCM is the grinder.
+  adp: White RB20 (8/16 pass)
+  round: JCM 12-15; White is NOT available there
+  why: 'OBSOLETE AS WRITTEN - corrected 8/16. The plan was "buy the whole Commanders backfield late,
+    R12-15, and own the winner". White is going RB20, a R5-R6 player, so the both-backs hedge cannot
+    be executed at that price. Pick one: pay for White as a real RB in the R5-R8 flex window, or take
+    JCM alone as the cheap half and accept that you do not own the winner. White is still the PPR play
+    (50+ catches in three of four seasons); JCM is still the grinder who must prove himself in the pass
+    game. This is a strategy change, not a price tweak.'
 fades:
 - player: TreVeyon Henderson
   team: NE

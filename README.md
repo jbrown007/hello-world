@@ -13,7 +13,7 @@ for what still needs human verification.
 ```bash
 cd ff2026
 bash setup.sh
-source .venv/bin/activate
+bash setup.sh   # puts `ff` on PATH; open a new terminal after
 ff settings
 ```
 

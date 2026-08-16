@@ -11,7 +11,8 @@ except (AttributeError, ValueError):  # Windows / non-main thread
     pass
 from . import __version__
 from .config import league, byes, bye_of, unconfirmed, as_range
-from .draft import qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks, room_report
+from .draft import (qb_verdict, rb_verdict, tree, draft_screen, sheet, grade, parse_picks,
+                    room_report, mocks_report, targets_report)
 from .byecheck import audit
 from .weekly import session
 from .workbook import build
@@ -48,10 +49,26 @@ def main(argv=None) -> int:
     d.add_argument("--round", type=int, required=True)
     d.add_argument("--gone", type=int, required=True, help="QBs already off the board")
     d.add_argument("--slot", type=int, default=None)
+    d.add_argument("--window", type=int, default=None,
+                   help="QBs taken in the last 12 picks; 3+ fires the run trigger")
+    d.add_argument("--have", default=None,
+                   help="what you already hold: POS=N pairs plus any named picks, "
+                        "e.g. 'QB=1,RB=2,WR=2,warren,downs'. Satisfied commitments "
+                        "drop off; a named pick only clears when you name it.")
+    d.add_argument("--teams", default=None,
+                   help="NFL team codes you have already drafted, comma-separated, "
+                        "e.g. 'NE,LV,KC,CAR'. Prints the live bye tally, which weeks "
+                        "are at cap, and which teams that makes unpickable.")
 
     s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
     s.add_argument("--slot", type=int, default=None)
     s.add_argument("--all", action="store_true", help="write every branch to build/sheet_*.txt")
+    s.add_argument("--format", choices=["twocol", "long"], default="twocol",
+                   help="twocol: one landscape page (default). long: the full prose script.")
+
+    sub.add_parser("mocks", help="pattern report across every logged mock draft")
+    tg = sub.add_parser("targets", help="round-by-round named target board for your slot")
+    tg.add_argument("--round", type=int, help="print one round only")
 
     g = sub.add_parser("grade", help="score a drafted roster against the plan's commitments")
     g.add_argument("file", help="picks file: one 'ROUND POS TEAM Player Name' per line")
@@ -102,9 +119,20 @@ def main(argv=None) -> int:
         if not slot:
             print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
             return 1
-        print(draft_screen(slot, a.round, a.gone))
+        from .draft import parse_have
+        from .config import bye_of
+        counts, names = parse_have(a.have)
+        teams = [t.strip().upper() for t in (a.teams or "").split(",") if t.strip()]
+        bad = [t for t in teams if not bye_of(t)]
+        if bad:
+            print(f"Unknown team code(s) in --teams: {', '.join(bad)}. "
+                  "Use NFL abbreviations as they appear in data/byes.yaml.")
+            return 1
+        print(draft_screen(slot, a.round, a.gone, a.window, counts, names, teams))
 
     elif a.cmd == "sheet":
+        from .draft import sheet_twocol
+        render = sheet if a.format == "long" else sheet_twocol
         if a.all:
             from .config import ROOT
             from .draft import tree as _tree
@@ -116,15 +144,22 @@ def main(argv=None) -> int:
                 if label in done:
                     continue
                 done.add(label)
-                path = outdir / f"sheet_{label}.txt"
-                path.write_text(sheet(slot) + "\n", encoding="utf-8")
+                suffix = "" if a.format == "twocol" else f"_{a.format}"
+                path = outdir / f"sheet_{label}{suffix}.txt"
+                path.write_text(render(slot) + "\n", encoding="utf-8")
                 print(f"wrote: {path}")
         else:
             slot = a.slot or league()["draft"].get("slot")
             if not slot:
                 print("No slot set. Pass --slot N, --all, or set draft.slot in data/league.yaml.")
                 return 1
-            print(sheet(slot))
+            print(render(slot))
+
+    elif a.cmd == "mocks":
+        print(mocks_report())
+
+    elif a.cmd == "targets":
+        print(targets_report(getattr(a, "round", None)))
 
     elif a.cmd == "grade":
         slot = a.slot or league()["draft"].get("slot")

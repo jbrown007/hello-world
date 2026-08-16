@@ -1,0 +1,150 @@
+# KICKER AND D/ST BOARD - R16 and R17. Built 8/16.
+#
+# Why this exists: these are two MANDATORY starters on a 17-man roster with
+# zero slack, and until now the framework said only "top-3 K, never earlier
+# than R16, check the bye". targets.yaml literally read "Best available K".
+# That gap has cost real points - the kicker created or worsened a bye breach
+# in THREE of the last four reps (Butker W5, Boswell W9, Reichard W6), and
+# Brandon Aubrey was taken in 10 of 14 reps despite being the one kicker the
+# rules explicitly refuse.
+#
+# THE GOVERNING IDEA: at picks 188 and 197 you already hold 15-16 players, so
+# your bye tally is FULLY KNOWN. The gap between K1 and K8 over a season is
+# small; a mandatory starter dark in a payout week costs you that week
+# outright. So the ranking picks the shortlist and THE BYE PICKS THE PLAYER.
+# Work down the list and take the first name whose bye is not already at cap.
+#
+# Sources 8/16: SI/OnSI kicker rankings, PFF K tiers, RotoBaller top-12 K,
+# FantasyLife and STACKED DST rankings, FantasyPros DST tiers. All are 1-QB
+# rankings but K and D/ST are format-independent - superflex does not change
+# their price, only how late everything else falls. REFRESH after the Aug 29-30
+# cuts.
+
+order:
+  r16: DST
+  r17: K
+  why: >
+    Take the DEFENSE first. The top DST tier is genuinely separated - Seattle,
+    Denver and Houston are a real cut above - while kickers K1 through K8 are
+    close to flat once Aubrey is off your board. Spending R16 on the scarcer
+    tier and leaving the flatter one for R17 means the kicker, the single most
+    replaceable player on the roster, absorbs whatever bye week is left. The
+    8/16 rep did it backwards (K at 16, DST at 17) and the kicker was the pick
+    that broke W6.
+
+# ---------------------------------------------------------------------------
+rules:
+- id: never_w14
+  severity: HARD
+  rule: >
+    No kicker and no defense on the W14 bye, ever. W14 is the seeding week and
+    only DAL and ARI are on it. This removes the consensus K1.
+- id: k_and_dst_never_share_a_bye
+  severity: HARD
+  rule: >
+    NEW 8/16. Your kicker and your defense must not be on the same bye week.
+    They are two of your ten starting slots, and losing both in one week is a
+    self-inflicted double hole - the easiest one in the draft to avoid, since
+    you pick them back to back with full information. Watch this specifically
+    with Dicker (LAC) and the Jacksonville defense: both W7.
+- id: w13_is_already_spent
+  severity: HARD
+  rule: >
+    If you hold Warren and Downs - and the plan says you will - W13 is at cap
+    before R16. That makes every BAL, NYJ, IND and LV kicker and defense
+    unpickable. Two specific traps: Tyler Loop is a top-10 kicker and he is
+    BAL, and the Colts D/ST is the obvious "I already own Colts" pick and was
+    taken in the 8/16 rep. Both are third W13 bodies.
+- id: bye_decides_among_equals
+  severity: HARD
+  rule: >
+    Run `ff draft --teams ...` before both picks. It prints the live tally and
+    the DO NOT DRAFT list. Take the highest name on these boards that is not on
+    that list. Do not take a higher-ranked kicker onto a capped week.
+
+# ---------------------------------------------------------------------------
+kickers:
+  note: Ranked by consensus, then filtered by bye. Take the first one that fits.
+  who:
+  - {player: Cameron Dicker, team: LAC, bye: 7, rank: 2, verdict: 'DEFAULT PICK',
+     why: 'The most accurate kicker in NFL history - 93.5% career, at least 92% in every
+       season - and the best kicker you are actually allowed to draft once Aubrey is
+       refused. W7 is usually clear on the default build. Do not pair him with the
+       Jacksonville defense.'}
+  - {player: Ka'imi Fairbairn, team: HOU, bye: 8, rank: 3, verdict: 'CO-DEFAULT',
+     why: 'Interchangeable with Dicker in practice. W8 is the other week the default
+       line tends to leave empty, so between these two the answer is simply whichever
+       week your roster has free. If you take the Houston defense, take Dicker instead.'}
+  - {player: Evan McPherson, team: CIN, bye: 6, rank: 7, verdict: OK,
+     why: 'Fine leg in a high-scoring offense. W6 is crowded on most builds - Murray,
+       Goff, Burrow, Achane, Chase Brown and Jordan Mason are all W6 names on our
+       boards - so check the tally first.'}
+  - {player: Jason Myers, team: SEA, bye: 11, rank: 8, verdict: 'CAUTION - W11',
+     why: 'W11 is the six-team bye and the easiest week to stack by accident. If your
+       QB1 is Maye or you hold Stevenson, W11 is likely already at cap.'}
+  - {player: Cam Little, team: JAX, bye: 7, rank: 9, verdict: OK,
+     why: The W7 alternative to Dicker if Dicker is gone.
+  }
+  refused:
+  - {player: Brandon Aubrey, team: DAL, bye: 14, rank: 1, why: 'THE CONSENSUS K1 AND A
+      HARD REFUSE. Three straight top-three finishes in a high-scoring offense that
+      attempts long field goals - he is genuinely the best kicker in fantasy, and he is
+      on the SEEDING WEEK bye. Taken in 10 of 14 reps. The points he adds over Dicker
+      across a season are worth less than one dark starter in the week that decides
+      your first-round bye.'}
+  - {player: Tyler Loop, team: BAL, bye: 13, rank: 10, why: 'Top-10 leg, but BAL is W13
+      and Warren + Downs already spend that week.'}
+  - {player: Will Reichard, team: MIN, bye: 6, rank: 4, why: 'CONDITIONAL REFUSE, not an
+      absolute one - he is a top-5 kicker. But he was the pick that broke W6 in the 8/16
+      rep as the THIRD Viking behind Murray and Addison. If Murray is your QB2, this
+      kicker is a stack body. Take him only if MIN is not already on your roster.'}
+  - {player: Chris Boswell, team: PIT, bye: 9, rank: 5, why: 'CONDITIONAL REFUSE. Top-5
+      leg, but PIT is W9 and so is Cam Ward (TEN) and Rico Dowdle (PIT) - the two most
+      likely W9 bodies on the default line. He broke W9 in the 8/16 rep for exactly that
+      reason. Fine if your W9 is empty.'}
+
+# ---------------------------------------------------------------------------
+dst:
+  note: >
+    Take one at R16 and stream in-season if the matchup turns - matchups drive
+    D/ST scoring more than talent. NEVER earlier than R16: Jag FLu takes his at
+    R8 every year and hands the rest of the room a skill player, which is a
+    standing edge, not something to copy.
+  who:
+  - {player: Houston, team: HOU, bye: 8, rank: 3, verdict: 'DEFAULT - top tier, cleanest bye',
+     why: 'Top-3 everywhere and several boards have the Texans as DST1 outright. W8 is
+       typically the emptiest week on our build, which makes this the easiest fit of the
+       top tier. If you take this, take Dicker as your kicker, not Fairbairn.'}
+  - {player: Seattle, team: SEA, bye: 11, rank: 1, verdict: 'BEST UNIT, CHECK W11',
+     why: 'Highest-scoring D/ST of 2025, allowed the fewest points per game in the NFL
+       (17.2), and a top-5 unit in back-to-back seasons under Macdonald. The only
+       question is the bye - W11 is the six-team week and often already at cap.'}
+  - {player: Denver, team: DEN, bye: 10, rank: 2, verdict: 'STRONG',
+     why: 'Second-ranked unit at 8.2 PPG. W10 is usually clean on the default line
+       unless you took two Bears.'}
+  - {player: Jacksonville, team: JAX, bye: 7, rank: 4, verdict: OK,
+     why: '8.2 PPG. Only conflict is Dicker - do not take both, they share W7.'}
+  - {player: LA Rams, team: LAR, bye: 11, rank: 5, verdict: 'CAUTION - W11',
+     why: Same six-team-bye problem as Seattle, without the ceiling.
+  }
+  - {player: LA Chargers, team: LAC, bye: 7, rank: null, verdict: 'STREAMING NOTE',
+     why: 'Not a top-5 season-long unit, but they open against Arizona and Las Vegas and
+       have the best early-season D/ST schedule in the league - draftable and startable
+       with confidence through the first two weeks. Worth knowing as a Week 1 waiver
+       target even if you draft someone else.'}
+  refused:
+  - {player: Indianapolis, team: IND, bye: 13, why: 'The obvious pick if you already own
+      Colts, and that is exactly the problem - Warren and Downs make this a THIRD W13
+      body. Taken in the 8/16 rep. Refuse it.'}
+
+# ---------------------------------------------------------------------------
+default_pairing:
+  pick: Houston D/ST at R16 (W8) + Cameron Dicker at R17 (W7)
+  why: >
+    Both are top-3 at their position, the two byes are different, and W7 and W8
+    are the weeks the default slot-5 build leaves emptiest - the QB2 (Ward, W9),
+    the Colts pair (W13), a Bears receiver (W10) and an NE body (W11) all land
+    elsewhere. Swap Dicker for Fairbairn only if you did NOT take the Houston
+    defense. If W7 or W8 is already at cap when you get there, work down each
+    list to the first name that fits, and let the tally decide rather than the
+    ranking.

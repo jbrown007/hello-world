@@ -3,7 +3,10 @@
 # The 2025 post-mortem: QB, QB, TE with three of the first four picks left
 # every RB to be sourced from pick 65 onward - RB1 was a committee back, RB2
 # was a backup, feeding THREE starting slots (RB, RB, RB/WR flex). That is
-# the 7th-place finish. QB had a count rule with a hard floor; RB had nothing.
+# the 10th-place finish (CORRECTED 8/13 from '7th' - Josh confirmed Crushing
+# Dreams is his team and the Final Standings screen shows 10th of 12; the old
+# 7th may have been the regular-season placing). QB had a count rule with a
+# hard floor; RB had nothing.
 # This mirrors the QB rule so the same drift cannot happen live at the table.
 rb_floor:
   - by_end_of_round: 4
@@ -12,7 +15,7 @@ rb_floor:
     note: >
       Non-negotiable. Two RB slots plus a RB/WR flex means three starting
       slots. Sourcing RB1 and RB2 after Round 5 is what produced the 2025
-      7th-place finish.
+      10th-place finish (corrected 8/13 - see header).
   - by_end_of_round: 8
     min_held: 3
     verdict_if_short: TAKE_RB_NOW

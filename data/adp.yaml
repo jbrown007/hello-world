@@ -1,0 +1,263 @@
+# ADP SNAPSHOT - 8/16/2026. Nine days ahead of the scheduled Aug 25 pass,
+# pulled because the target board had an unnamed R4 WR commitment.
+#
+# READ THIS BEFORE USING THE NUMBERS. Almost every public ADP is 1-QB PPR.
+# This league is SUPERFLEX, where roughly 10-15 extra quarterbacks come off
+# the board inside the first five rounds, so every skill player falls. A rough
+# conversion for the R1-R8 band is: superflex pick = 1QB ADP + 10 to 20, and
+# the gap widens as the QB run passes. Numbers below are tagged [1QB] or [SF];
+# anything derived is marked ESTIMATE and should not be treated as measured.
+#
+# The room's own history overrides all of it. qb_board already says it:
+# national ADP priced the QB2 tier at R4 and this room waited until R6. Trust
+# the tally and the mock log over a national ranking.
+#
+# REFRESH: Aug 25 as scheduled, again after the Aug 29-30 cuts, and Sept 4-5.
+# The single thing worth buying before then is a measured SUPERFLEX ADP source
+# - every number here is 1QB unless marked, and that is the weakest part of
+# this file.
+
+pulled: '2026-08-16'
+sources: >
+  FlurrySports and FantasyLife (Downs), RotoWire and Footballguys WR/RB tiers,
+  Athlon and CBS RB ADP reviews, SI/OnSI and ProFootballNetwork (Odunze,
+  Burden), NFL.com and RotoBaller TE rankings (Warren), ESPN/FantasyPros and
+  RotoBaller QB rankings, NFL.com and Yahoo (Mahomes medical). Web search only
+  - fantasypros.com, espn.com and rotoballer.com are blocked by this
+  container's egress proxy, so no full ADP table could be fetched directly.
+
+superflex:
+  status: 'NO MEASURED TABLE OBTAINED - 8/16. Read the sourcing note before trusting anything here.'
+  sourcing: >
+    Every host that publishes a superflex/2QB ADP table is blocked by this
+    session's egress policy: fantasypros.com, rotoballer.com, espn.com,
+    fantasyfootballcalculator.com, 4for4.com, draftsharks.com, footballguys.com,
+    rotowire.com, pff.com, sharpfootballanalysis.com, nfl.com, sleeper's API and
+    underdogfantasy.com were all tried and all refused. Raw curl is blocked
+    outright. The proxy README says organization policy denials must be reported,
+    not routed around, so they were not. What follows is STRUCTURE extracted from
+    search-result summaries - shape, not a table. Do not treat any number below
+    as a measured pick.
+  structure:
+  - >
+    THE ELITE TIER: the top 6-8 quarterbacks are pushed into the FIRST TWO
+    ROUNDS in superflex. Drake Maye is a first-round pick in the format. One
+    published superflex mock had five QBs gone inside the first eight picks.
+  - >
+    THIS ROOM MATCHES THE NATIONAL SHAPE AT THE TOP, which is the useful
+    finding. The 2025 board had 2 QBs in R1 and 6 by pick 23 - squarely inside
+    "6-8 in the first two rounds". The branch map is calibrated correctly and
+    does not need changing.
+  - >
+    WHAT THAT MEANS AT PICK 5 AND PICK 20: with only 2 arms gone in R1 here,
+    roughly four or five of the elite six are still on the board at pick 5, and
+    about one survives to pick 20. That is Branch B by construction - take the
+    skill player at 5 and the arm at 20 and you get both. It also means Branch A
+    at pick 5 is real, not theoretical, and taking an elite arm there is
+    defensible; it is just usually worse than getting both.
+  - >
+    NATIONAL QB2 ADVICE IS EARLIER THAN OUR RULE: superflex consensus is to have
+    BOTH starting quarterbacks by the END OF R5. Our window is R5-R6 with the
+    hard floor at the end of R6, justified by this room waiting until picks
+    62-72 in 2025. See the convergence note below - this is now the third
+    independent argument for R5.
+  qb2_r5_convergence:
+    note: >
+      THREE INDEPENDENT LINES NOW POINT AT PICK 53 FOR QB2, and they were
+      derived separately. (1) National superflex strategy says two starters by
+      the end of R5. (2) The seat analysis: Griddy Committee owns picks 60-61 as
+      a turn double, the 2025 run fired at picks 62-72, and slot 5's R6 pick is
+      68 - inside the run rather than ahead of it. (3) The framework's own
+      3-in-12 run trigger. Nothing here changes the RULE, which is already
+      adaptive - the trigger decides at 53. What changes is the PRIOR: expect it
+      to fire more often than not, and expect to release Warren.
+    warren_counter: >
+      The honest counter-argument, with the numbers. Warren's ADP is 61 [1QB],
+      which converts to roughly pick 72-80 in superflex (ESTIMATE) - so taking
+      QB2 at 53 and Warren at 68 could get you BOTH. The risk is specific and
+      named: CHAMP sits at slot 7 and picks at 42, 55 and 66. He took Tyler
+      Warren in R6 in 2025. Pick 66 is two picks before your 68. So the
+      both-of-them line runs directly through the one manager in the league with
+      a documented Warren habit, at the exact pick where he took him last year.
+      Decide this before the draft, not at the table.
+  recommended_fix:
+    what: Capture a full superflex board from a live ESPN mock, exactly as DRAFT_BOARD_2025.md
+      was built from the real 2025 board.
+    why: >
+      BETTER THAN NATIONAL ADP, not a fallback. Josh drafts on ESPN in a 12-team
+      superflex room and has already run 18 mock reps. A full board from one of
+      those is measured ADP for the exact platform, format, roster size and
+      league size he will draft in - which is what national ADP is a proxy for.
+      It also directly answers the two open pricing questions national ADP
+      cannot: where Warren actually goes in superflex, and how many QBs are gone
+      by picks 44, 53 and 68 at this seat.
+    how: >
+      Run one mock and screenshot or export the COMPLETE board (all 12 teams,
+      all 17 rounds), not just our roster. The mock log already captures our
+      picks; what is missing is everyone else's. One capture converts every
+      ESTIMATE in this file into a measurement.
+
+market_shape:
+  note: >
+    THE BIGGEST SINGLE FINDING, and it is not about one player. Running backs
+    are UP and wide receivers are DOWN across the 2026 market. Amon-Ra St.
+    Brown, Justin Jefferson and CeeDee Lamb are reported falling to late R1 and
+    sometimes R2. Gibbs and Bijan are going 1.01 and 1.02 in most rooms.
+  consequences:
+  - >
+    AT PICK 5 BOTH TIER-1 RBs ARE PROBABLY GONE. Gibbs at ADP 1.0 and Bijan at
+    2.0 do not reach the fifth pick. The R1 target list should be read as a WR
+    list first at this slot - St. Brown or Nacua - with an elite arm as the
+    Branch A exception.
+  - >
+    The WR discount is an OPPORTUNITY, not a warning. If receivers fall a round
+    across the board, the R4 WR commitment buys a better player than the
+    framework assumed when it was written.
+
+# ---------------------------------------------------------------------------
+qb:
+  note: >
+    All [1QB] unless marked. In superflex these all move up sharply - which is
+    why the framework prices QB windows off the room's tally, not off ADP.
+  values:
+  - {player: Josh Allen, adp: 29, tag: '[1QB] consensus QB1 everywhere, six straight top-2 finishes'}
+  - {player: Caleb Williams, adp: 73.4, tag: '[1QB] top-7 QB ADP - the Year-2 leap is now PRICED IN,
+      which is exactly what the 8/16 camp watch said could not be verified before the draft'}
+  - {player: Patrick Mahomes, adp: 101.6, tag: '[1QB] COLLAPSED on the knee - see medical below'}
+  - {player: Baker Mayfield, adp: 125.6, tag: '[1QB] QB19-21 by rank; one analyst argues top-3 upside
+      and calls the price far too low'}
+  - {player: Kyler Murray, adp: null, tag: '[rank] QB16-17 - the post-naming bump the watchlist predicted'}
+  - {player: Cam Ward, adp: null, tag: '[rank] QB24 - CHEAPEST of the QB2 tier by consensus, which
+      confirms the qb_board order. But he went R6 in four separate mock reps, so this room buys him
+      well ahead of his ranking. Trust the tally.'}
+  medical:
+    player: Patrick Mahomes
+    what: Tore ACL and LCL on Dec 14, 2025. Surgery repaired more than the ACL.
+    now: >
+      FULLY CLEARED for training camp - Andy Reid says the knee has full
+      strength and he looks sharp. Sat the preseason opener vs the Rams as a
+      precaution. Targeting Week 1 (Sept 14 vs Denver); the doctor would not
+      guarantee it.
+    board_impact: >
+      HE IS NO LONGER A BRANCH-C R3 ANCHOR. qb_board lists him in tier2_qb1
+      alongside Caleb, Stroud and Herbert with no injury context at all, and
+      the market has moved him roughly 70 picks below that group. Reprice him
+      as a discounted upside arm in the QB2 band, not an anchor you plan
+      around at pick 29.
+
+# ---------------------------------------------------------------------------
+wr:
+  r4_band:
+    note: >
+      FILLS THE TARGET BOARD'S ONE UNNAMED COMMITMENT. Slot 5's R4 is pick 44
+      overall in superflex; with roughly 12 QBs gone by then that is about pick
+      32 in 1QB terms, which lands on the WR15-WR20 tier. ESTIMATE - verify
+      against a measured superflex board at the Aug 25 pass.
+    who:
+    - {player: George Pickens, rank: WR15, note: Took advantage of Lamb's injury and held form after his
+        return; late-season falloff is the downside.}
+    - {player: DJ Moore, rank: WR17, team: BUF, note: 'Traded to Buffalo - production has waned but Josh
+        Allen is a complementary fit. NOTE this is the trade that vacated ~85 Chicago targets and created
+        the Burden runway.'}
+    - {player: Tee Higgins, rank: WR18, team: CIN, note: Double-digit TDs in back-to-back seasons alongside
+        Chase. Bye W6.}
+    - {player: Malik Nabers, rank: WR25, team: NYG, note: 'CONDITIONAL - would move up a full tier if he
+        avoids opening on PUP. Do not draft him at R4 until the PUP question resolves.'}
+    refused:
+    - {player: Garrett Wilson, rank: WR16, team: NYJ, note: 'Ranks squarely in this band and is REFUSED -
+        NYJ bye W13, which Warren and Downs already spend. See targets.yaml conflict w13.'}
+  movers:
+  - player: Josh Downs
+    team: IND
+    adp: 8.08
+    overall: 92
+    verdict: TRIGGER FIRED - TIGHTEN THE WINDOW
+    note: >
+      wr_board pre-registered this exact test on 8/4: "if his ADP has climbed
+      into the R7-8 range by then, tighten the window back". It has. He is
+      going at pick 92 - which is slot 5's R8 pick, EXACTLY. The R10 deadline
+      (pick 116) is now 24 picks past his market price and would be a
+      guaranteed miss, the mirror image of the R7-only rule that produced nine
+      straight misses in July. Driver: MICHAEL PITTMAN JR WAS TRADED TO
+      PITTSBURGH and Alec Pierce is on PUP, so Downs escapes his sub-60% snap
+      share and inherits the slot outright.
+  - player: Luther Burden III
+    team: CHI
+    rank: WR21
+    overall: 47
+    verdict: DEPTH BOARD IS BADLY STALE
+    note: >
+      depth_board has him at rounds 9-12. He is going 47th overall and is now
+      ranked AHEAD of Odunze (WR21 vs WR28) - the market has flipped the two
+      Bears since 8/9. He will not last to R9 at this slot. Either take him
+      early enough to matter or take him off the plan; do not pencil him into
+      R11 and expect him there.
+  - player: Rome Odunze
+    team: CHI
+    rank: WR28
+    overall: 62
+    verdict: HOLDS, roughly
+    note: >
+      Two readings found - WR28/62nd overall and a hotter 5.01/49th. Converted
+      to superflex, 62nd overall lands near pick 75-85, so the depth board's
+      R8-R10 window is about right and his R8 slot on the target board
+      (pick 92) may already be a round late. The STRONG BUY tag survives.
+  - player: Jayden Higgins
+    team: HOU
+    rank: WR55
+    overall: 137
+    verdict: HOLDS
+    note: Depth board said WR56 / ~135-158. Dead on. No change.
+
+# ---------------------------------------------------------------------------
+rb:
+  movers:
+  - player: Rachaad White
+    team: WSH
+    rank: RB20
+    verdict: RB BOARD PLAN IS OBSOLETE
+    note: >
+      rb_board says "buy the whole Commanders backfield late, R12-15, and own
+      the winner". White is going RB20 - a R5-R6 player, not a R12-15 dart.
+      The both-backs plan cannot be executed at that price. Either pay for
+      White as a real RB, or take JCM alone as the cheap half and give up the
+      hedge. This is a strategy change, not a price tweak.
+  - player: R.J. Harvey
+    team: DEN
+    rank: RB30
+    verdict: FADE HOLDS, and got cheaper
+    note: rb_board fades him at RB21; he has fallen to RB30. The fade was right
+      and the market has partly agreed. Dobbins RB33.
+  - player: Rico Dowdle
+    team: PIT
+    rank: RB37
+    overall: 109
+    verdict: HOLDS
+    note: Depth board said RB37 / ~109. Exact. No change. Taking him at R7
+      (pick 77) as the last mock did is roughly 30 picks early.
+  tier1:
+    note: >
+      Gibbs ADP 1.0 and Bijan ADP 2.0 - consistently the first two off the
+      board. McCaffrey often falls to the middle of R1, which the rb_board
+      already discounts for age, usage and zero IR.
+
+# ---------------------------------------------------------------------------
+te:
+  values:
+  - player: Tyler Warren
+    team: IND
+    rank: TE4
+    adp: 61
+    tag: '[1QB]'
+    note: >
+      76-817-4 as a rookie on a team-leading 112 targets, finished TE5. The
+      second-half fade (11.1 ppg over ten games, then 5.6 over seven) tracks
+      Daniel Jones's injuries, and Jones is healthy in camp. PITTMAN'S TRADE
+      FUNNELS MORE VOLUME TO HIM with no pass-catching replacement added.
+      PRICE CHECK: ADP 61 in 1QB converts to roughly pick 72-80 in superflex
+      (ESTIMATE). Slot 5 takes him at pick 53, which is about 20 picks early -
+      but the R5 call is not a value claim, it is a scarcity claim against
+      CHAMP at pick 42 and 55. Worth measuring properly on Aug 25: if he really
+      lasts to the 70s in superflex, the whole Warren-at-R5 rule is buying
+      insurance the market is not charging for, and that pick could go to a
+      starter instead.

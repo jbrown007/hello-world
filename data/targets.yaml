@@ -1,0 +1,410 @@
+# ROUND-BY-ROUND TARGET BOARD - SLOT 5. Built 8/16 from 17 mock reps.
+#
+# What this adds that the sheet does not: the sheet says WHEN each commitment
+# is due and prints a few names per line. This says WHO to take at each of
+# your seventeen picks, in preference order, with the bye attached, and what
+# to refuse. It exists because the mock audit found 62% of skill picks were on
+# no board, and because the one error the reps never fixed - bye_stack, 11 of
+# 16 graded reps and still live in the last three - is a WHO problem, not a
+# WHEN problem.
+#
+# The skeleton below is ledger-exact: 3 QB / 6 RB / 5 WR / 1 TE / 1 K / 1 DST
+# across exactly 17 picks, and it hits every RB gate (2 by R4, 3 by R8, 5 by
+# R12) precisely on the round the gate falls. There is no slack anywhere. If
+# you deviate at one pick you must take the displaced position at the next.
+#
+# NAMES, NOT LAW. A target never outranks a live commitment, a floor gate, the
+# bye cap or the team cap. Work down each round's list, skip anything that
+# breaks a rule, take the best remaining. Re-price the whole board at the
+# Aug 25 ADP pass.
+
+provenance: >
+  Assembled 8/16 from qb_board, rb_board, wr_board, te_board and depth_board,
+  ordered by the commitments ledger and filtered through byes.yaml and
+  stack_caps.yaml. Slot-5 pick numbers from league.yaml. The conflict rules
+  below are DERIVED - they are what you get by cross-referencing the boards
+  against each other, and no single board can see them.
+
+# ---------------------------------------------------------------------------
+# The conflicts. Read these once before the draft; they kill named targets.
+# ---------------------------------------------------------------------------
+conflicts:
+- id: w13_is_spent_before_you_start
+  severity: HARD
+  rule: >
+    Tyler Warren (IND) and Josh Downs (IND) are both mandatory commitments and
+    both bye W13. That is your entire 2-per-week cap on W13, allocated before
+    the draft opens. It is also the whole IND cap of 2.
+  therefore_refuse:
+  - Lamar Jackson (BAL W13) as QB1 - the only elite-six arm this rule removes
+  - Geno Smith (NYJ W13) as QB3 - he is on the qb3 vet list, take Goff/Lawrence/Rodgers instead
+  - Garrett Wilson (NYJ W13) as the R3 WR - he is on the wr value board at R3
+  - Kenyon Sadiq (NYJ W13) as a TE2 - and he was never Warren cover anyway, same bye
+  - Daniel Jones (IND W13) as QB2 - third Colt, the mock-B breach
+  - Alec Pierce (IND W13) - third Colt
+  - Jonathan Taylor (IND W13) as an R2-R3 RB - third Colt, and a third W13
+  - Rashod Bateman (BAL W13) - already a depth-board FADE, now doubly so
+  note: >
+    Eight named board targets die to one rule. This is the single highest-value
+    line in the file. If you release Warren at R5 (run trigger fires), W13 opens
+    back up and everything above except the IND-cap items is legal again.
+- id: w10_is_the_depth_board_trap
+  severity: FLAG at 3
+  rule: >
+    Odunze, Burden and Monangai are all CHI W10 and all sit in R8-R13 where you
+    will be picking fast. Caleb Williams (CHI W10) is on the QB1 tier-2 list.
+  therefore: >
+    Take at most TWO Bears. If Caleb is your QB1, at most ONE. The 8/4 slot-10
+    rep passed three Bears silently and that is why the general 3+ stack flag
+    exists. Hurts (PHI10), Mayfield (TB10) and Nix (DEN10) also land on W10.
+- id: w14_is_the_seeding_week
+  severity: HARD
+  rule: Only ARI and DAL are on bye in W14, and W14 decides your playoff seed.
+  therefore_refuse:
+  - Dak Prescott (DAL) at any price - already on the never list
+  - Brandon Aubrey (DAL) as the R16-17 kicker - taken in 10 of 14 reps
+  therefore_caution:
+  - Jeremiyah Love (ARI W14) - he is a live R2-R3 RB on the rb_board tier 2 and
+    nobody has flagged that he is dark in your seeding week. Not banned, but
+    never as the SECOND W14 body.
+  - Michael Wilson (ARI W14) - the R8 WR value-board name, same problem
+  - Tyler Allgeier (ARI W14) - already tagged CAUTION on the depth board
+- id: w5_has_only_two_teams
+  severity: HARD
+  rule: KC and CAR are the entire W5 bye pool, and the 8/13 slot-5 rep put FOUR
+    players there - the worst single-week hole of any rep.
+  therefore: >
+    Mahomes (KC W5) plus any one Panther is your whole W5 cap. Jonathon Brooks
+    (CAR W5) is a depth-board FADE and was drafted anyway in that rep. If you
+    take Mahomes as a branch-C QB1, no Panthers at all.
+- id: w11_is_six_teams_wide
+  severity: WATCH
+  rule: SEA, LAR, ATL, NE, CLE, GB - the widest bye pool, so the easiest to
+    stack by accident.
+  therefore: >
+    Maye (NE), Stevenson (NE), Bijan (ATL), Nacua (LAR), Corum (LAR), J.Love
+    (GB), Reed (GB), Price (SEA) and Charbonnet (SEA) are all W11. Maye + Stevenson
+    is a natural pairing off this board and it is already your cap.
+
+# ---------------------------------------------------------------------------
+# The seventeen picks.
+# ---------------------------------------------------------------------------
+rounds:
+- rnd: 1
+  pick: 5
+  pos: RB
+  need: RB1 (or QB1 if an elite arm falls)
+  gate: null
+  do: >
+    Branch decision. If one of the elite six is somehow on the board at 5, take
+    him - that is Branch A and it is the best outcome available. Otherwise this
+    is an elite RB. Two QBs went in R1 in this room in 2025, so an elite arm
+    reaching pick 5 is live, not fantasy.
+  take:
+  - {player: Josh Allen, team: BUF, bye: 7, why: The anchor. Take him at 5 without thinking. Fires Branch A.}
+  - {player: Jahmyr Gibbs, team: DET, bye: 6, why: RB tier 1. The default pick at this slot.}
+  - {player: Bijan Robinson, team: ATL, bye: 11, why: RB tier 1, interchangeable with Gibbs.}
+  - {player: Puka Nacua, team: LAR, bye: 11, why: The WR pivot if both tier-1 RBs are gone.}
+  - {player: Amon-Ra St. Brown, team: DET, bye: 6, why: WR4 consensus, three straight top-3 PPR finishes.}
+  avoid: []
+- rnd: 2
+  pick: 20
+  pos: QB
+  need: QB1
+  gate: null
+  do: >
+    THE MOST IMPORTANT PICK ON THE BOARD. Six elite arms went by pick 23 in this
+    room in 2025, and Jag FLu picks at 16 - one comes off right before you. If an
+    elite-six arm is here, take him; this is Branch B and it is the expected path
+    from slot 5. If all six are gone, take the best RB/WR and go Branch C with
+    QB1 at R3.
+  take:
+  - {player: Drake Maye, team: NE, bye: 11, why: QB2 overall finish in 2025, ESPN has him SF QB2.}
+  - {player: Jalen Hurts, team: PHI, bye: 10, why: Rushing TD equity, highest floor in the tier.}
+  - {player: Jayden Daniels, team: WSH, bye: 7, why: Discounted off an injured 2025, top-2 upside.}
+  - {player: Joe Burrow, team: CIN, bye: 6, why: The pure-volume arm. Fine, just no rushing floor.}
+  avoid:
+  - {player: Lamar Jackson, team: BAL, bye: 13, why: W13 - Warren and Downs already own that week. See conflict w13.}
+- rnd: 3
+  pick: 29
+  pos: RB
+  need: RB2 (QB1 here instead if Branch C)
+  gate: QB1 MUST be held by the end of this round
+  do: >
+    If you have your arm, this is RB2 and the 2-by-R4 floor is met a round
+    early. If you do NOT have an arm, take one HERE and do not wait - Jag FLu
+    picks at 33, four picks later, and he took QBs at 16 and 33 in 2025.
+  take:
+  - {player: Chase Brown, team: CIN, bye: 6, why: RB tier 2.}
+  - {player: James Cook III, team: BUF, bye: 7, why: RB tier 2.}
+  - {player: De'Von Achane, team: MIA, bye: 6, why: RB tier 2, full-PPR receiving profile.}
+  - {player: Saquon Barkley, team: PHI, bye: 10, why: RB tier 2.}
+  - {player: Caleb Williams, team: CHI, bye: 10, why: 'BRANCH C ONLY: the R3 anchor arm. Counts toward the CHI cap.'}
+  - {player: C.J. Stroud, team: HOU, bye: 8, why: 'BRANCH C ONLY.'}
+  - {player: Justin Herbert, team: LAC, bye: 7, why: 'BRANCH C ONLY.'}
+  avoid:
+  - {player: Jonathan Taylor, team: IND, bye: 13, why: Third Colt and a third W13 body. Breaks two caps at once.}
+  - {player: Garrett Wilson, team: NYJ, bye: 13, why: On the WR board at R3, but W13 is spent.}
+  - {player: Jeremiyah Love, team: ARI, bye: 14, why: 'Live tier-2 RB, but ARI is the SEEDING WEEK. Caution, not a ban.'}
+  - {player: Patrick Mahomes, team: KC, bye: 5, why: 'Branch C arm, but W5 has only two teams - it commits half that cap.'}
+- rnd: 4
+  pick: 44
+  pos: WR
+  need: WR1
+  gate: 'RB FLOOR: 2 RBs must be held by the end of this round'
+  do: >
+    THIS IS THE WR PICK AND IT IS NOT OPTIONAL. wr_late appeared in 5 reps and is
+    still live. QB1 + RB + RB + WR fill R1-R4 exactly, so anything else here
+    guarantees the miss. WARREN DOES NOT GO HERE - the gate needs 2 RB AND a WR
+    already held, which is arithmetically impossible at pick 44. Warren is an R5
+    pick at this slot, full stop. Note CHAMP picks at 42 and took Warren in R6
+    last year; if he takes him two picks ahead of you, that is the cost of the
+    rule and you backfill TE at R7-8.
+  take:
+  - {player: George Pickens, team: DAL, bye: 14, why: 'WR15. CAUTION - DAL is the SEEDING WEEK. Best
+      player in the band, worst bye on it; only as your FIRST W14 body and never with a W14 kicker.'}
+  - {player: Tee Higgins, team: CIN, bye: 6, why: 'WR18. Double-digit TDs in back-to-back seasons next
+      to Chase. Cleanest bye of the band.'}
+  - {player: DJ Moore, team: BUF, bye: 7, why: 'WR17. Traded to Buffalo - production waned but Allen is
+      a complementary fit. This is the trade that vacated Chicago targets for Burden.'}
+  - {player: Malik Nabers, team: NYG, bye: 8, why: 'WR25 and CONDITIONAL - a full tier higher if he
+      avoids opening on PUP. Do not take him here until that resolves.'}
+  avoid:
+  - {player: Garrett Wilson, team: NYJ, bye: 13, why: 'WR16, ranks squarely in this band - and W13 is
+      spent by Warren and Downs.'}
+  - {player: Tyler Warren, team: IND, bye: 13, why: Gate blocks him at R4. He is an R5 pick by default.}
+  - {player: Any second TE, team: '-', bye: 0, why: te2 appeared in 3 reps, all at slot 4. Not here, not now.}
+- rnd: 5
+  pick: 53
+  pos: TE
+  need: TE Tyler Warren - OR QB2 if the run has started
+  gate: 'WARREN GATE: 2 RB + 1 WR held. Both are met if R1-R4 went to plan.'
+  do: >
+    THE DECISION PICK OF YOUR DRAFT, and it is unique to slot 5. Count the QBs
+    gone in the last 12 picks. If 3 or more, the run has started - TAKE QB2 HERE
+    and release Warren for good (backfill TE at R7-8). If fewer than 3, take
+    Warren. Why this pick and not R6: Griddy Committee sits at slot 12 and
+    double-taps at the turn, so picks 60-61 are his, and the 2025 QB run fired
+    at picks 62-72. Your R6 pick is 68 - inside the run, not ahead of it. Pick 53
+    is the last place you buy QB2 at market price.
+  take:
+  - {player: Tyler Warren, team: IND, bye: 13, why: 'The te_board call. Anchors TE for the season and is
+      Colt number one of two.'}
+  - {player: Cam Ward, team: TEN, bye: 9, why: 'IF THE RUN FIRED: best value-vs-cost arm on the board,
+      and W9 is a two-team week that nothing else on your roster wants.'}
+  avoid: []
+- rnd: 6
+  pick: 68
+  pos: QB
+  need: QB2
+  gate: 'HARD FLOOR: QB2 must be held by the end of this round'
+  do: >
+    You are picking inside the historical run here, so expect the tier to be
+    thinner than the mocks suggested. Ward hit at R6 in four separate reps, so
+    this is not a panic - but take the best arm left rather than waiting for a
+    preference. If you already took QB2 at 53, this is your RB3 or the TE
+    backfill.
+  take:
+  - {player: Cam Ward, team: TEN, bye: 9, why: 'Default QB2. Daboll hired to develop him, designed QB runs
+      coming, priced as a QB3. W9 is a clean two-team week.'}
+  - {player: Kyler Murray, team: MIN, bye: 6, why: 'NAMED STARTER 8/11 - legal now. Take him FIRST if you
+      own Jefferson; that stack is the weekly-payout thesis. Do not chase past R6.'}
+  - {player: Baker Mayfield, team: TB, bye: 10, why: Value QB1 who falls. Counts toward W10.}
+  - {player: Bo Nix, team: DEN, bye: 10, why: Fallback. Counts toward W10.}
+  - {player: Jordan Love, team: GB, bye: 11, why: Fallback. Counts toward the wide W11 pool.}
+  avoid:
+  - {player: Daniel Jones, team: IND, bye: 13, why: 'REFUSED ON TWO SEPARATE PATHS, and the 8/16 rep proved
+      the second one matters on its own. (1) TEAM CAP: third Colt behind Warren and Downs - the documented
+      mock-B breach. (2) BYE: even when Downs is NOT taken and the IND cap is technically fine at 2, Jones
+      still puts a third body on W13 the moment you hold any other W13 player. In the 8/16 rep that was
+      Ashton Jeanty (LV) at R2, and the roster came out with three players dark in W13 while the IND cap
+      read ok. W13 is BAL, NYJ, IND and LV - a four-team week you are already spending Warren on. Check the
+      WEEK, not just the club.'}
+- rnd: 7
+  pick: 77
+  pos: RB
+  need: RB3
+  gate: null
+  do: >
+    Third back, one round ahead of the gate. Downs is technically live from here
+    but he survived past R7 in 9 of 9 reps - do NOT reach for him over this RB.
+  take:
+  - {player: Rhamondre Stevenson, team: NE, bye: 11, why: 'Value side of the NE committee - 5.7 YPC over
+      the final 8 games, beat writers project him as the 2026 starter. If Maye is your QB1 this is your
+      second NE body and your W11 cap.'}
+  - {player: Josh Downs, team: IND, bye: 13, why: 'Only if he is somehow here AND you already hold 3 RBs.
+      Value pick, never over a live commitment.'}
+  avoid: []
+- rnd: 8
+  pick: 92
+  pos: WR
+  need: WR2
+  gate: 'RB FLOOR: 3 RBs by the end of this round. If you are at 2, this pick is an RB.'
+  do: >
+    Odunze is the best value on the depth board and his window is R8-R10. Take
+    him here if the RB floor is already met.
+  take:
+  - {player: Rome Odunze, team: CHI, bye: 10, why: 'STRONG BUY. Consensus WR28 while functioning as the
+      focal point of the Chicago passing attack. Bear number one - count it.'}
+  - {player: Michael Wilson, team: ARI, bye: 14, why: '+14 target-rank/ADP gap, but ARI is the seeding week.
+      Only as your FIRST W14 body, never the second.'}
+  avoid: []
+- rnd: 9
+  pick: 101
+  pos: QB
+  need: QB3
+  gate: null
+  do: >
+    THIS IS THE MARKET PRICE. The 2025 comps for this tier went at picks 101-107
+    and your pick is 101 exactly. Four reps took QB3 too early and two never took
+    one at all. All three tests apply: named Week 1 starter, THIRD distinct bye,
+    R9-13 price. Do not telegraph - Trey, TheMoneyTeam and Kleenex all shop here.
+  take:
+  - {player: Jared Goff, team: DET, bye: 6, why: 'Clean unless Gibbs or St. Brown is your DET body - then
+      W6 is at cap.'}
+  - {player: Trevor Lawrence, team: JAX, bye: 7, why: 'Usually the cleanest bye of the tier at this slot.'}
+  - {player: Aaron Rodgers, team: PIT, bye: 9, why: 'W9 collides with Ward - if Ward is your QB2, this
+      breaks triangulation.'}
+  - {player: Tyler Shough, team: 'NO', bye: 8, why: 'Fallback if the vet tier evaporates. Rushing usage,
+      entrenched starter.'}
+  avoid:
+  - {player: Geno Smith, team: NYJ, bye: 13, why: 'On the vet list, but W13 is spent by Warren + Downs.
+      This is the triangulation break the reps kept making.'}
+- rnd: 10
+  pick: 116
+  pos: WR
+  need: WR3 - Josh Downs, DEADLINE
+  gate: 'DOWNS DEADLINE - the widened window closes here'
+  do: >
+    downs_late is 6 reps and still live. R10 is the deadline, not a suggestion.
+    He went at R10, R11 and R14 across the reps and this room had him at pick 145
+    in 2025. If he is gone, take the best WR and note it - the commitment is
+    satisfied by the attempt, not the name.
+  take:
+  - {player: Josh Downs, team: IND, bye: 13, why: '+15 target-rank/ADP gap. Colt number two - the IND cap
+      is now FULL and W13 is at cap.'}
+  - {player: Jayden Reed, team: GB, bye: 11, why: Fallback if Downs is gone.}
+  - {player: Luther Burden III, team: CHI, bye: 10, why: 'Fallback. Bear number two if you took Odunze -
+      that is your cap.'}
+  avoid: []
+- rnd: 11
+  pick: 125
+  pos: RB
+  need: RB4
+  gate: null
+  do: Back to the backfield. Dowdle's window closes here.
+  take:
+  - {player: Rico Dowdle, team: PIT, bye: 9, why: 'BUY - clearest early-down role of this tier, highest
+      floor of the R9-11 backs. W9 with Ward is your cap for that week.'}
+  - {player: Jordan Mason, team: MIN, bye: 6, why: 'OK. W6 is a useful week to own given how often the
+      reps piled onto W7/W10/W13.'}
+  - {player: Kyle Monangai, team: CHI, bye: 10, why: 'OK, but he is Bear number three behind Odunze and
+      Burden. Usually the one to skip.'}
+  avoid: []
+- rnd: 12
+  pick: 140
+  pos: RB
+  need: RB5
+  gate: 'RB FLOOR: 5 RBs by the end of this round'
+  do: The last hard RB gate. Nothing else goes here if you are at four.
+  take:
+  - {player: Kaelon Black, team: SF, bye: 8, why: 'Highest handcuff EV in the league - McCaffrey is 30,
+      led the NFL in touches again, and the front office wants his workload cut.'}
+  - {player: Rachaad White, team: WSH, bye: 7, why: 'The PPR play in the Commanders committee - 50+ catches
+      in three of four seasons.'}
+  - {player: Jacory Croskey-Merritt, team: WSH, bye: 7, why: 'The grinder half. Buying both is the stated
+      plan and costs you two W7 slots.'}
+  - {player: Blake Corum, team: LAR, bye: 11, why: Standard late dart, nothing separating.}
+  avoid:
+  - {player: Jonathon Brooks, team: CAR, bye: 5, why: 'FADE - two torn ACLs, 23 career snaps, and Hubbard
+      may keep the job. Taken in 7 of 14 reps including the 8/13 slot-5 rep. Stop.'}
+- rnd: 13
+  pick: 149
+  pos: WR
+  need: WR4
+  gate: 'QB3 DEADLINE if you somehow do not have one'
+  do: Best remaining receiver. The price-to-role gap names live here.
+  take:
+  - {player: Jayden Higgins, team: HOU, bye: 8, why: 'BUY - best pure price-to-role gap left this late.
+      Kirk gone, room thinned, ~750 yards and 6-8 TDs projected at a mid-130s ADP.'}
+  - {player: Luther Burden III, team: CHI, bye: 10, why: If he lasted and you are under the Bears cap.}
+  - {player: Stefon Diggs, team: WSH, bye: 7, why: Name-brand dart, volume depends on the split behind McLaurin.}
+  avoid: []
+- rnd: 14
+  pick: 164
+  pos: RB
+  need: RB6
+  gate: 'LEDGER: this is the sixth and final back'
+  do: >
+    ledger_rb_short hit three reps - the roster came out 5RB/6WR three separate
+    times because a receiver got taken here. Take the back.
+  take:
+  - {player: Zach Charbonnet, team: SEA, bye: 11, why: 'SPECULATIVE - on PUP off a torn ACL, but he is
+      the direct handcuff to Price and activatable before final cuts.'}
+  - {player: Blake Corum, team: LAR, bye: 11, why: If not already taken.}
+  - {player: Jordan Mason, team: MIN, bye: 6, why: If not already taken.}
+  avoid:
+  - {player: Tyler Allgeier, team: ARI, bye: 14, why: 'CAUTION - seeding week. Taken in 8 of 14 reps for
+      no reason. Take the equivalent back who is not ARI or DAL.'}
+- rnd: 15
+  pick: 173
+  pos: WR
+  need: WR5
+  gate: 'LEDGER COMPLETE after this pick: 3 QB / 6 RB / 5 WR / 1 TE'
+  do: >
+    Last skill pick. A TE2 is LEGAL here and only here - the floors are met, so
+    judge him against this WR on merit. He is also Warren insurance in a league
+    with zero IR.
+  take:
+  - {player: Jayden Higgins, team: HOU, bye: 8, why: If he lasted this far.}
+  - {player: Stefon Diggs, team: WSH, bye: 7, why: Late dart with real name-brand volume upside.}
+  - {player: Jayden Reed, team: GB, bye: 11, why: Fine body.}
+  avoid:
+  - {player: Kenyon Sadiq, team: NYJ, bye: 13, why: 'The obvious TE2 candidate, and he FAILS here - bye
+      W13 is Warren''s own bye, so he is not insurance for the week you need cover, and W13 is already
+      at cap. If you want a TE2, find one on another bye.'}
+  - {player: Rashod Bateman, team: BAL, bye: 13, why: 'FADE, and W13 is spent.'}
+- rnd: 16
+  pick: 188
+  pos: DST
+  need: D/ST
+  gate: null
+  do: >
+    Never earlier than R16 - Jag FLu burns R8 on a defense every year and hands
+    the room two skill players. Take a top unit whose bye is not already at cap.
+  take:
+  - {player: Houston D/ST, team: HOU, bye: 8, why: 'DEFAULT. Top-3 everywhere, DST1 on some boards, and
+      W8 is the emptiest week on this build. If you take this, your kicker is Dicker, not Fairbairn.'}
+  - {player: Denver D/ST, team: DEN, bye: 10, why: 'Second-ranked unit at 8.2 PPG. W10 is clean unless
+      you took two Bears.'}
+  - {player: Seattle D/ST, team: SEA, bye: 11, why: 'The best unit outright - fewest PPG allowed in the
+      NFL - but W11 is the six-team bye and is often already at cap.'}
+  - {player: Jacksonville D/ST, team: JAX, bye: 7, why: 'Fine. Do NOT pair with Dicker - both W7.'}
+  avoid:
+  - {player: Indianapolis D/ST, team: IND, bye: 13, why: 'The obvious pick once you own Colts, and that
+      is the trap - Warren and Downs make this a third W13 body. Taken in the 8/16 rep.'}
+- rnd: 17
+  pick: 197
+  pos: K
+  need: K
+  gate: null
+  do: >
+    Top-3 kicker, no backup, and the bye clause is real - the 8/9 slot-1 rep took
+    Butker (KC W5) onto an already-dead W5. Among equals take the one whose bye
+    is NOT at cap, and NEVER a W14 kicker.
+  take:
+  - {player: Cameron Dicker, team: LAC, bye: 7, why: 'DEFAULT. K2 overall and the most accurate kicker
+      in NFL history - 93.5% career. The best leg you are allowed to draft.'}
+  - {player: Ka'imi Fairbairn, team: HOU, bye: 8, why: 'Co-default, interchangeable. Take him instead of
+      Dicker only if you did NOT take the Houston defense.'}
+  - {player: Evan McPherson, team: CIN, bye: 6, why: 'OK, but W6 is crowded on most builds - check it.'}
+  - {player: Cam Little, team: JAX, bye: 7, why: The W7 alternative if Dicker is gone.}
+  avoid:
+  - {player: Brandon Aubrey, team: DAL, bye: 14, why: 'THE CONSENSUS K1 and a hard refuse - DAL is the
+      SEEDING WEEK. Taken in 10 of 14 reps. He is genuinely the best kicker in fantasy and it does not
+      matter.'}
+  - {player: Tyler Loop, team: BAL, bye: 13, why: 'Top-10 leg, but W13 is spent by Warren and Downs.'}
+  - {player: Will Reichard, team: MIN, bye: 6, why: 'Top-5, but he broke W6 in the 8/16 rep as the third
+      Viking behind Murray and Addison. Only if MIN is not already on your roster.'}
+  - {player: Chris Boswell, team: PIT, bye: 9, why: 'Top-5, but PIT is W9 and so are Ward and Dowdle -
+      the two likeliest W9 bodies on this build. He broke W9 in the 8/16 rep.'}

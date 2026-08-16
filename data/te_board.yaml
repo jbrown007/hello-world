@@ -5,6 +5,33 @@ qualifying_test: Is he a top-two receiving option in his own offense? Every TE a
   it. LaPorta fails it.
 barbell_flaw: A punt needs MULTIPLE cheap shots. One rookie post-hernia with zero IR slots is a single
   point of failure.
+
+# The Warren gate. WIDENED 8/4 from R5-only to BOTH rounds of his window.
+# The 8/4 slot-6 mock took Warren at R4 holding one RB - legal by the letter,
+# since his window is R4-R5 and the gate only spoke about R5 - and it blew the
+# 2-by-R4 RB floor. That roster finished 5RB/6WR: the missing back is exactly
+# what the gate exists to protect. A gate that only guards the second round of
+# a two-round window is not a gate.
+gate:
+  applies_rounds: [4, 5]
+  min_rb_held: 2
+  r4_needs_wr: true
+  if_short: >
+    RB wins, Warren waits. At R4 that usually just delays him to R5. At R5 it
+    releases him for good - backfill TE at R7-8.
+  r4_note: >
+    WARREN IS AN R5 PICK BY DEFAULT. Four commitments - QB1, RB, RB, WR - fill
+    R1-R4 exactly, which is why the solver's only satisfiable order is
+    R1 QB1 / R2 RB / R3 RB / R4 WR / R5 Warren. Spending R4 on Warren before
+    the WR is banked does not risk the R1-R4 WR miss, it GUARANTEES it. Take
+    him at R4 only when 2 RBs AND a WR are already held.
+  learned: >
+    8/4 slot-6 mock: Warren at pick 43 with only James Cook held. Floor missed
+    at R4, roster ended a back short, and nothing on the sheet objected.
+    8/6 slot-3 mock: Warren at R4 with both RBs banked but no WR - legal under
+    the RB-only gate, and it cost the R1-R4 WR commitment exactly as the
+    arithmetic predicts. That is what added r4_needs_wr.
+
 paths:
 - id: A
   name: Pay up
@@ -26,11 +53,19 @@ paths:
   - Kenyon Sadiq
   - Sam LaPorta
   - Grant Stowers
-  verdict: NOT AVAILABLE at 17 spots (8/1). FLEX excludes TE and OP belongs to QB2, so a TE2 is a bench
-    spot that can never score. Never punt with multiple TEs; stream from waivers if Warren goes down.
-call: 'Tyler Warren R4-R5, GATED: if arriving at R5 below two RBs, RB wins and Warren is released - backfill
-  TE R7-8. No TE2 ever. Sadiq is a waiver watch, not a draft pick.'
+  verdict: 'REOPENED 8/9 - the 8/1 rejection rested on a wrong reading of FLEX. TE IS FLEX-eligible, so
+    a second TE can start. It is now a value call, not an impossibility: the FLEX goes to the best scorer
+    among RB3+, WR3+ and TE2, and in full PPR a TE12-20 usually loses that contest to a real RB3 or WR3.
+    So the punt stays NOT RECOMMENDED - but on merit, and it is legal. Where it genuinely competes: as
+    Warren insurance in a zero-IR league, and to cover his W13 bye without a waiver scramble.'
+call: 'Tyler Warren R4-R5, GATED (see gate above). One TE remains the DEFAULT - a second one has to beat
+  RB6 or WR5 for the same roster spot, and usually will not. But it is no longer banned: if the board
+  hands you a high-upside TE at R14-R15 and your RB/WR floors are already met, that is a legitimate pick,
+  not a violation. Sadiq (TE20 ADP, watchlist row) is the name most likely to make that case.'
 stack_cap_ref: See data/stack_caps.yaml (IND, single source of truth).
-te2_rule: One and done. Warren is the only TE on the roster - no second starting path exists (FLEX is
-  RB/WR, OP belongs to QB2). Do not draft a TE2; stream if he is hurt. Rookie TE watchlist row is a waiver
-  monitor, not a pick.
+te2_rule: 'CORRECTED 8/9. The old rule ("no second starting path exists, FLEX is RB/WR") was built on a
+  wrong settings read - FLEX accepts a TE, so a TE2 can start. What survives is the ECONOMICS, not the
+  prohibition: 17 spots with zero slack mean a TE2 displaces RB6 or WR5, and in full PPR the FLEX almost
+  always scores more from a real RB3/WR3 than from a TE12-20. DEFAULT: one TE. EXCEPTION: after the RB
+  and WR floors are met (R14+), a TE with genuine upside is a fair use of the last bench spot, and it
+  doubles as Warren insurance in a league with no IR. Judge it against RB6/WR5, not against a rule.'

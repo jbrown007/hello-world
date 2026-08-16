@@ -9,16 +9,46 @@ rule:
 context: Only 5-6 of the top-12 WRs in 2024-25 were on playoff teams, down from 8+ in 2021-23. Volume
   beats environment.
 value_board:
+- player: Amon-Ra St. Brown
+  team: DET
+  target_rank: 4
+  adp: WR4 (~8 overall)
+  round: 1
+  note: 'PLACED 8/9 - he had been a starred personal target sitting on NO board since 7/25, which is why
+    he never appeared in a single mock. He is not a sleeper: top-3 PPR WR finish three straight years,
+    117-1401-11 in 2025, highest team target share among his peers (29.0%), consensus WR4 and top-8
+    overall. He belongs in the R1 pivot conversation with Nacua and the elite RBs, NOT in the depth
+    rounds. New OC in Detroit is the only wrinkle and it is not enough to move him.'
+- player: Puka Nacua
+  team: LAR
+  target_rank: 5
+  adp: R1
+  round: 1
+  note: The R1 pivot already named in lessons.yaml, put on the board 8/9 so it actually prints on the
+    sheet's R1 line instead of leaving the most important pick blank.
 - player: Josh Downs
   team: IND
   target_rank: 28
   adp: WR43
   gap: 15
-  round: 7
-  note: 'History check (8/2): in THIS room he went pick 145 (R13, to Griddy) in 2025. The R7 window is
-    deliberately early vs room history - the +15 gap is the 2026 thesis, but if the room still sleeps
-    on him, later value is real. Do not chase him at R7 if the board says he falls; re-read at the Aug
-    25 ADP pass.'
+  round: 7-10
+  note: 'WINDOW WIDENED 8/4 (was a hard R7). Mock evidence settled it: Downs survived past R7 in 9 of 9
+    superflex reps and was actually taken at R10, R11 and R14 - the R7 rule produced nine straight misses
+    and cost a pick that could have been a starter. History agrees: in THIS room he went pick 145 (R13,
+    to Griddy) in 2025. The +15 target-rank/ADP gap is the thesis for his VALUE, not for his price. Take
+    him when he falls; R10 is the deadline; never reach at R7 over a live commitment. Re-price at the
+    Aug 25 ADP pass - if his ADP has climbed into the R7-8 range by then, tighten the window back.'
+- player: Luther Burden III
+  team: CHI
+  target_rank: null
+  adp: WR21 (~47 overall)
+  gap: null
+  round: 7-9
+  note: 'PROMOTED FROM THE DEPTH BOARD 8/16. The DJ Moore trade to Buffalo vacated roughly 85 targets and
+    handed Burden a clear runway in Ben Johnson''s offense; he averaged 2.69 yards per route run as a rookie.
+    The 8/9 depth board had him at R9-R12 and that is now badly stale - at 47th overall he will not last.
+    Either take him early enough to matter or drop him from the plan. CHI counts: Burden + Odunze is two
+    Bears and both of your W10 slots; add Caleb as QB1 and you are at three and flagged.'
 - player: Michael Wilson
   team: ARI
   target_rank: 32
