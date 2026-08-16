@@ -17,6 +17,78 @@ converts hedging across 12 branches into slot-specific preparation.
 
 ---
 
+## 0. STATE AS OF AUGUST 16 — read this before section 1
+
+Sections 1+ below are the Aug 2-13 record and remain accurate except where
+this section supersedes them. **Josh has taken full-prep ownership of the
+agent role: mocks, camp watch and the dated calendar. Rule changes are
+sanctioned without prior approval** (change it, commit the evidence, explain
+after). See `CLAUDE.md`, which every session auto-loads.
+
+### Suite: 48/48 checks. Six data files are new since Aug 13.
+
+| File | What it is |
+|---|---|
+| `data/targets.yaml` | **The round-by-round board for slot 5** — all 17 picks, ranked names with byes, explicit refusals, and the derived conflict rules. `ff targets` |
+| `data/k_dst_board.yaml` | Named kickers and defenses, R16-17. Closes the "best available K" gap |
+| `data/adp.yaml` | Dated ADP snapshot with an explicit 1QB-vs-superflex health warning |
+| `data/depth_board.yaml` | R9-R15 names (built 8/9) |
+| `data/qb_board.yaml` | QB tiers by name (built 8/3) |
+| `data/mocks.yaml` | The rep log — 20 reps, `ff mocks` aggregates it |
+
+### New tooling
+
+- **`ff draft --teams "NE,LV,..."`** — live bye tally, which weeks are at or
+  over cap, and the full DO NOT DRAFT list. Built 8/16 because bye stacking is
+  the oldest unfixed error (16 of 20 reps) and the tally previously existed
+  only as empty boxes on a printed sheet. Replayed against the 8/16 rep it
+  blocks **all four** breaches.
+- **QB tier report in `ff grade`** — every arm graded REACH / at market /
+  VALUE against `qb_board`. Added after a rep scored 11/11 while spending pick
+  20 on a QB3-vet-tier arm priced at picks 101-107.
+- **`ff targets [--round N]`** — the board above, printable per round.
+
+### Rule changes since Aug 13
+
+- **Downs window R7-R10 → R7-R9.** His own pre-registered ADP test fired: he is
+  going at pick 92, which is slot 5's R8 pick exactly, after Michael Pittman Jr
+  was traded to Pittsburgh and Pierce landed on PUP.
+- **Mahomes demoted** out of the Branch C R3 anchor tier — he tore his ACL AND
+  LCL on Dec 14 and his ADP fell ~70 picks below that group.
+- **Rachaad White is RB20**, so "buy the whole Commanders backfield at R12-15"
+  is obsolete. Pick one half or pay up.
+- **Burden graduated** off the depth board to the WR value board (WR21/47th
+  overall, now ranked ahead of Odunze).
+- **Daniel Jones refusal widened** to name both paths — team cap AND bye week.
+  The 8/16 rep held Warren without Downs, so the IND cap read fine at 2 while
+  W13 still broke on Jeanty (LV).
+- **New: K and D/ST may not share a bye week.**
+
+### The seat is modelled
+
+`data/room.yaml` carries all twelve 2026 seats plus a `slot5_neighbors` intel
+block; `ff room` prints the geometry and who picks in each of Josh's gaps.
+**Pick 53 is the decision pick of the draft** — Warren or QB2, decided by the
+run trigger, because Griddy doubles at 60-61 and the 2025 run fired at 62-72,
+putting slot 5's R6 (pick 68) inside the run rather than ahead of it.
+
+### Where the reps stand — 20 logged, last ten average 10.0/11
+
+Solved: commitment windows, the ledger, RB floors, the Warren gate, QB tier
+pricing, K/DST selection. **Unsolved: bye discipline**, and it is now purely
+mechanical — the 8/16 rep put four weeks over cap and `--teams` would have
+blocked every one. Jonathon Brooks, a depth-board FADE, has been drafted in
+three straight slot-5 reps.
+
+### Open items
+
+Listed in `CLAUDE.md` under "Open items — ask Josh": the full ESPN board
+capture (the only route to measured superflex ADP, since every public host is
+egress-blocked), draft-day logistics, in-season scaffolding (nothing exists),
+the playoff team count, and the broken camp-watch Routine.
+
+---
+
 ## 1. Where things stand
 
 - **Suite: 43/43 checks** (`python3 tests/verify.py`). Every rule described
