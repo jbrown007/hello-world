@@ -900,6 +900,45 @@ def _():
     return "over-cap, at-cap, blocked teams, seeding week and clean case all covered"
 
 
+@check("K/DST board obeys the seeding week and the shared-bye rule")
+def _():
+    """These are two MANDATORY starters and the framework named zero of them
+    until 8/16 - targets.yaml literally read 'Best available K'. The kicker
+    created or worsened a bye breach in three of the last four reps, and the
+    consensus K1 (Aubrey, DAL) is on the seeding week. This pins the rules that
+    replaced 'best available': no W14, no W13 while Warren+Downs are planned,
+    and the default K and DST must not share a bye."""
+    from ffcli.config import load, bye_of
+    from ffcli.draft import targets_report
+    b = load("k_dst_board")
+    for sec in ("kickers", "dst"):
+        for grp in ("who", "refused"):
+            for p in b[sec].get(grp, []):
+                assert bye_of(p["team"]) == p["bye"], \
+                    f"{p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{bye_of(p['team'])}"
+    # Nothing recommended may sit on the seeding week, or on W13 - Warren and
+    # Downs are both IND and spend that week before R16.
+    for sec in ("kickers", "dst"):
+        for p in b[sec]["who"]:
+            assert p["bye"] != 14, f"{p['player']} is recommended and on the SEEDING WEEK"
+            assert p["bye"] != 13, f"{p['player']} is recommended and on W13, which Warren+Downs spend"
+    # Aubrey is the consensus K1 and must be explicitly refused, not omitted.
+    refused = {p["player"] for p in b["kickers"]["refused"]}
+    assert "Brandon Aubrey" in refused, "the consensus K1 on the seeding week is not on the refuse list"
+    # The default pairing must not share a bye week.
+    k1 = b["kickers"]["who"][0]
+    dst_default = next(d for d in b["dst"]["who"] if "DEFAULT" in str(d["verdict"]))
+    assert k1["bye"] != dst_default["bye"], \
+        f"default K {k1['player']} (W{k1['bye']}) and DST {dst_default['player']} share a bye"
+    assert b["order"]["r16"] == "DST" and b["order"]["r17"] == "K", "R16/R17 order not recorded"
+    # And the names have to reach the pick screen.
+    for rnd, name in ((16, "Houston"), (17, "Cameron Dicker")):
+        text = targets_report(rnd)
+        assert name in text, f"R{rnd} target board does not name {name}"
+        assert "Best available" not in text, f"R{rnd} still says 'best available'"
+    return f"{len(b['kickers']['who'])} K + {len(b['dst']['who'])} DST named, byes verified"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.

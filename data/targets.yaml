@@ -368,9 +368,16 @@ rounds:
     Never earlier than R16 - Jag FLu burns R8 on a defense every year and hands
     the room two skill players. Take a top unit whose bye is not already at cap.
   take:
-  - {player: Best available D/ST, team: '-', bye: 0, why: 'Check the bye against your tally before you
-      click. Any unit on a week you already have two players in is the wrong one.'}
-  avoid: []
+  - {player: Houston D/ST, team: HOU, bye: 8, why: 'DEFAULT. Top-3 everywhere, DST1 on some boards, and
+      W8 is the emptiest week on this build. If you take this, your kicker is Dicker, not Fairbairn.'}
+  - {player: Denver D/ST, team: DEN, bye: 10, why: 'Second-ranked unit at 8.2 PPG. W10 is clean unless
+      you took two Bears.'}
+  - {player: Seattle D/ST, team: SEA, bye: 11, why: 'The best unit outright - fewest PPG allowed in the
+      NFL - but W11 is the six-team bye and is often already at cap.'}
+  - {player: Jacksonville D/ST, team: JAX, bye: 7, why: 'Fine. Do NOT pair with Dicker - both W7.'}
+  avoid:
+  - {player: Indianapolis D/ST, team: IND, bye: 13, why: 'The obvious pick once you own Colts, and that
+      is the trap - Warren and Downs make this a third W13 body. Taken in the 8/16 rep.'}
 - rnd: 17
   pick: 197
   pos: K
@@ -381,8 +388,18 @@ rounds:
     Butker (KC W5) onto an already-dead W5. Among equals take the one whose bye
     is NOT at cap, and NEVER a W14 kicker.
   take:
-  - {player: Best available K, team: '-', bye: 0, why: 'Top-3 at the position. Refuse any kicker on W14
-      and any kicker on a week already at two.'}
+  - {player: Cameron Dicker, team: LAC, bye: 7, why: 'DEFAULT. K2 overall and the most accurate kicker
+      in NFL history - 93.5% career. The best leg you are allowed to draft.'}
+  - {player: Ka'imi Fairbairn, team: HOU, bye: 8, why: 'Co-default, interchangeable. Take him instead of
+      Dicker only if you did NOT take the Houston defense.'}
+  - {player: Evan McPherson, team: CIN, bye: 6, why: 'OK, but W6 is crowded on most builds - check it.'}
+  - {player: Cam Little, team: JAX, bye: 7, why: The W7 alternative if Dicker is gone.}
   avoid:
-  - {player: Brandon Aubrey, team: DAL, bye: 14, why: 'Taken in 10 of 14 reps and he is on the SEEDING
-      WEEK bye. There is no version of this that is correct.'}
+  - {player: Brandon Aubrey, team: DAL, bye: 14, why: 'THE CONSENSUS K1 and a hard refuse - DAL is the
+      SEEDING WEEK. Taken in 10 of 14 reps. He is genuinely the best kicker in fantasy and it does not
+      matter.'}
+  - {player: Tyler Loop, team: BAL, bye: 13, why: 'Top-10 leg, but W13 is spent by Warren and Downs.'}
+  - {player: Will Reichard, team: MIN, bye: 6, why: 'Top-5, but he broke W6 in the 8/16 rep as the third
+      Viking behind Murray and Addison. Only if MIN is not already on your roster.'}
+  - {player: Chris Boswell, team: PIT, bye: 9, why: 'Top-5, but PIT is W9 and so are Ward and Dowdle -
+      the two likeliest W9 bodies on this build. He broke W9 in the 8/16 rep.'}
