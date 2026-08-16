@@ -45,6 +45,14 @@ tier2_qb1:
       QB2, not a wait-and-see.
   - player: Patrick Mahomes
     team: KC
+    tag: DEMOTED 8/16 - no longer an R3 anchor
+    why: 'Tore his ACL AND LCL on Dec 14 2025; surgery repaired more than the
+      ACL. Fully cleared for camp - Reid says full strength and sharp - but he
+      sat the preseason opener as a precaution and is targeting Week 1 without
+      a guarantee. His ADP has fallen to 101.6 [1QB], roughly 70 picks below
+      the rest of this tier. He was listed here with zero injury context. Treat
+      him as a discounted upside arm in the QB2 band, NOT a Branch C anchor you
+      plan pick 29 around. Bye W5 is also the two-team week - see targets.yaml.'
   - player: C.J. Stroud
     team: HOU
   - player: Justin Herbert

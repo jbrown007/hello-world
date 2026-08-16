@@ -554,6 +554,19 @@ def _():
     b = load("depth_board")
     picks = [p for pos in ("rb", "wr", "te") for p in b.get(pos, [])]
     assert picks, "depth board has no players"
+    # Section sizes. An 8/16 edit inserted a new top-level key in the MIDDLE of
+    # the wr list, which silently reparented three receivers out of it - and
+    # every assertion below still passed, because they only ever looked at what
+    # was left. A board that quietly shrinks is the failure mode worth naming.
+    for pos, floor in (("rb", 4), ("wr", 4), ("te", 1)):
+        assert len(b.get(pos, [])) >= floor, \
+            f"depth board {pos} section has {len(b.get(pos, []))} entries, expected at least {floor}"
+    seen: dict[str, str] = {}
+    for pos in ("rb", "wr", "te", "fades", "graduated"):
+        for p in b.get(pos, []):
+            assert p["player"] not in seen, \
+                f"{p['player']} appears in both '{seen[p['player']]}' and '{pos}'"
+            seen[p["player"]] = pos
     for p in picks + b.get("fades", []):
         assert bye_of(p["team"]), f"{p['player']}: {p['team']!r} is not a real team code"
         assert p.get("why"), f"{p['player']} has no rationale"

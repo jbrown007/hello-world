@@ -82,15 +82,6 @@ wr:
   why: The best value on this board. Consensus WR28 while functioning as the
     focal point of Chicago's passing attack over a near two-month sample;
     widely flagged as a potential steal. Counts toward the CHI stack.
-- player: Luther Burden III
-  team: CHI
-  bye: 10
-  rounds: 9-12
-  verdict: BUY
-  why: The DJ Moore trade to Buffalo vacated roughly 85 targets and handed
-    Burden a clear runway in Ben Johnson's offense; he averaged 2.69 yards
-    per route run as a rookie. Also CHI - Odunze plus Burden plus Caleb is
-    three Bears and a dead W10.
 - player: Jayden Higgins
   team: HOU
   bye: 8
@@ -143,3 +134,15 @@ fades:
   why: Low ceiling as the WR2 behind Zay Flowers in a run-first offense,
     coming off a 2025 the coverage calls a disaster. Boom/bust with more bust.
     Taken in 3 reps; there are better W13-free options.
+
+graduated:
+- player: Luther Burden III
+  team: CHI
+  bye: 10
+  moved_to: wr_board.value_board
+  when: '8/16'
+  why: >
+    Was an R9-R12 depth name on 8/9. The ADP pass found him at WR21 / 47th
+    overall - ranked AHEAD of Odunze (WR28) - so he is no longer a depth-round
+    player at all and cannot be planned for at R11. Kept here as a tombstone so
+    the 8/9 read is not silently lost; the live entry is on the WR value board.

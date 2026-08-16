@@ -45,10 +45,14 @@ targets:
     office wants his workload cut. The 49ers RB2 has standalone value in this scheme.
 - player: Rachaad White + Jacory Croskey-Merritt
   team: WSH
-  adp: null
-  round: 12-15
-  why: Buy the whole Commanders backfield late and own the winner. White is the PPR play (50+ catches
-    in three of four seasons); JCM is the grinder.
+  adp: White RB20 (8/16 pass)
+  round: JCM 12-15; White is NOT available there
+  why: 'OBSOLETE AS WRITTEN - corrected 8/16. The plan was "buy the whole Commanders backfield late,
+    R12-15, and own the winner". White is going RB20, a R5-R6 player, so the both-backs hedge cannot
+    be executed at that price. Pick one: pay for White as a real RB in the R5-R8 flex window, or take
+    JCM alone as the cheap half and accept that you do not own the winner. White is still the PPR play
+    (50+ catches in three of four seasons); JCM is still the grinder who must prove himself in the pass
+    game. This is a strategy change, not a price tweak.'
 fades:
 - player: TreVeyon Henderson
   team: NE

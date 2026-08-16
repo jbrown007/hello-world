@@ -161,9 +161,17 @@ rounds:
     last year; if he takes him two picks ahead of you, that is the cost of the
     rule and you backfill TE at R7-8.
   take:
-  - {player: Best WR available, team: '-', bye: 0, why: 'Re-price at the Aug 25 ADP pass - the WR board
-      has no named target in this band yet, which is a real gap. Fill it before the draft.'}
+  - {player: George Pickens, team: DAL, bye: 14, why: 'WR15. CAUTION - DAL is the SEEDING WEEK. Best
+      player in the band, worst bye on it; only as your FIRST W14 body and never with a W14 kicker.'}
+  - {player: Tee Higgins, team: CIN, bye: 6, why: 'WR18. Double-digit TDs in back-to-back seasons next
+      to Chase. Cleanest bye of the band.'}
+  - {player: DJ Moore, team: BUF, bye: 7, why: 'WR17. Traded to Buffalo - production waned but Allen is
+      a complementary fit. This is the trade that vacated Chicago targets for Burden.'}
+  - {player: Malik Nabers, team: NYG, bye: 8, why: 'WR25 and CONDITIONAL - a full tier higher if he
+      avoids opening on PUP. Do not take him here until that resolves.'}
   avoid:
+  - {player: Garrett Wilson, team: NYJ, bye: 13, why: 'WR16, ranks squarely in this band - and W13 is
+      spent by Warren and Downs.'}
   - {player: Tyler Warren, team: IND, bye: 13, why: Gate blocks him at R4. He is an R5 pick by default.}
   - {player: Any second TE, team: '-', bye: 0, why: te2 appeared in 3 reps, all at slot 4. Not here, not now.}
 - rnd: 5

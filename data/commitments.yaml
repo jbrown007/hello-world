@@ -61,15 +61,18 @@ common:
 - pick: WR Josh Downs
   window:
   - 7
-  - 10
+  - 9
   source: >
-    wr_board - documented +15 target-rank/ADP gap. WINDOW WIDENED 8/4 from a
-    hard R7 on mock evidence: Downs was gone-past-R7 in 9 of 9 superflex reps
-    (he actually landed R10, R11, R14), so R7-only was a guaranteed miss that
-    burned the pick. This room also had him at 145 (R13) in 2025. The gap
-    thesis is about his VALUE, not his price - take him when he falls, R10 is
-    the deadline, and never reach at R7 over a live commitment. Re-price at
-    the Aug 25 ADP pass.
+    wr_board - documented +15 target-rank/ADP gap. WIDENED 8/4 to R7-R10 on
+    mock evidence, then TIGHTENED 8/16 to R7-R9 when the pre-registered ADP
+    test fired. The 8/4 rule said in writing: re-price at the ADP pass, and if
+    his ADP has climbed into the R7-8 range, tighten back. It has - he is going
+    at pick 92, which is slot 5's R8 pick exactly, driven by the Michael
+    Pittman trade to Pittsburgh and Alec Pierce on PUP. An R10 deadline (pick
+    116) now sits 24 picks past his market price and would be a guaranteed
+    miss - the mirror image of the R7-only rule that produced nine straight
+    misses in July. R8 is the target, R9 (pick 101) is the last realistic call.
+    Still never reach at R7 over a live commitment.
 - pick: RB (flex depth)
   window:
   - 5
