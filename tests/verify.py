@@ -768,6 +768,30 @@ def _():
     return f"{filled}/11 profiled, geometry checks out"
 
 
+@check("2026 seating is a complete permutation and the seat intel renders")
+def _():
+    """The posted order assigns every manager a distinct seat 1-12 with Josh's
+    slot matching league.yaml. A duplicate or missing seat silently corrupts
+    every gap read in room_report, so it has to be a real permutation."""
+    from ffcli.config import load
+    from ffcli.draft import room_report
+    room, lg = load("room"), load("league")
+    mine = room["me"]["slot_2026"]
+    assert mine == lg["draft"]["slot"], \
+        f"room.me.slot_2026={mine} disagrees with league draft.slot={lg['draft']['slot']}"
+    seats = [m["slot_2026"] for m in room["managers"]] + [mine]
+    assert sorted(seats) == list(range(1, lg["teams"] + 1)), \
+        f"2026 seats are not a permutation of 1-{lg['teams']}: {sorted(seats)}"
+    intel = room["league"].get(f"slot{mine}_neighbors")
+    assert isinstance(intel, list) and len(intel) >= 2, \
+        f"no seat intel list for the drafted slot {mine}"
+    text = room_report(mine)
+    assert f"SEAT {mine} INTEL" in text, "seat intel block did not render in ff room"
+    for para in intel:
+        assert " ".join(str(para).split()) in text, "seat intel paragraph dropped from ff room"
+    return f"seats 1-{lg['teams']} all distinct, Josh at {mine}, {len(intel)} intel notes render"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.

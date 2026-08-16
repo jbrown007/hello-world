@@ -339,8 +339,42 @@ def room_report(slot: int | None = None) -> str:
             hoarders_below = [m["name"] for s, m in by_slot.items() if s < slot and m["qb_habit"] == "early_hoarder"]
             out.append(f"  QB hoarders who double-pick after your odd rounds: {', '.join(hoarders_above) or 'none known'}")
             out.append(f"  QB hoarders who double-pick after your even rounds: {', '.join(hoarders_below) or 'none known'}")
+
+            # Who literally picks between each pair of your picks. Generic
+            # geometry says "slots 6-12 twice"; this says which managers, in
+            # order, so a gap can be read as a threat list.
+            def _pick(rnd, s):
+                return (rnd - 1) * n + (s if rnd % 2 else n - s + 1)
+
+            def _slot_at(p):
+                rnd, i = (p - 1) // n + 1, (p - 1) % n
+                return (i + 1) if rnd % 2 else n - i
+
+            out.append("")
+            out.append(f"  WHO PICKS IN YOUR GAPS (slot {slot})")
+            for a, b in ((3, 4), (4, 5), (5, 6), (6, 7), (9, 10)):
+                p1, p2 = _pick(a, slot), _pick(b, slot)
+                names = []
+                for p in range(p1 + 1, p2):
+                    m = by_slot.get(_slot_at(p))
+                    if m:
+                        names.append(m["name"].replace("#", "").split()[0][:8])
+                seen, uniq = set(), []
+                for x in names:
+                    uniq.append(f"{x}x2" if x in seen else x)
+                    seen.add(x)
+                out.append(f"   R{a}({p1}) -> R{b}({p2}): {p2 - p1 - 1} picks - "
+                           + ", ".join(dict.fromkeys(uniq)))
         else:
-            out.append("  Fill slot_2026 fields on draft morning for neighbor analysis.")
+            out.append("  Fill slot_2026 fields before the draft for neighbor analysis.")
+
+        # Hand-written intel for this specific seat, if the room file carries
+        # it. Keyed slot5_neighbors etc. so any slot can have its own block.
+        intel = lg.get(f"slot{slot}_neighbors")
+        if intel:
+            out += ["", f"SEAT {slot} INTEL"]
+            for para in intel:
+                out.append("  " + " ".join(str(para).split()))
     return "\n".join(out)
 
 

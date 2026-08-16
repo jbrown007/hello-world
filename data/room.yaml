@@ -1,202 +1,240 @@
 me:
   name: Josh (Crushing Dreams)
   slot_2025: 8
-  slot_2026: null
-  draft_2025: Lamar (1.08), Hurts (2.05), McBride (3.08), McConkey (4.05), Ridley (5.08), Pacheco (6.05),
-    T.McMillan (7.08), J.Warren (8.05), R9 unknown, JCM (10.05), Diggs (11.08), Tuten (12.05), Shaheed
-    (13.08), Ferguson TE (14.05), JAXSON DART QB (15.08 - the disqualified QB3 profile QB_LADDER is built
-    on), Lions DST (16.05), Fairbairn K (17.08)
-  self_scout: Only team with two QBs by pick 17. Hurts at 2.05 cost Puka (2.06) or Jonathan Taylor (2.07).
-    In a room where QB9 lasted to pick 62, that premium bought insurance the market was not charging for.
-    McBride R3 was strong; R5-8 skill was volume without a hit. The 2026 edge is riding skill through
-    the R2-R5 dead zone and taking QB2 at the front of the R6 run - which is exactly what the commitments
-    ledger now encodes (QB2 in R5-6).
+  slot_2026: 5
+  draft_2025: Lamar (1.08), Hurts (2.05), McBride (3.08), McConkey (4.05), Ridley (5.08), Pacheco (6.05), T.McMillan
+    (7.08), J.Warren (8.05), R9 unknown, JCM (10.05), Diggs (11.08), Tuten (12.05), Shaheed (13.08), Ferguson TE
+    (14.05), JAXSON DART QB (15.08 - the disqualified QB3 profile QB_LADDER is built on), Lions DST (16.05), Fairbairn
+    K (17.08)
+  self_scout: Only team with two QBs by pick 17. Hurts at 2.05 cost Puka (2.06) or Jonathan Taylor (2.07). In a
+    room where QB9 lasted to pick 62, that premium bought insurance the market was not charging for. McBride R3
+    was strong; R5-8 skill was volume without a hit. The 2026 edge is riding skill through the R2-R5 dead zone and
+    taking QB2 at the front of the R6 run - which is exactly what the commitments ledger now encodes (QB2 in R5-6).
 managers:
-- name: Trey Action Fake
-  slot_2025: 11
-  qb_habit: normal
-  leans: elite skill through R5, then three QBs from R6 on - runs this framework's own playbook, QB3 as
-    trade inventory
-  attention: sharp
-  trades: active
-  notes: 'STRUCTURAL FAVORITE. Champion 2023 AND 2024. Does not panic. From a late slot he front-ran the
-    R6 QB rush (Herbert at 6.02). Hard to exploit on draft day. 2025: Nabers, Achane, Kamara, Adams, Montgomery,
-    Herbert R6, Stafford R7, Rice, Young R10.'
-  slot_2026: null
 - name: '#TheMoneyTeam'
   slot_2025: 3
   qb_habit: normal
   leans: five straight skill picks, QB doubled at R6-7, TE and D/ST late - the blueprint that won 2025
   attention: sharp
   trades: unknown
-  notes: 'REIGNING CHAMP. His 2025 QBs came at the BACK half of the R6 run (picks 70, 75) - if the room
-    speeds up he gets squeezed and may reach a round earlier. 2025: Saquon, Amon-Ra, Irving, JSN, Evans,
-    Caleb Williams R6, Stroud R7, Engram.'
-  slot_2026: null
+  notes: 'REIGNING CHAMP. His 2025 QBs came at the BACK half of the R6 run (picks 70, 75) - if the room speeds up
+    he gets squeezed and may reach a round earlier. 2025: Saquon, Amon-Ra, Irving, JSN, Evans, Caleb Williams R6,
+    Stroud R7, Engram.'
+  slot_2026: 1
+- name: Trey Action Fake
+  slot_2025: 11
+  qb_habit: normal
+  leans: elite skill through R5, then three QBs from R6 on - runs this framework's own playbook, QB3 as trade inventory
+  attention: sharp
+  trades: active
+  notes: 'STRUCTURAL FAVORITE. Champion 2023 AND 2024. Does not panic. From a late slot he front-ran the R6 QB rush
+    (Herbert at 6.02). Hard to exploit on draft day. 2025: Nabers, Achane, Kamara, Adams, Montgomery, Herbert R6,
+    Stafford R7, Rice, Young R10.'
+  slot_2026: 2
 - name: Shaun DeNiro
   slot_2025: 5
   qb_habit: normal
   leans: one premium QB in R2 (Mahomes), then pure balance - the metronome
   attention: sharp
   trades: rare
-  notes: '2nd place 2025, perennial top-3. THIN AT QB2 - punted the second slot past R8. If his QB1 gets
-    hurt he is the first manager shopping; the QB3-inventory principle points straight at him. 2025: Gibbs,
-    Mahomes R2, Cook, Metcalf, Kelce, D.Smith, Pickens, A.Jones.'
-  slot_2026: null
-- name: Griddy Committee
-  slot_2025: 1
+  notes: '2nd place 2025, perennial top-3. THIN AT QB2 - punted the second slot past R8. If his QB1 gets hurt he
+    is the first manager shopping; the QB3-inventory principle points straight at him. 2025: Gibbs, Mahomes R2,
+    Cook, Metcalf, Kelce, D.Smith, Pickens, A.Jones.'
+  slot_2026: 3
+- name: Da LockDownGoon
+  slot_2025: 6
   qb_habit: normal
-  leans: elite skill early, premium TE R3, back-to-back QBs across the R6/R7 turn - comfortable double-tapping
-    a position at the turn
-  attention: sharp
-  trades: unknown
-  notes: 'Champion 2021, turn-slot tactician. IN RUN MATH COUNT HIM AS TWO QBs, NOT ONE, when he sits
-    near a turn - his R6/R7 double is exactly the move that closes the run. 2025: Chase, BTJ, Bowers,
-    Hampton, Henderson, Maye R6, J.Love R7, Odunze, Hunter.'
-  slot_2026: null
-- name: Olave when you call me big papa
-  slot_2025: 12
+  leans: skill-heavy early, three cheap QBs R6-8 - least predictive board in the league because the roster churns
+    by October
+  attention: casual
+  trades: active
+  notes: 'THE CHURNER - most valuable in-season relationship in the league. Keep a running read on his roster holes.
+    Three cheap QBs makes him a COMPETITOR in the QB3 trade market, not a customer. 2025: CeeDee, JT, Kyren, MHJ,
+    LaPorta, Dak R6, Fields R7, Penix R8.'
+  slot_2026: 4
+- name: Kleenex Gang
+  slot_2025: 10
   qb_habit: normal
-  leans: skill picks skew safe over ceiling; hedges the run with a turn QB
-  attention: sharp
+  leans: RB-heavy CONFIRMED across all 17 rounds (Jacobs, Walker, Tracy, Skattebo, B.Allen, Sampson, Judkins); QB
+    hoarding REFUTED - two QBs total (Kyler R6, Flacco R14)
+  attention: unknown
   trades: unknown
-  notes: '2nd place 2024. Took QB8 (Nix, pick 37) at the R4 turn - the last QB before the 25-pick dead
-    zone. Smart structural hedge from the back; expect a turn QB again. 2025: Jeanty, Collins, Kittle,
-    Nix R4, G.Wilson, Pollard, Golden, McCarthy R8.'
-  slot_2026: null
+  notes: 'Full-board read 8/2: the RB appetite is real and extends late - he is the standing competition for every
+    RB depth window (took Stevenson R10 in 2025). QB threat: minimal. Early-ish K (R11) and DST (R13).'
+  slot_2026: 6
 - name: Just call me CHAMP
   slot_2025: 4
   qb_habit: normal
   leans: anchor-QB manager - one elite arm, then QB2 very late (Tua pick 93)
   attention: sharp
   trades: unknown
-  notes: 'Champion 2022. REP IS STALE: "takes QBs early" - data says he will not fight you for QB2. BANK
-    THE DATA. But he TOOK TYLER WARREN (R6, 2025) - direct threat to the Warren R4-5 window. Watch him.
-    2025: Allen 1.04, AJB, C.Brown, Hall, Swift, Warren R6, Jamo, Tua R8, Deebo.'
-  slot_2026: null
-- name: Jag FLu
-  slot_2025: 9
-  qb_habit: early_hoarder
-  leans: second-most QB-aggressive in the room (QBs at picks 16 and 33); burns R8-10 on D/ST and kicker
-    (Aubrey habit)
-  attention: sharp
-  trades: active
-  notes: 'TOP RIVAL, best friend, 3rd place 2025. Most direct competitor for QB value in R2-3 - if he
-    picks ahead of you, assume a QB comes off. Structural leak: earliest D/ST in the league (R8) + early
-    K hands the room two skill players every year. 2025: Henry, Daniels 2.04, Mayfield 3.09, McLaurin,
-    Worthy, Etienne, Waddle, Texans D/ST R8, AUBREY K AT 12.04 - CONFIRMED by the full board, the rep
-    is real. Two burned picks verified.'
-  slot_2026: null
-- name: Da LockDownGoon
-  slot_2025: 6
-  qb_habit: normal
-  leans: skill-heavy early, three cheap QBs R6-8 - least predictive board in the league because the roster
-    churns by October
-  attention: casual
-  trades: active
-  notes: 'THE CHURNER - most valuable in-season relationship in the league. Keep a running read on his
-    roster holes. Three cheap QBs makes him a COMPETITOR in the QB3 trade market, not a customer. 2025:
-    CeeDee, JT, Kyren, MHJ, LaPorta, Dak R6, Fields R7, Penix R8.'
-  slot_2026: null
-- name: 4 Time 13
-  slot_2025: 7
-  qb_habit: normal
-  leans: best-player-available skill, one QB in the R6 run, TE late; ceiling chaser with injury/age risk
-    appetite (CMC, Tyreek early)
-  attention: sharp
-  trades: active
-  notes: 'RIVAL, veteran. Volatile roster by design - strong buy-low candidate when early picks bust,
-    sell-high customer when they hit. 2025: CMC, Puka, Tyreek, Hubbard, Conner, Purdy R6, Pittman, Njoku.'
-  slot_2026: null
+  notes: 'Champion 2022. REP IS STALE: "takes QBs early" - data says he will not fight you for QB2. BANK THE DATA.
+    But he TOOK TYLER WARREN (R6, 2025) - direct threat to the Warren R4-5 window. Watch him. 2025: Allen 1.04,
+    AJB, C.Brown, Hall, Swift, Warren R6, Jamo, Tua R8, Deebo.'
+  slot_2026: 7
 - name: Easy money
   slot_2025: 2
   qb_habit: waits_too_long
-  leans: 'rep said "hoards QBs" - REFUTED by the full 2025 board: ONE QB in seventeen rounds (Burrow R2).
-    The opposite of a hoarder.'
+  leans: 'rep said "hoards QBs" - REFUTED by the full 2025 board: ONE QB in seventeen rounds (Burrow R2). The opposite
+    of a hoarder.'
   attention: unknown
   trades: unknown
-  notes: 'Rep fully busted 8/2 with the complete R1-17 board: Burrow was his only QB all draft. Zero threat
-    in any QB window; if anything he is a QB2/QB3 trade customer by midseason. 2025 full: Bijan, Burrow,
-    Higgins, Harvey, Flowers, Sutton, Andrews, DJ Moore, Ravens DST R9, Chubb, Meyers, Loop K R12, Goedert,
-    Bateman, Najee, Burden, Arroyo.'
-  slot_2026: null
-- name: Kleenex Gang
-  slot_2025: 10
+  notes: 'Rep fully busted 8/2 with the complete R1-17 board: Burrow was his only QB all draft. Zero threat in any
+    QB window; if anything he is a QB2/QB3 trade customer by midseason. 2025 full: Bijan, Burrow, Higgins, Harvey,
+    Flowers, Sutton, Andrews, DJ Moore, Ravens DST R9, Chubb, Meyers, Loop K R12, Goedert, Bateman, Najee, Burden,
+    Arroyo.'
+  slot_2026: 8
+- name: Jag FLu
+  slot_2025: 9
+  qb_habit: early_hoarder
+  leans: second-most QB-aggressive in the room (QBs at picks 16 and 33); burns R8-10 on D/ST and kicker (Aubrey
+    habit)
+  attention: sharp
+  trades: active
+  notes: 'TOP RIVAL, best friend, 3rd place 2025. Most direct competitor for QB value in R2-3 - if he picks ahead
+    of you, assume a QB comes off. Structural leak: earliest D/ST in the league (R8) + early K hands the room two
+    skill players every year. 2025: Henry, Daniels 2.04, Mayfield 3.09, McLaurin, Worthy, Etienne, Waddle, Texans
+    D/ST R8, AUBREY K AT 12.04 - CONFIRMED by the full board, the rep is real. Two burned picks verified.'
+  slot_2026: 9
+- name: Olave when you call me big papa
+  slot_2025: 12
   qb_habit: normal
-  leans: RB-heavy CONFIRMED across all 17 rounds (Jacobs, Walker, Tracy, Skattebo, B.Allen, Sampson, Judkins);
-    QB hoarding REFUTED - two QBs total (Kyler R6, Flacco R14)
-  attention: unknown
+  leans: skill picks skew safe over ceiling; hedges the run with a turn QB
+  attention: sharp
   trades: unknown
-  notes: 'Full-board read 8/2: the RB appetite is real and extends late - he is the standing competition
-    for every RB depth window (took Stevenson R10 in 2025). QB threat: minimal. Early-ish K (R11) and
-    DST (R13).'
-  slot_2026: null
+  notes: '2nd place 2024. Took QB8 (Nix, pick 37) at the R4 turn - the last QB before the 25-pick dead zone. Smart
+    structural hedge from the back; expect a turn QB again. 2025: Jeanty, Collins, Kittle, Nix R4, G.Wilson, Pollard,
+    Golden, McCarthy R8.'
+  slot_2026: 10
+- name: 4 Time 13
+  slot_2025: 7
+  qb_habit: normal
+  leans: best-player-available skill, one QB in the R6 run, TE late; ceiling chaser with injury/age risk appetite
+    (CMC, Tyreek early)
+  attention: sharp
+  trades: active
+  notes: 'RIVAL, veteran. Volatile roster by design - strong buy-low candidate when early picks bust, sell-high
+    customer when they hit. 2025: CMC, Puka, Tyreek, Hubbard, Conner, Purdy R6, Pittman, Njoku.'
+  slot_2026: 11
+- name: Griddy Committee
+  slot_2025: 1
+  qb_habit: normal
+  leans: elite skill early, premium TE R3, back-to-back QBs across the R6/R7 turn - comfortable double-tapping a
+    position at the turn
+  attention: sharp
+  trades: unknown
+  notes: 'Champion 2021, turn-slot tactician. IN RUN MATH COUNT HIM AS TWO QBs, NOT ONE, when he sits near a turn
+    - his R6/R7 double is exactly the move that closes the run. 2025: Chase, BTJ, Bowers, Hampton, Henderson, Maye
+    R6, J.Love R7, Odunze, Hunter.'
+  slot_2026: 12
 league:
   sharpest:
   - Trey Action Fake
   - '#TheMoneyTeam'
   - Shaun DeNiro
-  qb_run_2025: 'From the real board (DRAFT_BOARD_2025.md): 2 QBs in R1, 6 by pick 23 (the elite rushing/volume
-    arms), 8 through R4, ZERO in R5, six in R6 (picks 62-72), 18 by R7, 23 total by pick 110. The room
-    queues, then panics. Rate trigger (3-in-12) exists because of this shape. FULL-BOARD CONFIRMATION
-    (8/2, R1-17): 34 QBs drafted in total - the QB_LADDER supply figure is exact. Cumulative: 8 by R4,
-    8 by R5, 14 by R6, 18 by R7, 21 by R8, ~25 by R9 (Goff/Ward/Geno/Lawrence tier), 28 by R10, then a
-    trickle to 34 by R17.'
+  qb_run_2025: 'From the real board (DRAFT_BOARD_2025.md): 2 QBs in R1, 6 by pick 23 (the elite rushing/volume arms),
+    8 through R4, ZERO in R5, six in R6 (picks 62-72), 18 by R7, 23 total by pick 110. The room queues, then panics.
+    Rate trigger (3-in-12) exists because of this shape. FULL-BOARD CONFIRMATION (8/2, R1-17): 34 QBs drafted in
+    total - the QB_LADDER supply figure is exact. Cumulative: 8 by R4, 8 by R5, 14 by R6, 18 by R7, 21 by R8, ~25
+    by R9 (Goff/Ward/Geno/Lawrence tier), 28 by R10, then a trickle to 34 by R17.'
   patterns:
   - Ten of twelve managers took at most one QB through R2 in 2025 - the room waits on QB, and Josh's two-QBs-early
     was the outlier position
   - Every recent champion (2021-2025) built skill-first and took QB2 in the R6-7 window
   - Griddy Committee double-taps positions at turns; near a turn he counts as two QBs in the run math
-  - Jag FLu burns two picks on D/ST + K by R10 every year - a standing two-player handicap the rest of
-    the room splits
-  - CHAMP's "QBs early" rep is stale (anchor-QB in reality) but he is live Warren competition (took him
-    R6 in 2025)
-  - 'The R9-10 vet-QB tier (QB3 inventory) is contested: Trey Action Fake and TheMoneyTeam are proven
-    multi-QB drafters, Kleenex hoards by instinct. Eleven picks wide in 2025 - do not telegraph the QB3
-    pick.'
-  draft_order_method: 'Randomized/announced at a set time - the 2026 order was determined the evening of
-    Aug 13, roughly three and a half weeks before the draft, NOT on draft morning as the framework had
-    assumed.'
+  - Jag FLu burns two picks on D/ST + K by R10 every year - a standing two-player handicap the rest of the room
+    splits
+  - CHAMP's "QBs early" rep is stale (anchor-QB in reality) but he is live Warren competition (took him R6 in 2025)
+  - 'The R9-10 vet-QB tier (QB3 inventory) is contested: Trey Action Fake and TheMoneyTeam are proven multi-QB drafters,
+    Kleenex hoards by instinct. Eleven picks wide in 2025 - do not telegraph the QB3 pick.'
+  draft_order_method: Randomized/announced at a set time - the 2026 order was determined the evening of Aug 13,
+    roughly three and a half weeks before the draft, NOT on draft morning as the framework had assumed.
   final_standings_2025:
-    note: >
-      CAPTURED 8/13 from the league's Final Standings screen - this closed a gap open since 8/2. Most
-      profile reps check out against it; two things did not, see below.
+    note: 'CAPTURED 8/13 from the league''s Final Standings screen - this closed a gap open since 8/2. Most profile
+      reps check out against it; two things did not, see below.
+
+      '
     order:
-    - {rank: 1, team: '#TheMoneyTeam', manager: Chris Evans}
-    - {rank: 2, team: Shaun DeNiro, manager: Shaun Miller}
-    - {rank: 3, team: Jag FLu, manager: Justin Ray}
-    - {rank: 4, team: Griddy Committee, manager: Freddy Young}
-    - {rank: 5, team: Just call me CHAMP, manager: Jazmond Burks}
-    - {rank: 6, team: Trey Action Fake, manager: Trey Gorman}
-    - {rank: 7, team: Easy money, manager: Adrian Bradley}
-    - {rank: 8, team: Da LockDownGoon, manager: THORAN TYNER}
-    - {rank: 9, team: Olave when you call me big papa, manager: Josh Jeffrey}
-    - {rank: 10, team: Crushing Dreams, manager: Josh Brown}
-    - {rank: 11, team: 4 Time 13, manager: Bobby Brooks}
-    - {rank: 12, team: Kleenex Gang, manager: Cedric Brown}
+    - rank: 1
+      team: '#TheMoneyTeam'
+      manager: Chris Evans
+    - rank: 2
+      team: Shaun DeNiro
+      manager: Shaun Miller
+    - rank: 3
+      team: Jag FLu
+      manager: Justin Ray
+    - rank: 4
+      team: Griddy Committee
+      manager: Freddy Young
+    - rank: 5
+      team: Just call me CHAMP
+      manager: Jazmond Burks
+    - rank: 6
+      team: Trey Action Fake
+      manager: Trey Gorman
+    - rank: 7
+      team: Easy money
+      manager: Adrian Bradley
+    - rank: 8
+      team: Da LockDownGoon
+      manager: THORAN TYNER
+    - rank: 9
+      team: Olave when you call me big papa
+      manager: Josh Jeffrey
+    - rank: 10
+      team: Crushing Dreams
+      manager: Josh Brown
+    - rank: 11
+      team: 4 Time 13
+      manager: Bobby Brooks
+    - rank: 12
+      team: Kleenex Gang
+      manager: Cedric Brown
     corrections:
-    - >
-      JOSH FINISHED 10th, NOT 7th - CONFIRMED 8/13. Josh verified Crushing Dreams is his team, so the
-      Final Standings 10th of 12 is his real 2025 result. Every justification in the repo cited 7th;
-      rb_rule.yaml and HANDOFF are corrected. The 7th may have been the regular-season placing before
-      playoffs. Either way the RB floor's case gets stronger, not weaker.
-    - >
-      TREY ACTION FAKE FINISHED 6th. His profile calls him the STRUCTURAL FAVORITE on the back of 2023
-      and 2024 titles and says he "does not panic". Sixth is mid. Keep the process read - he does run
-      this framework's own playbook - but the aura is one season out of date.
+    - 'JOSH FINISHED 10th, NOT 7th - CONFIRMED 8/13. Josh verified Crushing Dreams is his team, so the Final Standings
+      10th of 12 is his real 2025 result. Every justification in the repo cited 7th; rb_rule.yaml and HANDOFF are
+      corrected. The 7th may have been the regular-season placing before playoffs. Either way the RB floor''s case
+      gets stronger, not weaker.
+
+      '
+    - 'TREY ACTION FAKE FINISHED 6th. His profile calls him the STRUCTURAL FAVORITE on the back of 2023 and 2024
+      titles and says he "does not panic". Sixth is mid. Keep the process read - he does run this framework''s own
+      playbook - but the aura is one season out of date.
+
+      '
     confirmed:
     - Shaun DeNiro 2nd, Jag FLu 3rd and CHAMP top-half all match their existing profile notes.
     - '#TheMoneyTeam WON - the reigning-champ label is accurate and his blueprint is the one that won.'
     - 'Reactive trade marks (bottom four): Crushing Dreams, 4 Time 13, Kleenex Gang - plus Olave 9th.'
-    how_the_room_sees_josh: >
-      USE THIS. Crushing Dreams finished 10th of 12, which means the room's own bottom-four read
-      includes Josh - he is currently somebody else's buy-low mark, not a feared contender. That is an
-      asset in the trade game the plan already depends on. The QB3-as-inventory doctrine needs a buyer
-      who will pay; a manager who thinks he is fleecing the 10th-place team negotiates faster and
-      cheaper than one who thinks he is dealing with a shark. Do not correct the impression early. The
-      mapped customer is Shaun DeNiro (2nd, thin at QB2); Da LockDownGoon (8th, churner) is the other
-      active trader. Expect lowball offers in September - they are information about how you are
-      perceived, not about your roster.
+    how_the_room_sees_josh: 'USE THIS. Crushing Dreams finished 10th of 12, which means the room''s own bottom-four
+      read includes Josh - he is currently somebody else''s buy-low mark, not a feared contender. That is an asset
+      in the trade game the plan already depends on. The QB3-as-inventory doctrine needs a buyer who will pay; a
+      manager who thinks he is fleecing the 10th-place team negotiates faster and cheaper than one who thinks he
+      is dealing with a shark. Do not correct the impression early. The mapped customer is Shaun DeNiro (2nd, thin
+      at QB2); Da LockDownGoon (8th, churner) is the other active trader. Expect lowball offers in September - they
+      are information about how you are perceived, not about your roster.
+
+      '
   gaps:
   - Josh's own 9.08 pick (only R9 picks 1-4 captured)
-  - 2026 slots - fill slot_2026 for all 12 the moment the order is posted
+  slot5_neighbors:
+  - 'ADDED 8/16 once the 2026 order was posted. Josh sits at 5, between Da LockDownGoon (4) and Kleenex Gang (6).
+    Four reads that only exist now that the seats are known:'
+  - '1. KLEENEX GANG PICKS IMMEDIATELY AFTER YOU EVERY ODD ROUND (picks 6, 30, 54, 78, 102). He is the confirmed
+    RB-heavy manager and the standing competition for every RB depth window - he took Stevenson at R10 in 2025.
+    Any RB you are deciding between at an odd-round pick, assume the other one is gone. The flip side: he took two
+    QBs total all of 2025, so he is no threat in a QB window.'
+  - '2. CHAMP (slot 7) PICKS AT 42; YOUR R4 IS 44. He is the live Warren competition - he took Tyler Warren at R6
+    in 2025. Two picks separate his R4 from yours, so Warren can vanish immediately before your turn. But his R5
+    pick is 55 and yours is 53: if Warren survives to 44 he very likely survives to 53. That is the whole case for
+    the R5-default gate - the R4 reach buys you two picks of protection, and those two picks are the only thing
+    it buys.'
+  - 3. GRIDDY COMMITTEE IS AT SLOT 12 - HIS BACK-TO-BACK TURN PICKS (60-61) LAND INSIDE YOUR R5-to-R6 GAP (53 ->
+    68). His profile is the turn double-tap, and in 2025 that double was Maye R6 + Love R7. The 2025 QB run fired
+    at picks 62-72. So the run's front edge sits one pick after his double, inside a 14-pick window where you cannot
+    act. Count him as two QBs in the run math at pick 60 and treat the R5 pick at 53 as the LAST safe place to buy
+    QB2 at market.
+  - '4. JAG FLu IS BACK AT SLOT 9 - the same seat he held in 2025 when he took QBs at picks 16 and 33. Same seat,
+    same habit, expect the same shape. His R2 (picks 16) and R3 (33) both come after your 20 and before your 29:
+    if you want an arm in that band, he is the reason to take it at 20 rather than hope it falls to 29.'
