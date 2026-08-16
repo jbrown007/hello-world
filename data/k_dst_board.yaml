@@ -111,6 +111,10 @@ dst:
     R8 every year and hands the rest of the room a skill player, which is a
     standing edge, not something to copy.
   who:
+  - {player: Houston, team: HOU, bye: 8, rank: 3, verdict: 'DEFAULT - top tier, cleanest bye',
+     why: 'Top-3 everywhere and several boards have the Texans as DST1 outright. W8 is
+       typically the emptiest week on our build, which makes this the easiest fit of the
+       top tier. If you take this, take Dicker as your kicker, not Fairbairn.'}
   - {player: Seattle, team: SEA, bye: 11, rank: 1, verdict: 'BEST UNIT, CHECK W11',
      why: 'Highest-scoring D/ST of 2025, allowed the fewest points per game in the NFL
        (17.2), and a top-5 unit in back-to-back seasons under Macdonald. The only
@@ -118,10 +122,6 @@ dst:
   - {player: Denver, team: DEN, bye: 10, rank: 2, verdict: 'STRONG',
      why: 'Second-ranked unit at 8.2 PPG. W10 is usually clean on the default line
        unless you took two Bears.'}
-  - {player: Houston, team: HOU, bye: 8, rank: 3, verdict: 'DEFAULT - top tier, cleanest bye',
-     why: 'Top-3 everywhere and several boards have the Texans as DST1 outright. W8 is
-       typically the emptiest week on our build, which makes this the easiest fit of the
-       top tier. If you take this, take Dicker as your kicker, not Fairbairn.'}
   - {player: Jacksonville, team: JAX, bye: 7, rank: 4, verdict: OK,
      why: '8.2 PPG. Only conflict is Dicker - do not take both, they share W7.'}
   - {player: LA Rams, team: LAR, bye: 11, rank: 5, verdict: 'CAUTION - W11',

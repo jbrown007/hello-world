@@ -870,6 +870,21 @@ def depth_at(rnd: int) -> list[str]:
             v = str(p["verdict"])
             mark = "!" if v.startswith("CAUTION") else ""
             out.append((rank.get(v, 4), f"{mark}{_abbr(p['player'])}({p['team']}{bye_of(p['team'])})"))
+
+    # R16-R17 are two mandatory starters and used to print 'free - best value'.
+    # The kicker broke the bye cap in three of the last four reps, so the names
+    # and the refusals belong on the printed sheet like everything else.
+    kd = load("k_dst_board")
+    for sec, order_key in (("dst", "r16"), ("kickers", "r17")):
+        if kd["order"][order_key] not in ("DST", "K"):
+            continue
+        want = 16 if order_key == "r16" else 17
+        if rnd != want:
+            continue
+        for i, p in enumerate(kd[sec]["who"][:3]):
+            out.append((-3 + i, f"{_abbr(p['player'])}({p['team']}{p['bye']})"))
+        for p in kd[sec]["refused"][:2]:
+            out.append((5, f"NO:{_abbr(p['player'])}({p['team']}{p['bye']})"))
     return [n for _, n in sorted(out)]
 
 
