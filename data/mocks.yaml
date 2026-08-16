@@ -276,3 +276,31 @@
     pick that went wrong.
   errors: [te1_seeding_week, team_stack_min, bye_stack_w6, bye_stack_w5, bye_stack_w13,
     k_bye, qb3_off_board, warren_missed, downs_not_drafted]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  notes: >
+    Third rep of the day. THE BEST QB ROOM OF THE ENTIRE LOG and the worst bye
+    result of the entire log, in the same roster. Allen at pick 5 is the anchor
+    rule executed perfectly - Branch A with the consensus QB1 - and the tier
+    report grades all three arms at market or better for the first time ever:
+    Allen ELITE SIX at market, Jones QB2-window at market, Love a QB2-window arm
+    taken at R9 for VALUE. Zero reaches. Triangulation clean (W7/W11/W13), ledger
+    met (3/6/5/1/1/1) for the seventh time, no team at 3+, Warren gate passed at
+    R5. Also real progress on the new K/DST board: correct ORDER (DST R16, K
+    R17), Aubrey refused, Colts D/ST refused, and McPherson taken straight off
+    the kicker list at W6 where it was legal at cap. BUT FOUR WEEKS OVER CAP -
+    W5, W7, W11 and W13 - which beats the previous worst of three. Replaying the
+    new `ff draft --teams` tally against this roster, it would have BLOCKED ALL
+    FOUR of the picks that caused them: Jones (IND) at R6, Love (GB) at R9,
+    Brooks (CAR) at R11 and the Chargers D/ST (LAC) at R16. The tally was
+    available and was not used. Two other notes: Brooks is a depth-board FADE
+    taken for the THIRD straight slot-5 rep, and Downs was missed again (Watson
+    filled the R7-R9 WR slot). The Jones pick also exposed a hole in the rule
+    wording - it was refused as "third Colt behind Warren and Downs", but Downs
+    was never drafted, so the IND cap read ok at 2 while W13 still broke on
+    Jeanty (LV). The refusal now names both paths.
+  errors: [bye_stack_w5, bye_stack_w7, bye_stack_w11, bye_stack_w13,
+    fade_drafted_brooks, downs_not_drafted, tally_not_used]

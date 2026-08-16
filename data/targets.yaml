@@ -213,8 +213,13 @@ rounds:
   - {player: Bo Nix, team: DEN, bye: 10, why: Fallback. Counts toward W10.}
   - {player: Jordan Love, team: GB, bye: 11, why: Fallback. Counts toward the wide W11 pool.}
   avoid:
-  - {player: Daniel Jones, team: IND, bye: 13, why: Third Colt behind Warren and Downs. This is the documented
-      mock-B breach - do not repeat it.}
+  - {player: Daniel Jones, team: IND, bye: 13, why: 'REFUSED ON TWO SEPARATE PATHS, and the 8/16 rep proved
+      the second one matters on its own. (1) TEAM CAP: third Colt behind Warren and Downs - the documented
+      mock-B breach. (2) BYE: even when Downs is NOT taken and the IND cap is technically fine at 2, Jones
+      still puts a third body on W13 the moment you hold any other W13 player. In the 8/16 rep that was
+      Ashton Jeanty (LV) at R2, and the roster came out with three players dark in W13 while the IND cap
+      read ok. W13 is BAL, NYJ, IND and LV - a four-team week you are already spending Warren on. Check the
+      WEEK, not just the club.'}
 - rnd: 7
   pick: 77
   pos: RB
