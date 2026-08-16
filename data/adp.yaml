@@ -26,6 +26,77 @@ sources: >
   - fantasypros.com, espn.com and rotoballer.com are blocked by this
   container's egress proxy, so no full ADP table could be fetched directly.
 
+superflex:
+  status: 'NO MEASURED TABLE OBTAINED - 8/16. Read the sourcing note before trusting anything here.'
+  sourcing: >
+    Every host that publishes a superflex/2QB ADP table is blocked by this
+    session's egress policy: fantasypros.com, rotoballer.com, espn.com,
+    fantasyfootballcalculator.com, 4for4.com, draftsharks.com, footballguys.com,
+    rotowire.com, pff.com, sharpfootballanalysis.com, nfl.com, sleeper's API and
+    underdogfantasy.com were all tried and all refused. Raw curl is blocked
+    outright. The proxy README says organization policy denials must be reported,
+    not routed around, so they were not. What follows is STRUCTURE extracted from
+    search-result summaries - shape, not a table. Do not treat any number below
+    as a measured pick.
+  structure:
+  - >
+    THE ELITE TIER: the top 6-8 quarterbacks are pushed into the FIRST TWO
+    ROUNDS in superflex. Drake Maye is a first-round pick in the format. One
+    published superflex mock had five QBs gone inside the first eight picks.
+  - >
+    THIS ROOM MATCHES THE NATIONAL SHAPE AT THE TOP, which is the useful
+    finding. The 2025 board had 2 QBs in R1 and 6 by pick 23 - squarely inside
+    "6-8 in the first two rounds". The branch map is calibrated correctly and
+    does not need changing.
+  - >
+    WHAT THAT MEANS AT PICK 5 AND PICK 20: with only 2 arms gone in R1 here,
+    roughly four or five of the elite six are still on the board at pick 5, and
+    about one survives to pick 20. That is Branch B by construction - take the
+    skill player at 5 and the arm at 20 and you get both. It also means Branch A
+    at pick 5 is real, not theoretical, and taking an elite arm there is
+    defensible; it is just usually worse than getting both.
+  - >
+    NATIONAL QB2 ADVICE IS EARLIER THAN OUR RULE: superflex consensus is to have
+    BOTH starting quarterbacks by the END OF R5. Our window is R5-R6 with the
+    hard floor at the end of R6, justified by this room waiting until picks
+    62-72 in 2025. See the convergence note below - this is now the third
+    independent argument for R5.
+  qb2_r5_convergence:
+    note: >
+      THREE INDEPENDENT LINES NOW POINT AT PICK 53 FOR QB2, and they were
+      derived separately. (1) National superflex strategy says two starters by
+      the end of R5. (2) The seat analysis: Griddy Committee owns picks 60-61 as
+      a turn double, the 2025 run fired at picks 62-72, and slot 5's R6 pick is
+      68 - inside the run rather than ahead of it. (3) The framework's own
+      3-in-12 run trigger. Nothing here changes the RULE, which is already
+      adaptive - the trigger decides at 53. What changes is the PRIOR: expect it
+      to fire more often than not, and expect to release Warren.
+    warren_counter: >
+      The honest counter-argument, with the numbers. Warren's ADP is 61 [1QB],
+      which converts to roughly pick 72-80 in superflex (ESTIMATE) - so taking
+      QB2 at 53 and Warren at 68 could get you BOTH. The risk is specific and
+      named: CHAMP sits at slot 7 and picks at 42, 55 and 66. He took Tyler
+      Warren in R6 in 2025. Pick 66 is two picks before your 68. So the
+      both-of-them line runs directly through the one manager in the league with
+      a documented Warren habit, at the exact pick where he took him last year.
+      Decide this before the draft, not at the table.
+  recommended_fix:
+    what: Capture a full superflex board from a live ESPN mock, exactly as DRAFT_BOARD_2025.md
+      was built from the real 2025 board.
+    why: >
+      BETTER THAN NATIONAL ADP, not a fallback. Josh drafts on ESPN in a 12-team
+      superflex room and has already run 18 mock reps. A full board from one of
+      those is measured ADP for the exact platform, format, roster size and
+      league size he will draft in - which is what national ADP is a proxy for.
+      It also directly answers the two open pricing questions national ADP
+      cannot: where Warren actually goes in superflex, and how many QBs are gone
+      by picks 44, 53 and 68 at this seat.
+    how: >
+      Run one mock and screenshot or export the COMPLETE board (all 12 teams,
+      all 17 rounds), not just our roster. The mock log already captures our
+      picks; what is missing is everyone else's. One capture converts every
+      ESTIMATE in this file into a measurement.
+
 market_shape:
   note: >
     THE BIGGEST SINGLE FINDING, and it is not about one player. Running backs
