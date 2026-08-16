@@ -870,6 +870,36 @@ def _():
     return "reach, value, at-market and off-board all classified"
 
 
+@check("live bye tally names the weeks at cap and the teams that blocks")
+def _():
+    """bye_stack is the oldest unfixed error - 13 of 18 reps - and it survives
+    because the tally lives on the printed sheet as empty boxes nobody fills in
+    mid-draft. The last four reps each broke a week with the LAST body added,
+    three of them the kicker. This pins the on-screen tally: an over-cap week
+    must be named, an at-cap week must block every team on that bye, and a
+    clean W14 must say so."""
+    from ffcli.draft import bye_block, draft_screen
+    # The 8/16 rep's roster at the kicker pick: W5 and W6 already over cap.
+    held = ["NE", "LV", "KC", "CAR", "LAC", "MIN", "DAL", "NE", "CAR",
+            "MIN", "CHI", "HOU", "DET", "PIT", "NYJ"]
+    text = "\n".join(bye_block(held))
+    assert "W5" in text and "OVER CAP" in text, f"over-cap week not flagged:\n{text}"
+    assert "W11  2" in text and "AT CAP" in text, f"at-cap week not flagged:\n{text}"
+    blocked = next(l for l in text.splitlines() if "DO NOT DRAFT" in l)
+    for t in ("MIN", "IND", "KC", "CAR"):
+        assert t in blocked, f"{t} bye is at/over cap but it is not blocked:\n{blocked}"
+    assert "SEEDING WEEK" in text, "a W14 body must be called out as the seeding week"
+    # A clean roster: nothing at cap, so nothing is blocked, and W14 reads clear.
+    clean = "\n".join(bye_block(["NE", "KC", "HOU"]))
+    assert "DO NOT DRAFT" not in clean, f"false positive on a clean roster:\n{clean}"
+    assert "W14 clear" in clean, f"clean W14 not confirmed:\n{clean}"
+    assert bye_block([]) == [], "no teams should produce no block"
+    # And it has to actually reach the pick screen.
+    assert "BYES HELD" in draft_screen(5, 16, 24, teams=held), "tally missing from ff draft"
+    assert "BYES HELD" not in draft_screen(5, 16, 24), "tally shown without --teams"
+    return "over-cap, at-cap, blocked teams, seeding week and clean case all covered"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.

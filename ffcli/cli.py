@@ -55,6 +55,10 @@ def main(argv=None) -> int:
                    help="what you already hold: POS=N pairs plus any named picks, "
                         "e.g. 'QB=1,RB=2,WR=2,warren,downs'. Satisfied commitments "
                         "drop off; a named pick only clears when you name it.")
+    d.add_argument("--teams", default=None,
+                   help="NFL team codes you have already drafted, comma-separated, "
+                        "e.g. 'NE,LV,KC,CAR'. Prints the live bye tally, which weeks "
+                        "are at cap, and which teams that makes unpickable.")
 
     s = sub.add_parser("sheet", help="printable one-page draft plan for a slot")
     s.add_argument("--slot", type=int, default=None)
@@ -116,8 +120,15 @@ def main(argv=None) -> int:
             print("No slot set. Pass --slot N or set draft.slot in data/league.yaml.")
             return 1
         from .draft import parse_have
+        from .config import bye_of
         counts, names = parse_have(a.have)
-        print(draft_screen(slot, a.round, a.gone, a.window, counts, names))
+        teams = [t.strip().upper() for t in (a.teams or "").split(",") if t.strip()]
+        bad = [t for t in teams if not bye_of(t)]
+        if bad:
+            print(f"Unknown team code(s) in --teams: {', '.join(bad)}. "
+                  "Use NFL abbreviations as they appear in data/byes.yaml.")
+            return 1
+        print(draft_screen(slot, a.round, a.gone, a.window, counts, names, teams))
 
     elif a.cmd == "sheet":
         from .draft import sheet_twocol

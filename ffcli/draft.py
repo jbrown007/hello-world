@@ -205,8 +205,48 @@ def outstanding(label: str, have: dict[str, int], names: set[str] | None = None)
     return todo
 
 
+def bye_block(teams: list[str], board_teams: set[str] | None = None) -> list[str]:
+    """Live bye tally for the teams already drafted, and who is now unpickable.
+
+    ADDED 8/16. bye_stack is the framework's oldest unfixed error - 13 of 18
+    reps - and it survives because the tally exists only on the printed sheet
+    as empty boxes nobody fills in mid-draft. The last four reps each broke a
+    week with the LAST body added, and three of those four were the KICKER.
+    This puts the count on the pick screen, where the decision happens.
+    """
+    from .config import bye_of, byes as _byes
+    cap = named_caps()[0]["max_starters"] if named_caps() else 2
+    tally: dict[int, list[str]] = {}
+    for t in teams:
+        wk = bye_of(t)
+        if wk:
+            tally.setdefault(wk, []).append(t)
+    if not tally:
+        return []
+    out = ["\nBYES HELD (cap %d per week)" % cap]
+    full, over = set(), set()
+    for wk in sorted(tally):
+        n = len(tally[wk])
+        mark = "  OVER CAP" if n > cap else ("  AT CAP" if n == cap else "")
+        seed = "  <- SEEDING WEEK" if wk == 14 else ""
+        out.append(f"  W{wk:<3} {n}  {', '.join(sorted(tally[wk]))}{mark}{seed}")
+        if n >= cap:
+            (over if n > cap else full).add(wk)
+    blocked = sorted({t for wk in full | over for t in _byes().get(wk, [])})
+    if blocked:
+        out.append("  DO NOT DRAFT (their bye is already at cap): " + ", ".join(blocked))
+        if board_teams:
+            hit = sorted(board_teams & set(blocked))
+            if hit:
+                out.append("  ^ that removes these from THIS round's board: " + ", ".join(hit))
+    if 14 not in tally:
+        out.append("  W14 clear - keep it that way. Only DAL and ARI are on bye in the seeding week.")
+    return out
+
+
 def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
-                 have: dict[str, int] | None = None, names: set[str] | None = None) -> str:
+                 have: dict[str, int] | None = None, names: set[str] | None = None,
+                 teams: list[str] | None = None) -> str:
     """One screen for a live pick: tree step, QB verdict, commitments, boards.
 
     have: what you already hold, by position, so satisfied commitments drop off
@@ -278,6 +318,9 @@ def draft_screen(slot: int, rnd: int, gone: int, window: int | None = None,
     if board_lines:
         out.append("\nBOARD names listed for this round:")
         out.append("\n".join(board_lines))
+
+    if teams:
+        out += bye_block(teams, cap_teams)
 
     for cap in named_caps():
         if cap["team"] in cap_teams:

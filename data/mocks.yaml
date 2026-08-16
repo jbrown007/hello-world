@@ -247,3 +247,32 @@
     clean roster was available at the same score, for free.
   errors: [qb1_off_tier, qb2_off_tier, bye_stack_w5, bye_stack_w9, bye_stack_w13,
     fade_drafted_brooks, fade_drafted_bateman, k_bye]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 9
+  of: 11
+  notes: >
+    Second rep of the day, and the score DROPPED to 9/11 after three straight
+    double-digit reps. BRANCH A FIRED FOR THE FIRST TIME AT THIS SEAT - Maye at
+    pick 5, an elite-six arm, exactly what the 8/16 superflex research said was
+    live (only 2 QBs went in R1 in this room, so four or five elite arms reach
+    pick 5). Murray at R6 as QB2 is at market and now legal. Both graded "at
+    market" by the new tier report - the QB pricing lesson from the previous
+    rep HELD. Ledger met (3/6/5/1/1/1) for the sixth time. What broke: (1) THE
+    TE1 IS ON THE SEEDING WEEK. Jake Ferguson is DAL, bye W14, and he is the
+    only tight end on a roster with no TE2 and zero IR - so the week that
+    decides the first-round bye is played with a waiver-wire tight end. That is
+    a worse version of the w14_trap than Allgeier or Aubrey, because it is a
+    STARTER. (2) THREE VIKINGS - Murray, Addison and Reichard - firing the
+    general stack flag, and Pacheco (DET) makes FOUR players out in W6. (3) The
+    kicker was the third Viking. That is three of the last four reps where the
+    KICKER created or worsened a bye breach (Butker W5, Boswell W9, now
+    Reichard W6). (4) Bryce Young at QB3 for the second time - still not on the
+    qb3_vets list, now auto-flagged OFF BOARD by the tier report. (5) Warren
+    and Downs both missed; Ferguson at R7 was the TE backfill the rule allows,
+    but Downs at R7-R9 was simply skipped. This rep is what added the live bye
+    tally to ff draft - at R16 it names MIN as unpickable, which is the exact
+    pick that went wrong.
+  errors: [te1_seeding_week, team_stack_min, bye_stack_w6, bye_stack_w5, bye_stack_w13,
+    k_bye, qb3_off_board, warren_missed, downs_not_drafted]
