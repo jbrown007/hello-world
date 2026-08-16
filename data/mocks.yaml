@@ -205,3 +205,19 @@
     payout weeks are unwinnable. Butker (KC) is also a W5 kicker stacking
     an already-dead week - the K-bye gap is now real, not theoretical.
   errors: [downs_late, bye_stack_w7, bye_stack_w5, k_bye]
+- date: '2026-08-13'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    FIRST superflex rep at the REAL seat, and a perfect commitment score -
+    every window hit, ledger met exactly (3/6/5/1/1/1) for the fourth time,
+    triangulation clean (W5/W10/W13), IND cap at 2. Second 11/11 ever. BUT
+    the worst single-week hole of any rep: FOUR players out in W5 - three
+    Panthers (McMillan, Bryce Young, Brooks) plus Walker (KC). The general
+    stack flag fired on CAR exactly as designed. Two quality notes the score
+    cannot see: Brooks is a depth-board FADE and got taken anyway, and Bryce
+    Young is not on the QB3 vet list - he is neither the R9-10 tier nor
+    sellable trade inventory, which is that slot's whole purpose.
+  errors: [bye_stack_w5, team_stack_car, fade_drafted_brooks, qb3_off_board]
