@@ -93,19 +93,33 @@ rounds:
 - rnd: 1
   pick: 5
   pos: RB
-  need: RB1 (or QB1 if an elite arm falls)
+  need: WR1 in practice - RB1 only if a tier-1 back falls, QB1 if an elite arm does
   gate: null
   do: >
-    Branch decision. If one of the elite six is somehow on the board at 5, take
-    him - that is Branch A and it is the best outcome available. Otherwise this
-    is an elite RB. Two QBs went in R1 in this room in 2025, so an elite arm
-    reaching pick 5 is live, not fantasy.
+    READ THIS AS A WR PICK FIRST. The 8/16 ADP pass (adp.yaml market_shape)
+    found running backs UP and receivers DOWN across the 2026 market: Gibbs is
+    going 1.01 and Bijan 1.02 in most rooms, so BOTH TIER-1 RBs ARE PROBABLY
+    GONE by pick 5 and planning on one is planning on a fall. The same shift
+    pushes St. Brown, Jefferson and Lamb to late R1 - so the WR you get here is
+    better than the framework assumed when it was written. Take St. Brown or
+    Nacua. If one of the elite six is somehow on the board, that is Branch A
+    and it is defensible, though usually worse than taking the skill player at
+    5 and still getting an arm at 20 (Branch B). Gibbs or Bijan only if the
+    board actually hands one to you. NOTE THE KNOCK-ON: the pos skeleton still
+    counts this pick as RB1 to hold the 2-by-R4 floor, so if you take the WR
+    here, R4 (pick 44) becomes your RB2 instead of the WR line. The Warren gate
+    at R5 still clears either way - 2 RB + 1 WR held.
   take:
-  - {player: Josh Allen, team: BUF, bye: 7, why: The anchor. Take him at 5 without thinking. Fires Branch A.}
-  - {player: Jahmyr Gibbs, team: DET, bye: 6, why: RB tier 1. The default pick at this slot.}
-  - {player: Bijan Robinson, team: ATL, bye: 11, why: RB tier 1, interchangeable with Gibbs.}
-  - {player: Puka Nacua, team: LAR, bye: 11, why: The WR pivot if both tier-1 RBs are gone.}
-  - {player: Amon-Ra St. Brown, team: DET, bye: 6, why: WR4 consensus, three straight top-3 PPR finishes.}
+  - {player: Amon-Ra St. Brown, team: DET, bye: 6, why: 'WR4 consensus, three straight top-3 PPR finishes.
+      The WR-down market is reported dropping him to late R1 - at pick 5 that is the discount, not a reach.'}
+  - {player: Puka Nacua, team: LAR, bye: 11, why: 'The other side of the WR pivot, and the expected pick
+      if St. Brown is gone. Same market discount applies.'}
+  - {player: Josh Allen, team: BUF, bye: 7, why: 'The anchor, and the Branch A trigger if he is somehow
+      here. Real, not theoretical - two QBs went in R1 in this room in 2025.'}
+  - {player: Jahmyr Gibbs, team: DET, bye: 6, why: 'RB tier 1 and the best outcome at this pick, but he
+      is going 1.01 - take him if he falls, do not plan the round around him.'}
+  - {player: Bijan Robinson, team: ATL, bye: 11, why: 'RB tier 1, interchangeable with Gibbs, going 1.02.
+      Same rule: a fall to take, not a plan.'}
   avoid: []
 - rnd: 2
   pick: 20
@@ -119,10 +133,10 @@ rounds:
     from slot 5. If all six are gone, take the best RB/WR and go Branch C with
     QB1 at R3.
   take:
-  - {player: Drake Maye, team: NE, bye: 11, why: QB2 overall finish in 2025, ESPN has him SF QB2.}
-  - {player: Jalen Hurts, team: PHI, bye: 10, why: Rushing TD equity, highest floor in the tier.}
-  - {player: Jayden Daniels, team: WSH, bye: 7, why: Discounted off an injured 2025, top-2 upside.}
-  - {player: Joe Burrow, team: CIN, bye: 6, why: The pure-volume arm. Fine, just no rushing floor.}
+  - {player: Drake Maye, team: NE, bye: 11, why: 'QB2 overall finish in 2025, ESPN has him SF QB2.'}
+  - {player: Jalen Hurts, team: PHI, bye: 10, why: 'Rushing TD equity, highest floor in the tier.'}
+  - {player: Jayden Daniels, team: WSH, bye: 7, why: 'Discounted off an injured 2025, top-2 upside.'}
+  - {player: Joe Burrow, team: CIN, bye: 6, why: 'The pure-volume arm. Fine, just no rushing floor.'}
   avoid:
   - {player: Lamar Jackson, team: BAL, bye: 13, why: W13 - Warren and Downs already own that week. See conflict w13.}
 - rnd: 3
@@ -137,14 +151,14 @@ rounds:
   take:
   - {player: Chase Brown, team: CIN, bye: 6, why: RB tier 2.}
   - {player: James Cook III, team: BUF, bye: 7, why: RB tier 2.}
-  - {player: De'Von Achane, team: MIA, bye: 6, why: RB tier 2, full-PPR receiving profile.}
+  - {player: De'Von Achane, team: MIA, bye: 6, why: 'RB tier 2, full-PPR receiving profile.'}
   - {player: Saquon Barkley, team: PHI, bye: 10, why: RB tier 2.}
   - {player: Caleb Williams, team: CHI, bye: 10, why: 'BRANCH C ONLY: the R3 anchor arm. Counts toward the CHI cap.'}
   - {player: C.J. Stroud, team: HOU, bye: 8, why: 'BRANCH C ONLY.'}
   - {player: Justin Herbert, team: LAC, bye: 7, why: 'BRANCH C ONLY.'}
   avoid:
   - {player: Jonathan Taylor, team: IND, bye: 13, why: Third Colt and a third W13 body. Breaks two caps at once.}
-  - {player: Garrett Wilson, team: NYJ, bye: 13, why: On the WR board at R3, but W13 is spent.}
+  - {player: Garrett Wilson, team: NYJ, bye: 13, why: 'On the WR board at R3, but W13 is spent.'}
   - {player: Jeremiyah Love, team: ARI, bye: 14, why: 'Live tier-2 RB, but ARI is the SEEDING WEEK. Caution, not a ban.'}
   - {player: Patrick Mahomes, team: KC, bye: 5, why: 'Branch C arm, but W5 has only two teams - it commits half that cap.'}
 - rnd: 4
@@ -173,7 +187,7 @@ rounds:
   - {player: Garrett Wilson, team: NYJ, bye: 13, why: 'WR16, ranks squarely in this band - and W13 is
       spent by Warren and Downs.'}
   - {player: Tyler Warren, team: IND, bye: 13, why: Gate blocks him at R4. He is an R5 pick by default.}
-  - {player: Any second TE, team: '-', bye: 0, why: te2 appeared in 3 reps, all at slot 4. Not here, not now.}
+  - {player: Any second TE, team: '-', bye: 0, why: 'te2 appeared in 3 reps, all at slot 4. Not here, not now.'}
 - rnd: 5
   pick: 53
   pos: TE
@@ -314,7 +328,7 @@ rounds:
       in three of four seasons.'}
   - {player: Jacory Croskey-Merritt, team: WSH, bye: 7, why: 'The grinder half. Buying both is the stated
       plan and costs you two W7 slots.'}
-  - {player: Blake Corum, team: LAR, bye: 11, why: Standard late dart, nothing separating.}
+  - {player: Blake Corum, team: LAR, bye: 11, why: 'Standard late dart, nothing separating.'}
   avoid:
   - {player: Jonathon Brooks, team: CAR, bye: 5, why: 'FADE - two torn ACLs, 23 career snaps, and Hubbard
       may keep the job. Taken in 7 of 14 reps including the 8/13 slot-5 rep. Stop.'}
@@ -328,7 +342,7 @@ rounds:
   - {player: Jayden Higgins, team: HOU, bye: 8, why: 'BUY - best pure price-to-role gap left this late.
       Kirk gone, room thinned, ~750 yards and 6-8 TDs projected at a mid-130s ADP.'}
   - {player: Luther Burden III, team: CHI, bye: 10, why: If he lasted and you are under the Bears cap.}
-  - {player: Stefon Diggs, team: WSH, bye: 7, why: Name-brand dart, volume depends on the split behind McLaurin.}
+  - {player: Stefon Diggs, team: WSH, bye: 7, why: 'Name-brand dart, volume depends on the split behind McLaurin.'}
   avoid: []
 - rnd: 14
   pick: 164
