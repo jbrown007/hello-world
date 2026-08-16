@@ -221,3 +221,29 @@
     Young is not on the QB3 vet list - he is neither the R9-10 tier nor
     sellable trade inventory, which is that slot's whole purpose.
   errors: [bye_stack_w5, team_stack_car, fade_drafted_brooks, qb3_off_board]
+- date: '2026-08-16'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: >
+    SECOND rep at the real seat and the THIRD 11/11 - every window hit, ledger
+    met exactly (3/6/5/1/1/1) for the fifth time, Warren gate passed cleanly at
+    R5 with 2 RB + WR banked, triangulation clean (W6/W7/W11), 14 clubs, IND at
+    exactly 2. Downs landed at R8 - the earliest he has ever come and the first
+    time inside the window at this slot. And the score is misleading. Two things
+    it cannot see. (1) QB TIER INVERSION: pick 20 went to Trevor Lawrence, who
+    is on the qb3_vets list - market picks 101-107 - so an R9 arm was bought at
+    R2, roughly an 80-pick overpay. Goff at R6 is the same tier, 3 rounds early.
+    Jordan Love at R9 is a QB2-window arm at QB3 price, the one correct QB
+    purchase. The QB room is priced upside down and every commitment window
+    still HIT. That is what added qb_tier_report to ff grade. (2) THREE weeks
+    over the bye cap - W5, W9, W13 - and in all three the breach was the LAST
+    body added, each one already refused by the target board written that same
+    morning: Bateman (fade + W13, which Warren and Downs had already capped),
+    Brooks (fade, second straight slot-5 rep, W5 again), and Boswell as a PIT
+    kicker onto a W9 that Dowdle already occupied. All three are non-commitment
+    depth picks, so swapping them changes nothing about the 11/11 - a fully
+    clean roster was available at the same score, for free.
+  errors: [qb1_off_tier, qb2_off_tier, bye_stack_w5, bye_stack_w9, bye_stack_w13,
+    fade_drafted_brooks, fade_drafted_bateman, k_bye]

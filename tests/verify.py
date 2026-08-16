@@ -834,6 +834,29 @@ def _():
     return f"{rounds} rounds, {named} named entries, ledger {spend}, byes agree"
 
 
+@check("QB tier report catches an arm bought above its market band")
+def _():
+    """ff grade scores WHEN a QB was taken, never WHICH tier filled the slot.
+    The 8/16 slot-5 rep scored 11/11 while spending pick 20 on a qb3_vets arm
+    priced at picks 101-107. Every window hit, so nothing objected. This check
+    guards the fix: a reach must be named a reach, and a correctly-priced room
+    must stay silent."""
+    from ffcli.draft import parse_picks, qb_tier_report, qb_tier_price
+    reach = parse_picks("2 QB JAX Trevor Lawrence\n6 QB DET Jared Goff\n9 QB GB Jordan Love")
+    text = "\n".join(qb_tier_report(reach))
+    assert "REACH by 7" in text, f"7-round reach on a QB3-vet arm not flagged:\n{text}"
+    assert "VALUE" in text, f"a QB2-tier arm taken at R9 should read as value:\n{text}"
+    ok = parse_picks("1 QB BUF Josh Allen\n6 QB TEN Cam Ward\n9 QB NYJ Geno Smith")
+    clean = "\n".join(qb_tier_report(ok))
+    assert "REACH" not in clean and "above tier" not in clean, \
+        f"correctly-priced QB room produced a false positive:\n{clean}"
+    assert clean.count("at market") == 3, f"expected 3 at-market arms:\n{clean}"
+    off = qb_tier_price("Bryce Young")
+    assert off is None, f"an off-board arm resolved to a tier: {off}"
+    assert qb_tier_price("Josh Allen")[0] == "ELITE SIX"
+    return "reach, value, at-market and off-board all classified"
+
+
 @check("QB run trigger fires on rate and overrides count")
 def _():
     """2025: the count sat at 8 for fourteen picks then hit 14 in twelve.

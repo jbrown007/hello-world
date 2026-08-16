@@ -393,6 +393,67 @@ def parse_picks(text: str) -> list[dict]:
     return picks
 
 
+QB_TIERS = [  # board key, label, the round band the market actually pays
+    ("elite", "ELITE SIX", (1, 2)),
+    ("tier2_qb1", "TIER-2 ANCHOR", (3, 4)),
+    ("qb2_window", "QB2 WINDOW", (5, 6)),
+    ("qb3_vets", "QB3 VET", (9, 13)),
+]
+
+
+def qb_tier_price(player: str) -> tuple[str, tuple[int, int]] | None:
+    """Which qb_board tier a drafted arm belongs to, and its market band.
+
+    Matched on last name so 'Trevor Lawrence' finds the board's entry.
+    """
+    board = load("qb_board")
+    last = player.split()[-1].lower()
+    for key, label, band in QB_TIERS:
+        group = board[key]
+        who = list(group["who"]) if isinstance(group, dict) else list(group)
+        if key == "qb3_vets" and isinstance(group, dict) and group.get("fallback"):
+            who = who + [group["fallback"]]
+        for entry in who:
+            if entry["player"].split()[-1].lower() == last:
+                return label, band
+    return None
+
+
+def qb_tier_report(picks: list[dict]) -> list[str]:
+    """Flag QBs bought outside their tier's market band.
+
+    ADDED 8/16 after a slot-5 rep scored 11/11 while spending pick 20 on
+    Trevor Lawrence - a QB3-vet-tier arm whose market price is picks 101-107.
+    Every commitment window HIT, so the score saw nothing. A window says WHEN
+    a QB was taken; it says nothing about WHICH tier of arm filled it, and an
+    80-pick overpay is invisible to a rule that only checks the round.
+    """
+    qbs = [p for p in picks if p["pos"] == "QB"]
+    if not qbs:
+        return []
+    out, reaches = ["QB TIER vs MARKET PRICE"], 0
+    for p in sorted(qbs, key=lambda x: x["round"]):
+        got = qb_tier_price(p["player"])
+        if got is None:
+            out.append(f"  R{p['round']:<3} {p['player']:<20} OFF BOARD - not on any qb_board tier")
+            reaches += 1
+            continue
+        label, (lo, hi) = got
+        if p["round"] < lo:
+            out.append(f"  R{p['round']:<3} {p['player']:<20} {label} (market R{lo}-R{hi}) "
+                       f"- REACH by {lo - p['round']} round(s)")
+            reaches += 1
+        elif p["round"] > hi:
+            out.append(f"  R{p['round']:<3} {p['player']:<20} {label} (market R{lo}-R{hi}) "
+                       f"- VALUE, {p['round'] - hi} round(s) past his tier")
+        else:
+            out.append(f"  R{p['round']:<3} {p['player']:<20} {label} (market R{lo}-R{hi}) - at market")
+    if reaches:
+        out.append(f"  {reaches} arm(s) bought above tier. A commitment window checks WHEN, not WHICH - "
+                   "hitting R5-6 with a R9 arm still hits the window and still wastes the pick.")
+    return out
+
+
 def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
     """Score a drafted roster against the branch's commitments.
 
@@ -473,6 +534,7 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
                f"most from one club {top}, {spread} club(s) at {flag_at}+")
 
     out.append(ledger_report(picks))
+    out += qb_tier_report(picks)
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
         if p["pos"] == "QB" and bye_of(p["team"]):
