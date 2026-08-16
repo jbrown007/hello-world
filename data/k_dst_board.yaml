@@ -125,7 +125,7 @@ dst:
   - {player: Jacksonville, team: JAX, bye: 7, rank: 4, verdict: OK,
      why: '8.2 PPG. Only conflict is Dicker - do not take both, they share W7.'}
   - {player: LA Rams, team: LAR, bye: 11, rank: 5, verdict: 'CAUTION - W11',
-     why: Same six-team-bye problem as Seattle, without the ceiling.
+     why: 'Same six-team-bye problem as Seattle, without the ceiling.'
   }
   - {player: LA Chargers, team: LAC, bye: 7, rank: null, verdict: 'STREAMING NOTE',
      why: 'Not a top-5 season-long unit, but they open against Arizona and Las Vegas and

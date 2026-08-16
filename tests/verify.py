@@ -1058,6 +1058,40 @@ def _():
     return f"{len(present)} status values, all counted"
 
 
+@check("no board note is silently truncated by an unquoted comma")
+def _():
+    """Regression, found 8/16. In a YAML FLOW mapping - {player: X, why: ...} -
+    an unquoted scalar ENDS at the first comma. Everything after it parses as a
+    second key with a null value, so the note is silently cut in half and the
+    printed board loses the reasoning. Twelve entries across targets.yaml and
+    k_dst_board.yaml were already truncated this way and all 48 checks passed on
+    them: Drake Maye's line lost 'ESPN has him SF QB2', the R4 second-TE refusal
+    lost 'Not here, not now'. A key with a null value and a space in it is never
+    legitimate in these files, which makes it a clean signature to assert on."""
+    import glob, yaml
+    orphans: list[str] = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if v is None and isinstance(k, str) and " " in k:
+                    orphans.append(f"{path} -> {k!r}")
+                walk(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]")
+
+    files = sorted(glob.glob(str(ROOT / "data" / "*.yaml")))
+    assert files, "no data files found to scan"
+    for f in files:
+        with open(f) as fh:
+            walk(yaml.safe_load(fh), Path(f).name)
+    assert not orphans, (
+        f"{len(orphans)} truncated note(s) - quote the value: " + "; ".join(orphans[:4])
+    )
+    return f"{len(files)} data files scanned, no truncated notes"
+
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2
