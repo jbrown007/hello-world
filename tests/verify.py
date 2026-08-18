@@ -1184,6 +1184,56 @@ def _():
     return (f"{len(got_names)} names blocked at baseline, R{dry} dry, "
             f"{len(bc['choke_points'])} choke points verified")
 
+@check("grade runs the RB floor gates over the finished roster")
+def _():
+    """Regression from mock rep 21 (8/18). That roster ended 6/6 RB and scored
+    10/11, but the backs landed R2/R3/R8/R11/R13/R15 - four by R12 against a
+    floor of five - and NOTHING in the grade said so. ledger_report counts final
+    totals, commitments police individual picks, and neither watches the
+    accumulation curve that rb_rule actually specifies. A late-but-complete
+    backfield read as clean, which is the precise failure the floor exists to
+    prevent. Both directions are asserted so the report cannot be made
+    unconditional."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    gates = load("rb_rule")["rb_floor"]
+    late = ("1 QB NE Drake Maye\n2 RB KC Kenneth Walker III\n3 RB LAC Omarion Hampton\n"
+            "4 WR CAR Tetairoa McMillan\n5 TE IND Tyler Warren\n6 QB MIN Kyler Murray\n"
+            "7 WR GB Christian Watson\n8 RB PIT Rico Dowdle\n9 QB CAR Bryce Young\n"
+            "10 WR LAC Quentin Johnston\n11 RB CHI Kyle Monangai\n12 WR PHI Makai Lemon\n"
+            "13 RB ARI Tyler Allgeier\n14 WR NO Jordyn Tyson\n15 RB DET Isiah Pacheco\n"
+            "16 DST LAC Chargers\n17 K PIT Chris Boswell\n")
+    rep = grade(parse_picks(late), "MIDDLE")
+    assert "ledger met" in rep, "fixture should still satisfy the 17-spot ledger"
+    assert "RB FLOOR BREACH" in rep, \
+        "6/6 RB arriving late must not read as clean - this is rep 21's exact miss"
+    assert "R12: 4 held, floor is 5" in rep, f"breach not named precisely: {rep}"
+    assert "R2, R3, R8, R11, R13, R15" in rep, "the accumulation curve must be printed"
+
+    # moving one back inside the gate clears it, and every earlier gate still holds
+    ontime = late.replace("12 WR PHI Makai Lemon", "12 RB PHI Makai Lemon")
+    rep = grade(parse_picks(ontime), "MIDDLE")
+    assert "RB FLOOR BREACH" not in rep and "met at every gate" in rep, \
+        "a compliant curve must pass - the report cannot be unconditional"
+
+    # an early gate breaks on its own, not only the last one
+    early = late
+    for a, b in (("2 RB KC", "2 WR KC"), ("3 RB LAC", "3 WR LAC"),
+                 ("12 WR PHI", "12 RB PHI"), ("10 WR LAC", "10 RB LAC")):
+        early = early.replace(a, b)
+    rep = grade(parse_picks(early), "MIDDLE")
+    first = gates[0]["by_end_of_round"]
+    assert f"R{first}: 0 held" in rep, f"the first gate must fire on its own: {rep}"
+
+    # a partial script is NOT a finished roster. The 11-pick commitments fixture
+    # legitimately lists three backs, and inventing a breach there is exactly how
+    # this report first broke the suite.
+    partial = parse_picks("1 RB ATL Bijan Robinson\n3 RB DET Jahmyr Gibbs\n"
+                          "8 RB NE Rhamondre Stevenson\n17 DST TB Buccaneers\n")
+    assert "RB FLOOR" not in grade(partial, "MIDDLE"), \
+        "floor gates must stay silent on a script shorter than a full draft"
+    return f"{len(gates)} gates on finished rosters; breach, clean and partial covered"
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

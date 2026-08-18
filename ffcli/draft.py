@@ -577,6 +577,7 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
                f"most from one club {top}, {spread} club(s) at {flag_at}+")
 
     out.append(ledger_report(picks))
+    out += rb_floor_report(picks)
     out += qb_tier_report(picks)
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
@@ -693,6 +694,46 @@ def team_counts(picks: list[dict]) -> dict[str, int]:
     for p in picks:
         counts[p["team"]] = counts.get(p["team"], 0) + 1
     return counts
+
+
+def rb_floor_report(picks: list[dict]) -> list[str]:
+    """Run the RB floor gates over a FINISHED roster.
+
+    Added 8/18 after rep 21 scored 10/11 with four backs by R12 against a floor
+    of five and nothing in the grade said so. ledger_report counts final totals,
+    so a roster that reaches 6/6 RB two rounds late is indistinguishable from
+    one that hit every gate - the exact failure the floor exists to prevent,
+    reported as clean. Commitments police WHEN individual picks happen and the
+    ledger polices WHAT the roster became; nothing polices the accumulation
+    CURVE in between, which is what rb_rule actually specifies.
+
+    Silent on anything shorter than a full draft - see the length guard below.
+    """
+    gates = load("rb_rule")["rb_floor"]
+    # Only a COMPLETE roster can be judged against the floor. A commitments-only
+    # script lists the picks that matter and skips the rest, so counting its
+    # backs would invent breaches that never happened.
+    if len(picks) < league()["draft"]["rounds"]:
+        return []
+    rounds = sorted(p["round"] for p in picks if p["pos"] == "RB")
+    out, broken = [], []
+    for g in gates:
+        by, need = g["by_end_of_round"], g["min_held"]
+        held = sum(1 for r in rounds if r <= by)
+        if held < need:
+            broken.append(f"R{by}: {held} held, floor is {need}")
+    if not broken:
+        marks = " / ".join(
+            f"{sum(1 for r in rounds if r <= g['by_end_of_round'])}by{g['by_end_of_round']}"
+            for g in gates
+        )
+        out.append(f"RB FLOOR: met at every gate ({marks})")
+        return out
+    out.append("RB FLOOR BREACH: " + "; ".join(broken))
+    out.append(f"  backs landed R{', R'.join(str(r) for r in rounds)}. "
+               "Rolling waivers plus zero IR make in-season RB repair expensive - "
+               "depth is drafted, not acquired.")
+    return out
 
 
 def ledger_report(picks: list[dict]) -> str:
