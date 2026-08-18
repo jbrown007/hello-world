@@ -1089,8 +1089,100 @@ def _():
     assert not orphans, (
         f"{len(orphans)} truncated note(s) - quote the value: " + "; ".join(orphans[:4])
     )
-    return f"{len(files)} data files scanned, no truncated notes"
+    # Same family, different trigger: YAML 1.1 reads a bare NO as boolean False,
+    # so New Orleans silently stops being a team. Found 8/18 on depth_board's
+    # swap_team. Any key naming a team must hold a real team code.
+    miscast: list[str] = []
 
+    def teams(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if isinstance(k, str) and "team" in k.lower() and isinstance(v, bool):
+                    miscast.append(f"{path}.{k} -> {v!r}")
+                teams(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                teams(v, f"{path}[{i}]")
+
+    for f in files:
+        with open(f) as fh:
+            teams(yaml.safe_load(fh), Path(f).name)
+    assert not miscast, f"team field is not a team code (quote it): {'; '.join(miscast[:4])}"
+    return f"{len(files)} data files scanned, no truncated notes, team codes intact"
+
+
+@check("R11-R15 bye trap stays true to the boards it was derived from")
+def _():
+    """depth_board.bye_capacity documents a HARD trap: an on-plan R1-R10 caps
+    W6/W7/W11/W13, which makes ten of the sixteen R11-R15 names illegal and
+    leaves R14 with no legal option at all. Prose goes stale silently, so
+    nothing here is trusted - every count, name and choke-point claim is
+    RECOMPUTED from byes.yaml and targets.yaml and compared. If the Aug 25 pass
+    reprices a board and the trap moves, this fails and forces a re-derivation
+    instead of leaving a confident note that is quietly wrong."""
+    from ffcli.config import load, bye_of
+    import collections
+    bc = load("depth_board")["bye_capacity"]
+    rounds = {r["rnd"]: r for r in load("targets")["rounds"]}
+    base = bc["baseline"]["picks"]
+    assert len(base) == 10, f"baseline should cover R1-R10, found {len(base)}"
+
+    def capped(picks):
+        t = collections.Counter(bye_of(p["team"]) for p in picks)
+        return {w for w, n in t.items() if n >= 2}
+
+    def split(rnd, cap):
+        takes = [p for p in rounds[rnd]["take"] if p["team"] != "-"]
+        blocked = [p for p in takes if bye_of(p["team"]) in cap]
+        return blocked, len(takes) - len(blocked)
+
+    # the baseline must be real: byes agree, and it is legal on arrival at R11
+    for p in base:
+        assert bye_of(p["team"]) == p["bye"], \
+            f"baseline R{p['rnd']} {p['player']} tagged W{p['bye']}, byes.yaml disagrees"
+    cap0 = capped(base)
+    assert max(collections.Counter(bye_of(p["team"]) for p in base).values()) <= 2, \
+        "baseline itself breaks the 2-per-week cap - it cannot demonstrate anything"
+    assert sorted(cap0) == sorted(bc["weeks_at_cap_by_r11"]), \
+        f"weeks at cap recompute to {sorted(cap0)}, file says {bc['weeks_at_cap_by_r11']}"
+
+    # counts, names and the zero-option rounds all recompute
+    got_counts, got_names, dry = [], [], []
+    for rnd in range(11, 16):
+        blocked, n_legal = split(rnd, cap0)
+        got_counts.append({"rnd": rnd, "blocked": len(blocked), "of": len(blocked) + n_legal})
+        got_names += [{"rnd": rnd, "player": p["player"], "team": p["team"], "bye": p["bye"]}
+                      for p in blocked]
+        if n_legal == 0:
+            dry.append(rnd)
+    assert got_counts == bc["blocked"]["counts"], \
+        f"blocked counts recompute to {got_counts}, file says {bc['blocked']['counts']}"
+    assert got_names == bc["blocked"]["names"], \
+        f"{len(got_names)} blocked names recomputed, file lists {len(bc['blocked']['names'])}"
+    assert dry == bc["blocked"]["rounds_with_no_legal_option"], \
+        f"rounds with no legal option recompute to {dry}, file says " \
+        f"{bc['blocked']['rounds_with_no_legal_option']}"
+
+    # every choke point must actually do what it claims, and no more
+    for cp in bc["choke_points"]:
+        rnd = cp["round"]
+        assert any(p["rnd"] == rnd and p["team"] == cp["baseline_team"] for p in base), \
+            f"choke point {cp['id']} says R{rnd} is {cp['baseline_team']}, baseline disagrees"
+        swapped = [dict(p, team=cp["swap_team"]) if p["rnd"] == rnd else p for p in base]
+        cap1 = capped(swapped)
+        for wk in cp["frees_weeks"]:
+            assert wk in cap0 and wk not in cap1, \
+                f"{cp['id']} claims it frees W{wk}; recompute says otherwise"
+        for r in cp["fixes_rounds"]:
+            assert r in dry and split(r, cap1)[1] > 0, \
+                f"{cp['id']} claims it fixes R{r}; recompute says otherwise"
+        # an empty or partial fixes_rounds must be honest, not just unstated
+        for r in dry:
+            if r not in cp["fixes_rounds"]:
+                assert split(r, cap1)[1] == 0, \
+                    f"{cp['id']} silently fixes R{r} but does not claim it"
+    return (f"{len(got_names)} names blocked at baseline, R{dry} dry, "
+            f"{len(bc['choke_points'])} choke points verified")
 
 # --------------------------------------------------------------- report
 def report() -> int:
