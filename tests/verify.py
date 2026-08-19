@@ -1312,6 +1312,45 @@ def _():
     return (f"{len(claimed)} weeks tracked, "
             f"W5 supply {len(supply.get(5, ()))} vs need {tgt[5]}")
 
+@check("grade scores the finished roster against the bye partition")
+def _():
+    """Rep 23 (8/19) ran four weeks OVER cap and four weeks UNDER, balanced
+    exactly - one redistribution error, not four - and skipping W14 entirely is
+    what forced the first breach, since eight weeks at cap 2 hold only 16 of its
+    17 players. audit() reported the four overs and was silent on the four empty
+    slots and on the cause, because it was written when the cap read as a
+    ceiling. bye_rule.partition proves it is not one. Both directions are
+    asserted so the report cannot become unconditional, and the exact case is
+    pinned to data/ideal_roster.txt so a board reprice that breaks the ideal
+    line fails here too."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    from pathlib import Path
+    tgt = {t["week"]: t["exactly"] for t in load("bye_rule")["partition"]["targets"]}
+    seed = load("bye_rule")["seeding_week"]["week"]
+
+    ideal = parse_picks(Path(ROOT / "data" / "ideal_roster.txt").read_text())
+    assert len(ideal) == load("league")["draft"]["rounds"], "ideal roster is not a full draft"
+    rep = grade(ideal, "MIDDLE")
+    assert "BYE PARTITION: exact" in rep, \
+        f"the solved ideal roster must hit the partition exactly: {rep}"
+
+    # rep 23: four over, four under, W14 empty
+    r23 = parse_picks(
+        "1 RB DET Jahmyr Gibbs\n2 QB NYG Jaxson Dart\n3 RB KC Kenneth Walker III\n"
+        "4 WR NYG Malik Nabers\n5 TE IND Tyler Warren\n6 QB TB Baker Mayfield\n"
+        "7 WR TEN Carnell Tate\n8 RB NE Rhamondre Stevenson\n9 QB GB Jordan Love\n"
+        "10 WR IND Josh Downs\n11 RB MIN Jordan Mason\n12 RB SEA Zach Charbonnet\n"
+        "13 WR TB Jalen McMillan\n14 RB SF Kaelon Black\n15 WR IND Keenan Allen\n"
+        "16 DST LAC Chargers\n17 K TB Chase McLaughlin\n")
+    rep = grade(r23, "MIDDLE")
+    assert "BYE PARTITION OFF by 4" in rep, f"rep 23 is off by 4: {rep}"
+    assert "4 week(s) over, 4 week(s) under" in rep, "both directions must be counted"
+    assert f"W{seed}  0 held, target {tgt[seed]}" in rep, \
+        "an EMPTY seeding week must be reported - it is what forces the overflow"
+    assert "SAME error" in rep, "over and under must be tied together, not listed apart"
+    return f"exact and off-by-4 cases both covered, {len(tgt)} weeks targeted"
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

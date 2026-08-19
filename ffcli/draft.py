@@ -578,6 +578,7 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
 
     out.append(ledger_report(picks))
     out += rb_floor_report(picks)
+    out += partition_report(picks)
     out += qb_tier_report(picks)
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
@@ -698,6 +699,44 @@ def team_counts(picks: list[dict]) -> dict[str, int]:
     for p in picks:
         counts[p["team"]] = counts.get(p["team"], 0) + 1
     return counts
+
+
+def partition_report(picks: list[dict]) -> list[str]:
+    """Score a finished roster against the zero-slack bye partition.
+
+    Added 8/19 after rep 23. audit() flags weeks OVER the cap and says nothing
+    about weeks under it, which was the right report when the cap read as a
+    ceiling. bye_rule.partition proves it is not one: nine weeks x cap 2 minus
+    W14's banned second slot is exactly 17 usable slots for 17 picks, so every
+    legal roster hits an exact partition and a week at ZERO is as broken as a
+    week at three. Rep 23 ran four weeks over and four weeks under - one
+    redistribution error, not four independent ones - and skipping W14 entirely
+    is what forced the first breach, since eight weeks at cap 2 hold only 16 of
+    its 17 players. None of that was visible in the grade.
+    """
+    from .config import bye_of
+    br = load("bye_rule")
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    tally: dict[int, int] = {}
+    for p in picks:
+        wk = bye_of(p["team"])
+        if wk:
+            tally[wk] = tally.get(wk, 0) + 1
+    over = [(w, tally.get(w, 0), n) for w, n in sorted(tgt.items()) if tally.get(w, 0) > n]
+    under = [(w, tally.get(w, 0), n) for w, n in sorted(tgt.items()) if tally.get(w, 0) < n]
+    if not over and not under:
+        return ["BYE PARTITION: exact - every week on target, zero slack spent."]
+    out = [f"BYE PARTITION OFF by {sum(h - n for _, h, n in over)}: "
+           f"{len(over)} week(s) over, {len(under)} week(s) under"]
+    for w, h, n in over:
+        out.append(f"  W{w:<3} {h} held, target {n}   +{h - n}")
+    for w, h, n in under:
+        note = "  <- SEEDING WEEK, and it still needs a body" if w == br["seeding_week"]["week"] else ""
+        out.append(f"  W{w:<3} {h} held, target {n}   {h - n}{note}")
+    if over and under:
+        out.append("  These are the SAME error. The cap is a partition, not a ceiling - "
+                   "an empty week is what makes some other week overflow.")
+    return out
 
 
 def rb_floor_report(picks: list[dict]) -> list[str]:
