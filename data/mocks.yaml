@@ -372,3 +372,42 @@
   - bye_stack_w10
   - k_bye
   - tally_not_used
+- date: '2026-08-19'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  notes: 'THE PARTITION RULE PREDICTED THIS ROSTER ONE DAY AFTER IT WAS ENCODED, and it is the cleanest proof of
+    the finding the log will ever get. Four weeks over cap - W8 (NYG NYG SF), W10 (three BUCS), W11 (NE GB SEA)
+    and W13 (three COLTS) - and four weeks under: W5 at 1, W7 at 1, W9 at 1 and W14 at ZERO. Four slots over, four
+    slots under, balanced exactly. This is not four independent mistakes, it is one redistribution error. And the
+    direction is provable: with W14 empty the other eight weeks can hold at most sixteen players at cap 2, and this
+    roster has seventeen, so AT LEAST ONE BREACH WAS FORCED THE MOMENT W14 WAS SKIPPED. That is exactly the consequence
+    bye_rule.partition was written to name - a week at zero is as broken as a week at three - and it is the first
+    rep to demonstrate it. ff grade did NOT say any of this: it flagged the four over-cap weeks and stayed silent
+    on the four empty slots and on the cause. Grader fix follows in its own commit. THE IND CAP BROKE for the first
+    time since the 8/2 mock-B rep: Warren plus Downs plus KEENAN ALLEN is three Colts and three W13 bodies, and
+    the w13_is_spent_before_you_start conflict says W13 is fully allocated before the draft opens. Allen is the
+    third body in the one week the framework calls unsellable - the Dec 4 trade deadline sits inside W13, so this
+    exposure cannot be traded away later. TAMPA BAY is the other three-stack and the kicker is what did it: Mayfield
+    at R6, McMillan at R13, then Chase McLaughlin at R17. The K bye clause exists precisely to stop the kicker being
+    the body that tips a week, and W10 already held two Bucs. McLaughlin is also off the named kicker board. Jaxson
+    Dart at pick 20 is OFF BOARD - not on any qb_board tier - which is the second straight rep spending the most
+    important pick on an unpriced arm. Mayfield at R6 is at market and Love at R9 is VALUE, so again the two arms
+    bought later were the two priced correctly. REAL WINS, and they are the structural ones: RB floor met at every
+    gate for the second straight rep, ledger exact for the tenth time, no fade drafted, Aubrey refused, and a KC
+    body (Walker) taken at R3 - the first deliberate-looking W5 pick since the W5 supply gap was written down, though
+    it needed a second one. Downs was taken again but at R10, one round past the tightened window.'
+  errors:
+  - bye_stack_w8
+  - bye_stack_w10
+  - bye_stack_w11
+  - bye_stack_w13
+  - w14_empty
+  - ind_breach
+  - team_stack_tb
+  - qb1_off_tier
+  - k_bye
+  - downs_late
+  - tally_not_used
+  - grader_blind_partition
