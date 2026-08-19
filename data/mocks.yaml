@@ -337,3 +337,38 @@
   - downs_not_drafted
   - tally_not_used
   - grader_blind_rb_floor
+- date: '2026-08-19'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'ELEVEN OF ELEVEN and the cleanest STRUCTURE in the log, undone by the worst QB PRICING in the log. Third
+    slot-5 rep to score 11/11, fourth overall. Two genuine firsts. (1) JOSH DOWNS WAS DRAFTED, at R8 inside the
+    tightened R7-R9 window - he had never been taken in ANY slot-5 rep before this, and downs_not_drafted or downs_late
+    appears in eleven reps across the log. Paired with Warren that puts IND at exactly 2 and W13 at exactly 2, which
+    is the textbook execution of the single highest-value conflict rule in targets.yaml. (2) NO W5 STACK. bye_stack_w5
+    had appeared in five of the six previous slot-5 reps; this roster has one Chief and nothing else. Also clean:
+    RB floor met at every gate (2by4/3by8/5by12) - the fix for rep 21''s breach, and the first roster graded by
+    the new floor report - ledger exact for the ninth time, zero clubs at 3+, no fade drafted, Aubrey refused, K
+    and DST in the right rounds. Gibbs at pick 5 is the R1 rewrite working as intended: adp.yaml says he goes 1.01,
+    he fell, and a fall is exactly what the board says to take. NOW THE COST. THE QB LADDER WAS INVERTED. Bo Nix
+    at pick 20 is a QB2-window arm bought three rounds early at the pick CLAUDE.md calls the most important on the
+    board - the round where an elite-six arm is expected to be sitting. Jared Goff at R6 is a QB3-VET arm, market
+    R9-R13, bought at pick 68 as the QB2. Jordan Love at R9 is a QB2-window arm at pick 101, graded VALUE. So the
+    best-priced arm was the one bought last, and picks 20 and 68 both paid over tier. The counterfactual is exact
+    and costs nothing: elite six at 20, Love at R6 where he is priced, Goff at R9 where he is priced. Same three
+    arms in shape, same three distinct byes, a materially better QB1. Two reaches is the most this log has recorded
+    in one rep. AND THE BYES BROKE ANYWAY. W6 has FOUR - Gibbs (DET), Goff (DET), Mason (MIN), McPherson (CIN) -
+    and W10 has THREE - Nix (DEN), Gainwell (TB), McMillan (TB). Both weeks are unwinnable for the weekly high-score
+    payout. The two QB reaches are also both bye problems: Goff is the second Lion and the third W6 body. The kicker
+    is the avoidable one - the K bye clause says take the kicker whose bye is NOT at cap, and W6 already held three
+    when McPherson was taken. Allgeier again, tenth time in the log; W14 was clear so he is legal as the first seeding-week
+    body. Structure is now solved at this slot. What is left is pricing and the bye tally, and both are read-the-sheet
+    problems, not understanding problems.'
+  errors:
+  - qb1_off_tier
+  - qb2_off_tier
+  - bye_stack_w6
+  - bye_stack_w10
+  - k_bye
+  - tally_not_used
