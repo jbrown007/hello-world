@@ -1234,6 +1234,84 @@ def _():
         "floor gates must stay silent on a script shorter than a full draft"
     return f"{len(gates)} gates on finished rosters; breach, clean and partial covered"
 
+@check("bye partition is arithmetically forced and matches the roster size")
+def _():
+    """The finding of 8/19: nine bye weeks x cap 2 = 18 slots, minus W14's
+    banned second slot = 17 usable, against a 17-pick roster. SLACK IS ZERO, so
+    the cap is an exact partition rather than a ceiling. Every number is
+    recomputed from byes.yaml, bye_rule.yaml and league.yaml - if the bye map,
+    the cap or the roster size ever changes, the documented partition is wrong
+    and this fails instead of quietly lying. Also guards the direction of the
+    finding: a week at ZERO is as broken as a week at three, so the targets must
+    account for every pick."""
+    from ffcli.config import load
+    br, lg, by = load("bye_rule"), load("league"), load("byes")
+    cap = br["cap"]["max_per_week"]
+    sw = br["seeding_week"]
+    picks = lg["draft"]["rounds"]
+    assert sw["week"] in by, f"seeding week W{sw['week']} is not a real bye week"
+    usable = cap * len(by) - (cap - sw["max_players"])
+    assert usable == picks, (
+        f"partition broken: {len(by)} weeks x cap {cap} minus "
+        f"{cap - sw['max_players']} banned seeding slot(s) = {usable}, "
+        f"roster is {picks} picks")
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    assert set(tgt) == set(by), \
+        f"targets cover {sorted(tgt)}, byes.yaml has {sorted(by)}"
+    assert sum(tgt.values()) == picks, \
+        f"targets sum to {sum(tgt.values())}, roster is {picks} - every pick must land somewhere"
+    assert tgt[sw["week"]] == sw["max_players"], "seeding-week target contradicts the seeding rule"
+    for w, n in tgt.items():
+        assert 0 < n <= cap, f"W{w} target {n} is not between 1 and the cap"
+    return f"{len(by)} weeks x {cap} - 1 = {usable} slots = {picks} picks, slack 0"
+
+
+@check("board supply gaps match what the boards can actually field")
+def _():
+    """bye_rule.supply_gap says the named board cannot field the partition -
+    W5 needs two bodies and offers ZERO that are not a fade or a demoted arm,
+    which is why bye_stack_w5 is in five of six slot-5 reps and why Brooks has
+    been drafted seven times. Prose about a gap goes stale the moment a board is
+    repriced, so the supply is recomputed from targets.yaml the way a drafter
+    reads it - take entries only, less fades and the never list - and compared
+    against every short and thin week the file claims. Adding a real W5 name
+    closes the gap and fails this until the file is updated."""
+    from ffcli.config import load
+    import collections
+    br, T = load("bye_rule"), load("targets")
+    fades = {f["player"] for f in load("depth_board").get("fades", [])}
+    never = {e if isinstance(e, str) else e.get("player")
+             for e in load("qb_board").get("never", [])}
+    assert fades, "no fades loaded - the filter would be vacuous"
+    supply = collections.defaultdict(set)
+    for r in T["rounds"]:
+        for p in r["take"]:
+            if p["team"] == "-" or p["player"] in fades or p["player"] in never:
+                continue
+            supply[p["bye"]].add(p["player"])
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    claimed = {}
+    for key in ("short", "thin"):
+        for row in br["supply_gap"].get(key) or []:
+            w = row["week"]
+            claimed[w] = key
+            assert row["need"] == tgt[w], \
+                f"W{w} supply_gap says need {row['need']}, partition says {tgt[w]}"
+            got = len(supply.get(w, ()))
+            assert got == row["named_draftable"], \
+                f"W{w} recomputes to {got} draftable names, file says {row['named_draftable']}"
+            if key == "short":
+                assert got < row["need"], f"W{w} listed short but supply {got} meets need {row['need']}"
+            else:
+                assert row["need"] <= got <= row["need"] + 1, \
+                    f"W{w} listed thin but supply is {got} against need {row['need']}"
+    # nothing genuinely short may go unlisted
+    for w, need in tgt.items():
+        if len(supply.get(w, ())) < need:
+            assert claimed.get(w) == "short", f"W{w} is short and not listed in supply_gap"
+    return (f"{len(claimed)} weeks tracked, "
+            f"W5 supply {len(supply.get(5, ()))} vs need {tgt[5]}")
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

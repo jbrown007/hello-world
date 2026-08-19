@@ -1,0 +1,102 @@
+# BYE RULE - the cap, and the partition it forces. Derived 8/19.
+#
+# Until now the 2-per-week cap existed only as a Python default and, worse, as
+# a read of stack_caps.named[0].max_starters - the INDIANAPOLIS team cap, which
+# happens to equal 2. The league-wide bye cap was silently inheriting a
+# team-specific number. This file is the single source; ff grade and ff draft
+# read it here.
+
+cap:
+  max_per_week: 2
+  why: >
+    Two players out in one week is survivable. Three loses the week, and the
+    weekly high-score payout with it. This is the oldest unfixed error in the
+    log - present in 16 of 22 reps.
+
+seeding_week:
+  week: 14
+  max_players: 1
+  forbidden_positions: [QB, K, TE]
+  why: >
+    W14 decides the playoff seed and only DAL and ARI are on bye in it. One
+    body is survivable and, per the partition below, unavoidable. Two is not.
+
+# ---------------------------------------------------------------------------
+# THE PARTITION. This is the finding, and it changes how the cap should be read.
+# ---------------------------------------------------------------------------
+partition:
+  found: '8/19'
+  severity: HARD
+  proof: >
+    Nine bye weeks times a cap of 2 is 18 roster slots. W14's second slot is
+    banned by the seeding rule, leaving 17 usable. The roster is 17 picks.
+    SLACK IS ZERO. There is no W12 bye to absorb anything.
+  therefore: >
+    THE CAP IS NOT A CEILING TO STAY UNDER - IT IS AN EXACT PARTITION TO HIT.
+    Every legal roster holds EXACTLY two players on each of W5 W6 W7 W8 W9 W10
+    W11 and W13 and EXACTLY ONE on W14. Two consequences the old reading missed.
+    First, going over on any week does not cost one slot - it makes some other
+    week impossible to fill, and you do not discover that until R14 or R17,
+    which is why the error compounds instead of self-correcting. Second, a week
+    at ZERO is just as broken as a week at three: you MUST draft a W14 body and
+    you MUST draft two W5 bodies. Avoiding W14 entirely is not a safe play, it
+    is an infeasible one.
+  targets:
+  - {week: 5, exactly: 2}
+  - {week: 6, exactly: 2}
+  - {week: 7, exactly: 2}
+  - {week: 8, exactly: 2}
+  - {week: 9, exactly: 2}
+  - {week: 10, exactly: 2}
+  - {week: 11, exactly: 2}
+  - {week: 13, exactly: 2}
+  - {week: 14, exactly: 1}
+  verified_by: >
+    data/ideal_roster.txt hits this partition exactly and grades 11/11 with
+    zero bye warnings - the first clean bye sheet in 22 reps.
+
+# ---------------------------------------------------------------------------
+# WHERE THE BOARDS CANNOT MEET THE PARTITION.
+# ---------------------------------------------------------------------------
+supply_gap:
+  found: '8/19'
+  severity: HARD
+  method: >
+    Supply is every take entry across the seventeen rounds of targets.yaml -
+    what ff targets actually prints and what a drafter actually reads - less
+    the fades, the qb_board never list and the placeholder rows. Refusals on an
+    avoid list are not supply. The suite recomputes this, so it cannot drift.
+  short:
+  - week: 5
+    need: 2
+    named_draftable: 0
+    pool: [KC, CAR]
+    the_only_w5_names_anywhere:
+    - 'Jonathon Brooks (CAR) - depth_board FADE, two torn ACLs'
+    - 'Patrick Mahomes (KC) - DEMOTED 8/16 off the R3 anchor tier'
+    therefore: >
+      THE BOARD REQUIRES TWO PLAYERS IT REFUSES TO NAME. This single gap
+      explains two of the longest-running errors at once. bye_stack_w5 appears
+      in five of six slot-5 reps because nothing tells you the W5 target is
+      exactly two, so the bodies arrive by accident and overshoot. And Brooks
+      has been drafted seven times - the most-taken name on the depth board -
+      because he is the only W5 name in the repo and the board says fade him.
+      ACTION: go in knowing you need two Chiefs or Panthers and choose them on
+      purpose. Josh's own reps show them reachable at his picks - Kenneth
+      Walker III (KC) at R2-R3, Tetairoa McMillan (CAR) at R4, Bryce Young
+      (CAR) at R9. Fill this properly at the Aug 25 ADP pass.
+  thin:
+  - week: 9
+    need: 2
+    named_draftable: 3
+    note: >
+      PIT and TEN only. Ward and Rodgers are both W9 QBs so they cannot both be
+      taken - QB triangulation forbids it - which leaves Dowdle plus one arm as
+      effectively the whole week.
+  - week: 13
+    need: 2
+    named_draftable: 2
+    note: >
+      Warren and Downs, and nothing else. Exactly enough, which is why the
+      w13_is_spent_before_you_start conflict in targets.yaml is written the way
+      it is. Zero margin: lose either and W13 cannot be filled from the board.

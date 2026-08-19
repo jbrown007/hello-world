@@ -215,7 +215,7 @@ def bye_block(teams: list[str], board_teams: set[str] | None = None) -> list[str
     This puts the count on the pick screen, where the decision happens.
     """
     from .config import bye_of, byes as _byes
-    cap = named_caps()[0]["max_starters"] if named_caps() else 2
+    cap = load("bye_rule")["cap"]["max_per_week"]
     tally: dict[int, list[str]] = {}
     for t in teams:
         wk = bye_of(t)
@@ -592,8 +592,12 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
         out.append(f"QB triangulation ok: byes {', '.join(f'W{w}' for w in sorted(qb_byes))}.")
 
     # Full team list WITH duplicates - three Cardinals are three players out,
-    # not one. audit() counts occurrences.
-    res = audit([p["team"] for p in picks], max_per_week=cap["max_starters"])
+    # not one. audit() counts occurrences. The per-week cap comes from
+    # bye_rule, NOT from cap["max_starters"] - that is the INDIANAPOLIS team
+    # cap, and reading the league-wide bye cap out of one club's named cap was
+    # a latent bug (fixed 8/19): it only worked because both happen to be 2.
+    res = audit([p["team"] for p in picks],
+                max_per_week=load("bye_rule")["cap"]["max_per_week"])
     out.append("\nBYES")
     for wk, names in sorted(res["grouped"].items()):
         out.append(f"  W{wk:<3} {', '.join(names)}")
