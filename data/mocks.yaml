@@ -411,3 +411,38 @@
   - downs_late
   - tally_not_used
   - grader_blind_partition
+- date: '2026-08-20'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  notes: 'BEST BYE SHEET OF THE LOG AND THE WORST SINGLE PICK OF THE LOG, in the same roster. THE W5 GAP WAS CLOSED,
+    one day after it was written down: Walker III (KC) at R3 and Tetairoa McMillan (CAR) at R4 is EXACTLY TWO W5
+    bodies, the first time any rep has deliberately filled the week the boards cannot name. W14 landed on exactly
+    one (Allgeier). The partition came in OFF BY ONE - W6 at three, W8 at one - against off-by-four in rep 23 the
+    day before. Triangulation clean, no club at 3+, RB floor met at every gate for the third straight rep. THE OFF-BY-ONE
+    AND THE LEDGER BREAK ARE THE SAME PICK, and this is the lesson of the rep. R15 took Ollie Gordon II (RB, MIA,
+    W6). That is simultaneously the SEVENTH back against a ledger of six, the fourth receiver against a ledger of
+    five, and the body that tipped W6 to three. Replacing that one pick with Jayden Higgins (WR, HOU, W8) - already
+    a named target on this board''s own R13 and R15 lines - produces ledger met AND bye partition exact, verified
+    with ff grade. One pick, three rules, all three fixed by the same substitution. The ledger and the partition
+    are not separate disciplines; at zero slack they are the same constraint viewed from two sides. TREVOR LAWRENCE
+    AT PICK 20 IS A REACH BY SEVEN ROUNDS, the largest in the log. He is a QB3-VET tier arm priced R9-R13, bought
+    at the pick CLAUDE.md calls the most important on the board. This is the THIRD STRAIGHT REP mispricing pick
+    20 - Nix (reach 3), Dart (off board), now Lawrence (reach 7) - and each time the arms bought later came in correctly:
+    Love at R6 at market, Ward at R9 VALUE. The pattern is not knowledge, it is sequence. He is buying the cheap
+    arm first and the priced arm last. BATEMAN DRAFTED at R14 - a depth-board FADE and a name the w13 conflict refuses
+    BY NAME. The kicker and defense are both off their boards (Vikings D/ST, Tyler Bass) and the Vikings are the
+    W6 body that made three, the same K/DST-tips-a-week failure as rep 23. Downs not drafted at all. Allgeier for
+    the eleventh time, legal here as the single W14 body.'
+  errors:
+  - ledger_rb_over
+  - wr_short
+  - bye_stack_w6
+  - qb1_off_tier
+  - fade_drafted_bateman
+  - downs_not_drafted
+  - k_bye
+  - dst_off_board
+  - k_off_board
+  - tally_not_used
