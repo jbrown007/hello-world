@@ -123,6 +123,41 @@ bye_capacity:
     and becomes the only named back left - take him as your FIRST W14 body and
     never the second, and never with a W14 kicker.
 
+# ---------------------------------------------------------------------------
+# THE R14-R15 W6 TRAP. Named 8/21 after two consecutive reps took the SAME PAIR.
+# ---------------------------------------------------------------------------
+w6_late_trap:
+  found: '8/21'
+  severity: HARD
+  weeks: [6]
+  pair:
+  - {player: Jauan Jennings, team: MIN, bye: 6}
+  - {player: Malik Washington, team: MIA, bye: 6}
+  note: >
+    Rep 25 took Washington at R14 and Jennings at R15. Rep 26 took the IDENTICAL
+    PAIR with the rounds swapped - Jennings at R14 and Washington at R15. Same
+    two players, same two W6 byes, back to back. They are evidently what the
+    board surfaces at the tail of the WR list, and taking both puts two bodies
+    on the single most crowded week in the default build.
+  why_w6_is_the_crowded_one: >
+    W6 is CIN DET MIA MIN, and the default line already routes through it hard:
+    St. Brown or Gibbs at R1, Chase Brown or Achane as an early back, Goff or
+    Murray in the QB window, Jordan Mason at R11 or R14, McPherson on the kicker
+    board. By R14 W6 is usually at or past target, so the last two skill picks
+    are exactly where it tips.
+  evidence: >
+    Rep 26 finished with FIVE players on W6 - Gibbs, Willis, Mason, Jennings,
+    Washington - the worst single-week hole ever recorded at slot 5. It was
+    legal through R9 and then broke three times running at R11, R14 and R15.
+    Rep 25 finished with four on W6 off the same R14/R15 pair.
+  therefore: >
+    TAKING BOTH IS A HARD REFUSE. At most one of Jennings or Washington, and
+    only if W6 is genuinely under target when you get there - check the tally,
+    do not assume. The partition says the last two skill picks belong on
+    whichever weeks are still short, which in this build is almost never W6.
+    Both reps left W8 at one with four teams available; that is where these
+    picks should have gone.
+
 rb:
 - player: Rico Dowdle
   team: PIT

@@ -1418,6 +1418,43 @@ def _():
     assert "partition fillers" not in grade(ideal, "MIDDLE"), "exact roster must be silent"
     return "misplaced K/DST named, correct placement silent, superseded rule retained"
 
+@check("the R14-R15 W6 trap names a real pair on a real week")
+def _():
+    """Named 8/21 after reps 25 and 26 took the IDENTICAL two receivers at
+    R14/R15 with the rounds swapped - Jennings (MIN) and Washington (MIA), both
+    W6 - and rep 26 finished with five players on W6, the worst single-week hole
+    ever recorded at this slot. The trap is only worth stating if every claim in
+    it is still true, so the pair's byes, the week's crowding and the refusal
+    itself are all recomputed rather than trusted."""
+    from ffcli.config import load, bye_of
+    import collections
+    trap = load("depth_board")["w6_late_trap"]
+    tgt = {t["week"]: t["exactly"] for t in load("bye_rule")["partition"]["targets"]}
+    wk = trap["weeks"][0]
+    assert trap["severity"] == "HARD", "taking both must be a hard refuse"
+
+    # the named pair must be real, and must actually share the trap's week
+    assert len(trap["pair"]) == 2, "the trap is about a PAIR"
+    for p in trap["pair"]:
+        real = bye_of(p["team"])
+        assert real == p["bye"] == wk, \
+            f"{p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{real}, trap is W{wk}"
+    assert len({p["team"] for p in trap["pair"]}) == 2, \
+        "two players from the SAME club would be a stack-cap issue, not this trap"
+
+    # the week must genuinely be crowded on the boards, or the trap is folklore
+    supply = collections.Counter()
+    for r in load("targets")["rounds"]:
+        for e in r["take"]:
+            if e["team"] != "-":
+                supply[e["bye"]] += 1
+    assert supply[wk] > tgt[wk] * 2, \
+        f"W{wk} offers only {supply[wk]} named bodies against a target of {tgt[wk]} - not a crowded week"
+    busiest = max(supply, key=lambda w: supply[w])
+    assert supply[wk] >= supply[busiest] * 0.6, \
+        f"W{wk} is not among the crowded weeks (W{busiest} has {supply[busiest]})"
+    return f"pair verified on W{wk}, {supply[wk]} named bodies vs target {tgt[wk]}"
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2
