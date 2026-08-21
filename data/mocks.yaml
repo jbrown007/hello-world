@@ -446,3 +446,36 @@
   - dst_off_board
   - k_off_board
   - tally_not_used
+- date: '2026-08-21'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'ELEVEN OF ELEVEN, fifth in the log and fourth at this slot, with the best COMMITMENT execution yet - and
+    the bye partition went BACKWARD, off by four against off by one yesterday. WHAT WAS EXCELLENT: Josh Downs at
+    R7, dead centre of the tightened R7-R9 window rather than scraping the deadline, which puts IND at exactly 2
+    and W13 at exactly 2 - the highest-value conflict rule in targets.yaml executed perfectly for the second time.
+    Ledger exact for the eleventh time. RB floor met at every gate for the FOURTH straight rep; that error is now
+    genuinely dead. No club at 3+, no fade drafted, Aubrey refused, triangulation clean, and Allgeier taken as the
+    single legal W14 body. Every commitment hit. WHAT BROKE, and it is all in the depth rounds: W6 finished with
+    FOUR (Gibbs, Murray, Washington, Jennings), W7 and W10 with three each, while W8 sat at ZERO all draft. W8 is
+    not a scarce week - it holds NYG, HOU, NO and SF - it was simply never visited. Three of the four over-cap bodies
+    came at R12 or later: Lemon (PHI W10) at R12, Washington (MIA W6) at R14, Jennings (MIN W6) at R15. The R14
+    and R15 picks are the clearest miss in the rep - two consecutive receivers onto a week that already held two,
+    with an entirely empty four-team week available. THE K/DST PATTERN IS NOW FOUR FOR FOUR. In every rep since
+    8/19 one of the two R16-R17 picks has tipped a week over cap: McPherson made W6 a four in rep 22, McLaughlin
+    made W10 a three in rep 23, the Vikings D/ST made W6 a three in rep 24, and the Chargers D/ST made W7 a three
+    here. These are the two most fungible picks on the board, taken when fifteen players are already known and the
+    short weeks are fully determined. Rule sharpened in the same session - R16/R17 are partition fillers, not best-available.
+    PICK 20 MISPRICED FOR THE FOURTH STRAIGHT REP and this time it is the identical pick to yesterday: Trevor Lawrence,
+    a QB3-VET arm priced R9-R13, bought at pick 20. REACH BY SEVEN, twice running. Murray at R6 at market and Love
+    at R9 VALUE, so once again the two arms bought later were the two priced correctly. Nix reach 3, Dart off board,
+    Lawrence reach 7, Lawrence reach 7. This is the only error left that is not mechanical.'
+  errors:
+  - bye_stack_w6
+  - bye_stack_w7
+  - bye_stack_w10
+  - w8_empty
+  - qb1_off_tier
+  - k_bye
+  - tally_not_used
