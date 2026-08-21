@@ -56,11 +56,44 @@ rules:
     BAL, and the Colts D/ST is the obvious "I already own Colts" pick and was
     taken in the 8/16 rep. Both are third W13 bodies.
 - id: bye_decides_among_equals
-  severity: HARD
+  severity: SUPERSEDED 8/21
+  superseded_by: r16_r17_are_partition_fillers
   rule: >
     Run `ff draft --teams ...` before both picks. It prints the live tally and
     the DO NOT DRAFT list. Take the highest name on these boards that is not on
     that list. Do not take a higher-ranked kicker onto a capped week.
+  why_superseded: >
+    Kept in writing rather than dropped. This rule said AVOID a capped week,
+    which is necessary but not sufficient once the partition is known - the
+    roster is 17 picks against exactly 17 legal bye slots, so at R16 the last
+    two picks are not free to land anywhere uncapped, they must land on the two
+    weeks still UNDER target. Following the old wording, a defense could sit on
+    a week already holding two while another week held none, and be judged
+    compliant. The replacement is below.
+- id: r16_r17_are_partition_fillers
+  severity: HARD
+  added: '8/21'
+  rule: >
+    AT R16 AND R17 YOU ARE NOT PICKING PLAYERS - YOU ARE FILLING THE TWO WEEKS
+    THAT ARE STILL SHORT. You hold fifteen players, so the partition is fully
+    determined and arithmetic decides both picks. Compute which weeks are under
+    target, then take the best kicker and defense that land on them. The
+    ranking picks the shortlist and the PARTITION picks the player; if that
+    means K6 over K2 it costs almost nothing, because K1 through K8 are close
+    to flat and a mandatory starter dark in a payout week costs that week
+    outright.
+  evidence: >
+    FOUR CONSECUTIVE REPS, 8/19 to 8/21, in which one of the two R16-R17 picks
+    tipped a week OVER cap. Rep 22: McPherson (CIN) made W6 a FOUR. Rep 23:
+    McLaughlin (TB) made W10 a three and a third Buccaneer. Rep 24: the Vikings
+    D/ST made W6 a three. Rep 25: the Chargers D/ST made W7 a three while W8
+    sat at ZERO. Every one of these was avoidable with information already in
+    hand at the pick, which is what makes it the cheapest error on the board.
+  therefore: >
+    If no listed kicker or defense fits a short week, the shortlist is wrong,
+    not the rule - go outside these boards for a body on the right bye. K and
+    D/ST are the two most fungible picks in the draft and the last two chances
+    to balance the partition.
 
 # ---------------------------------------------------------------------------
 kickers:

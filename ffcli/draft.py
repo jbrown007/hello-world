@@ -736,6 +736,21 @@ def partition_report(picks: list[dict]) -> list[str]:
     if over and under:
         out.append("  These are the SAME error. The cap is a partition, not a ceiling - "
                    "an empty week is what makes some other week overflow.")
+    # The last two picks are the cheapest to get right and have been the most
+    # reliably wrong: one of R16/R17 tipped a week over cap in four straight
+    # reps, 8/19-8/21. At those picks fifteen players are known, so the short
+    # weeks are fully determined - k_dst_board.r16_r17_are_partition_fillers.
+    short = {w for w, _, _ in under}
+    for p in picks:
+        if p["pos"] not in ("K", "DST"):
+            continue
+        wk = bye_of(p["team"])
+        held = tally.get(wk, 0)
+        if wk and held > tgt.get(wk, 0) and short:
+            out.append(
+                f"  R{p['round']} {p['pos']} {p['player']} ({p['team']}) sits on W{wk}, "
+                f"already over target - and W{'/W'.join(str(w) for w in sorted(short))} "
+                f"needed a body. R16/R17 are partition fillers, not best-available.")
     return out
 
 

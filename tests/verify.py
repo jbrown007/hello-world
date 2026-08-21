@@ -1351,6 +1351,73 @@ def _():
     assert "SAME error" in rep, "over and under must be tied together, not listed apart"
     return f"exact and off-by-4 cases both covered, {len(tgt)} weeks targeted"
 
+@check("K/DST are flagged when they land off the partition")
+def _():
+    """Rule r16_r17_are_partition_fillers, added 8/21 on four consecutive reps
+    where one of the last two picks tipped a week over cap: McPherson made W6 a
+    four, McLaughlin made W10 a three, the Vikings D/ST made W6 a three, the
+    Chargers D/ST made W7 a three while W8 sat at ZERO. At R16 fifteen players
+    are held, so the short weeks are fully determined and these two fungible
+    picks should fill them. The grade must name it when they do not, and must
+    stay quiet when they do - a nag that always fires would be ignored by R17."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    from pathlib import Path
+    rules = {r["id"]: r for r in load("k_dst_board")["rules"]}
+    new = rules["r16_r17_are_partition_fillers"]
+    assert new["severity"] == "HARD", "the partition-filler rule must be HARD"
+    old = rules["bye_decides_among_equals"]
+    assert str(old["severity"]).startswith("SUPERSEDED"), \
+        "the weaker avoid-a-capped-week rule must be marked superseded, not left live"
+    assert old["superseded_by"] == "r16_r17_are_partition_fillers", \
+        "a superseded rule must name its replacement - never silently dropped"
+
+    # rep 25: the DST sat on an over-target week while three weeks were short
+    r25 = parse_picks(
+        "1 RB DET Jahmyr Gibbs\n2 QB JAX Trevor Lawrence\n3 RB KC Kenneth Walker III\n"
+        "4 WR BUF DJ Moore\n5 TE IND Tyler Warren\n6 QB MIN Kyler Murray\n"
+        "7 WR IND Josh Downs\n8 RB TB Kenny Gainwell\n9 QB GB Jordan Love\n"
+        "10 RB LAR Blake Corum\n11 RB CHI Kyle Monangai\n12 WR PHI Makai Lemon\n"
+        "13 RB ARI Tyler Allgeier\n14 WR MIA Malik Washington\n15 WR MIN Jauan Jennings\n"
+        "16 DST LAC Chargers\n17 K PIT Chris Boswell\n")
+    rep = grade(r25, "MIDDLE")
+    assert "partition fillers" in rep, f"the misplaced D/ST must be named: {rep}"
+    assert "R16 DST" in rep and "W7" in rep, "the offending pick and its week must be identified"
+
+    # The negative case must exercise the CONDITION, not the exact-partition
+    # early return. Same rep 25 roster, still off the partition, but with the
+    # defense moved onto a week that is short (HOU/W8) instead of one already
+    # over (LAC/W7). The flag must go quiet even though the roster is still
+    # wrong overall - an always-on nag would be ignored by R17.
+    fixed = parse_picks("\n".join(
+        ln.replace("16 DST LAC Chargers", "16 DST HOU Houston")
+        for ln in """1 RB DET Jahmyr Gibbs
+2 QB JAX Trevor Lawrence
+3 RB KC Kenneth Walker III
+4 WR BUF DJ Moore
+5 TE IND Tyler Warren
+6 QB MIN Kyler Murray
+7 WR IND Josh Downs
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 RB LAR Blake Corum
+11 RB CHI Kyle Monangai
+12 WR PHI Makai Lemon
+13 RB ARI Tyler Allgeier
+14 WR MIA Malik Washington
+15 WR MIN Jauan Jennings
+16 DST LAC Chargers
+17 K PIT Chris Boswell""".splitlines()))
+    rep = grade(fixed, "MIDDLE")
+    assert "BYE PARTITION OFF" in rep, "fixture must still be off the partition overall"
+    assert "partition fillers" not in rep, \
+        "a K and D/ST on short weeks must not be nagged even on an imperfect roster"
+
+    # and the solved ideal roster stays silent too
+    ideal = parse_picks(Path(ROOT / "data" / "ideal_roster.txt").read_text())
+    assert "partition fillers" not in grade(ideal, "MIDDLE"), "exact roster must be silent"
+    return "misplaced K/DST named, correct placement silent, superseded rule retained"
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2
