@@ -479,3 +479,35 @@
   - qb1_off_tier
   - k_bye
   - tally_not_used
+- date: '2026-08-21'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'THE PICK-20 STREAK IS BROKEN, and it is the most important thing in this rep. Four straight reps had mispriced
+    pick 20 - Nix reach 3, Dart off board, Lawrence reach 7 twice. This one went BRANCH C correctly: Kenneth Walker
+    III (RB) at 20, then Caleb Williams at R3 (pick 29) graded TIER-2 ANCHOR AT MARKET, which is exactly what the
+    branch map says Branch C looks like. Love at R6 also at market. Two arms at market and neither bought early
+    is the best QB pricing since rep 22, and it was achieved by taking the SKILL player at 20 rather than reaching
+    for an arm - the sequence fix, not a knowledge fix. Sixth 11/11 in the log. ALSO EXCELLENT: Downs at R7 for
+    the SECOND STRAIGHT REP, dead centre of the window, IND at exactly 2 and W13 at exactly 2 again. Ledger exact
+    for the twelfth time. RB floor met at every gate for the FIFTH straight rep. Allgeier as the single legal W14
+    body. No club at 3+, no fade, Aubrey refused. AND THE K/DST PATTERN BROKE TOO: for the first time in five reps
+    NEITHER of the last two picks tipped a week - the Chargers D/ST took W7 from one to two (on target) and Boswell
+    filled an empty W9. The r16_r17_are_partition_fillers rule was written hours before this rep, so this is not
+    yet evidence it works, but it is the first clean pair. NOW THE DAMAGE: FIVE PLAYERS ON W6. Gibbs (DET R1), Willis
+    (MIA R9), Mason (MIN R11), Jennings (MIN R14), Washington (MIA R15). Five in one week has happened only twice
+    before in the whole log - slot 10 on W13 and slot 1 on W7 - and it is the worst single-week hole ever recorded
+    AT THIS SLOT, beating the four on W5 from 8/13. The week was legal through R9 and then broke three times running:
+    R11 made it three, R14 four, R15 five. Meanwhile W5, W8 and W9 all finished at one. Off by three overall, and
+    every over-cap body sat in a single week. THE R14/R15 PAIR IS NOW A NAMED TRAP. Rep 25 took Malik Washington
+    (MIA W6) at R14 and Jauan Jennings (MIN W6) at R15. This rep took the IDENTICAL PAIR with the rounds swapped
+    - Jennings R14, Washington R15. Same two players, same two W6 byes, back to back. These are evidently the default
+    suggestions at the end of the WR board and they are both on the most crowded week in the build. Encoded in depth_board
+    as a named late trap in the same session. Malik Willis at R9 is OFF BOARD as QB3 - a third distinct bye so triangulation
+    held, but he is also the second W6 body and the start of the pile.'
+  errors:
+  - bye_stack_w6
+  - w8_short
+  - qb3_off_board
+  - tally_not_used
