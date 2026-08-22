@@ -511,3 +511,34 @@
   - w8_short
   - qb3_off_board
   - tally_not_used
+- date: '2026-08-22'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'THE FIRST REP IN THE LOG WITH ZERO QB PRICING ERRORS. Herbert at R3 TIER-2 ANCHOR at market, Murray at
+    R6 QB2-window at market, Love at R9 VALUE - not one arm bought above tier, which has never happened before.
+    And it is the SECOND STRAIGHT rep built the same way: skill player at pick 20 (Walker III), Branch C anchor
+    at R3. Two reps ago this was the only non-mechanical error left in the framework; it now looks solved, and solved
+    by sequence rather than by memorising tiers. Seventh 11/11. Downs at R7 for the THIRD straight rep with IND
+    at exactly 2 and W13 at exactly 2. W5 filled at exactly 2 again (Walker KC + McMillan CAR), the second time
+    the supply gap has been closed deliberately. RB floor met at every gate for the sixth straight rep. Allgeier
+    as the single W14 body. No club at 3+, no fade drafted, Aubrey refused, triangulation clean. R15 IS AN EXACT
+    REPEAT OF REP 24 - SAME PLAYER, SAME ROUND, SAME THREE VIOLATIONS. Ollie Gordon II (RB, MIA, W6) at R15, identical
+    to 8/20. He is simultaneously the SEVENTH back against a ledger of six, the reason the roster finishes on FOUR
+    receivers instead of five, and the third body on W6. That is now three consecutive reps where the R14-R15 pair
+    broke the build: Washington+Jennings in rep 25, the same pair swapped in rep 26, Gordon here. The w6_late_trap
+    encoded yesterday names the receivers; it does not yet name Gordon, and it should - he is the RB version of
+    the same trap. THE NEW K/DST RULE CAUGHT A REAL ERROR ON ITS FIRST LIVE REP. The Buccaneers D/ST at R16 sits
+    on W10 which already held two, while W7 and W9 both needed a body, and ff grade named the pick, the week and
+    the weeks that wanted it. Boswell filled an empty W9 correctly. TWO PICKS FROM PERFECT, verified with ff grade:
+    swap R15 Gordon for a W9 receiver and R16 Bucs for the Jacksonville D/ST (W7) and this roster grades 11/11,
+    ledger met, RB floor met, and BYE PARTITION EXACT. That would be the first flawless rep in the log, and both
+    substitutions come off boards the framework already carries.'
+  errors:
+  - ledger_rb_over
+  - wr_short
+  - bye_stack_w6
+  - bye_stack_w10
+  - k_bye
+  - tally_not_used
