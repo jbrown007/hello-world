@@ -1418,7 +1418,7 @@ def _():
     assert "partition fillers" not in grade(ideal, "MIDDLE"), "exact roster must be silent"
     return "misplaced K/DST named, correct placement silent, superseded rule retained"
 
-@check("the R14-R15 W6 trap names a real pair on a real week")
+@check("the R14-R15 W6 trap names real bodies on a real week")
 def _():
     """Named 8/21 after reps 25 and 26 took the IDENTICAL two receivers at
     R14/R15 with the rounds swapped - Jennings (MIN) and Washington (MIA), both
@@ -1433,14 +1433,18 @@ def _():
     wk = trap["weeks"][0]
     assert trap["severity"] == "HARD", "taking both must be a hard refuse"
 
-    # the named pair must be real, and must actually share the trap's week
-    assert len(trap["pair"]) == 2, "the trap is about a PAIR"
-    for p in trap["pair"]:
+    # every named body must be real and must actually sit on the trap's week
+    names = trap["names"]
+    assert len(names) >= 2, "a trap about one player is just a fade"
+    for p in names:
         real = bye_of(p["team"])
         assert real == p["bye"] == wk, \
             f"{p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{real}, trap is W{wk}"
-    assert len({p["team"] for p in trap["pair"]}) == 2, \
-        "two players from the SAME club would be a stack-cap issue, not this trap"
+    assert len({p["team"] for p in names}) > 1, \
+        "all from one club would be a stack-cap issue, not a bye trap"
+    assert trap["rounds"] == sorted(trap["rounds"]) and all(
+        1 <= r <= load("league")["draft"]["rounds"] for r in trap["rounds"]), \
+        "the trap must name real, ordered rounds"
 
     # the week must genuinely be crowded on the boards, or the trap is folklore
     supply = collections.Counter()
@@ -1453,7 +1457,7 @@ def _():
     busiest = max(supply, key=lambda w: supply[w])
     assert supply[wk] >= supply[busiest] * 0.6, \
         f"W{wk} is not among the crowded weeks (W{busiest} has {supply[busiest]})"
-    return f"pair verified on W{wk}, {supply[wk]} named bodies vs target {tgt[wk]}"
+    return f"{len(names)} names verified on W{wk}, board offers {supply[wk]} vs target {tgt[wk]}"
 
 # --------------------------------------------------------------- report
 def report() -> int:

@@ -130,15 +130,24 @@ w6_late_trap:
   found: '8/21'
   severity: HARD
   weeks: [6]
-  pair:
-  - {player: Jauan Jennings, team: MIN, bye: 6}
-  - {player: Malik Washington, team: MIA, bye: 6}
+  rounds: [14, 15]
+  names:
+  - {player: Jauan Jennings, team: MIN, bye: 6, pos: WR}
+  - {player: Malik Washington, team: MIA, bye: 6, pos: WR}
+  - {player: Ollie Gordon II, team: MIA, bye: 6, pos: RB}
   note: >
-    Rep 25 took Washington at R14 and Jennings at R15. Rep 26 took the IDENTICAL
-    PAIR with the rounds swapped - Jennings at R14 and Washington at R15. Same
-    two players, same two W6 byes, back to back. They are evidently what the
-    board surfaces at the tail of the WR list, and taking both puts two bodies
-    on the single most crowded week in the default build.
+    THREE CONSECUTIVE REPS, 8/20 to 8/22, in which R14 or R15 put another body
+    on W6. Rep 25 took Washington at R14 and Jennings at R15. Rep 26 took the
+    identical pair with the rounds swapped. Rep 27 took Ollie Gordon II at R15 -
+    the exact pick rep 24 had already made, same player, same round. These are
+    evidently what the board surfaces at the tail of the skill lists, and every
+    one of them is W6.
+  gordon_is_the_worst_of_them: >
+    Gordon breaks THREE rules with one pick and did it twice, in reps 24 and 27
+    identically. He is the seventh back against a ledger of six, the reason the
+    roster finishes on four receivers instead of five, AND the third body on W6.
+    A single substitution at R15 fixes the ledger and the partition together -
+    verified with ff grade on both reps.
   why_w6_is_the_crowded_one: >
     W6 is CIN DET MIA MIN, and the default line already routes through it hard:
     St. Brown or Gibbs at R1, Chase Brown or Achane as an early back, Goff or
@@ -151,9 +160,10 @@ w6_late_trap:
     legal through R9 and then broke three times running at R11, R14 and R15.
     Rep 25 finished with four on W6 off the same R14/R15 pair.
   therefore: >
-    TAKING BOTH IS A HARD REFUSE. At most one of Jennings or Washington, and
-    only if W6 is genuinely under target when you get there - check the tally,
-    do not assume. The partition says the last two skill picks belong on
+    AT MOST ONE NAME FROM THIS LIST, and only if W6 is genuinely under target
+    when you get there - check the tally, do not assume. Taking two is a HARD
+    refuse. Gordon additionally requires that RB6 is still open, which at R15 it
+    usually is not. The partition says the last two skill picks belong on
     whichever weeks are still short, which in this build is almost never W6.
     Both reps left W8 at one with four teams available; that is where these
     picks should have gone.
