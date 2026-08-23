@@ -542,3 +542,35 @@
   - bye_stack_w10
   - k_bye
   - tally_not_used
+- date: '2026-08-23'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'EIGHTH 11/11 AND FOURTH IN A ROW, with the ledger exact for the thirteenth time and the RB floor met at
+    every gate for the SEVENTH straight rep. Downs at R7 for the FOURTH straight rep, IND at exactly 2, W13 at exactly
+    2. Caleb Williams at R3 TIER-2 ANCHOR at market - third straight rep taking the skill player at pick 20 and
+    the Branch C anchor at R3, so that fix is holding. Allgeier as the single W14 body. Partition off by only two.
+    THE W6 TRAP DID NOT FIRE, AND THAT IS THE RULE WORKING RATHER THAN LUCK. Ollie Gordon II was taken AGAIN, third
+    time in five reps, but at R14 with W6 holding only Gibbs - so he is the second W6 body, not the third, and W6
+    finished at exactly 2. The rule as written says at most one name from the list and only against a checked tally;
+    that is precisely what happened. Gordon is not a fade, he is a conditional, and this rep is what the condition
+    being satisfied looks like. THREE SAINTS IS THE HEADLINE ERROR. Shough (R6 QB), Tyson (R13 WR) and Charlie Smyth
+    (R17 K) are all New Orleans and all W8, firing the general 3+ stack flag and making W8 a three. The kicker is
+    the third body, which is the fourth time in six reps that the R16-R17 pair has broken a week. BOTH LAST PICKS
+    TIPPED A WEEK THIS TIME, which has not happened before - the Jaguars D/ST made W7 a three and Smyth made W8
+    a three, while W5 and W9 both sat at one. ff grade named both, by pick, week and the weeks that wanted them.
+    The r16_r17_are_partition_fillers rule is now 2 for 2 at catching real errors on live reps. SHOUGH AT R6 IS
+    A REACH BY THREE - a QB3-VET tier arm filling the QB2 slot. Williams at market and Love at R9 VALUE, so the
+    pattern holds that the arms bought later are priced correctly. TWO PICKS FROM PERFECT AGAIN, verified with ff
+    grade: make R12 a KC or CAR back instead of Chris Rodriguez Jr (JAX W7), and R17 Boswell (PIT W9) instead of
+    Smyth, and this grades 11/11, ledger met, RB floor met, BYE PARTITION EXACT, and the Saints stack drops to two.
+    Same shape as rep 27 - the roster is two late picks away from flawless, and both of those picks are the fungible
+    ones.'
+  errors:
+  - team_stack_no
+  - bye_stack_w7
+  - bye_stack_w8
+  - k_bye
+  - qb2_off_tier
+  - tally_not_used
