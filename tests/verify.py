@@ -1459,6 +1459,48 @@ def _():
         f"W{wk} is not among the crowded weeks (W{busiest} has {supply[busiest]})"
     return f"{len(names)} names verified on W{wk}, board offers {supply[wk]} vs target {tgt[wk]}"
 
+@check("ADP pass measured-availability numbers recompute from the stored rosters")
+def _():
+    """The 8/25 pass is the first to carry MEASURED numbers rather than
+    estimates, and it drove three repricings - Love to a QB3 price, Allgeier to
+    R13, Boston onto the board. Those claims were unreproducible when written:
+    mocks.yaml stores scores and notes but never stored the picks. The rosters
+    now live in data/rep_rosters and every latest_pick in the pass is recomputed
+    from them here, so a claim cannot outlive the evidence for it. Also asserts
+    the rosters themselves are well formed, since a silently truncated roster
+    would quietly weaken every number above."""
+    from ffcli.config import load
+    from ffcli.draft import parse_picks, picks_for_slot
+    import glob
+    rows = sorted(glob.glob(str(ROOT / "data" / "rep_rosters" / "*_slot5_*.txt")))
+    ap = load("adp")["pass_2026_08_25"]
+    n_claimed = ap["measured_availability"]["n_reps"]
+    assert len(rows) == n_claimed, \
+        f"pass claims {n_claimed} reps, data/rep_rosters holds {len(rows)}"
+
+    rounds_per_draft = load("league")["draft"]["rounds"]
+    pick_of = dict(enumerate(picks_for_slot(5), start=1))
+    seen: dict[str, list[int]] = {}
+    for f in rows:
+        picks = parse_picks(Path(f).read_text())
+        assert len(picks) == rounds_per_draft, \
+            f"{Path(f).name} holds {len(picks)} picks, a draft is {rounds_per_draft}"
+        assert [p["round"] for p in picks] == list(range(1, rounds_per_draft + 1)), \
+            f"{Path(f).name} rounds are not 1..{rounds_per_draft} in order"
+        for p in picks:
+            seen.setdefault(p["player"], []).append(p["round"])
+
+    for row in ap["measured_availability"]["who"]:
+        name, claimed_pick, claimed_n = row["player"], row["latest_pick"], row["n"]
+        got = seen.get(name)
+        assert got, f"{name} is claimed in the pass but appears in no stored roster"
+        assert len(got) == claimed_n, \
+            f"{name}: pass says taken {claimed_n}x, rosters show {len(got)}"
+        real = pick_of[max(got)]
+        assert real == claimed_pick, \
+            f"{name}: pass says last seen at pick {claimed_pick}, rosters say {real}"
+    return f"{len(rows)} rosters, {len(ap['measured_availability']['who'])} claims recomputed"
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

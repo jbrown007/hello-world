@@ -281,9 +281,15 @@
     the depth chart, preseason starter. QB play stabilised: DESHAUN WATSON named the Week 1 starter over Sanders.
     Tag unchanged - Boston is a Week 1 waiver target, not a draft pick, and Watson being named caps his ceiling rather
     than raising it. RE-OPEN ONLY IF Watson is benched or injured before Sept 6.'
-  implication: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick. The confirmed 17-spot roster has
-    zero slack - every dart must displace a named ledger pick explicitly (ROSTER_LEDGER.md). Original
-    read: Not worth a pick until the QB job settles. Pure August watch item.'
+  implication: 'RETAGGED 8/25 at the ADP pass, superseding the 8/1 retag. Boston is now a LEGITIMATE LATE WR at R13-R15
+    as the W11 filler, not a waiver-only name. The 8/1 reasoning was ZERO SLACK - every dart displaces a named ledger
+    pick - and that logic is unchanged and still binding. What changed is that he is no longer a dart: promoted to
+    the first team 8/10, No. 1 on the depth chart, started both preseason games, and Cleveland named a Week 1 quarterback
+    on 8/24 so he is no longer priced against an unknown. He was on the board at pick 149 in the 8/25 rep. CLE is
+    W11, which the default build routinely needs a second body for, so he can BE the named WR5 rather than displace
+    one. CEILING CAPPED: the quarterback is Watson, who went 16 of 27 for 162 with no touchdowns across two preseason
+    games, was booed at home, and is 22 months off an Achilles tear plus a second surgery. Floor pick that fills a
+    bye slot, NOT an upside swing. Never over a named WR while one is on the board. See adp.yaml pass_2026_08_25.'
   confidence: Med
   status: Resolved
   notes: '8/24 PM CAMP WATCH - TRENDING -> RESOLVED. DESHAUN WATSON IS THE WEEK 1 STARTER. Announced this afternoon,

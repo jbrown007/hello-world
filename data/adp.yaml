@@ -17,7 +17,9 @@
 # - every number here is 1QB unless marked, and that is the weakest part of
 # this file.
 
-pulled: '2026-08-16'
+pulled: '2026-08-25'   # last full pass. The 8/16 snapshot below is retained
+                       # verbatim; pass_2026_08_25 at the foot supersedes it
+                       # where they differ and is the first with MEASURED data.
 sources: >
   FlurrySports and FantasyLife (Downs), RotoWire and Footballguys WR/RB tiers,
   Athlon and CBS RB ADP reviews, SI/OnSI and ProFootballNetwork (Odunze,
@@ -261,3 +263,130 @@ te:
       lasts to the 70s in superflex, the whole Warren-at-R5 rule is buying
       insurance the market is not charging for, and that pick could go to a
       starter instead.
+
+# ===========================================================================
+# AUG 25 ADP PASS. The scheduled re-price. Supersedes 8/16 where they differ.
+# ===========================================================================
+pass_2026_08_25:
+  pulled: '2026-08-25'
+  headline: >
+    THE BIGGEST CHANGE IS THAT THIS PASS HAS MEASURED DATA AND THE LAST ONE DID
+    NOT. On 8/16 recommended_fix asked for a full ESPN board capture to convert
+    the ESTIMATEs into measurements. That capture still has not happened - but
+    nine more slot-5 reps have, and they measure the one thing that actually
+    matters at this seat: WHO IS STILL ON THE BOARD AT EACH OF JOSH'S PICKS on
+    ESPN, in superflex, at slot 5. That is not national ADP, it is better for
+    our purpose, and it is what the section below records.
+  caveat_read_first: >
+    ESPN mock lobbies are largely autodrafted against ESPN's own ADP. So this
+    measures ESPN PRICING, not Josh's twelve humans. It is the right proxy for
+    where a player will still be sitting - Josh drafts on ESPN - but it says
+    nothing about a specific manager's habits. Where a named human threat
+    exists (CHAMP and Warren), the mock log cannot clear it.
+
+  measured_availability:
+    note: >
+      Nine slot-5 reps, 8/18 to 8/25. "Latest seen" is the latest pick at which
+      Josh actually took the player, so the player was demonstrably ON THE BOARD
+      at that pick. It is a floor on availability, not a ceiling - a player may
+      last longer than we ever tested, because taking him ends the measurement.
+    n_reps: 9
+    who:
+    - {player: Tyler Warren, pos: TE, latest_pick: 53, n: 9, read: 'Available at 53 in ALL NINE reps.'}
+    - {player: Jordan Love, pos: QB, latest_pick: 101, n: 8, read: 'Available at R9 five times.'}
+    - {player: Tyler Allgeier, pos: RB, latest_pick: 149, n: 8, read: 'Available at R13 five times.'}
+    - {player: Josh Downs, pos: WR, latest_pick: 116, n: 7, read: 'Reached R10 once; R7 five times.'}
+    - {player: Kenneth Walker III, pos: RB, latest_pick: 29, n: 8, read: 'Available at R3 four times.'}
+    - {player: Kenny Gainwell, pos: RB, latest_pick: 92, n: 7, read: 'Available at R8 six times.'}
+    - {player: Caleb Williams, pos: QB, latest_pick: 29, n: 3, read: 'Available at R3 every time.'}
+    - {player: Chargers D/ST, pos: DST, latest_pick: 188, n: 6, read: 'Always there at R16.'}
+    - {player: Chris Boswell, pos: K, latest_pick: 197, n: 5, read: 'Always there at R17.'}
+    - {player: Denzel Boston, pos: WR, latest_pick: 149, n: 1, read: 'On the board at R13.'}
+
+  changes:
+  - id: warren_superflex_price_was_wrong_in_the_other_direction
+    severity: HIGH
+    old: >
+      8/16 estimated Warren at ADP 61 [1QB] converting to roughly pick 72-80 in
+      superflex, and flagged that if he really lasts to the 70s the R5 rule is
+      buying insurance the market is not charging for.
+    new: >
+      Reporting has his SUPERFLEX ADP at the START OF ROUND 4 - roughly pick
+      37-40 in a twelve-team room. That is not 20 picks later than our R5 pick,
+      it is 13-16 picks EARLIER. The 8/16 estimate was wrong in the opposite
+      direction to the one the file worried about.
+    but: >
+      AND THE MEASURED DATA FLATLY DISAGREES. Warren was on the board at pick 53
+      in nine of nine ESPN reps. Both numbers are real: ESPN prices him later
+      than the consensus superflex sources do, and Josh drafts on ESPN.
+    verdict: >
+      KEEP WARREN AT R5. The rule survives, but its justification changes. It is
+      no longer "he might be gone at 68 on price" - on ESPN pricing he plainly
+      is not. It is now purely the named-human risk: CHAMP picks 42, 55 and 66
+      and took Warren in R6 last year, and nine autodrafted lobbies cannot test
+      one manager's habit. Buying at 53 is insurance against CHAMP, not against
+      the market. If the run trigger fires at 53, releasing Warren costs less
+      than the 8/16 file implied.
+  - id: jordan_love_is_not_an_r5_r6_arm_at_this_slot
+    severity: HIGH
+    evidence: >
+      Taken at R9 in five of eight reps and available at pick 101 every one of
+      those times. ff grade has graded him VALUE, three rounds past his tier, in
+      four consecutive reps - the grader has been telling us this repeatedly.
+    verdict: >
+      qb_board lists him in qb2_window (R5-R6). At THIS SLOT that is wrong: he
+      is reliably a pick-101 arm. Reprice him as the default QB3 rather than a
+      QB2-window name. This is a pricing correction, not a demotion - he is the
+      best-value arm in the whole build and taking him at R6 wastes roughly
+      three rounds. Take Ward or Murray at R6 and Love at R9.
+  - id: allgeier_does_not_need_an_r11_pick
+    severity: MED
+    evidence: 'Available at pick 149 in five of eight reps; taken at R11 or R12 three times.'
+    verdict: >
+      He is the single W14 body and the partition requires exactly one, so he is
+      not optional - but he is an R13 price. Taking him at R11 or R12 spends a
+      short-week pick on a player who will still be there two rounds later.
+  - id: boston_retag
+    severity: MED
+    old: 'RETAGGED 8/1: Week 1 WAIVER target, NOT a draft pick.'
+    new: >
+      LEGITIMATE LATE WR, R13-R15, AS THE W11 FILLER. Not promoted on hype - on
+      four things that have all happened since the 8/1 retag. He was promoted to
+      the first team 8/10, he is No. 1 on the depth chart, he started both
+      preseason games, and Cleveland named a Week 1 quarterback on 8/24 so he is
+      no longer priced against an unknown. He was on the board at pick 149.
+    why_this_is_consistent: >
+      The 8/1 reasoning was ZERO SLACK, not quality - every dart displaces a
+      named pick. That logic is unchanged and still binding. What changed is
+      that Boston is no longer a dart: he is a Week 1 starting X, and CLE is
+      W11, which the default build routinely needs a second body for. He can BE
+      the named WR5 rather than displacing one.
+    ceiling_caveat: >
+      Watson is the quarterback, not Sanders. Watson went 16 of 27 for 162 yards
+      with no touchdowns across two preseason games and was booed at home, and
+      he is 22 months off an Achilles tear plus a second surgery. That caps
+      Boston. He is a floor pick at R13-R15 who fills a bye slot, NOT an upside
+      swing, and he must never be taken over a named WR while one is on the board.
+  - id: fields_is_a_w8_candidate
+    severity: MED
+    evidence: >
+      Started at outside receiver in preseason wk2, played every snap with the
+      Giants' first unit, pulled after two drives; with Nabers at Z he projects
+      as the starting X. PFF Rookie Team of the Week off the opener.
+    verdict: >
+      WATCH-AND-TAKE, NOT A PLANNED PICK. NYG is W8 - the week this build has
+      left empty or short in three of the last five reps - so he is a rare name
+      that is both a real role and a partition filler. He is not on any board
+      and does not go on one before the Aug 29-30 cuts. If W8 is short at R14-R15
+      and he is there, he is a legitimate answer.
+  - id: what_did_not_move
+    severity: INFO
+    note: >
+      Downs holds at R7-R9 and the 8/16 tightening was right - he reached R10
+      once in nine reps, so R10 remains a real deadline rather than a formality.
+      Higgins holds at WR55/137. Odunze holds. Dowdle holds at RB37/109 and is
+      still routinely taken ~30 picks early. Gibbs and Bijan still 1.01/1.02, so
+      the R1-reads-as-WR call from 8/18 stands. Mahomes still collapsed. The K
+      and D/ST boards need no repricing at all - the Chargers defense and Boswell
+      were available at 188 and 197 in every rep that reached them, which is the
+      measured basis for treating both as pure partition fillers.

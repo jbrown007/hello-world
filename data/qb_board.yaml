@@ -92,6 +92,14 @@ qb2_window:
     team: DEN
   - player: Jordan Love
     team: GB
+    tag: 'REPRICED 8/25 - listed here, but at slot 5 he is a QB3 price'
+    why: >
+      Measured across nine slot-5 reps: taken at R9 in five of eight and ON THE
+      BOARD AT PICK 101 every one of those times. ff grade returned VALUE, three
+      rounds past his tier, in four consecutive reps. He stays in this tier
+      because nationally he is a QB2-window arm, but AT THIS SEAT taking him at
+      R6 wastes about three rounds. Take Ward or Murray at R6 and Love at R9.
+      See adp.yaml pass_2026_08_25.
 
 qb3_vets:
   rounds: [9, 13]
@@ -99,6 +107,14 @@ qb3_vets:
     All three tests: named Week 1 starter, THIRD distinct bye, R9-13 price.
     Do not telegraph - Trey Action Fake, TheMoneyTeam and Kleenex shop here.'
   who:
+  - player: Jordan Love
+    team: GB
+    tag: 'ADDED 8/25 - the measured default here, cross-listed from qb2_window'
+    why: >
+      Nine slot-5 reps put him on the board at pick 101. He is the best-value
+      arm in the build at this seat and he satisfies all three QB3 tests - named
+      starter, R9-13 price, and a W11 bye that triangulates against the usual
+      W9/W10 QB2. Prefer him over the vets below when he is there.
   - player: Jared Goff
     team: DET
   - player: Trevor Lawrence

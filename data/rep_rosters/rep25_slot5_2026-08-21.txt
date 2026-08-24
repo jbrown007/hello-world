@@ -1,0 +1,18 @@
+# slot 5 · rep 25 · 2026-08-21 · format: ROUND POS TEAM Player Name
+1 RB DET Jahmyr Gibbs
+2 QB JAX Trevor Lawrence
+3 RB KC Kenneth Walker III
+4 WR BUF DJ Moore
+5 TE IND Tyler Warren
+6 QB MIN Kyler Murray
+7 WR IND Josh Downs
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 RB LAR Blake Corum
+11 RB CHI Kyle Monangai
+12 WR PHI Makai Lemon
+13 RB ARI Tyler Allgeier
+14 WR MIA Malik Washington
+15 WR MIN Jauan Jennings
+16 DST LAC Chargers D/ST
+17 K PIT Chris Boswell
