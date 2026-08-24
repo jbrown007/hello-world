@@ -574,3 +574,35 @@
   - k_bye
   - qb2_off_tier
   - tally_not_used
+- date: '2026-08-25'
+  slot: 5
+  format: superflex
+  score: 11
+  of: 11
+  notes: 'NINTH 11/11, FIFTH IN A ROW, AND THE K/DST RULE FINALLY LANDED. For the FIRST TIME IN THE LOG both R16
+    and R17 filled short weeks: the Chargers D/ST took W7 from one to two and Boswell took W9 from one to two. Neither
+    tipped anything. r16_r17_are_partition_fillers was written 8/21 off four straight failures; it has now caught
+    two live errors (reps 27, 28) and coincided with the first clean pair. That is the third of the three live defects
+    going quiet. ALSO CLEAN: ledger exact for the FOURTEENTH time, RB floor met at every gate for the EIGHTH straight
+    rep, Downs at R7 for the FIFTH straight with IND at exactly 2 and W13 at exactly 2, Caleb Williams at R3 TIER-2
+    ANCHOR at market for the FOURTH straight Branch C build, Love at R6 at market, no club at 3+, no fade, Aubrey
+    refused, Allgeier as the single W14 body. WHAT BROKE: W5 and W6 each finished at three while W8 finished at
+    ZERO. That is the third rep in five with W8 empty or short, and it is the week the 8/24 card now flags. Two
+    Panthers - McMillan at R4 and BRYCE YOUNG at R10 - made W5 a three, and two Vikings - Addison at R9 and Mason
+    at R11 - made W6 a three. Neither pair breaks the club cap; both break the partition. Young is also OFF BOARD
+    as QB3, the second time he has been taken there. TWO PICKS FROM PERFECT AGAIN, and the first one fixes three
+    things at once: swap R10 Young (CAR W5, off board) for Shough (NO W8, ON the qb3 board) and W5 drops to two,
+    W8 gains a body, and the off-board QB3 error disappears. Add R9 Addison (MIN W6) -> Higgins (HOU W8) and it
+    grades 11/11, ledger met, RB floor met, BYE PARTITION EXACT. Third rep running that is two substitutions from
+    flawless. ONE DEVIATION TO DISCUSS, NOT AN ERROR: DENZEL BOSTON taken at R13. He is a watchlist name whose 8/1
+    retag says Week 1 waiver target, NOT a draft pick. But the pick is partition-CORRECT - he is CLE W11 and W11
+    needed its second body - the ledger is met, and the retag predates everything that has happened to him since:
+    promoted to the first team 8/10, No. 1 on the depth chart, preseason starter, and a named starting quarterback
+    as of yesterday. The 8/1 reasoning was zero-slack, not quality. He may no longer be a dart. Flagging for the
+    Aug 25 ADP pass rather than changing the tag mid-rep.'
+  errors:
+  - bye_stack_w5
+  - bye_stack_w6
+  - w8_empty
+  - qb3_off_board
+  - tally_not_used
