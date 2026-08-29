@@ -53,6 +53,21 @@ row's own `watch_for` trigger for last-48h news. **Two independent sources for
 any status flip.** Prepend a dated note to the row's `notes`; edit only
 `watchlist.yaml`. Single-source items get logged as directional, not acted on.
 
+**THEN SWEEP THE NAMED COMMITMENTS TOO — added 8/29 after a real miss.** The
+watchlist is not the board. Tyler Warren is taken at pick 53 in nine of nine
+reps and strained his groin on Aug 19; five sweeps ran before it was noticed on
+Aug 29, because he has no watchlist row. Neither did Kenneth Walker III, who
+was drafted in eight of nine reps and had a foot issue on Aug 25. Sweeping only
+watchlist rows structurally cannot see an injury to the most locked pick in the
+framework.
+
+So after the rows, run `ff targets` and health-check the **named** picks —
+at minimum every player taken in 3+ reps (`data/rep_rosters/`) and everything
+in the R1-R10 target lists. A player with no row who is drafted every single
+rep is the most dangerous blind spot there is, precisely because nothing
+prompts you to look. If one is hurt and has no row, **create the row** rather
+than burying it in someone else's notes.
+
 ### 3. The calendar
 
 - **Aug 25** — ADP pass. Re-price every board. `data/adp.yaml` has the last one

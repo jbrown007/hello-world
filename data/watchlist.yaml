@@ -66,38 +66,51 @@
     The whole Colts stack (Warren R4-5 included) rests on this resolving.
   confidence: High
   status: Resolved
-  notes: '8/28 CAMP WATCH - NEW SCOPE ON THIS ROW: the QB question is still closed, but TWO THINGS MOVED IN THE INDIANAPOLIS
-    RECEIVING ROOM and this framework has more riding on that room than on any other. (1) ALEC PIERCE WAS ACTIVATED
-    OFF PUP on Aug 27 after March ankle surgery, ramping up with the goal of playing the Sept 13 opener at Baltimore
-    (NBC Sports/ProFootballTalk + the Yardbarker/Titans Radio wire, multi-source). THIS PARTIALLY REVERSES THE DOWNS
-    THESIS. The 8/16 ADP note tightened the Downs window on two drivers - Pittman traded to Pittsburgh AND Pierce
-    on PUP - so that Downs ''escapes his sub-60% snap share and inherits the slot outright''. One of those two drivers
-    is now gone. The trade is permanent; the PUP was not. (2) JOSH DOWNS HAS A CALF INJURY. He missed practice Tue
-    Aug 25 and Wed Aug 26 and calls it ''very minor, just precautionary stuff'', with the expectation he is ready
-    for Week 1 (NBC Sports player news 8/26 + CBS Sports + SI Colts + FantasyPros, multi-source). Note this is his
-    SECOND soft-tissue issue of camp - he also missed time with a groin earlier. WHAT I AM NOT DOING: not changing
-    the Downs window. He is a locked R7-R9 commitment taken in five straight reps, the calf is self-described as minor,
-    and one roster activation is not a measured snap-share change. Changing a live commitment on that would be exactly
-    the thin-evidence move CLAUDE.md warns against. WHAT TO DO INSTEAD - a named trigger for the SEPT 4-5 FINAL SWEEP:
-    if Downs is limited or out at that point, OR if Pierce is taking first-team perimeter snaps, the R7-R9 window
-    and the +15 value gap both need re-pricing before the draft. Counter-evidence worth logging on the other side:
-    the Colts joint practice against New England produced ''Tyler Warren remains top target'', so Warren''s volume
-    thesis survives Pierce''s return even if Downs'' does not. | 8/3 CAMP WATCH - REP SHARE SETTLED: Jones took EVERY
-    first-team rep on Day 1 and is the unquestioned QB1 (Colts.com notebook + Stampede Blue + 1075thefan, multi-source).
-    Richardson and Leonard rotate 2nd/3rd team for the BACKUP job, and Ballard says all three QBs stay on the 53.
-    The earlier first-team-drive rotation was a Day-1 drill artifact, not a competition. | 8/2 CAMP WATCH - RESOLVED.
-    The flip trigger fired: Jones took full-speed 11-on-11 team reps from Day 1 of camp AND had a strong first PADDED
-    practice (Colts.com camp notebook + SI Horseshoe Huddle, multi-source). 7-of-8 in team drills Day 1, hitting Pittman
-    and Dulin downfield. One wrinkle worth watching, not blocking: Richardson rotated first-/second-team drives with
-    Jones in early camp - monitor the rep share, but health is no longer the question. | 7/25 CAMP WATCH: Steichen
-    confirms Jones WILL be a full participant including 11-on-11 when camp opens 7/29 (Colts.com camp preview + SI,
-    multi-source). Flip to Resolved only after he actually takes the full-contact team reps, not on the announcement.
-    | 7/25 REOPENED TO TRENDING - the 7/24 RESOLVED call was premature. Jones is fully cleared (''doing everything''),
-    signed 2yr/$88M, unquestioned QB1. But camp had not opened when the row was marked resolved, he was held out of
-    11-on-11 in June minicamp, and he has not taken a competitive team-drill snap since the tear. Steichen: ''on track,
-    or maybe a little bit ahead'' - not done. Flip to Resolved after full-contact team reps. 2025 line before the
-    injury: 68% comp, 3,101 yds, 19 TD, 8 INT, 5 rush TD in 13 games. Weapons: Alec Pierce, Tyler Warren, Josh Downs.
-    Richardson is a backup the team is trying to trade.'
+  notes: '8/29 CAMP WATCH - TYLER WARREN HAS BEEN HURT SINCE AUG 19 AND THIS SWEEP MISSED IT FOR TEN DAYS. He strained
+    his GROIN in the joint practice with Atlanta on Wed Aug 19, was taken to the medical tent, and returned with a
+    wrap on his right thigh. Rapoport reported he should miss about a week with NO concern for Week 1, and Steichen
+    was optimistic; reporting through Aug 26 had him still out of practice (NBC Sports/ProFootballTalk + Yahoo + iHeart
+    wire, multi-source). By today that is ten days of rest against a one-week injury with an opener on Sept 13, so
+    the read is MINOR AND ON TRACK - nothing here changes the R5 pick. WHAT IT DOES CHANGE IS THE PROCEDURE. Warren
+    is taken at pick 53 in NINE OF NINE reps - the single most locked pick in the framework - and he was injured for
+    ten days without this sweep noticing, because camp watch sweeps TRENDING WATCHLIST ROWS and Warren has no watchlist
+    row. He is a targets.yaml commitment. So do Gibbs, Walker III, Gainwell, Allgeier and every other named pick.
+    That is a structural blind spot, not bad luck, and it is being fixed in CLAUDE.md in the same session. JOSH DOWNS
+    unchanged from 8/28: calf, missed Aug 25-26, self-described very minor, day-to-day. So BOTH Colts commitments
+    are dinged simultaneously and both are minor - but W13 and the entire IND cap rest on exactly these two players,
+    so re-verify both at the Sept 4-5 sweep before drafting either. | 8/28 CAMP WATCH - NEW SCOPE ON THIS ROW: the
+    QB question is still closed, but TWO THINGS MOVED IN THE INDIANAPOLIS RECEIVING ROOM and this framework has more
+    riding on that room than on any other. (1) ALEC PIERCE WAS ACTIVATED OFF PUP on Aug 27 after March ankle surgery,
+    ramping up with the goal of playing the Sept 13 opener at Baltimore (NBC Sports/ProFootballTalk + the Yardbarker/Titans
+    Radio wire, multi-source). THIS PARTIALLY REVERSES THE DOWNS THESIS. The 8/16 ADP note tightened the Downs window
+    on two drivers - Pittman traded to Pittsburgh AND Pierce on PUP - so that Downs ''escapes his sub-60% snap share
+    and inherits the slot outright''. One of those two drivers is now gone. The trade is permanent; the PUP was not.
+    (2) JOSH DOWNS HAS A CALF INJURY. He missed practice Tue Aug 25 and Wed Aug 26 and calls it ''very minor, just
+    precautionary stuff'', with the expectation he is ready for Week 1 (NBC Sports player news 8/26 + CBS Sports +
+    SI Colts + FantasyPros, multi-source). Note this is his SECOND soft-tissue issue of camp - he also missed time
+    with a groin earlier. WHAT I AM NOT DOING: not changing the Downs window. He is a locked R7-R9 commitment taken
+    in five straight reps, the calf is self-described as minor, and one roster activation is not a measured snap-share
+    change. Changing a live commitment on that would be exactly the thin-evidence move CLAUDE.md warns against. WHAT
+    TO DO INSTEAD - a named trigger for the SEPT 4-5 FINAL SWEEP: if Downs is limited or out at that point, OR if
+    Pierce is taking first-team perimeter snaps, the R7-R9 window and the +15 value gap both need re-pricing before
+    the draft. Counter-evidence worth logging on the other side: the Colts joint practice against New England produced
+    ''Tyler Warren remains top target'', so Warren''s volume thesis survives Pierce''s return even if Downs'' does
+    not. | 8/3 CAMP WATCH - REP SHARE SETTLED: Jones took EVERY first-team rep on Day 1 and is the unquestioned QB1
+    (Colts.com notebook + Stampede Blue + 1075thefan, multi-source). Richardson and Leonard rotate 2nd/3rd team for
+    the BACKUP job, and Ballard says all three QBs stay on the 53. The earlier first-team-drive rotation was a Day-1
+    drill artifact, not a competition. | 8/2 CAMP WATCH - RESOLVED. The flip trigger fired: Jones took full-speed
+    11-on-11 team reps from Day 1 of camp AND had a strong first PADDED practice (Colts.com camp notebook + SI Horseshoe
+    Huddle, multi-source). 7-of-8 in team drills Day 1, hitting Pittman and Dulin downfield. One wrinkle worth watching,
+    not blocking: Richardson rotated first-/second-team drives with Jones in early camp - monitor the rep share, but
+    health is no longer the question. | 7/25 CAMP WATCH: Steichen confirms Jones WILL be a full participant including
+    11-on-11 when camp opens 7/29 (Colts.com camp preview + SI, multi-source). Flip to Resolved only after he actually
+    takes the full-contact team reps, not on the announcement. | 7/25 REOPENED TO TRENDING - the 7/24 RESOLVED call
+    was premature. Jones is fully cleared (''doing everything''), signed 2yr/$88M, unquestioned QB1. But camp had
+    not opened when the row was marked resolved, he was held out of 11-on-11 in June minicamp, and he has not taken
+    a competitive team-drill snap since the tear. Steichen: ''on track, or maybe a little bit ahead'' - not done.
+    Flip to Resolved after full-contact team reps. 2025 line before the injury: 68% comp, 3,101 yds, 19 TD, 8 INT,
+    5 rush TD in 13 games. Weapons: Alec Pierce, Tyler Warren, Josh Downs. Richardson is a backup the team is trying
+    to trade.'
 - priority: Tier 1
   pos: QB
   team: Jets
@@ -922,3 +935,31 @@
     cited as the more consistent QB through spring work, so this is a Week 1 answer, not a season-long
     one. | 7/24 NEW ROW. Six career starts. Six TD, 0 INT, 79% comp in 11 appearances plus 261 rush yards
     and 3 rush TDs.'
+- priority: Tier 2
+  pos: RB
+  team: Chiefs
+  bye: 5
+  situation: Kenneth Walker III in Kansas City - one half of the W5 answer (NEW 8/29)
+  players: Kenneth Walker III; Isiah Pacheco and the KC committee behind him
+  why: He is one of only two players who solve the W5 supply gap, and he has been drafted in EIGHT of nine slot-5
+    reps at picks 20-29. bye_rule.supply_gap says the partition needs two W5 bodies and that no board names one
+    which is not a fade; Walker is the answer and had no watchlist row until now - the same blind spot that hid
+    Tyler Warren's groin for ten days.
+  read: Buy at R3 (pick 29), not R2. He was on the board at 29 in four of eight reps, so pick 20 is a round early.
+    Foot issue is minor on the reporting so far.
+  watch_for: Whether the foot/ankle swelling clears into full practice before Sept 6; whether KC's backfield split
+    changes; any further absence. He has an unusually long runway - Kansas City opens MONDAY SEPT 14 vs Denver,
+    eight days after our draft.
+  implication: KEEP HIM AS THE R3 W5 FILLER unless the foot becomes a multi-week story. If he is ruled out or limited
+    into September, the W5 slot falls entirely to Carolina bodies and McMillan at R4 becomes mandatory rather than
+    preferred.
+  confidence: Med
+  status: Trending
+  notes: '8/29 CAMP WATCH - ROW CREATED, and it exists because of a process failure rather than a news event. Walker
+    did not practice Tue Aug 25 with a FOOT issue and appeared without a helmet (NBC Sports player news 8/25). Andy
+    Reid on Wed Aug 26: ''His shoe has been causing some swelling on his ankle. We''re trying to get that down''
+    - which reads as equipment irritation rather than structural damage (Heavy + Athlon + ClutchPoints, multi-source).
+    Kansas City opens Mon Sept 14, giving him nearly three weeks, so there is no Week 1 concern on current reporting.
+    WHY THIS ROW NOW: he is drafted in eight of nine reps and is half the answer to the documented W5 supply gap,
+    and he had no row - so an injury to a de facto board name sat unswept, exactly as Warren''s groin did. Re-verify
+    at the Sept 4-5 final sweep.'
