@@ -66,15 +66,32 @@ supply_gap:
     what ff targets actually prints and what a drafter actually reads - less
     the fades, the qb_board never list and the placeholder rows. Refusals on an
     avoid list are not supply. The suite recomputes this, so it cannot drift.
-  short:
+  short: []
+  closed:
   - week: 5
+    closed_on: '2026-08-29'
     need: 2
-    named_draftable: 0
+    named_draftable: 2
     pool: [KC, CAR]
-    the_only_w5_names_anywhere:
-    - 'Jonathon Brooks (CAR) - depth_board FADE, two torn ACLs'
-    - 'Patrick Mahomes (KC) - DEMOTED 8/16 off the R3 anchor tier'
-    therefore: >
+    how: >
+      THE GAP IS CLOSED. Kenneth Walker III (KC) was added to the R3 take list
+      and Tetairoa McMillan (CAR) to R4, so the board now names exactly the two
+      W5 bodies the partition requires. Neither is a new discovery - Josh had
+      been solving this himself for weeks, taking Walker in EIGHT of nine reps
+      and McMillan in FIVE, and the 8/29 drafted-players audit is what made that
+      visible. The board was the last thing to know.
+    was: >
+      Until today the only W5 names anywhere in the repo were Jonathon Brooks
+      (CAR), a depth-board FADE with two torn ACLs, and Patrick Mahomes (KC),
+      demoted 8/16 off the R3 anchor tier. The board REQUIRED two players it
+      refused to name, which is why bye_stack_w5 appeared in five of six slot-5
+      reps and why Brooks was the most-drafted name on the depth board at seven
+      times. Retained here rather than deleted so the reasoning survives.
+    watch: >
+      Walker III picked up a foot issue on Aug 25 (see his watchlist row). If he
+      is ruled out, W5 falls entirely to Carolina and McMillan at R4 stops being
+      preferred and becomes mandatory.
+    superseded_therefore: >
       THE BOARD REQUIRES TWO PLAYERS IT REFUSES TO NAME. This single gap
       explains two of the longest-running errors at once. bye_stack_w5 appears
       in five of six slot-5 reps because nothing tells you the W5 target is
@@ -85,14 +102,20 @@ supply_gap:
       purpose. Josh's own reps show them reachable at his picks - Kenneth
       Walker III (KC) at R2-R3, Tetairoa McMillan (CAR) at R4, Bryce Young
       (CAR) at R9. Fill this properly at the Aug 25 ADP pass.
-  thin:
+  eased:
   - week: 9
+    on: '2026-08-29'
     need: 2
-    named_draftable: 3
+    was: 3
+    now: 4
     note: >
-      PIT and TEN only. Ward and Rodgers are both W9 QBs so they cannot both be
-      taken - QB triangulation forbids it - which leaves Dowdle plus one arm as
-      effectively the whole week.
+      Was thin at three names, and worse in practice: PIT and TEN are the whole
+      pool, and Ward and Rodgers are both W9 quarterbacks who cannot both be
+      taken because triangulation forbids it - which left Dowdle plus one arm as
+      effectively the entire week. Adding Germie Bernard (PIT) on 8/29 gives W9
+      a fourth name and a second non-QB, so it is no longer a bottleneck. He was
+      taken at pick 173 in all three reps he appeared in.
+  thin:
   - week: 13
     need: 2
     named_draftable: 2
@@ -100,3 +123,6 @@ supply_gap:
       Warren and Downs, and nothing else. Exactly enough, which is why the
       w13_is_spent_before_you_start conflict in targets.yaml is written the way
       it is. Zero margin: lose either and W13 cannot be filled from the board.
+      As of 8/29 BOTH are carrying knocks - Warren a groin from Aug 19, Downs
+      a calf from Aug 25 - and both are reported minor. This is the week with
+      the least slack in the build; re-verify both at the Sept 4-5 sweep.

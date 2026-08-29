@@ -149,6 +149,9 @@ rounds:
     early. If you do NOT have an arm, take one HERE and do not wait - Jag FLu
     picks at 33, four picks later, and he took QBs at 16 and 33 in 2025.
   take:
+  - {player: Kenneth Walker III, team: KC, bye: 5, why: 'ADDED 8/29. THE W5 FILLER. Drafted in eight
+      of nine slot-5 reps and on the board at pick 29 in four of them, so R3 not R2. W5 holds only KC
+      and CAR and the partition needs exactly two bodies there.'}
   - {player: Chase Brown, team: CIN, bye: 6, why: RB tier 2.}
   - {player: James Cook III, team: BUF, bye: 7, why: RB tier 2.}
   - {player: De'Von Achane, team: MIA, bye: 6, why: 'RB tier 2, full-PPR receiving profile.'}
@@ -175,6 +178,9 @@ rounds:
     last year; if he takes him two picks ahead of you, that is the cost of the
     rule and you backfill TE at R7-8.
   take:
+  - {player: Tetairoa McMillan, team: CAR, bye: 5, why: 'ADDED 8/29. THE SECOND W5 FILLER. Drafted in
+      five of nine reps and on the board at pick 44 every time. With Walker III at R3 this closes W5
+      deliberately instead of by accident.'}
   - {player: George Pickens, team: DAL, bye: 14, why: 'WR15. CAUTION - DAL is the SEEDING WEEK. Best
       player in the band, worst bye on it; only as your FIRST W14 body and never with a W14 kicker.'}
   - {player: Tee Higgins, team: CIN, bye: 6, why: 'WR18. Double-digit TDs in back-to-back seasons next
@@ -258,6 +264,8 @@ rounds:
     Odunze is the best value on the depth board and his window is R8-R10. Take
     him here if the RB floor is already met.
   take:
+  - {player: Kenny Gainwell, team: TB, bye: 10, why: 'ADDED 8/29. The RB flex Josh actually takes -
+      seven of nine reps, on the board at pick 92 in six of them. Counts toward W10.'}
   - {player: Rome Odunze, team: CHI, bye: 10, why: 'STRONG BUY. Consensus WR28 while functioning as the
       focal point of the Chicago passing attack. Bear number one - count it.'}
   - {player: Michael Wilson, team: ARI, bye: 14, why: '+14 target-rank/ADP gap, but ARI is the seeding week.
@@ -322,6 +330,8 @@ rounds:
   gate: 'RB FLOOR: 5 RBs by the end of this round'
   do: The last hard RB gate. Nothing else goes here if you are at four.
   take:
+  - {player: De'Zhaun Stribling, team: SF, bye: 8, why: 'ADDED 8/29. Taken at pick 140 in all three
+      reps he appeared in. A W8 body, and W8 is the week this build leaves empty or short most often.'}
   - {player: Kaelon Black, team: SF, bye: 8, why: 'Highest handcuff EV in the league - McCaffrey is 30,
       led the NFL in touches again, and the front office wants his workload cut.'}
   - {player: Rachaad White, team: WSH, bye: 7, why: 'The PPR play in the Commanders committee - 50+ catches
@@ -339,6 +349,11 @@ rounds:
   gate: 'QB3 DEADLINE if you somehow do not have one'
   do: Best remaining receiver. The price-to-role gap names live here.
   take:
+  - {player: Jordyn Tyson, team: 'NO', bye: 8, why: 'ADDED 8/29. Three reps, on the board at pick 164.
+      Second W8 option. Team stays quoted - a bare NO is boolean false in YAML.'}
+  - {player: Denzel Boston, team: CLE, bye: 11, why: 'ADDED 8/29 per the ADP pass retag. Week 1
+      starting X and No. 1 on the depth chart, and a W11 filler. Watson caps the ceiling - floor
+      pick, never over a named WR.'}
   - {player: Jayden Higgins, team: HOU, bye: 8, why: 'BUY - best pure price-to-role gap left this late.
       Kirk gone, room thinned, ~750 yards and 6-8 TDs projected at a mid-130s ADP.'}
   - {player: Luther Burden III, team: CHI, bye: 10, why: If he lasted and you are under the Bears cap.}
@@ -370,6 +385,8 @@ rounds:
     judge him against this WR on merit. He is also Warren insurance in a league
     with zero IR.
   take:
+  - {player: Germie Bernard, team: PIT, bye: 9, why: 'ADDED 8/29. Taken at pick 173 in all three reps
+      he appeared in. A W9 body - W9 holds only PIT and TEN, so it is a scarce week to fill.'}
   - {player: Jayden Higgins, team: HOU, bye: 8, why: If he lasted this far.}
   - {player: Stefon Diggs, team: WSH, bye: 7, why: Late dart with real name-brand volume upside.}
   - {player: Jayden Reed, team: GB, bye: 11, why: Fine body.}

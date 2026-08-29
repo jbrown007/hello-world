@@ -65,16 +65,23 @@ bye_capacity:
       are RECOMPUTED by the suite, so they cannot drift away from the boards.
     counts:
     - {rnd: 11, blocked: 1, of: 3}
-    - {rnd: 12, blocked: 3, of: 4}
-    - {rnd: 13, blocked: 1, of: 3}
+    - {rnd: 12, blocked: 3, of: 5}
+    - {rnd: 13, blocked: 2, of: 5}
     - {rnd: 14, blocked: 3, of: 3}
-    - {rnd: 15, blocked: 2, of: 3}
+    - {rnd: 15, blocked: 2, of: 4}
+    recomputed: >
+      REFRESHED 8/29 after seven names were promoted onto the target board. The
+      shape of the trap is UNCHANGED - R14 is still 3 of 3 with no legal option -
+      but the denominators grew, so R12, R13 and R15 now carry legal alternatives
+      they did not have when this was written. R13 gained two names and lost one
+      to the blocked column (Boston is CLE/W11, which the baseline already caps).
     rounds_with_no_legal_option: [14]
     names:
     - {rnd: 11, player: Jordan Mason, team: MIN, bye: 6}
     - {rnd: 12, player: Rachaad White, team: WSH, bye: 7}
     - {rnd: 12, player: Jacory Croskey-Merritt, team: WSH, bye: 7}
     - {rnd: 12, player: Blake Corum, team: LAR, bye: 11}
+    - {rnd: 13, player: Denzel Boston, team: CLE, bye: 11}
     - {rnd: 13, player: Stefon Diggs, team: WSH, bye: 7}
     - {rnd: 14, player: Zach Charbonnet, team: SEA, bye: 11}
     - {rnd: 14, player: Blake Corum, team: LAR, bye: 11}
