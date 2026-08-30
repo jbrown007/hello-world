@@ -646,3 +646,39 @@
   - caleb_two_bears
   - no_qb2_in_window
   - tally_not_used
+- date: '2026-08-29'
+  slot: 5
+  format: superflex
+  score: 9
+  of: 11
+  notes: 'REP 31, SENT AS THE CORRECTED ''this is the one I liked'' after rep 30''s duplicate screenshot - AND THE
+    FEEL IS RIGHT THIS TIME. 9/11 with the ledger EXACT (fifteenth time), RB floor met at every gate, K and DST
+    both inside R16-17, no club at 3+, triangulation clean on W6/W7/W11, and the partition off by only TWO against
+    rep 30''s seven. Bijan taken as the fallen gift again, W5 filled deliberately with the two new board names (Walker
+    III at R3, McMillan at R4 - the promoted pair working on their first rep as targets), Murray at R6 at market,
+    Love at R9 VALUE for the sixth time, Allgeier at R13 at exactly his measured price, Deebo at R12 on the right
+    week again. GENUINELY INTERESTING AND POSSIBLY SIGNAL: W13 WAS FILLED WITHOUT EITHER COLT. Warren and Downs
+    - both nursing soft-tissue knocks - were both skipped, and W13 got its two bodies from Ja''Kobi Lane (BAL) and
+    Tre Tucker (LV) instead. Off-board names, but the first rep ever to hedge the fragile week, and with both Colts
+    dinged that is arguably prudent rather than an error. Logged as mitigated misses; the Sept 4-5 sweep decides
+    whether the hedge becomes the plan. Loveland over Warren at R5 reads the same way - and with no Caleb on this
+    roster the two-Bears conflict is clean, unlike rep 30. THE THREE COSTS: (1) LAWRENCE AT PICK 20, reach by seven
+    - the old pick-20 error back after three clean Branch C reps. Murray and Love priced fine after it, as always.
+    (2) RJ HARVEY at R11 - an rb_board FADE (the fade got CHEAPER at the ADP pass and holds) and the third W10 body.
+    (3) THE PANTHERS D/ST at R17 - third W5 body, tipping the week the roster had already filled correctly, while
+    W9 sat at ZERO. The partition-filler rule named it in the grade, its third live catch. Reichard is a lesser
+    note: he is the K board''s CONDITIONAL refuse - fine only if MIN is not already rostered - and Murray is MIN.
+    W6 stayed at cap so nothing broke; it is a stack nicety, not a breach. TWO SWAPS FROM PARTITION EXACT, verified
+    with ff grade: R11 Harvey -> Dowdle (PIT W9, board name) and R17 Panthers -> Steelers D/ST (W9). Both feel-neutral,
+    both feed the empty week, and the first also removes the fade. This roster plus two mechanical swaps is the
+    best complete draft Josh has produced.'
+  errors:
+  - qb1_off_tier
+  - warren_missed
+  - downs_not_drafted
+  - fade_drafted_harvey
+  - bye_stack_w5
+  - bye_stack_w10
+  - w9_empty
+  - k_cond_refuse
+  - tally_not_used
