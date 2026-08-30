@@ -1,17 +1,17 @@
-1 WR DET Amon-Ra St. Brown
-2 QB NE Drake Maye
-3 RB KC Kenneth Walker III
-4 RB PHI Saquon Barkley
+1 RB DET Jahmyr Gibbs
+2 RB KC Kenneth Walker III
+3 QB CHI Caleb Williams
+4 WR CAR Tetairoa McMillan
 5 TE IND Tyler Warren
-6 QB TEN Cam Ward
-7 RB SF Kaelon Black
+6 QB MIN Kyler Murray
+7 RB NE Rhamondre Stevenson
 8 WR IND Josh Downs
-9 QB JAX Trevor Lawrence
+9 QB GB Jordan Love
 10 WR ARI Michael Wilson
 11 RB PIT Rico Dowdle
-12 RB LAR Blake Corum
+12 RB SF Kaelon Black
 13 WR HOU Jayden Higgins
-14 RB MIN Jordan Mason
-15 WR CAR Tetairoa McMillan
+14 RB BUF Ray Davis
+15 WR PIT Germie Bernard
 16 DST DEN Denver D/ST
 17 K LAC Cameron Dicker
