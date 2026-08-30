@@ -606,3 +606,43 @@
   - w8_empty
   - qb3_off_board
   - tally_not_used
+- date: '2026-08-29'
+  slot: 5
+  format: superflex
+  score: 5
+  of: 11
+  notes: 'FIVE OF ELEVEN - the lowest score since the 8/2 mock-B rep - AND JOSH CALLS IT HIS BEST MOCK SO FAR. Both
+    readings are real and the tension is the finding. THE TALENT CASE IS LEGITIMATE: Bijan fell to pick 5 and was
+    taken, which is literally the R1 rule working (a tier-1 back is a gift, not a plan); Hampton at 20 is a real
+    RB2; Caleb at R3 graded at market for the FIFTH straight rep; Love at R9 and Ward at R10 both graded VALUE,
+    so all three real arms were priced at or below market; Deebo at R12 is genuine value AND a W8 body, the week
+    the build wants; Loveland is the live TE1 alternative with Warren nursing a groin. ESPN grades value accumulation
+    and this roster accumulates it. WHAT THE FEEL HIDES: SIX PLAYERS ON W11 - Bijan, Kyren, Concepcion, Lloyd, and
+    BOTH Packers-slash-Browns pairs (Love GB, Lloyd GB, Concepcion CLE, Browns DST CLE). Six dark in one payout
+    week is the worst single-week hole in the thirty-rep history of this log; the previous record was five, and
+    the partition is off by SEVEN against a previous worst of four. W5, W6 and W14 are all EMPTY - the seeding week
+    has no body at all - while W7 holds four. The 2025 season this framework exists to avenge was lost exactly this
+    way: a talented roster that forfeited weeks. ALSO BROKEN: Warren missed for the first time in ten reps (Loveland
+    NEAR - defensible on the groin, but he is CHI, and conflict w10 says AT MOST ONE BEAR when Caleb is the QB1,
+    so this exact pairing is refused by name). Downs not drafted. QB 4/3 - Mendoza at R16 is the fourth arm the
+    ledger note says is in-season churn only. WR 4/5. RB floor breached at R12 (backs at R1/R2/R4/R8/R13/R17). K
+    and DST taken at R14-R15, two rounds early, and the DST is the SIXTH W11 body. No QB2 in window - Love at R9
+    hit the QB3 slot instead, so the R5-6 window went unfilled. THE HONEST SYNTHESIS FOR JOSH: keep the instincts
+    this rep showed - taking the fallen tier-1, the at-market anchor, the value arms, Deebo on the right week -
+    and let the tally kill the six W11 bodies. Bijan/Hampton/Caleb/Moore/Love/Ward/Deebo all survive contact with
+    the framework. Kyren at R4 (second W11), Concepcion, Lloyd and the Browns DST do not, and those four picks are
+    the entire gap between this roster and a legal one that feels the same.'
+  errors:
+  - warren_missed
+  - downs_not_drafted
+  - ledger_qb_over
+  - wr_short
+  - rb_floor
+  - bye_stack_w7
+  - bye_stack_w10
+  - bye_stack_w11
+  - w14_empty
+  - k_dst_early
+  - caleb_two_bears
+  - no_qb2_in_window
+  - tally_not_used

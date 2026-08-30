@@ -1,0 +1,251 @@
+<title>The Roster You Liked</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<title>Slot Five Call Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:13px; line-height:1.45; margin:0; padding:20px 16px 40px;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+
+h1,h2,h3,.lbl,th{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- masthead ---------- */
+.top{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;
+  border-bottom:2px solid var(--ink);padding-bottom:9px;
+}
+h1{font-size:38px;font-weight:700;letter-spacing:-.015em;margin:0;line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent)}
+.top dl{display:flex;gap:18px;margin:0 0 3px auto;flex-wrap:wrap}
+.top div{display:flex;flex-direction:column;gap:1px}
+.top dt{font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3)}
+.top dd{margin:0;font-size:13px;font-weight:600}
+
+.picks{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:7px 11px;font-size:12.5px;display:flex;flex-wrap:wrap;gap:3px 0;align-items:baseline;
+}
+.picks b{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:9px;font-weight:600}
+.picks span{padding:0 7px;border-right:1px solid var(--rule-2)}
+.picks span:last-child{border-right:0}
+.picks .key{color:var(--accent);font-weight:600}
+
+/* ---------- alert band ---------- */
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:9px}
+.alert{
+  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--ink-3);
+  border-radius:3px;padding:9px 11px;box-shadow:var(--shadow);
+}
+.alert.stop{border-left-color:var(--stop)}
+.alert.warn{border-left-color:var(--warn)}
+.alert.go{border-left-color:var(--accent)}
+.alert h3{
+  font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  margin:0 0 3px;display:flex;align-items:center;gap:6px;
+}
+.alert.stop h3{color:var(--stop)} .alert.warn h3{color:var(--warn)} .alert.go h3{color:var(--accent)}
+.alert p{margin:0;font-size:12px;color:var(--ink-2)}
+.alert p+p{margin-top:4px}
+.alert strong{color:var(--ink);font-weight:600}
+.tick{font-size:10px;font-family:"IBM Plex Mono",monospace;color:var(--ink-3);font-weight:400;
+  letter-spacing:0;margin-left:auto;text-transform:none}
+
+/* ---------- columns ---------- */
+.cols{display:grid;grid-template-columns:1.32fr 1fr;gap:14px;align-items:start}
+@media(max-width:880px){.cols{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow:hidden}
+.card>h2{
+  font-size:13px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;margin:0;
+  padding:7px 11px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:8px;
+}
+.card>h2 .sub{font-family:"IBM Plex Sans",sans-serif;font-size:10.5px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink-3);margin-left:auto}
+.pad{padding:10px 11px}
+
+/* ---------- round table ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px}
+.wrap{overflow-x:auto}
+th{
+  font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  text-align:left;padding:5px 7px;border-bottom:1px solid var(--rule);white-space:nowrap;
+}
+td{padding:4px 7px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.r{white-space:nowrap;font-weight:600;width:1%}
+td.r .p{color:var(--ink-3);font-weight:400;font-size:11px;margin-left:3px}
+td.pos{white-space:nowrap;width:1%;font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:13px;letter-spacing:.03em}
+tr.key td{background:var(--accent-soft)}
+tr.key td.pos{color:var(--accent)}
+tr.stop td.pos{color:var(--stop)}
+td small{display:block;color:var(--ink-3);font-size:10.5px;line-height:1.35;margin-top:1px}
+td .no{color:var(--stop);font-weight:600}
+
+.chip{
+  display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;padding:1px 5px;border-radius:2px;
+  vertical-align:1px;margin-right:4px;white-space:nowrap;
+}
+.chip.gate{background:var(--warn-soft);color:var(--warn)}
+.chip.hard{background:var(--stop-soft);color:var(--stop)}
+.chip.dec{background:var(--accent-soft);color:var(--accent)}
+
+/* ---------- bye grid ---------- */
+.bye{width:100%;border-collapse:collapse;font-size:11.5px}
+.bye th{padding:4px 6px}
+.bye td{padding:3px 6px;border-bottom:1px solid var(--rule-2)}
+.bye td:first-child{font-family:"IBM Plex Mono",monospace;font-weight:600;width:1%;white-space:nowrap}
+.bye td:last-child{width:1%;white-space:nowrap;text-align:right}
+.bye .teams{color:var(--ink-2);font-size:11px}
+.bye tr.tight td:first-child{color:var(--warn)}
+.bye tr.seed td{background:var(--stop-soft)}
+.bye tr.seed td:first-child{color:var(--stop)}
+.box{display:inline-block;width:13px;height:13px;border:1px solid var(--ink-3);
+  border-radius:2px;vertical-align:-2px;margin-left:2px}
+
+ul{margin:0;padding-left:15px}
+li{margin-bottom:4px;color:var(--ink-2);font-size:12px}
+li:last-child{margin-bottom:0}
+li strong{color:var(--ink);font-weight:600}
+li .no{color:var(--stop);font-weight:600}
+
+.tally{display:flex;flex-wrap:wrap;gap:5px}
+.tally span{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;border:1px solid var(--rule);
+  border-radius:2px;padding:3px 7px;background:var(--surface-2);white-space:nowrap;
+}
+.rule{height:1px;background:var(--rule-2);margin:9px 0}
+.foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding-top:2px}
+.foot code{font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+
+@media print{
+  body{background:#fff;padding:0;font-size:10px}
+  .card,.alert,.picks{box-shadow:none}
+  .cols{gap:9px}
+  h1{font-size:30px}
+  @page{margin:11mm}
+}
+</style><style>
+td.pl{width:auto}
+td.pl strong{font-size:13px}
+.tm{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ink-3);margin-left:6px}
+td.pl small{display:block;color:var(--ink-2);font-size:11px;line-height:1.4;margin-top:2px}
+.w11{font-family:"Barlow Condensed",sans-serif;font-style:normal;font-size:9px;font-weight:600;
+  letter-spacing:.08em;background:var(--stop-soft);color:var(--stop);padding:0 4px;border-radius:2px;margin-left:5px}
+.vd{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:9.5px;font-weight:600;
+  letter-spacing:.08em;padding:1px 6px;border-radius:2px;white-space:nowrap}
+.vd.keep{background:var(--accent-soft);color:var(--accent)}
+.vd.cond{background:var(--warn-soft);color:var(--warn)}
+.vd.cost{background:var(--stop-soft);color:var(--stop)}
+tr.keep td.r{border-left:3px solid var(--accent);padding-left:5px}
+tr.cost td.r{border-left:3px solid var(--stop);padding-left:5px}
+.scorebar{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px}
+.sc{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--stop);
+  border-radius:3px;padding:8px 10px;box-shadow:var(--shadow)}
+.sc.g{border-top-color:var(--accent)}
+.sc b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:700;line-height:1;color:var(--stop)}
+.sc.g b{color:var(--accent)}
+.sc span{display:block;font-size:10.5px;color:var(--ink-2);margin-top:3px}
+</style>
+<div class="sheet">
+  <header class="top">
+    <h1>The Roster You <em>Liked</em></h1>
+    <dl><div><dt>Rep 30</dt><dd>Aug 29 · slot 5</dd></div>
+      <div><dt>Graded</dt><dd class="mono">5/11 · partition off by 7</dd></div>
+      <div><dt>Draft</dt><dd>Sun Sep 6 · <strong>8 days</strong></dd></div></dl>
+  </header>
+
+  <section class="scorebar">
+    <div class="sc g"><b>7</b><span>picks worth keeping</span></div>
+    <div class="sc g"><b>0</b><span>arms over tier</span></div>
+    <div class="sc"><b>6</b><span>players dark on W11 — a log record</span></div>
+    <div class="sc"><b>3</b><span>weeks empty: W5 · W6 · W14</span></div>
+    <div class="sc"><b>4/3</b><span>QBs — a fourth arm</span></div>
+    <div class="sc"><b>0</b><span>Warren & Downs drafted</span></div>
+  </section>
+
+  <section class="math">
+    <h2>The feel is real — and so is the bill</h2>
+    <p style="margin:0 0 7px"><strong>The talent case is legitimate.</strong> Bijan fell to 5 and you took
+    the gift. Caleb at market for the fifth straight rep. Love and Ward both VALUE. Deebo at R12 on the
+    exact week your builds leave short. ESPN grades value accumulation and this roster accumulates it.</p>
+    <p style="margin:0"><strong>What the feel hides:</strong> six players dark on W11 — the worst
+    single-week hole in thirty reps — while W5, W6 and the <b>seeding week</b> sit empty. 2025 was lost
+    exactly this way: a talented roster that forfeits weeks. <strong>Four picks are the entire gap</strong>
+    between this roster and a legal one that feels the same: Kyren, Concepcion, Lloyd, Browns D/ST.</p>
+  </section>
+
+  <section class="card">
+    <h2>The seventeen, judged <span class="sub">green = survives the framework · red = the four W11 bodies and friends</span></h2>
+    <div class="wrap"><table>
+      <thead><tr><th>Rd</th><th>Pos</th><th>Pick &amp; the honest note</th><th></th></tr></thead>
+      <tbody><tr class="keep"><td class="r mono">R1<span class="p">5</span></td><td class="pos">RB</td><td class="pl"><strong>Bijan Robinson</strong><i class="tm">ATL W11</i> <i class="w11">W11</i><small>The R1 rule working perfectly — a tier-1 back fell and you took the gift. W11 body #1.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="keep"><td class="r mono">R2<span class="p">20</span></td><td class="pos">RB</td><td class="pl"><strong>Omarion Hampton</strong><i class="tm">LAC W7</i><small>Real RB2 at 20, and Branch C — the shape that fixed your QB pricing. W7 #1.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="keep"><td class="r mono">R3<span class="p">29</span></td><td class="pos">QB</td><td class="pl"><strong>Caleb Williams</strong><i class="tm">CHI W10</i><small>At market for the FIFTH straight rep. This pick is solved.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="cost"><td class="r mono">R4<span class="p">44</span></td><td class="pos">RB</td><td class="pl"><strong>Kyren Williams</strong><i class="tm">LAR W11</i> <i class="w11">W11</i><small>W11 body #2 — cap hit by R4 — and the R4 WR commitment died here. Fix: McMillan (CAR W5) or Nabers.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="cond"><td class="r mono">R5<span class="p">53</span></td><td class="pos">TE</td><td class="pl"><strong>Colston Loveland</strong><i class="tm">CHI W10</i><small>Defensible on Warren’s groin — but he is CHI, and with Caleb as QB1 the rule is AT MOST ONE BEAR. Loveland is legal only behind a different anchor.</small></td><td><span class="vd cond">CONDITIONAL</span></td></tr>
+<tr class="keep"><td class="r mono">R6<span class="p">68</span></td><td class="pos">WR</td><td class="pl"><strong>DJ Moore</strong><i class="tm">BUF W7</i><small>First WR, a round late but a real one. W7 #2 — cap now full.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="cost"><td class="r mono">R7<span class="p">77</span></td><td class="pos">WR</td><td class="pl"><strong>Parker Washington</strong><i class="tm">JAX W7</i><small>Off every board, and the THIRD W7 body. Fix: Josh Downs — his window is exactly here.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="cost"><td class="r mono">R8<span class="p">92</span></td><td class="pos">RB</td><td class="pl"><strong>Kenny Gainwell</strong><i class="tm">TB W10</i><small>Third W10 body. The tally would have blocked it. Fix: any W5/W6/W9 back — Dowdle two rounds later is the board answer.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="keep"><td class="r mono">R9<span class="p">101</span></td><td class="pos">QB</td><td class="pl"><strong>Jordan Love</strong><i class="tm">GB W11</i> <i class="w11">W11</i><small>VALUE, three rounds past tier — the repriced default. But note: this filled QB3, so the QB2 window went empty.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="keep"><td class="r mono">R10<span class="p">116</span></td><td class="pos">QB</td><td class="pl"><strong>Cam Ward</strong><i class="tm">TEN W9</i><small>VALUE by four rounds. With Love at R9, Ward is your QB3 and the ladder is Caleb/Love/Ward — three byes, all cheap.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="cost"><td class="r mono">R11<span class="p">125</span></td><td class="pos">WR</td><td class="pl"><strong>KC Concepcion</strong><i class="tm">CLE W11</i> <i class="w11">W11</i><small>W11 body #4. Fix: Boston (CLE is also W11 — no) — Tyson or Stribling, the W8 names.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="keep"><td class="r mono">R12<span class="p">140</span></td><td class="pos">WR</td><td class="pl"><strong>Deebo Samuel Sr.</strong><i class="tm">SF W8</i><small>Genuine value AND a W8 body — the week your builds keep leaving short. Best late pick of the rep.</small></td><td><span class="vd keep">KEEP</span></td></tr>
+<tr class="cost"><td class="r mono">R13<span class="p">149</span></td><td class="pos">RB</td><td class="pl"><strong>MarShawn Lloyd</strong><i class="tm">GB W11</i> <i class="w11">W11</i><small>W11 body #5. Fix: Allgeier — the mandatory single W14 body, and this roster has zero.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="cost"><td class="r mono">R14<span class="p">164</span></td><td class="pos">DST</td><td class="pl"><strong>Browns D/ST</strong><i class="tm">CLE W11</i> <i class="w11">W11</i><small>Two rounds early AND the SIXTH W11 body. Fix: a skill pick here; defense at R16 on whatever week is short.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="cond"><td class="r mono">R15<span class="p">173</span></td><td class="pos">K</td><td class="pl"><strong>Ka&#x27;imi Fairbairn</strong><i class="tm">HOU W8</i><small>Right bye (W8), wrong round — kickers are R17. Cheap fix.</small></td><td><span class="vd cond">CONDITIONAL</span></td></tr>
+<tr class="cost"><td class="r mono">R16<span class="p">188</span></td><td class="pos">QB</td><td class="pl"><strong>Fernando Mendoza</strong><i class="tm">LV W13</i><small>A fourth QB. The ledger says three arms, ever — this pick is the missing fifth WR.</small></td><td><span class="vd cost">COST</span></td></tr>
+<tr class="cost"><td class="r mono">R17<span class="p">197</span></td><td class="pos">RB</td><td class="pl"><strong>Ray Davis</strong><i class="tm">BUF W7</i><small>Sixth back two rounds after the floor breached at R12. Fix: this is the kicker slot.</small></td><td><span class="vd cost">COST</span></td></tr></tbody></table></div>
+  </section>
+
+  <p class="foot">Graded with <code>ff grade --slot 5</code> · logged as rep 30 ·
+  keep list: Bijan · Hampton · Caleb · Moore · Love · Ward · Deebo.<br>
+  To make the system smarter, send the <b>full draft board</b> — all 12 teams × 17 rounds — not just
+  My Roster. One capture converts every remaining estimate into a measurement.</p>
+</div>
