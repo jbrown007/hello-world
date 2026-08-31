@@ -1501,6 +1501,46 @@ def _():
             f"{name}: pass says last seen at pick {claimed_pick}, rosters say {real}"
     return f"{len(rows)} rosters, {len(ap['measured_availability']['who'])} claims recomputed"
 
+@check("2025 draft board recomputes the room model's QB-run curve")
+def _():
+    """room.yaml's manager profiles and the pick-53 QB2 trigger all lean on one
+    document: the full 2025 board. Until 8/31 that source was never committed -
+    the profiles cited a read of it. Now that data/draft_board_2025.yaml holds
+    the primary source (parsed from Josh's ESPN recap PDF), this check pins the
+    claims to it: exact snake shape (204 picks, 12 managers x 17 rounds, overall
+    arithmetic), the manager set matching room.yaml seat for seat, and the QB
+    curve the run math quotes - 8 QBs through R4, ZERO in R5, six in R6, 34
+    total. If a hand edit corrupts a pick or a manager name, this fails."""
+    from ffcli.config import load
+    import collections
+    board = load("draft_board_2025")
+    picks = board["picks"]
+    assert len(picks) == 204, f"board holds {len(picks)} picks, a 12x17 draft is 204"
+    for p in picks:
+        assert p["overall"] == (p["round"] - 1) * 12 + p["pick_in_round"], \
+            f"overall arithmetic broken at {p['player']}: {p['overall']}"
+        assert isinstance(p["team"], str), \
+            f"{p['player']} team parsed as {type(p['team']).__name__} - bare NO?"
+        assert p["team"] in NFL_TEAMS | {"FA"}, f"{p['player']} on unknown team {p['team']}"
+    mgr_counts = collections.Counter(p["manager"] for p in picks)
+    assert all(v == 17 for v in mgr_counts.values()) and len(mgr_counts) == 12, \
+        f"per-manager pick counts wrong: {dict(mgr_counts)}"
+    room = load("room")
+    room_names = {m["name"] for m in room["managers"]} | {"Crushing Dreams"}
+    assert set(mgr_counts) == room_names, \
+        f"board managers do not match room.yaml: {set(mgr_counts) ^ room_names}"
+    qb_by_round = collections.Counter(p["round"] for p in picks if p["pos"] == "QB")
+    assert sum(qb_by_round.values()) == 34, \
+        f"{sum(qb_by_round.values())} QBs on the board, room model says 34"
+    assert sum(qb_by_round[r] for r in (1, 2, 3, 4)) == 8, "QBs through R4 should be 8"
+    assert qb_by_round[5] == 0, f"R5 held {qb_by_round[5]} QBs - the dead zone claim says zero"
+    assert qb_by_round[6] == 6, f"R6 held {qb_by_round[6]} QBs - the run claim says six"
+    josh_9 = next(p for p in picks if p["manager"] == "Crushing Dreams" and p["round"] == 9)
+    assert josh_9["player"] == "Kaleb Johnson", \
+        f"Josh's 9.08 is {josh_9['player']} - the gap-closure note says Kaleb Johnson"
+    return "204 picks, 12x17, QB curve 8/0/6/34 recomputed"
+
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

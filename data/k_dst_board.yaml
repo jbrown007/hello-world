@@ -171,6 +171,37 @@ dst:
       body. Taken in the 8/16 rep. Refuse it.'}
 
 # ---------------------------------------------------------------------------
+market_2025:
+  added: '8/31'
+  source: data/draft_board_2025.yaml (the real room, not ESPN autodraft)
+  warning: >
+    THE HUMAN ROOM PRICES K AND D/ST FAR AHEAD OF THE MOCKS. The 2026 mock reps
+    are ESPN autodraft and routinely leave the Chargers DST at 188 and Boswell
+    at 197. The real 2025 room did not: eleven defenses were gone before pick
+    188 and twelve kickers before pick 197. Do not walk in expecting the mock
+    shelf.
+  measured_exits:
+    dst: 'HOU 88 (Jag FLu, the habit) - BAL 98 - PIT 99 - GB 102 - DEN 140 -
+      TB 141 - PHI 154 - MIN 157 - SF 163 - DET 185 (Josh) - SEA 186 - NE 192 -
+      BUF 203. Denver, rank 2 on this board, went at 140. Seattle, rank 1,
+      lasted to 186 - two picks shy of the 2026 R16 slot.'
+    k: 'McLaughlin 130 - AUBREY 136 - Loop 143 - Bates 148 - DICKER 151 -
+      Elliott 164 - Bass 166 - Butker 173 - Gay 179 - Boswell 180 - McManus 187 -
+      Santos 193 - FAIRBAIRN 200. Dicker, the default pick, went a full 46 picks
+      before the 2026 R17 slot. Fairbairn was the one board kicker still alive
+      at pick 197-equivalent.'
+  therefore: >
+    In the live draft the r16_r17_are_partition_fillers escape clause - "go
+    outside these boards for a body on the right bye" - is not the fallback, it
+    is the expected path. Fairbairn is the realistic best-case kicker, and the
+    R16 defense will likely be an off-board unit chosen purely by bye. That is
+    fine: the rule already says the partition picks the player. What is NOT fine
+    is burning an earlier pick to beat the room to a name - Jag FLu's R8 defense
+    is the leak this framework refuses to copy, and eleven managers paying early
+    is eleven skill players handed to Josh, not evidence the rule is wrong.
+    K9-K14 in a week you need beats K2 in a week you don't.
+
+# ---------------------------------------------------------------------------
 default_pairing:
   pick: Houston D/ST at R16 (W8) + Cameron Dicker at R17 (W7)
   why: >
