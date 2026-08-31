@@ -58,6 +58,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .top dt{font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;
   text-transform:uppercase;color:var(--ink-3)}
 .top dd{margin:0;font-size:13px;font-weight:600}
+.top dd .hot{color:var(--stop)}
 
 .picks{
   background:var(--surface);border:1px solid var(--rule);border-radius:3px;
@@ -69,8 +70,8 @@ h1 em{font-style:normal;color:var(--accent)}
 .picks span:last-child{border-right:0}
 .picks .key{color:var(--accent);font-weight:600}
 
-/* ---------- alert band ---------- */
-.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:9px}
+/* ---------- intel band ---------- */
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px}
 .alert{
   background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--ink-3);
   border-radius:3px;padding:9px 11px;box-shadow:var(--shadow);
@@ -122,6 +123,7 @@ tr.key td.pos{color:var(--accent)}
 tr.stop td.pos{color:var(--stop)}
 td small{display:block;color:var(--ink-3);font-size:10.5px;line-height:1.35;margin-top:1px}
 td .no{color:var(--stop);font-weight:600}
+td.byec{white-space:nowrap;width:1%;font-family:"IBM Plex Mono",monospace;font-size:11px}
 
 .chip{
   display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;
@@ -131,19 +133,18 @@ td .no{color:var(--stop);font-weight:600}
 .chip.gate{background:var(--warn-soft);color:var(--warn)}
 .chip.hard{background:var(--stop-soft);color:var(--stop)}
 .chip.dec{background:var(--accent-soft);color:var(--accent)}
+.chip.lock{background:var(--accent-soft);color:var(--accent)}
 
-/* ---------- bye grid ---------- */
-.bye{width:100%;border-collapse:collapse;font-size:11.5px}
-.bye th{padding:4px 6px}
-.bye td{padding:3px 6px;border-bottom:1px solid var(--rule-2)}
-.bye td:first-child{font-family:"IBM Plex Mono",monospace;font-weight:600;width:1%;white-space:nowrap}
-.bye td:last-child{width:1%;white-space:nowrap;text-align:right}
-.bye .teams{color:var(--ink-2);font-size:11px}
-.bye tr.tight td:first-child{color:var(--warn)}
-.bye tr.seed td{background:var(--stop-soft)}
-.bye tr.seed td:first-child{color:var(--stop)}
-.box{display:inline-block;width:13px;height:13px;border:1px solid var(--ink-3);
-  border-radius:2px;vertical-align:-2px;margin-left:2px}
+/* ---------- partition grid ---------- */
+.part{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;text-align:center}
+.part>div{border:1px solid var(--rule);border-radius:2px;padding:4px 2px;background:var(--surface-2)}
+.part b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:.05em}
+.part span{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:2px;color:var(--ink-3)}
+.part .seedw{border-color:var(--stop);background:var(--stop-soft)}
+.part .seedw b{color:var(--stop)}
+.part .spent{border-color:var(--warn);background:var(--warn-soft)}
+.part .spent b{color:var(--warn)}
 
 ul{margin:0;padding-left:15px}
 li{margin-bottom:4px;color:var(--ink-2);font-size:12px}
@@ -160,6 +161,12 @@ li .no{color:var(--stop);font-weight:600}
 .foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding-top:2px}
 .foot code{font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
 
+/* seat strip */
+.seats{display:flex;flex-wrap:wrap;gap:5px}
+.seats span{font-size:11.5px;border:1px solid var(--rule);border-radius:2px;padding:3px 7px;
+  background:var(--surface-2);white-space:nowrap;color:var(--ink-2)}
+.seats b{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--ink)}
+
 @media print{
   body{background:#fff;padding:0;font-size:10px}
   .card,.alert,.picks{box-shadow:none}
@@ -174,10 +181,11 @@ li .no{color:var(--stop);font-weight:600}
   <header class="top">
     <h1>Slot&nbsp;<em>5</em> Call Sheet</h1>
     <dl>
-      <div><dt>Draft</dt><dd>Sun Sep 6, 9:00 PM EST · <strong>13 days</strong></dd></div>
+      <div><dt>Draft</dt><dd>Sun Sep 6, 9:00 PM EST · <strong>6 days</strong></dd></div>
+      <div><dt>Clock</dt><dd class="hot">60 seconds per pick</dd></div>
       <div><dt>Format</dt><dd>12-team · Full PPR · Superflex</dd></div>
-      <div><dt>Record</dt><dd class="mono">last 5 reps: 11,11,11,11,10</dd></div>
-      <div><dt>Sheet</dt><dd>Aug 24 · re-price Aug 25</dd></div>
+      <div><dt>State</dt><dd class="mono">31 reps · last 10 avg 10.0/11</dd></div>
+      <div><dt>Sheet</dt><dd>Aug 31 · final sweep Sept 4-5</dd></div>
     </dl>
   </header>
 
@@ -189,39 +197,30 @@ li .no{color:var(--stop);font-weight:600}
     <span class="key">188</span><span class="key">197</span>
   </div>
 
-  <section class="math">
-    <h2>Three errors are all that is left</h2>
-    <p style="margin:0 0 8px">Across the last five reps, structure is solved — ledger exact 5/5, RB floor
-    met 5/5, QB pricing clean in 3 of the last 4, Downs on time in 4 of 5. <strong>Every remaining
-    error is one of these three, and all three live after R11.</strong></p>
-    <div class="eq">
-      <span class="res">5 of 5</span><span>tally never filled in</span>
-      <span class="op">·</span><span class="res">4 of 5</span><span>W6 over cap</span>
-      <span class="op">·</span><span class="res">4 of 5</span><span>K or D/ST tipped a week</span>
-    </div>
-  </section>
-
   <section class="band">
-    <div class="alert stop">
-      <h3>Fill the tally <span class="tick">5 of 5</span></h3>
-      <p>Not one rep has used it. Every other error downstream is a symptom of this. <strong>Tick a box
-      the moment you make a pick</strong> — the grid on the right is the whole job.</p>
+    <div class="alert go">
+      <h3>Pick 53 is measured now <span class="tick">2025 board</span></h3>
+      <p>Last year's real board: <strong>zero QBs in all of R5, then four inside your 53&rarr;68 gap</strong>
+      (Herbert 62, Murray 63, Purdy 66, Dak 67). Griddy doubles at 60-61 this year. The R5 QB-run
+      trigger is no longer a theory &mdash; count the last 12 picks and trust it.</p>
+    </div>
+    <div class="alert warn">
+      <h3>The room beats your mocks to K/DST <span class="tick">2025 board</span></h3>
+      <p>The autodraft mocks leave a shelf at 188/197. The humans did not: <strong>11 defenses gone
+      before 188, 12 kickers before 197.</strong> Dicker went at 151; Fairbairn (200) is the realistic
+      best case. Expect to go off-board &mdash; <strong>the bye picks the body, and that is fine.</strong></p>
     </div>
     <div class="alert stop">
-      <h3>W6 is the trap week <span class="tick">4 of 5</span></h3>
-      <p>Rep 26 finished with <strong>five</strong> on W6. The default line already routes through it:
-      Gibbs/St. Brown R1, Goff/Murray in the QB window, Mason R11, McPherson on the K board.</p>
-      <p><span class="no">Refuse two of</span> Jennings (MIN) · Washington (MIA) · Gordon II (MIA).</p>
-    </div>
-    <div class="alert stop">
-      <h3>R16-R17 fill short weeks <span class="tick">4 of 5</span></h3>
-      <p>You hold 15 players — <strong>arithmetic decides both picks.</strong> Take the best K and D/ST
-      that land on the two weeks still under target. Rep 28 tipped <em>both</em>.</p>
+      <h3>Colts cloud &mdash; decisive Sept 4-5 <span class="tick">watch</span></h3>
+      <p><strong>Warren</strong> (groin, no practice, 2+ week timeline) and <strong>Downs</strong> (calf,
+      Pierce back in the slot). Both are W13 commitments. If Warren is still out at the final sweep,
+      the R5 call changes &mdash; <strong>draft off the final sheet, not this one.</strong></p>
     </div>
     <div class="alert go">
-      <h3>What is already solved</h3>
-      <p>Ledger 5/5 · RB floor 5/5 · W5 filled deliberately twice · IND at exactly 2 · no fade in 4 of 5
-      · Aubrey refused every time. <strong>Do not spend attention here.</strong></p>
+      <h3>60 seconds changes the method</h3>
+      <p>The clock (from the 2025 recap) is too short to type and read. <strong>The printed sheet makes
+      the pick.</strong> Between your turns: pre-mark the two live branches for your next pick and
+      tick the tally. Nothing else.</p>
     </div>
   </section>
 
@@ -229,79 +228,100 @@ li .no{color:var(--stop);font-weight:600}
     <div style="display:flex;flex-direction:column;gap:14px">
 
       <section class="card">
-        <h2>The seventeen picks <span class="sub">bye shown is the slot it must fill</span></h2>
+        <h2>The seventeen picks <span class="sub">bye shown is the slot it fills</span></h2>
         <div class="wrap">
         <table>
           <thead><tr><th>Rd</th><th>Pos</th><th>Call</th><th>Bye</th></tr></thead>
           <tbody>
-            <tr><td class="r mono">R1<span class="p">5</span></td><td class="pos">RB/WR</td>
-              <td><strong>Gibbs or Bijan if either falls</strong> · else St. Brown / Nacua
-              <small>They go 1.01/1.02 — plan on the receiver, take the back as a gift.</small></td>
-              <td class="bye">W6</td></tr>
-            <tr class="key"><td class="r mono">R2<span class="p">20</span></td><td class="pos">QB/RB</td>
-              <td><span class="chip dec">Branch</span><strong>Elite six if one is there. Otherwise take
-              the back.</strong>
-              <small>Three straight reps got this right by taking the skill player and the arm at R3.
-              Nix, Dart and Lawrence were all reaches here.</small></td>
-              <td class="bye">W5</td></tr>
-            <tr><td class="r mono">R3<span class="p">29</span></td><td class="pos">QB/RB</td>
-              <td>Branch C anchor — <strong>C. Williams · Herbert</strong>
-              <small><span class="chip gate">Gate</span>QB1 held by end of round. Both graded
-              at market in reps 26-28.</small></td>
-              <td class="bye">W10</td></tr>
+            <tr><td class="r mono">R1<span class="p">5</span></td><td class="pos">WR/RB</td>
+              <td><strong>St. Brown / Nacua</strong> &mdash; Gibbs or Bijan only if one falls
+              <small>They go 1.01/1.02. Plan on the receiver; take the back as a gift.</small></td>
+              <td class="byec">W6/W11</td></tr>
+            <tr class="key"><td class="r mono">R2<span class="p">20</span></td><td class="pos">QB</td>
+              <td><span class="chip dec">Branch</span><strong>Elite arm if one is here</strong> &mdash;
+              Maye · Hurts · Daniels · Burrow
+              <small>Jag FLu picks at 16 and took QBs at 16 and 33 last year. If you want an arm in
+              this band, it is at 20 &mdash; not a hope at 29. All six gone: take the skill player,
+              go Branch C.</small></td>
+              <td class="byec">W11/W10</td></tr>
+            <tr><td class="r mono">R3<span class="p">29</span></td><td class="pos">RB/QB</td>
+              <td><strong>Kenneth Walker III</strong> (KC) &mdash; the first W5 filler
+              <small><span class="chip gate">Gate</span>QB1 by end of round. Branch C arm here instead:
+              Caleb · Herbert. Kleenex took Walker at 39 last year and picks at 30 &mdash; he does not
+              survive to 54.</small></td>
+              <td class="byec">W5</td></tr>
             <tr><td class="r mono">R4<span class="p">44</span></td><td class="pos">WR</td>
-              <td>McMillan (CAR) · Higgins · Nabers
-              <small><span class="chip gate">Gate</span>2 RB held. McMillan is your second W5 body.</small></td>
-              <td class="bye">W5</td></tr>
+              <td><strong>Tetairoa McMillan</strong> (CAR) &mdash; the second W5 body · Higgins · Pickens
+              <small><span class="chip gate">Gate</span>2 RB held. Not Warren &mdash; arithmetically
+              impossible to clear his gate here. Pickens is a W14 body: first one only.</small></td>
+              <td class="byec">W5</td></tr>
             <tr class="key"><td class="r mono">R5<span class="p">53</span></td><td class="pos">TE/QB</td>
-              <td><span class="chip dec">Decision</span><strong>Warren — or QB2 if 3+ QBs went in the
-              last 12</strong><small>If the run fired, take Ward and W13 reopens.</small></td>
-              <td class="bye">W13</td></tr>
+              <td><span class="chip dec">Decision</span><strong>Warren &mdash; or QB2 if 3+ QBs went in
+              the last 12</strong><small>The decision pick. Run fires &rarr; take the arm, release
+              Warren, W13 reopens, backfill TE R7-8. CHAMP (Warren's owner last year) picks at 55.
+              Health call comes from the Sept 4-5 sweep.</small></td>
+              <td class="byec">W13</td></tr>
             <tr><td class="r mono">R6<span class="p">68</span></td><td class="pos">QB</td>
-              <td><span class="chip hard">Floor</span>QB2 held · Ward · Murray · Love
-              <small>Love graded at market here twice. Do not put a QB3-tier arm in this slot.</small></td>
-              <td class="bye">W9/W11</td></tr>
+              <td><span class="chip hard">Floor</span>QB2 held &mdash; Ward · Murray · Mayfield · Nix · Love
+              <small>You are picking inside last year's run window. Best arm left, no preference-waiting.
+              <span class="no">NO</span> Daniel Jones (third Colt, third W13).</small></td>
+              <td class="byec">W9/W6</td></tr>
             <tr><td class="r mono">R7<span class="p">77</span></td><td class="pos">RB</td>
-              <td>Kaelon Black (SF) <em>not</em> Stevenson
-              <small>Stevenson is a second NE body and caps W11 — that is what kills R14.</small></td>
-              <td class="bye">W8</td></tr>
+              <td>Rhamondre Stevenson (NE)
+              <small>If Maye is your QB1 this is your second NE body and your whole W11 cap &mdash;
+              then no W11 kicker or defense later.</small></td>
+              <td class="byec">W11</td></tr>
             <tr><td class="r mono">R8<span class="p">92</span></td><td class="pos">WR/RB</td>
-              <td><span class="chip gate">Gate</span>3 RB held · Odunze if the floor is met</td>
-              <td class="bye">W10</td></tr>
+              <td>Gainwell · Odunze · M. Wilson
+              <small><span class="chip gate">Gate</span>3 RB held &mdash; if at 2, this is a back.
+              Odunze is Bear No. 1: count it. Wilson is ARI &mdash; first W14 body only.</small></td>
+              <td class="byec">W10</td></tr>
             <tr><td class="r mono">R9<span class="p">101</span></td><td class="pos">QB</td>
-              <td>Third distinct bye · Goff · Lawrence · Shough
-              <small>Market is 101-107; yours is 101. <span class="no">NO</span> Geno (W13).</small></td>
-              <td class="bye">W7</td></tr>
+              <td>Third distinct bye &mdash; Goff · Lawrence · Rodgers · Shough
+              <small>Market is 101-107 and your pick is 101. <span class="no">NO</span> Geno (W13).
+              Rodgers collides with Ward on W9.</small></td>
+              <td class="byec">W6/W7</td></tr>
             <tr><td class="r mono">R10<span class="p">116</span></td><td class="pos">WR</td>
-              <td><span class="chip lock">Locked</span><strong>Josh Downs</strong> — take him at R7 if he
-              is there<small>Four straight reps hit this. IND and W13 both close here.</small></td>
-              <td class="bye">W13</td></tr>
+              <td><span class="chip lock">Deadline</span><strong>Josh Downs</strong> &mdash; the window
+              closes here<small>IND cap and W13 both close on this pick. Gone: best WR and note it.
+              Calf + Pierce's return is a Sept 4-5 item &mdash; check the final sheet.</small></td>
+              <td class="byec">W13</td></tr>
             <tr><td class="r mono">R11<span class="p">125</span></td><td class="pos">RB</td>
-              <td>Dowdle (PIT) — BUY</td><td class="bye">W9</td></tr>
+              <td>Rico Dowdle (PIT) &mdash; BUY
+              <small>W9 with Ward is that week's cap.</small></td>
+              <td class="byec">W9</td></tr>
             <tr class="stop"><td class="r mono">R12<span class="p">140</span></td><td class="pos">RB</td>
-              <td><span class="chip gate">Gate</span>5 RB held — <strong>and this is a short-week
-              pick</strong><small>Rep 28 spent it on a third W7 body. Check the tally first.</small></td>
-              <td class="bye">short wk</td></tr>
+              <td><span class="chip gate">Gate</span>5 RB held &mdash; Stribling · Black (both SF, W8)
+              <small>Short-week pick: W8 is the week this build leaves empty most often. One SF body
+              only &mdash; check the club count.</small></td>
+              <td class="byec">W8</td></tr>
             <tr><td class="r mono">R13<span class="p">149</span></td><td class="pos">WR</td>
-              <td>Higgins (HOU) — BUY</td><td class="bye">W8</td></tr>
+              <td>Tyson ('NO') · Boston (CLE) · J. Higgins (HOU)
+              <small>Tyson and Higgins are W8 options; Boston fills W11. Price-to-role gaps live
+              here.</small></td>
+              <td class="byec">W8/W11</td></tr>
             <tr class="stop"><td class="r mono">R14<span class="p">164</span></td><td class="pos">RB</td>
-              <td><span class="chip hard">Ledger</span>Sixth and final back
-              <small>Take the BACK. Then stop — a seventh is the most repeated error in the log.</small></td>
-              <td class="bye">short wk</td></tr>
+              <td><span class="chip hard">Ledger</span>Sixth and final back &mdash; Charbonnet · Corum · Mason
+              <small>Take the BACK. <span class="no">NO</span> Allgeier (ARI, seeding week) &mdash;
+              taken in 8 of 14 reps for no reason.</small></td>
+              <td class="byec">W11/W6</td></tr>
             <tr class="stop"><td class="r mono">R15<span class="p">173</span></td><td class="pos">WR</td>
-              <td><span class="chip hard">Ledger</span>Fifth and final receiver
-              <small>Reps 24 and 27 both took Gordon II (RB, W6) here — 7th back, 4th WR, third W6 body,
-              one pick.</small></td>
-              <td class="bye">short wk</td></tr>
+              <td><span class="chip hard">Ledger</span>Fifth and final receiver &mdash; Bernard (PIT)
+              <small>Ledger complete after this pick. W9 is a two-team week &mdash; Bernard fills it.
+              A TE2 is legal here and only here (Warren insurance, zero-IR league).</small></td>
+              <td class="byec">W9</td></tr>
             <tr><td class="r mono">R16<span class="p">188</span></td><td class="pos">DST</td>
-              <td>Whichever defense lands on a short week
-              <small>Houston W8 · Denver W10 · Jacksonville W7 · Seattle W11.</small></td>
-              <td class="bye">short wk</td></tr>
+              <td>Best defense on a week still <em>under</em> target
+              <small>Real-room note: 11 defenses went before this pick last year. Seattle (W11) lasted
+              to 186; Denver (W10) went at 140. If no board name fits, take an off-board unit on the
+              right bye &mdash; that is the rule working, not failing.</small></td>
+              <td class="byec">short wk</td></tr>
             <tr><td class="r mono">R17<span class="p">197</span></td><td class="pos">K</td>
-              <td>Whichever kicker lands on the last short week
-              <small>Dicker W7 · Fairbairn W8 · McPherson W6 · Myers W11 · Little W7 · Boswell W9.
-              <span class="no">NO</span> Aubrey.</small></td>
-              <td class="bye">short wk</td></tr>
+              <td>Best kicker on the last short week
+              <small>Fairbairn (W8) is the realistic ceiling &mdash; Dicker went at 151 last year.
+              Work down: McPherson W6 · Myers W11 · Little W7 · Boswell W9 (only if W9 is open).
+              <span class="no">NO</span> Aubrey. Never same bye as the defense.</small></td>
+              <td class="byec">short wk</td></tr>
           </tbody>
         </table>
         </div>
@@ -315,25 +335,25 @@ li .no{color:var(--stop);font-weight:600}
         <h2>The partition <span class="sub">17 picks · 17 slots · zero slack</span></h2>
         <div class="pad">
           <div class="part">
-            <div><b>W5</b><span>□□</span></div>
-            <div class="gap"><b>W6</b><span>□□</span></div>
-            <div><b>W7</b><span>□□</span></div>
-            <div class="gap"><b>W8</b><span>□□</span></div>
-            <div><b>W9</b><span>□□</span></div>
-            <div><b>W10</b><span>□□</span></div>
-            <div><b>W11</b><span>□□</span></div>
-            <div><b>W13</b><span>□□</span></div>
-            <div class="seedw"><b>W14</b><span>□</span></div>
+            <div><b>W5</b><span>&#9633;&#9633;</span></div>
+            <div><b>W6</b><span>&#9633;&#9633;</span></div>
+            <div><b>W7</b><span>&#9633;&#9633;</span></div>
+            <div><b>W8</b><span>&#9633;&#9633;</span></div>
+            <div><b>W9</b><span>&#9633;&#9633;</span></div>
+            <div><b>W10</b><span>&#9633;&#9633;</span></div>
+            <div><b>W11</b><span>&#9633;&#9633;</span></div>
+            <div class="spent"><b>W13</b><span>&#9633;&#9633;</span></div>
+            <div class="seedw"><b>W14</b><span>&#9633;</span></div>
           </div>
-          <p style="margin:9px 0 0;font-size:11.5px;color:var(--ink-2)">Nine weeks × cap 2 = 18, minus
-          W14's banned second slot = <strong>17 for 17</strong>. Every box must fill. A week at zero is
-          as broken as a week at three — <strong>W8 finished empty or short in three of the last four
-          reps</strong> while W6 ran over.</p>
+          <p style="margin:9px 0 0;font-size:11.5px;color:var(--ink-2)">Nine weeks &times; cap 2 = 18,
+          minus W14's banned second slot = <strong>17 for 17</strong>. W13 is spent before you start
+          (Warren + Downs). A week at zero is as broken as a week at three &mdash; W8 is the one that
+          keeps finishing empty. <strong>Tick a box the moment you pick.</strong></p>
         </div>
       </section>
 
       <section class="card">
-        <h2>Write it down <span class="sub">the only unfixed error</span></h2>
+        <h2>Write it down <span class="sub">the tally is the whole job</span></h2>
         <div class="pad">
           <div class="tally">
             <span>QB __/3</span><span>RB __/6</span><span>WR __/5</span>
@@ -351,36 +371,48 @@ li .no{color:var(--stop);font-weight:600}
       </section>
 
       <section class="card">
+        <h2>Seat threats <span class="sub">measured, 2025 board</span></h2>
+        <div class="pad">
+          <div class="seats">
+            <span><b>54</b> Kleenex &mdash; eats your RB</span>
+            <span><b>55</b> CHAMP &mdash; Warren habit</span>
+            <span><b>60-61</b> Griddy QB double</span>
+            <span><b>16 &amp; 33</b> Jag FLu's arms</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:11.5px;color:var(--ink-2)">Kleenex drafted seven RBs last
+          year and picks one after you every odd round &mdash; the back you pass at 53 is gone at 54.
+          Every champion 2021-2025 built skill-first with QB2 in the R6-7 window; you are buying one
+          round ahead of that market from the seat where it detonates.</p>
+        </div>
+      </section>
+
+      <section class="card">
         <h2>Do not draft</h2>
         <div class="pad">
           <ul>
             <li><span class="no">Aubrey</span> (DAL W14) · <span class="no">Brooks</span> (CAR W5, fade)
-            · <span class="no">Bateman</span> (BAL W13, fade) · <span class="no">Dak</span> (never list).</li>
-            <li><span class="no">Two of</span> Jennings · Washington · Gordon II — all W6, all late.</li>
+            · <span class="no">Bateman</span> (BAL W13, fade) · <span class="no">Dak</span> (never list)
+            · <span class="no">Allgeier at R14</span> (ARI W14).</li>
+            <li><span class="no">Two of</span> Jennings · Washington · Gordon II at R14-15 &mdash; all W6.</li>
             <li><span class="no">Geno / Lamar / G. Wilson / Sadiq / D. Jones / Pierce / J. Taylor</span>
-            — W13 is spent by Warren + Downs.</li>
-            <li><strong>Any 3rd body from one club.</strong> Rep 28 took three Saints; the kicker was
-            the third.</li>
+            &mdash; W13 is spent by Warren + Downs. (Releases if Warren is released at R5.)</li>
+            <li><strong>Any 3rd body from one club</strong> &mdash; and the kicker counts.</li>
           </ul>
         </div>
       </section>
 
       <section class="card">
-        <h2>Camp watch <span class="sub">Aug 24 · 21 of 23 resolved</span></h2>
+        <h2>Health watch <span class="sub">Aug 31 · final calls Sept 4-5</span></h2>
         <div class="pad">
           <ul>
-            <li><strong>Jadarian Price</strong> (SEA) — <strong>RESOLVED, buy at or below market.</strong>
-            Practised full, in pads, joint session. Held out of both remaining preseason games because
-            the staff have seen enough; Walker III to KC and Charbonnet on PUP leave the job vacated.
-            No game tape is coming — do not chase him up.</li>
-            <li><strong>Browns QB</strong> — <strong>RESOLVED. Deshaun Watson named Week 1 starter.</strong>
-            He was 16/27 for 162, no TDs, booed at home. That caps Boston rather than raising him:
-            waiver target, not a pick.</li>
-            <li><strong>Malachi Fields</strong> (NYG) — now the starting X, every snap with the ones.
-            Giants are <strong>W8</strong>, the week you keep leaving short. Worth a look at the Aug 25
-            re-price.</li>
-            <li><strong>Caleb Williams</strong> — seven snaps of tape, accuracy the concern in both
-            looks. Fine at R3 in the Branch C slot; nothing supports paying up.</li>
+            <li><strong>Tyler Warren</strong> (groin, Aug 19) &mdash; timeline has slipped past two
+            weeks. Still out at the sweep &rarr; the R5 default changes on the final sheet.</li>
+            <li><strong>Josh Downs</strong> (calf) &mdash; Pierce is back in the slot. Role check at
+            the sweep decides whether R10 stays a deadline or becomes best-WR.</li>
+            <li><strong>Kenneth Walker III</strong> (foot, Aug 25) &mdash; trending fine; needs one
+            full practice to fully clear. Only open watchlist row.</li>
+            <li><strong>Justin Fields</strong> &mdash; made the 53 (8/30 sweep); W8 watch-and-take
+            stands.</li>
           </ul>
         </div>
       </section>
@@ -388,7 +420,8 @@ li .no{color:var(--stop);font-weight:600}
     </div>
   </div>
 
-  <p class="foot">Sourced from <code>data/*.yaml</code> · 56/56 checks green · 28 reps logged ·
-  re-price at the Aug 25 ADP pass, again after the Aug 29-30 cuts, final sweep Sept 4-5.</p>
+  <p class="foot">Sourced from <code>data/*.yaml</code> · 58/58 checks green · 31 reps logged ·
+  2025 board committed as <code>data/draft_board_2025.yaml</code> · PRINT after the Sept 4-5 final
+  sweep &mdash; never draft off a stale sheet.</p>
 
 </div>
