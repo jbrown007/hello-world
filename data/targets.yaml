@@ -93,22 +93,28 @@ rounds:
 - rnd: 1
   pick: 5
   pos: RB
-  need: WR1 in practice - RB1 only if a tier-1 back falls, QB1 if an elite arm does
+  need: WR1 - St. Brown is the committed plan; RB1 only if a tier-1 back falls, QB1 if an elite arm does
   gate: null
   do: >
-    READ THIS AS A WR PICK FIRST. The 8/16 ADP pass (adp.yaml market_shape)
-    found running backs UP and receivers DOWN across the 2026 market: Gibbs is
-    going 1.01 and Bijan 1.02 in most rooms, so BOTH TIER-1 RBs ARE PROBABLY
-    GONE by pick 5 and planning on one is planning on a fall. The same shift
-    pushes St. Brown, Jefferson and Lamb to late R1 - so the WR you get here is
-    better than the framework assumed when it was written. Take St. Brown or
-    Nacua. If one of the elite six is somehow on the board, that is Branch A
-    and it is defensible, though usually worse than taking the skill player at
-    5 and still getting an arm at 20 (Branch B). Gibbs or Bijan only if the
-    board actually hands one to you. NOTE THE KNOCK-ON: the pos skeleton still
-    counts this pick as RB1 to hold the 2-by-R4 floor, so if you take the WR
-    here, R4 (pick 44) becomes your RB2 instead of the WR line. The Warren gate
-    at R5 still clears either way - 2 RB + 1 WR held.
+    ST. BROWN IS THE PLANNED PICK - JOSH COMMITTED 9/1. The 8/16 ADP pass
+    (adp.yaml market_shape) found running backs UP and receivers DOWN across
+    the 2026 market: Gibbs is going 1.01 and Bijan 1.02 in most rooms, so BOTH
+    TIER-1 RBs ARE PROBABLY GONE by pick 5 and planning on one is planning on
+    a fall. The same shift pushes St. Brown, Jefferson and Lamb to late R1 -
+    so the WR you get here is better than the framework assumed when it was
+    written. Take St. Brown, Nacua if he is gone. If one of the elite six is
+    somehow on the board, that is Branch A and it is defensible, though
+    usually worse than taking the skill player at 5 and still getting an arm
+    at 20 (Branch B). Gibbs or Bijan only if the board actually hands one to
+    you - and note the ESPN autodraft mocks are NOT that evidence: Gibbs sat
+    at pick 5 in 8 of 11 stored reps because autodraft prices him below the
+    human market. The 2026 humans price him 1.01. NOTE THE KNOCK-ON, RESOLVED
+    9/1: the pos skeleton counts this pick as RB1 to hold the 2-by-R4 floor,
+    so on the St. Brown line R4 (pick 44) becomes your RB2 instead of the WR
+    line - which RELEASES McMILLAN, the second W5 filler. The replacement is
+    CHUBA HUBBARD (CAR, W5) at R4: one pick that meets the floor AND keeps W5
+    closed. See the R4 entry. The Warren gate at R5 still clears either way -
+    2 RB + 1 WR held.
   take:
   - {player: Amon-Ra St. Brown, team: DET, bye: 6, why: 'WR4 consensus, three straight top-3 PPR finishes.
       The WR-down market is reported dropping him to late R1 - at pick 5 that is the discount, not a reach.'}
@@ -170,15 +176,29 @@ rounds:
   need: WR1
   gate: 'RB FLOOR: 2 RBs must be held by the end of this round'
   do: >
-    THIS IS THE WR PICK AND IT IS NOT OPTIONAL. wr_late appeared in 5 reps and is
-    still live. QB1 + RB + RB + WR fill R1-R4 exactly, so anything else here
-    guarantees the miss. WARREN DOES NOT GO HERE - the gate needs 2 RB AND a WR
-    already held, which is arithmetically impossible at pick 44. Warren is an R5
-    pick at this slot, full stop. Note CHAMP picks at 42 and took Warren in R6
-    last year; if he takes him two picks ahead of you, that is the cost of the
-    rule and you backfill TE at R7-8.
+    THIS ROUND NOW BRANCHES ON WHAT R1 WAS - RESOLVED 9/1 when Josh committed
+    to St. Brown at pick 5. ON THE ST. BROWN LINE (the plan): the WR slot is
+    already filled, the 2-by-R4 floor is not (only Walker at R3), so THIS IS
+    RB2 AND THE PICK IS CHUBA HUBBARD - he meets the floor and replaces
+    McMillan as the second W5 body in one pick. McMillan is released from the
+    board on this line. ON THE RB-FIRST LINE (Gibbs or Bijan fell at 5): this
+    is the WR pick and it is not optional - wr_late appeared in 5 reps and is
+    still live; QB1 + RB + RB + WR fill R1-R4 exactly, and McMillan stays the
+    call. EITHER WAY: WARREN DOES NOT GO HERE - his gate needs 2 RB AND a WR
+    already held, which is arithmetically impossible at pick 44. Warren is an
+    R5 pick at this slot, full stop. Note CHAMP picks at 42 (took Warren in R6
+    last year - if he takes him two ahead of you, backfill TE at R7-8) and
+    RB-hungry Kleenex picks at 43, directly ahead of the Hubbard call.
   take:
-  - {player: Tetairoa McMillan, team: CAR, bye: 5, why: 'ADDED 8/29. THE SECOND W5 FILLER. Drafted in
+  - {player: Chuba Hubbard, team: CAR, bye: 5, why: 'ADDED 9/1 - THE ST. BROWN-LINE RB2 AND W5 FILLER.
+      Fires only when R1 was the WR. Carolina lead back, kept the job through the Brooks injury saga
+      (depth_board fades Brooks partly BECAUSE Hubbard holds the role). Went pick 42 in this room in
+      2025 - two ahead of this slot. PRICE IS AN ESTIMATE: he has never appeared in a stored rep, so
+      availability at 44 is untested, and Kleenex at 43 is the standing RB threat. If he is gone, the
+      floor still rules: take the best tier-2-adjacent back here and source the second W5 body late
+      (Rashee Rice KC went pick 86 in 2025, your R8 is 92 - a WR2-slot fallback, not a promoted target).'}
+  - {player: Tetairoa McMillan, team: CAR, bye: 5, why: 'ADDED 8/29. THE SECOND W5 FILLER on the RB-first
+      line only - RELEASED 9/1 on the St. Brown line, where R4 must be a back and Hubbard covers W5. Drafted in
       five of nine reps and on the board at pick 44 every time. With Walker III at R3 this closes W5
       deliberately instead of by accident.'}
   - {player: George Pickens, team: DAL, bye: 14, why: 'WR15. CAUTION - DAL is the SEEDING WEEK. Best
