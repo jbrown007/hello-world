@@ -682,3 +682,45 @@
   - w9_empty
   - k_cond_refuse
   - tally_not_used
+- date: '2026-09-03'
+  slot: 5
+  format: superflex
+  score: 7
+  of: 11
+  notes: 'REP 32, THREE DAYS OUT - THE FIRST REP ON THE COMMITTED ST. BROWN LINE, and it proves both halves
+    of the 9/1 encoding. THE HALF THAT WORKED: ASB taken at 5 exactly as committed. THE HALF THAT DID NOT:
+    the knock-on was ignored - McMillan taken at R4 on the WR-first line, where the pick must be RB2 (only
+    Chase Brown held), so the 2-by-R4 floor breached for the first time since rep 21. The Hubbard branch was
+    encoded 48 hours before this rep and answers this exact situation. LAWRENCE AT PICK 20 FOR THE SECOND
+    CONSECUTIVE REP - reach by seven, a pick-101 arm in the elite-arm slot, and now a live pre-draft habit,
+    not a one-off: reps 31 and 32 both spent the most important pick on the board on QB12-tier. If no elite
+    arm is at 20, the play is a skill player and Branch C, never a vet reach. Goff at R7 compounds it (reach
+    by 2) while Love at R9 was VALUE for the seventh time - the QB room cost picks 20 and 77 to get what
+    picks 29 and 101 buy. THE COLTS HEDGE REPEATS: no Warren, no Downs, W13 filled by Tre Tucker + Ja''Kobi
+    Lane AGAIN - same two names as rep 31, Loveland over Warren at R5 again. Two straight reps drafting the
+    Warren-out branch is signal, and with the groin timeline past two weeks it is arguably the right branch;
+    the Sept 4-5 sweep decides whether it becomes the plan. PARTITION OFF BY 4, worst since rep 28: W6 at
+    FOUR (ASB + Chase Brown + Goff + McPherson - the kicker tipped an over week AGAIN, fourth live catch for
+    the filler rule, while W5/W9/W14 all sat short), W8 and W11 at 3, W9 and W14 EMPTY, W5 short with no KC
+    body (Walker III skipped, and the McMillan-not-Hubbard R4 left CAR as the only W5 club). FADES: Henderson
+    at R8 (rb_board fade - priced as a lead back he has not been) and Harvey at R11 (fade, third rep running).
+    Ledger EXACT again (sixteenth), no club at 3+, triangulation clean W6/W7/W11. Score says 7/11; the real
+    error count is three: Lawrence at 20, the R4 knock-on miss, and the partition. All three have a written
+    rule already on the card.'
+  errors:
+  - qb1_off_tier
+  - qb3_early_goff
+  - rb_floor
+  - r4_knock_on_missed
+  - warren_missed
+  - downs_not_drafted
+  - fade_drafted_henderson
+  - fade_drafted_harvey
+  - bye_stack_w6
+  - bye_stack_w8
+  - bye_stack_w11
+  - w9_empty
+  - w14_empty
+  - w5_short
+  - k_dst_partition
+  - tally_not_used
