@@ -1,0 +1,321 @@
+<title>Slot Five Tiers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:13px; line-height:1.45; margin:0; padding:20px 16px 40px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;
+  border-bottom:2px solid var(--ink);padding-bottom:9px}
+h1{font-size:38px;font-weight:700;letter-spacing:-.015em;margin:0;line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent)}
+.top p{margin:0 0 3px auto;font-size:12px;color:var(--ink-2);max-width:520px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media(max-width:940px){.grid{grid-template-columns:1fr}}
+
+.pos{background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow:hidden}
+.pos>h2{font-size:15px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin:0;
+  padding:8px 12px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:8px}
+.pos>h2 .sub{font-family:"IBM Plex Sans",sans-serif;font-size:10.5px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink-3);margin-left:auto;text-align:right}
+
+.tier{border-bottom:1px solid var(--rule-2)}
+.tier:last-child{border-bottom:0}
+.tier>h3{
+  margin:0;padding:6px 12px 5px;font-size:12px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent);display:flex;align-items:baseline;gap:8px;
+}
+.tier>h3 .win{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:400;
+  letter-spacing:0;color:var(--ink-3);margin-left:auto;text-transform:none}
+.tier.dead>h3{color:var(--stop)}
+.tier ul{list-style:none;margin:0;padding:0 12px 8px}
+.tier li{display:flex;align-items:baseline;gap:7px;padding:2.5px 0;font-size:12.5px;flex-wrap:wrap}
+.tier li .who{font-weight:600;white-space:nowrap}
+.tier li .tb{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);white-space:nowrap}
+.tier li .why{color:var(--ink-2);font-size:11.5px;flex:1 1 240px;min-width:0}
+.tier li.out .who{color:var(--stop);text-decoration:line-through;text-decoration-thickness:1.5px}
+.tier li.out .why{color:var(--stop)}
+
+.chip{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;padding:0 5px;border-radius:2px;white-space:nowrap}
+.chip.buy{background:var(--accent-soft);color:var(--accent)}
+.chip.no{background:var(--stop-soft);color:var(--stop)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+
+.note{padding:7px 12px;background:var(--surface-2);border-top:1px solid var(--rule-2);
+  font-size:11.5px;color:var(--ink-2)}
+.note strong{color:var(--ink)}
+.foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding-top:2px}
+.foot code{font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+
+@media print{
+  body{background:#fff;padding:0;font-size:10px}
+  .pos{box-shadow:none;break-inside:avoid}
+  h1{font-size:28px}
+  @page{margin:10mm}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Slot <em>5</em> Tiers</h1>
+    <p>Every tier carries the slot-5 overlay: <span style="color:var(--stop);font-weight:600">struck names
+    are refused at this seat</span> no matter how good the player &mdash; the reason is always the bye math
+    or a cap. Prices are measured (12 stored reps + the real 2025 board), not national ADP.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- ======================= QB ======================= -->
+    <section class="pos">
+      <h2>Quarterback <span class="sub">superflex &mdash; 34 went in 17 rounds last year</span></h2>
+
+      <div class="tier">
+        <h3>Elite six <span class="win">R1-R2 · gone by pick 23 in 2025</span></h3>
+        <ul>
+          <li><span class="who">Josh Allen</span><span class="tb">BUF·W7</span><span class="why">The anchor. Branch A if he is somehow at 5.</span></li>
+          <li><span class="who">Drake Maye</span><span class="tb">NE·W11</span><span class="why">QB2 overall finish 2025. W11 is the six-team week &mdash; watch the stack.</span></li>
+          <li><span class="who">Jalen Hurts</span><span class="tb">PHI·W10</span><span class="why">Highest floor in the tier.</span></li>
+          <li><span class="who">Jayden Daniels</span><span class="tb">WSH·W7</span><span class="why">Top-2 upside at a bounce-back discount.</span></li>
+          <li><span class="who">Joe Burrow</span><span class="tb">CIN·W6</span><span class="why">Pure volume, no rushing floor. Doubles W6 with St. Brown.</span></li>
+          <li class="out"><span class="who">Lamar Jackson</span><span class="tb">BAL·W13</span><span class="chip no">Refuse</span><span class="why">Warren + Downs already spend W13.</span></li>
+        </ul>
+        <div class="note"><strong>Trap:</strong> Allen and Daniels share W7 &mdash; after either, QB2 cannot come from BUF/JAX/LAC/WSH.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Anchor arms <span class="win">R3 · Branch C · 2025: Mayfield 33, Nix 37</span></h3>
+        <ul>
+          <li><span class="who">Caleb Williams</span><span class="tb">CHI·W10</span><span class="chip buy">The plan</span><span class="why">Top-8 national tier. Counts against the Bears cap.</span></li>
+          <li><span class="who">C.J. Stroud</span><span class="tb">HOU·W8</span><span class="why">Clean bye at this seat.</span></li>
+          <li><span class="who">Justin Herbert</span><span class="tb">LAC·W7</span><span class="why">Fine anchor; W7 fills fast on the default line.</span></li>
+          <li><span class="who">Patrick Mahomes</span><span class="tb">KC·W5</span><span class="chip warn">Demoted 8/16</span><span class="why">ACL+LCL Dec 14; not a pick-29 plan. And W5 is the two-team week.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>QB2 window <span class="win">R5-R6 · run fired 62-72 last year</span></h3>
+        <ul>
+          <li><span class="who">Cam Ward</span><span class="tb">TEN·W9</span><span class="chip buy">Best value</span><span class="why">Priced as a QB3, developed like a QB1. Default unless you own Jefferson.</span></li>
+          <li><span class="who">Kyler Murray</span><span class="tb">MIN·W6</span><span class="why">Highest SF ceiling on the board. Do not chase past R6.</span></li>
+          <li><span class="who">Baker Mayfield</span><span class="tb">TB·W10</span><span class="why">Value QB1 who falls.</span></li>
+          <li><span class="who">Bo Nix</span><span class="tb">DEN·W10</span><span class="why">Fallback.</span></li>
+          <li class="out"><span class="who">Daniel Jones</span><span class="tb">IND·W13</span><span class="chip no">Refuse</span><span class="why">Third Colt AND a third W13 body. Two caps, one pick.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>QB3 vets <span class="win">R9-R13 · market is picks 101-107</span></h3>
+        <ul>
+          <li><span class="who">Jordan Love</span><span class="tb">GB·W11</span><span class="chip buy">The measured default</span><span class="why">On the board at pick 101 in eleven straight reps. VALUE seven times.</span></li>
+          <li><span class="who">Jared Goff</span><span class="tb">DET·W6</span><span class="why">Fine third bye if W6 has room.</span></li>
+          <li><span class="who">Trevor Lawrence</span><span class="tb">JAX·W7</span><span class="why">AT 101, NOT AT 20 &mdash; he burned pick 20 in your last two mocks.</span></li>
+          <li><span class="who">Aaron Rodgers</span><span class="tb">PIT·W9</span><span class="why">Collides with Ward on W9.</span></li>
+          <li><span class="who">Tyler Shough</span><span class="tb">NO·W8</span><span class="why">Fallback if the tier evaporates.</span></li>
+          <li class="out"><span class="who">Geno Smith</span><span class="tb">NYJ·W13</span><span class="chip no">Refuse</span><span class="why">W13 is spent. The triangulation break the reps kept making.</span></li>
+          <li class="out"><span class="who">Dak Prescott</span><span class="tb">DAL·W14</span><span class="chip no">Never</span><span class="why">Seeding-week bye. Off the board at any price.</span></li>
+        </ul>
+        <div class="note"><strong>Byes rule the room:</strong> QB1/QB2/QB3 must hold three different weeks. Write them down as you go.</div>
+      </div>
+    </section>
+
+    <!-- ======================= RB ======================= -->
+    <section class="pos">
+      <h2>Running back <span class="sub">floor: 2 by R4 · 3 by R8 · 5 by R12</span></h2>
+
+      <div class="tier">
+        <h3>Tier 1 <span class="win">gone 1.01-1.02 · gifts only</span></h3>
+        <ul>
+          <li><span class="who">Jahmyr Gibbs</span><span class="tb">DET·W6</span><span class="why">Take the fall, never plan it. Autodraft mocks lie about him.</span></li>
+          <li><span class="who">Bijan Robinson</span><span class="tb">ATL·W11</span><span class="why">Interchangeable with Gibbs.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>Tier 2 <span class="win">R2-R4 · your two floor picks live here</span></h3>
+        <ul>
+          <li><span class="who">Kenneth Walker III</span><span class="tb">KC·W5</span><span class="chip buy">R3 · the plan</span><span class="why">The first W5 filler. Cleared (full practice 9/2). Kleenex picks at 30.</span></li>
+          <li><span class="who">Chuba Hubbard</span><span class="tb">CAR·W5</span><span class="chip buy">R4 on your line</span><span class="why">RB2 + second W5 body in one pick. Hamstring may hand you a discount.</span></li>
+          <li><span class="who">Chase Brown</span><span class="tb">CIN·W6</span><span class="why">Clean tier-2 back.</span></li>
+          <li><span class="who">James Cook III</span><span class="tb">BUF·W7</span><span class="why">Clean tier-2 back.</span></li>
+          <li><span class="who">De'Von Achane</span><span class="tb">MIA·W6</span><span class="why">Full-PPR receiving profile.</span></li>
+          <li><span class="who">Saquon Barkley</span><span class="tb">PHI·W10</span><span class="why">Fine at price.</span></li>
+          <li><span class="who">Christian McCaffrey</span><span class="tb">SF·W8</span><span class="chip warn">Zero-IR tax</span><span class="why">RB3 consensus, but age + usage in a league with no IR slot.</span></li>
+          <li><span class="who">Jeremiyah Love</span><span class="tb">ARI·W14</span><span class="chip warn">Seeding week</span><span class="why">Live talent, dark in W14. Never the second W14 body.</span></li>
+          <li class="out"><span class="who">Jonathan Taylor</span><span class="tb">IND·W13</span><span class="chip no">Refuse</span><span class="why">Third Colt, third W13 body.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>Value &amp; flex <span class="win">R5-R11 · at their windows, not above</span></h3>
+        <ul>
+          <li><span class="who">Rhamondre Stevenson</span><span class="tb">NE·W11</span><span class="chip buy">R7 · stock up</span><span class="why">Leads the backfield with Henderson hurt. Second NE body if Maye is QB1.</span></li>
+          <li><span class="who">Kenny Gainwell</span><span class="tb">TB·W10</span><span class="why">R8. The PPR flex the measured data likes.</span></li>
+          <li><span class="who">Rico Dowdle</span><span class="tb">PIT·W9</span><span class="chip buy">R11, not R8</span><span class="why">Clearest early-down role of the tier &mdash; at his window price only.</span></li>
+          <li><span class="who">Rachaad White</span><span class="tb">WSH·W7</span><span class="why">RB20 price now &mdash; a R5-6 player, the late both-backs hedge is dead.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>Handcuffs &amp; darts <span class="win">R12-R15 · ceiling bets</span></h3>
+        <ul>
+          <li><span class="who">Kaelon Black</span><span class="tb">SF·W8</span><span class="chip buy">Best handcuff EV</span><span class="why">McCaffrey is 30 and led the NFL in touches. The one your reps keep skipping.</span></li>
+          <li><span class="who">Ray Davis</span><span class="tb">BUF·W7</span><span class="why">Elite-offense handcuff &mdash; a league-winner if Cook misses time.</span></li>
+          <li><span class="who">Zach Charbonnet</span><span class="tb">SEA·W11</span><span class="why">Speculative &mdash; PUP, direct handcuff to Price.</span></li>
+          <li><span class="who">Blake Corum</span><span class="tb">LAR·W11</span><span class="why">Standard dart.</span></li>
+          <li><span class="who">Jordan Mason</span><span class="tb">MIN·W6</span><span class="why">Useful W6 body.</span></li>
+          <li><span class="who">Kyle Monangai</span><span class="tb">CHI·W10</span><span class="why">Bear No. 3 behind Odunze/Burden &mdash; usually the one to skip.</span></li>
+          <li><span class="who">Jacory Croskey-Merritt</span><span class="tb">WSH·W7</span><span class="why">The cheap half of the Commanders committee.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier dead">
+        <h3>Fades &mdash; let someone else pay</h3>
+        <ul>
+          <li class="out"><span class="who">TreVeyon Henderson</span><span class="tb">NE·W11</span><span class="why">Priced as a lead back he has not been. Stevenson owns the job right now.</span></li>
+          <li class="out"><span class="who">RJ Harvey / J.K. Dobbins</span><span class="tb">DEN·W10</span><span class="why">Committee, no bell cow. Drafted as a fade in 3 straight reps.</span></li>
+          <li class="out"><span class="who">Jonathon Brooks</span><span class="tb">CAR·W5</span><span class="why">Two torn ACLs, 23 career snaps, behind Hubbard.</span></li>
+          <li class="out"><span class="who">Tyler Allgeier</span><span class="tb">ARI·W14</span><span class="why">Your 9-of-11 reflex. Seeding-week body with an equal available every time.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======================= WR ======================= -->
+    <section class="pos">
+      <h2>Wide receiver <span class="sub">8.0+ targets/game is the whole position</span></h2>
+
+      <div class="tier">
+        <h3>Tier 1 <span class="win">R1 · the committed pick</span></h3>
+        <ul>
+          <li><span class="who">Amon-Ra St. Brown</span><span class="tb">DET·W6</span><span class="chip buy">Pick 5</span><span class="why">Three straight top-3 PPR years, 29% target share. The WR-down market is the discount.</span></li>
+          <li><span class="who">Puka Nacua</span><span class="tb">LAR·W11</span><span class="why">The fallback &mdash; back from the groin, good to go.</span></li>
+        </ul>
+        <div class="note">Chase, Jefferson and Lamb are priced ahead of pick 5 &mdash; if one is there, that is the same gift rule as Gibbs.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Tier 2 <span class="win">R3-R4 band · the WR16 cliff sits behind them</span></h3>
+        <ul>
+          <li><span class="who">Tetairoa McMillan</span><span class="tb">CAR·W5</span><span class="why">RB-first line only &mdash; on the St. Brown line R4 must be a back.</span></li>
+          <li><span class="who">Tee Higgins</span><span class="tb">CIN·W6</span><span class="why">Back-to-back double-digit TD years. Cleanest bye of the band.</span></li>
+          <li><span class="who">DJ Moore</span><span class="tb">BUF·W7</span><span class="why">Complementary fit with Allen.</span></li>
+          <li><span class="who">George Pickens</span><span class="tb">DAL·W14</span><span class="chip warn">Seeding week</span><span class="why">Best player in the band, worst bye. First W14 body only.</span></li>
+          <li><span class="who">Malik Nabers</span><span class="tb">NYG·W8</span><span class="chip warn">Conditional</span><span class="why">A full tier higher if he avoids PUP; on-track but unconfirmed.</span></li>
+          <li class="out"><span class="who">Garrett Wilson</span><span class="tb">NYJ·W13</span><span class="chip no">Refuse</span><span class="why">Target-rank 9, and it does not matter: W13 is spent.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>The value shelf <span class="win">R7-R10 · where this league is won</span></h3>
+        <ul>
+          <li><span class="who">Josh Downs</span><span class="tb">IND·W13</span><span class="chip buy">+15 gap</span><span class="why">Target-rank 28 at a WR43 price. R8 target, R10 deadline. Cleared.</span></li>
+          <li><span class="who">Rome Odunze</span><span class="tb">CHI·W10</span><span class="chip buy">Strong buy</span><span class="why">WR28 price as the CHI focal point. Bear No. 1 &mdash; count it.</span></li>
+          <li><span class="who">Luther Burden III</span><span class="tb">CHI·W10</span><span class="why">DJ Moore's 85 vacated targets. Groin fine. Bear No. 2 = the cap with Caleb.</span></li>
+          <li><span class="who">Michael Wilson</span><span class="tb">ARI·W14</span><span class="chip buy">+14 gap</span><span class="why">And the single W14 body the partition requires. R10 on the ideal.</span></li>
+          <li><span class="who">Wan'Dale Robinson</span><span class="tb">TEN·W9</span><span class="why">+12 gap, R9 price.</span></li>
+          <li><span class="who">Jayden Reed</span><span class="tb">GB·W11</span><span class="why">Downs fallback at R10.</span></li>
+          <li class="out"><span class="who">Alec Pierce</span><span class="tb">IND·W13</span><span class="chip no">Refuse</span><span class="why">Third Colt.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>Late shelf <span class="win">R12-R15 · fill the short weeks</span></h3>
+        <ul>
+          <li><span class="who">Jayden Higgins</span><span class="tb">HOU·W8</span><span class="chip buy">Buy</span><span class="why">Best price-to-role gap this late. W8 is the week you keep leaving empty.</span></li>
+          <li><span class="who">De'Zhaun Stribling</span><span class="tb">SF·W8</span><span class="why">Pearsall out for the season thickens his target tree.</span></li>
+          <li><span class="who">Jordyn Tyson</span><span class="tb">NO·W8</span><span class="why">Third W8 option.</span></li>
+          <li><span class="who">Germie Bernard</span><span class="tb">PIT·W9</span><span class="why">Fills scarce W9 (only PIT and TEN live there).</span></li>
+          <li><span class="who">Denzel Boston</span><span class="tb">CLE·W11</span><span class="why">Week 1 starting X. Floor pick, never over a named WR.</span></li>
+          <li><span class="who">Stefon Diggs</span><span class="tb">WSH·W7</span><span class="why">Name-brand dart.</span></li>
+          <li class="out"><span class="who">Rashod Bateman</span><span class="tb">BAL·W13</span><span class="chip no">Fade</span><span class="why">Depth-board fade AND a third W13 body.</span></li>
+        </ul>
+        <div class="note"><strong>W6 trap at R14-15:</strong> at most ONE of Jennings · Washington · Gordon II &mdash; all three land on W6 exactly where your board runs out.</div>
+      </div>
+    </section>
+
+    <!-- ======================= TE ======================= -->
+    <section class="pos">
+      <h2>Tight end <span class="sub">one TE is the default &mdash; the FLEX economics</span></h2>
+
+      <div class="tier">
+        <h3>Pay up <span class="win">R2-R3 · not at this seat</span></h3>
+        <ul>
+          <li class="out"><span class="who">Brock Bowers</span><span class="tb">LV·W13</span><span class="chip no">Double no</span><span class="why">Collides with the RB window AND is a third W13 body behind Warren + Downs.</span></li>
+          <li class="out"><span class="who">Trey McBride</span><span class="tb">ARI·W14</span><span class="chip no">Double no</span><span class="why">Same window collision, and the TE1 dark in the seeding week &mdash; banned by the W14 rule.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>The call <span class="win">R5 · pick 53 · gated on 2 RB + 1 WR</span></h3>
+        <ul>
+          <li><span class="who">Tyler Warren</span><span class="tb">IND·W13</span><span class="chip buy">The plan</span><span class="why">TE5 as a rookie on a team-leading 112 targets; Pittman's exit funnels more. Cleared 9/3. On the board at 53 in nine of nine reps &mdash; CHAMP picks at 55.</span></li>
+        </ul>
+        <div class="note"><strong>The escape hatch:</strong> 3+ QBs in the 12 picks before 53 &rarr; QB2 instead, release Warren, W13 reopens, backfill below at R7-8.</div>
+      </div>
+
+      <div class="tier">
+        <h3>Backfill <span class="win">R7-R8 · only if Warren is released</span></h3>
+        <ul>
+          <li><span class="who">Colston Loveland</span><span class="tb">CHI·W10</span><span class="chip warn">Bears cap</span><span class="why">The backfill name &mdash; but with Caleb as QB1 he spends your ONE remaining Bear and caps W10. Never at 53: unpriced there, and he unravels Odunze/Burden and the Denver DST.</span></li>
+          <li><span class="who">Sam LaPorta</span><span class="tb">DET·W6</span><span class="why">Vet floor if the board is kind.</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <h3>TE2 <span class="win">R14-R15 only · must beat RB6/WR5</span></h3>
+        <ul>
+          <li><span class="who">Kenyon Sadiq</span><span class="tb">NYJ·W13</span><span class="chip warn">Not Warren cover</span><span class="why">Legal late upside swing &mdash; but he shares Warren's bye, so he insures the injury, never the bye week.</span></li>
+        </ul>
+        <div class="note">A TE2 displaces RB6 or WR5 for one roster spot, and in full PPR a real RB3/WR3 usually wins the FLEX. Legal at R14+, rarely right.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="foot">Built from <code>qb_board · rb_board · wr_board · te_board · targets · adp</code> ·
+  measured against 12 stored slot-5 reps and the full 2025 YMCMB board · byes shown are the number that
+  matters at this seat · Sept 4, final-sweep current.</p>
+</div>
