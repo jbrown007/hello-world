@@ -374,8 +374,11 @@ rounds:
   - {player: Denzel Boston, team: CLE, bye: 11, why: 'ADDED 8/29 per the ADP pass retag. Week 1
       starting X and No. 1 on the depth chart, and a W11 filler. Watson caps the ceiling - floor
       pick, never over a named WR.'}
-  - {player: Jayden Higgins, team: HOU, bye: 8, why: 'BUY - best pure price-to-role gap left this late.
-      Kirk gone, room thinned, ~750 yards and 6-8 TDs projected at a mid-130s ADP.'}
+  - {player: Jayden Higgins, team: HOU, bye: 8, why: 'OUT FOR THE SEASON - REMOVED 9/4. Torn ACL in
+      the joint practice with the Raiders, on season-ending IR (FanDuel + CBS + SI Texans, multi-source).
+      Was the BUY here; superseded, not deleted, so the miss stays visible. The W8 slot he filled moves
+      to Tyson or Stribling. PROCESS NOTE: the final sweep checked R1-R10 names and 3+ rep players -
+      an R13 target was structurally outside the net, the same blind-spot class as Warren on 8/19.'}
   - {player: Luther Burden III, team: CHI, bye: 10, why: If he lasted and you are under the Bears cap.}
   - {player: Stefon Diggs, team: WSH, bye: 7, why: 'Name-brand dart, volume depends on the split behind McLaurin.'}
   avoid: []
@@ -407,7 +410,6 @@ rounds:
   take:
   - {player: Germie Bernard, team: PIT, bye: 9, why: 'ADDED 8/29. Taken at pick 173 in all three reps
       he appeared in. A W9 body - W9 holds only PIT and TEN, so it is a scarce week to fill.'}
-  - {player: Jayden Higgins, team: HOU, bye: 8, why: If he lasted this far.}
   - {player: Stefon Diggs, team: WSH, bye: 7, why: Late dart with real name-brand volume upside.}
   - {player: Jayden Reed, team: GB, bye: 11, why: Fine body.}
   avoid:

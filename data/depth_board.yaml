@@ -68,7 +68,7 @@ bye_capacity:
     - {rnd: 12, blocked: 3, of: 5}
     - {rnd: 13, blocked: 2, of: 5}
     - {rnd: 14, blocked: 3, of: 3}
-    - {rnd: 15, blocked: 2, of: 4}
+    - {rnd: 15, blocked: 2, of: 3}
     recomputed: >
       REFRESHED 8/29 after seven names were promoted onto the target board. The
       shape of the trap is UNCHANGED - R14 is still 3 of 3 with no legal option -
@@ -237,7 +237,7 @@ wr:
   bye: 8
   adp: WR56 (~135-158 overall)
   rounds: 12-15
-  verdict: BUY
+  verdict: OUT FOR SEASON - torn ACL (9/4), removed from targets
   why: Best pure price-to-role gap left this late. Christian Kirk gone, the
     Texans room thinned, projections around 750 yards and 6-8 TDs at a
     mid-130s ADP. Drafted in 8 of 14 reps and correctly so.
