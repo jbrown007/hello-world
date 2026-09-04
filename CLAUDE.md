@@ -46,6 +46,19 @@ Every mock from here on is **slot 5**. Josh posts an ESPN results screenshot.
 4. Append a rep to `data/mocks.yaml` with honest `notes` and `errors` tags.
 5. Commit and push. One commit per rep.
 
+**FINAL-WEEK PROTOCOL (9/4, Josh-confirmed, through the Sept 6 draft):**
+quick-hit turnaround per rep — grade, then the top-3 fixes for the next rep,
+no card rebuilds unless something material changes. Log ESPN's letter grade
+in the rep as `espn_grade` alongside the framework score (Josh reports ~C
+average; his stated bar is B+). **The framework stays the north star when
+the two graders disagree** — ESPN grades value-vs-their-ADP and cannot see
+the partition, the seeding week or this room. The deliberate ESPN-negative
+picks are known and bounded (Hubbard at 44, the K/DST partition fillers);
+everything else that tanks the ESPN grade (reaches like Lawrence at 20) is
+an error by BOTH graders, so fixing framework errors should carry the ESPN
+grade to B+ on its own. If it doesn't converge by rep ~36, investigate
+rather than bend the structure.
+
 ### 2. Camp watch — on request ("camp watch")
 
 Sweep every **Trending/Unsettled** row in `data/watchlist.yaml`, searching that
