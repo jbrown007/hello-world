@@ -724,3 +724,33 @@
   - w5_short
   - k_dst_partition
   - tally_not_used
+- date: '2026-09-04'
+  slot: 5
+  format: superflex
+  score: 9
+  of: 11
+  espn_grade: not captured - Josh to include the letter with future screenshots
+  notes: 'REP 33, FIRST OF DRAFT-EVE DAY, quick-hit protocol. THE GOOD IS STRUCTURAL AND NEW: ASB at 5
+    (second straight), NO VET ARM AT 20 - the Lawrence habit broke, a skill player went there instead -
+    Herbert at 29 as the Branch C anchor at market, and the ASB-line R4-RB executed for the first time
+    (Kyren at 44, floor met on the gate). Warren at 53 with the gate clean. Love at 101 VALUE again
+    (eighth time). Ledger EXACT (seventeenth). THE THREE COSTS: (1) QB2 FLOOR BREACH - no QB2 by end of
+    R6; Goff at 77 is a QB3 vet two rounds early standing where Ward/Murray/Mayfield belonged at 68. The
+    one hard commitment missed. (2) TWO ARI BODIES ON THE SEEDING WEEK - Jeremiyah Love at 20 (legal as
+    the FIRST W14 body) then Michael Wilson at 92 made W14 a TWO. One of them is fine; both is the breach.
+    And J.Love-over-Walker at 20 left W5 at ZERO - no KC or CAR body all draft. (3) McPherson tipped W6
+    to FOUR (ASB + Goff + Douglas + kicker) while W5 and W9 sat EMPTY - the partition-filler rule''s
+    fifth live catch, same signature as reps 22/25/28/32. Partition off by 5. Off-board darts: Lemon,
+    Washington, Douglas (three rookies at R12-13-15 displacing Black/Ray Davis/Bernard).'
+  errors:
+  - qb2_floor_breach
+  - qb3_early_goff
+  - w14_two_bodies
+  - w5_empty
+  - w9_empty
+  - bye_stack_w6
+  - bye_stack_w8
+  - bye_stack_w11
+  - k_dst_partition
+  - off_board_darts
+  - tally_not_used
