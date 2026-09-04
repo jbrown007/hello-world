@@ -754,3 +754,37 @@
   - k_dst_partition
   - off_board_darts
   - tally_not_used
+- date: '2026-09-04'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  espn_grade: B
+  notes: 'REP 34, SECOND OF THE DAY, quick-hit. FIRST ESPN GRADE LOGGED: B - one notch from the bar, up
+    from the reported C average, and it arrived the same rep the vet-at-20 habit stayed dead. 10/11 with
+    only Downs missed (third straight skip - the Keenan Allen wariness reads deliberate; W13 covered by
+    Lane instead, which works but swaps a named value for an off-board dart). STRUCTURE MOSTLY RIGHT:
+    ASB at 5, tier-2 back at 20, Herbert anchor at 29, R4-RB again (Kyren), Warren at 53 clean, QB2 IN
+    WINDOW at 68, Love at 101 VALUE (ninth), M.Wilson as the SINGLE W14 body done correctly this time,
+    and BOSWELL AT R17 WAS THE FIRST CONDITIONAL-REFUSE HANDLED RIGHT - W9 held only Bernard, so the
+    conditional cleared and the kicker landed on an under-target week. THE THREE COSTS: (1) W5 EMPTY FOR
+    THE SECOND STRAIGHT REP - Walker passed at 20/29, Hubbard passed at 44, zero KC/CAR bodies. The
+    partition cannot close without one of them. (2) QB2 QUALITY: Shough in window is priced as the R13
+    emergency fallback, not the weekly OP starter - the grader calls it a 3-round reach and the OP slot
+    is the weakest in 34 reps. Ward/Murray/Mayfield at 68 first. (3) EARLY-WEEK STACKING: Cook + Herbert
+    put W7 at two by pick 29, then White and the Chargers DST made it FOUR; Kyren + Henderson + Love +
+    Corum made W11 four. When a week hits two it is CLOSED - the DST needed a short week (W6/W10), which
+    is exactly what Boswell got right one pick later. Fades: Henderson (second straight), Harvey (fourth).
+    White at R12 is logged as VALUE-not-error: rb_board priced him R5-6 and ESPN let him fall to 140.'
+  errors:
+  - downs_not_drafted
+  - w5_empty
+  - qb2_off_tier_shough
+  - bye_stack_w7
+  - bye_stack_w11
+  - w6_short
+  - w10_short
+  - k_dst_partition_dst_only
+  - fade_drafted_henderson
+  - fade_drafted_harvey
+  - tally_not_used

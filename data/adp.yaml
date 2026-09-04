@@ -290,17 +290,17 @@ pass_2026_08_25:
       Josh actually took the player, so the player was demonstrably ON THE BOARD
       at that pick. It is a floor on availability, not a ceiling - a player may
       last longer than we ever tested, because taking him ends the measurement.
-    n_reps: 13
+    n_reps: 14
     who:
-    - {player: Tyler Warren, pos: TE, latest_pick: 53, n: 10, read: 'Available at 53 in ALL NINE reps.'}
-    - {player: Jordan Love, pos: QB, latest_pick: 101, n: 12, read: 'Available at R9 five times.'}
+    - {player: Tyler Warren, pos: TE, latest_pick: 53, n: 11, read: 'Available at 53 in ALL NINE reps.'}
+    - {player: Jordan Love, pos: QB, latest_pick: 101, n: 13, read: 'Available at R9 five times.'}
     - {player: Tyler Allgeier, pos: RB, latest_pick: 149, n: 9, read: 'Available at R13 five times.'}
     - {player: Josh Downs, pos: WR, latest_pick: 116, n: 7, read: 'Reached R10 once; R7 five times.'}
     - {player: Kenneth Walker III, pos: RB, latest_pick: 29, n: 9, read: 'Available at R3 four times.'}
     - {player: Kenny Gainwell, pos: RB, latest_pick: 92, n: 9, read: 'Available at R8 six times.'}
     - {player: Caleb Williams, pos: QB, latest_pick: 29, n: 4, read: 'Available at R3 every time.'}
-    - {player: Chargers D/ST, pos: DST, latest_pick: 188, n: 8, read: 'Always there at R16.'}
-    - {player: Chris Boswell, pos: K, latest_pick: 197, n: 5, read: 'Always there at R17.'}
+    - {player: Chargers D/ST, pos: DST, latest_pick: 188, n: 9, read: 'Always there at R16.'}
+    - {player: Chris Boswell, pos: K, latest_pick: 197, n: 6, read: 'Always there at R17.'}
     - {player: Denzel Boston, pos: WR, latest_pick: 149, n: 1, read: 'On the board at R13.'}
 
   changes:
