@@ -883,3 +883,36 @@
   - k_dst_partition_dst_only
   - downs_late_window
   - tally_not_used
+- date: '2026-09-05'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  espn_grade: C
+  notes: 'REP 38, DRAFT EVE, THIRD OF THE DAY, quick-hit. THE IDEAL SPINE COMPLETES: ASB / Walker /
+    CALEB AT 29 (first time the ideal''s anchor arm landed) / Etienne / Warren - and W14 GOT ITS BODY
+    for the first time in five reps (Flournoy, DAL, at R15 - off-board, but the SLOT finally filled;
+    Wilson at 116 is the named way and frees R15 for Bernard). Third straight 10/11. Love at 101
+    (thirteenth), ledger exact (twenty-first). THE THREE COSTS, and they are the same three: (1) GOFF
+    AT 68 - third different QB3-tier arm placed in the QB2 window this week (Lawrence, Shough, now
+    Goff); Mayfield twice proved the fix. Reach by 3 per the grader. (2) THE DART TAX: P.Washington at
+    92 (second time), M.Washington at 140 (third), Douglas (second), Flournoy - four off-board picks
+    displacing Gainwell/Wilson/Black/Bernard, the named shelf that is ALSO the ESPN-value shelf. Every
+    C this week decomposes to Walker-at-20 (accepted) plus these darts (not accepted). Henderson at 77
+    a fourth time over Stevenson. Downs skipped after being drafted at 125 last rep. (3) DST ON AN OVER
+    WEEK FIFTH STRAIGHT - Bills DST third W7 body while W9/W10 sat short; Boswell at least landed on an
+    under week again. Partition off by 3: overs W6/W7/W11, unders W5 (Walker alone again - no Panther),
+    W9, W10.'
+  errors:
+  - qb2_off_tier_goff
+  - dart_tax_r7_r15
+  - fade_drafted_henderson
+  - downs_not_drafted
+  - w5_short
+  - w9_short
+  - w10_short
+  - bye_stack_w6
+  - bye_stack_w7
+  - bye_stack_w11
+  - k_dst_partition_dst_only
+  - tally_not_used
