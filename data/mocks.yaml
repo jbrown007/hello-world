@@ -821,3 +821,32 @@
   - k_dst_partition_dst_only
   - downs_not_drafted
   - tally_not_used
+- date: '2026-09-05'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  espn_grade: C
+  notes: 'REP 36, DRAFT EVE, FIRST OF THE DAY, quick-hit. STRUCTURALLY THE BEST REP OF THE FINAL WEEK:
+    partition off by only TWO (best since the protocol started), ledger exact (nineteenth), and THE
+    FIRST CLEAN QB2 - Mayfield at 68, in window, real QB2 tier, after two straight floor breaches.
+    ASB at 5, Walker at 20 (W5 body one, the deliberate ESPN-negative insurance pick), Herbert anchor
+    at 29, Etienne RB2 at 44, Warren at 53, Gainwell 92, Love 101 (eleventh), Reed at 116 correctly as
+    the Downs-gone fallback, Mason as the W6 body, Black at R13 (second straight), Bernard 173, and
+    Boswell''s conditional cleared again (W9 = Bernard + Boswell exactly). THE ESPN C AGAINST A 10/11
+    IS THE FIRST REAL DIVERGENCE DATA POINT and it decomposes cleanly: Walker-at-20 is the priced-in
+    structural cost we accepted in writing, but PARKER WASHINGTON AT 77 is a genuine both-grader error -
+    an off-board dart at the exact pick where Stevenson (national ADP 61) and the R7-9 value shelf
+    live. THE THREE COSTS: (1) Washington at 77. (2) W14 EMPTY THIRD STRAIGHT REP - no ARI/DAL body;
+    Wilson at R10 over Reed is the direct fix and covers the +14 gap besides. (3) THE R16 DST TIPPED AN
+    OVER WEEK FOR THE THIRD STRAIGHT REP - 49ers DST made W8 a FOUR behind Etienne/Marks/Black. The DST
+    is a partition filler; W5 and W14 cannot take one, so it must land on the shortest of W6-W11.
+    W5 finished 1 of 2 (Walker alone - no Panther; Hubbard passed at 44 again).'
+  errors:
+  - off_board_r7_washington
+  - w14_empty
+  - w5_short
+  - bye_stack_w8
+  - k_dst_partition_dst_only
+  - downs_not_drafted
+  - tally_not_used
