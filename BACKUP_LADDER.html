@@ -1,0 +1,243 @@
+<title>The Back-Up Ladder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:14px;line-height:1.5;margin:0;padding:20px 16px 40px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1050px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3,th{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;border-bottom:2px solid var(--ink);padding-bottom:9px}
+h1{font-size:36px;font-weight:700;letter-spacing:-.015em;margin:0;line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent)}
+.top p{margin:0 0 3px auto;font-size:12.5px;color:var(--ink-2);max-width:520px}
+
+.ver{background:var(--surface);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+.ver>h2{font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0;
+  padding:9px 14px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:10px}
+.ver>h2 .vnum{color:var(--accent)}
+.ver>h2 .sub{font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink-3);margin-left:auto;text-align:right}
+.pad{padding:12px 14px}
+
+.no{color:var(--stop);font-weight:600}
+.fade{color:var(--stop)}
+.arrow{color:var(--ink-3);padding:0 4px}
+.tb{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);white-space:nowrap}
+.fix{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);
+  padding:0 5px;border-radius:2px;white-space:nowrap}
+
+/* V1 ladder */
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.cols2{grid-template-columns:1fr}}
+.lad h3{font-size:15px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:0 0 2px;
+  color:var(--accent);display:flex;align-items:baseline;gap:8px}
+.lad h3 .rds{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:400;letter-spacing:0;
+  color:var(--ink-3);margin-left:auto}
+.lad ol{list-style:none;margin:0;padding:0}
+.lad li{display:flex;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid var(--rule-2);
+  font-size:15px;flex-wrap:wrap}
+.lad li:last-child{border-bottom:0}
+.lad .slot{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;color:var(--ink-3);
+  width:38px;flex:none}
+.lad .first{font-weight:600}
+
+/* V2 round strip */
+.strip{width:100%;border-collapse:collapse;font-size:14px}
+.strip td{padding:6px 8px;border-bottom:1px solid var(--rule-2);vertical-align:baseline}
+.strip tr:last-child td{border-bottom:0}
+.strip td.rd{font-family:"IBM Plex Mono",monospace;font-weight:600;white-space:nowrap;width:1%;font-size:13px}
+.strip td.q .first{font-weight:600}
+.strip tr.qb td{background:var(--accent-soft)}
+
+/* V3 checkoff */
+.chk{width:100%;border-collapse:collapse;font-size:14px}
+.chk th{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  text-align:left;padding:5px 8px;border-bottom:1px solid var(--rule)}
+.chk td{padding:6px 8px;border-bottom:1px solid var(--rule-2)}
+.chk tr:last-child td{border-bottom:0}
+.box{display:inline-block;width:16px;height:16px;border:1.5px solid var(--ink-3);border-radius:2px;
+  vertical-align:-3px;margin-right:8px}
+.chk td.rd{font-family:"IBM Plex Mono",monospace;font-weight:600;white-space:nowrap;width:1%;font-size:12px}
+.chk .nm{font-weight:600}
+
+.foot{font-size:11px;color:var(--ink-3);text-align:center;padding-top:2px}
+@media print{
+  body{background:#fff;padding:0;font-size:12px}
+  .ver{box-shadow:none;break-inside:avoid}
+  h1{font-size:26px}
+  @page{margin:11mm}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>The Back-Up <em>Ladder</em></h1>
+    <p>Your handwritten crib, rebuilt three ways with the byes attached and the full fallback chains.
+    Two quiet fixes from the boards, both flagged: <span class="fix">fixed</span> M. Washington Jr. is a
+    third W13 body once you hold Warren + Downs, and Henderson is a fade &mdash; last resort, never first.
+    Pick the version that reads fastest and print that one.</p>
+  </header>
+
+  <!-- ============ VERSION 1 ============ -->
+  <section class="ver">
+    <h2><span class="vnum">V1</span> The Ladder <span class="sub">your format &mdash; by roster slot, next-man-up</span></h2>
+    <div class="pad cols2">
+      <div class="lad">
+        <h3>Back-up RBs · need 6 <span class="rds">rounds 7 · 11 · 12 · 14</span></h3>
+        <ol>
+          <li><span class="slot">RB3</span><span class="first">Stevenson</span><span class="tb">NE·11</span>
+            <span class="arrow">&rarr;</span>Gainwell-at-92 flip<span class="tb">TB·10</span>
+            <span class="arrow">&rarr;</span><span class="fade">Henderson (fade — last resort)</span></li>
+          <li><span class="slot">RB4</span><span class="first">Dowdle</span><span class="tb">PIT·9</span>
+            <span class="arrow">&rarr;</span>White<span class="tb">WSH·7</span>
+            <span class="arrow">&rarr;</span>J. Mason<span class="tb">MIN·6</span></li>
+          <li><span class="slot">RB5</span><span class="first">Black</span><span class="tb">SF·8</span>
+            <span class="arrow">&rarr;</span>Corum<span class="tb">LAR·11</span>
+            <span class="arrow">&rarr;</span>Croskey-Merritt<span class="tb">WSH·7</span></li>
+          <li><span class="slot">RB6</span><span class="first">Ray Davis</span><span class="tb">BUF·7</span>
+            <span class="arrow">&rarr;</span>Charbonnet<span class="tb">SEA·11</span>
+            <span class="arrow">&rarr;</span>J. Mason<span class="tb">MIN·6</span>
+            <span class="fix">fixed: not M.Washington (W13)</span></li>
+          <li><span class="slot" style="color:var(--stop)">NO</span><span class="no">Allgeier (W14) · Brooks
+            (CAR) · Harvey (DEN) · any BAL/NYJ/IND/LV back once Warren + Downs held</span></li>
+        </ol>
+      </div>
+      <div class="lad">
+        <h3>Back-up WRs · need 5 <span class="rds">rounds 8 · 10 · 13 · 15</span></h3>
+        <ol>
+          <li><span class="slot">WR2</span><span class="first">Odunze</span><span class="tb">CHI·10</span>
+            <span class="arrow">&rarr;</span>Downs-if-here (caps W13)<span class="tb">IND·13</span>
+            <span class="arrow">&rarr;</span>Burden<span class="tb">CHI·10</span></li>
+          <li><span class="slot">WR3</span><span class="first">M. Wilson</span><span class="tb">ARI·14</span>
+            <span class="arrow">&rarr;</span>Downs-if-slid<span class="tb">IND·13</span>
+            <span class="arrow">&rarr;</span>Reed<span class="tb">GB·11</span></li>
+          <li><span class="slot">WR4</span><span class="first">Tyson</span><span class="tb">NO·8</span>
+            <span class="arrow">&rarr;</span>Stribling<span class="tb">SF·8</span>
+            <span class="arrow">&rarr;</span>Boston<span class="tb">CLE·11</span></li>
+          <li><span class="slot">WR5</span><span class="first">Bernard</span><span class="tb">PIT·9</span>
+            <span class="arrow">&rarr;</span>Tyson-if-passed<span class="tb">NO·8</span>
+            <span class="arrow">&rarr;</span>Diggs<span class="tb">WSH·7</span></li>
+          <li><span class="slot" style="color:var(--stop)">NO</span><span class="no">Bateman (W13) · a 2nd
+            ARI body · 3rd Bear · two of Jennings/Washington/Gordon II</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VERSION 2 ============ -->
+  <section class="ver">
+    <h2><span class="vnum">V2</span> By the Round <span class="sub">one line per pick, read top to bottom as the draft flows</span></h2>
+    <div class="pad">
+      <table class="strip">
+        <tr><td class="rd">R7 · 77</td><td class="q"><span class="first">Stevenson</span>
+          <span class="arrow">&rarr;</span>best shelf RB <span class="arrow">&rarr;</span>Downs-if-fallen
+          <span class="tb">&nbsp;(then W13 shuts)</span></td></tr>
+        <tr><td class="rd">R8 · 92</td><td class="q"><span class="first">Gainwell</span>
+          <span class="arrow">&rarr;</span>Odunze <span class="arrow">&rarr;</span>the W5 Panther if still open
+          (McMillan/Coker)</td></tr>
+        <tr class="qb"><td class="rd">R9 · 101</td><td class="q"><span class="first">Love</span>
+          <span class="arrow">&rarr;</span>Goff <span class="arrow">&rarr;</span>Lawrence
+          <span class="arrow">&rarr;</span>Rodgers <span class="tb">3rd distinct bye · <span class="no">no Geno</span></span></td></tr>
+        <tr><td class="rd">R10 · 116</td><td class="q"><span class="first">M. Wilson</span>
+          <span class="arrow">&rarr;</span>Downs-if-slid <span class="arrow">&rarr;</span>Reed</td></tr>
+        <tr><td class="rd">R11 · 125</td><td class="q"><span class="first">Dowdle</span>
+          <span class="arrow">&rarr;</span>White <span class="arrow">&rarr;</span>J. Mason</td></tr>
+        <tr><td class="rd">R12 · 140</td><td class="q"><span class="first">Black</span>
+          <span class="arrow">&rarr;</span>Corum <span class="arrow">&rarr;</span>Croskey-Merritt
+          <span class="tb">RB floor: 5 by end of this pick</span></td></tr>
+        <tr><td class="rd">R13 · 149</td><td class="q"><span class="first">Tyson</span>
+          <span class="arrow">&rarr;</span>Stribling <span class="arrow">&rarr;</span>Boston</td></tr>
+        <tr><td class="rd">R14 · 164</td><td class="q"><span class="first">Ray Davis</span>
+          <span class="arrow">&rarr;</span>Charbonnet <span class="arrow">&rarr;</span>J. Mason
+          <span class="tb"><span class="no">no Allgeier</span> · sixth &amp; final back</span></td></tr>
+        <tr><td class="rd">R15 · 173</td><td class="q"><span class="first">Bernard</span>
+          <span class="arrow">&rarr;</span>Tyson-if-passed <span class="arrow">&rarr;</span>Diggs
+          <span class="tb">ledger complete</span></td></tr>
+        <tr><td class="rd">R16 · 188</td><td class="q">Any defense on the <span class="first">shortest
+          week</span> <span class="tb">count the grid first</span></td></tr>
+        <tr><td class="rd">R17 · 197</td><td class="q">Best kicker on the <span class="first">last short
+          week</span> <span class="tb">Dicker &rarr; Little (W7) · Boswell only if W9 open · <span class="no">never Aubrey</span></span></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ VERSION 3 ============ -->
+  <section class="ver">
+    <h2><span class="vnum">V3</span> The Check-Off <span class="sub">tick names as they leave the board &mdash; top unticked name is the pick</span></h2>
+    <div class="pad cols2">
+      <div>
+        <table class="chk">
+          <thead><tr><th>Rd</th><th>RB queue (need 6)</th></tr></thead>
+          <tbody>
+            <tr><td class="rd">R7</td><td><span class="box"></span><span class="nm">Stevenson</span> <span class="tb">NE·11</span></td></tr>
+            <tr><td class="rd">R7</td><td><span class="box"></span>Henderson <span class="tb">NE·11 · fade, last resort</span></td></tr>
+            <tr><td class="rd">R11</td><td><span class="box"></span><span class="nm">Dowdle</span> <span class="tb">PIT·9</span></td></tr>
+            <tr><td class="rd">R11</td><td><span class="box"></span>White <span class="tb">WSH·7</span></td></tr>
+            <tr><td class="rd">R12</td><td><span class="box"></span><span class="nm">Black</span> <span class="tb">SF·8</span></td></tr>
+            <tr><td class="rd">R12</td><td><span class="box"></span>Corum <span class="tb">LAR·11</span></td></tr>
+            <tr><td class="rd">R12</td><td><span class="box"></span>Croskey-Merritt <span class="tb">WSH·7</span></td></tr>
+            <tr><td class="rd">R14</td><td><span class="box"></span><span class="nm">Ray Davis</span> <span class="tb">BUF·7</span></td></tr>
+            <tr><td class="rd">R14</td><td><span class="box"></span>Charbonnet <span class="tb">SEA·11</span></td></tr>
+            <tr><td class="rd">R14</td><td><span class="box"></span>J. Mason <span class="tb">MIN·6</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="chk">
+          <thead><tr><th>Rd</th><th>WR queue (need 5)</th></tr></thead>
+          <tbody>
+            <tr><td class="rd">R8</td><td><span class="box"></span><span class="nm">Gainwell (RB flex)</span> <span class="tb">TB·10</span></td></tr>
+            <tr><td class="rd">R8</td><td><span class="box"></span>Odunze <span class="tb">CHI·10 · Bear #1</span></td></tr>
+            <tr><td class="rd">R10</td><td><span class="box"></span><span class="nm">M. Wilson</span> <span class="tb">ARI·14 · the seeding-week body</span></td></tr>
+            <tr><td class="rd">R10</td><td><span class="box"></span>Downs-if-slid <span class="tb">IND·13 · caps W13</span></td></tr>
+            <tr><td class="rd">R10</td><td><span class="box"></span>Reed <span class="tb">GB·11</span></td></tr>
+            <tr><td class="rd">R13</td><td><span class="box"></span><span class="nm">Tyson</span> <span class="tb">NO·8</span></td></tr>
+            <tr><td class="rd">R13</td><td><span class="box"></span>Stribling <span class="tb">SF·8</span></td></tr>
+            <tr><td class="rd">R13</td><td><span class="box"></span>Boston <span class="tb">CLE·11</span></td></tr>
+            <tr><td class="rd">R15</td><td><span class="box"></span><span class="nm">Bernard</span> <span class="tb">PIT·9</span></td></tr>
+            <tr><td class="rd">R15</td><td><span class="box"></span>Diggs <span class="tb">WSH·7</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Bold name = first choice at that slot · number after the dot is the BYE · the partition
+  and refusal rules on the call sheet always outrank the ladder · Sept 6, draft night.</p>
+</div>
