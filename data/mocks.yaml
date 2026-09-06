@@ -916,3 +916,35 @@
   - bye_stack_w11
   - k_dst_partition_dst_only
   - tally_not_used
+- date: '2026-09-06'
+  slot: 5
+  format: superflex
+  score: 10
+  of: 11
+  espn_grade: D
+  notes: 'REP 39, DRAFT DAY, HOURS OUT - AND THE D IS THE CLEANEST LESSON OF THE WEEK, because the rest
+    of the draft was arguably the best back-half ever drafted. THE ONE PICK: JAYDEN DANIELS AT 5. It is
+    Branch-A SHAPED, but the card''s R1 arm is ALLEN ONLY - Daniels is not on the R1 take list, and both
+    graders priced the miss (ESPN: a QB at 1.05 is their biggest reach class, hence D not C - Daniels''
+    1QB ADP sits below Lamar''s). Same lesson as rep 35, louder. AND THE REMOVAL OF ASB BROKE W6: with
+    the committed R1 gone, W6 finished at ZERO for the first time - ASB is not just the best pick, he is
+    the W6 anchor; the commitment self-heals the partition. EVERYTHING ELSE WAS THE PLAN EXECUTING:
+    Branch-A map followed to the letter (QB1/RB/RB/WR/Warren), W5 CLOSED PROPERLY for the first time all
+    week (Walker 20 + McMillan 44 - the original promoted pair), W13 exactly Warren + Downs (Downs at
+    116, the discount landing inside the plan), W14 a single body (Wilson at 92), QB2 clean in window
+    (Mayfield 68, third clean), Dowdle taken (though at 77, four rounds ahead of his window - Stevenson
+    was the 77 name), Love at 101 (fourteenth), Black + Tyson + Charbonnet all board names - THE DART
+    TAX IS NEARLY GONE (Boutte at R15 the only off-board pick). REMAINING LEAKS, same two: late-round
+    stacking (Charbonnet = third W11, Black + Boutte = third and fourth W8 while W6/W10 sat short) and
+    the R16 DST on a full week (Chargers = W7 fine this time - W7 was exactly 2 - actually the DST
+    landed CLEAN; the K did too, Boswell W9 = 2 exactly). Partition off by 3, all of it late-round
+    stacking plus the missing W6 anchor.'
+  errors:
+  - r1_off_card_arm_daniels
+  - w6_empty_no_asb_anchor
+  - dowdle_early_r7
+  - bye_stack_w8
+  - bye_stack_w11
+  - w10_short
+  - off_board_boutte
+  - tally_not_used
