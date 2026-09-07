@@ -1541,6 +1541,40 @@ def _():
     return "204 picks, 12x17, QB curve 8/0/6/34 recomputed"
 
 
+@check("2026 real board matches the official roster pick for pick")
+def _():
+    """The real draft's board (committed the night of Sept 6) is the measured
+    truth the 2027 cycle will be priced from, and roster.yaml is the in-season
+    source of truth. This pins them to each other: exact snake shape, the
+    manager set matching room.yaml, and Crushing Dreams' seventeen rows equal
+    to roster.yaml name for name and pick for pick."""
+    from ffcli.config import load
+    import collections
+    board = load("draft_board_2026")
+    picks = board["picks"]
+    assert len(picks) == 204, f"board holds {len(picks)} picks, a 12x17 draft is 204"
+    for p in picks:
+        assert p["overall"] == (p["round"] - 1) * 12 + p["pick_in_round"], \
+            f"overall arithmetic broken at {p['player']}"
+        assert isinstance(p["team"], str) and p["team"] in NFL_TEAMS | {"FA"}, \
+            f"{p['player']} team invalid: {p['team']!r}"
+    mgr_counts = collections.Counter(p["manager"] for p in picks)
+    assert all(v == 17 for v in mgr_counts.values()) and len(mgr_counts) == 12, \
+        f"per-manager counts wrong: {dict(mgr_counts)}"
+    room = load("room")
+    room_names = {m["name"] for m in room["managers"]} | {"Crushing Dreams"}
+    assert set(mgr_counts) == room_names, \
+        f"board managers do not match room.yaml: {set(mgr_counts) ^ room_names}"
+    josh_board = sorted((p for p in picks if p["manager"] == "Crushing Dreams"),
+                        key=lambda p: p["overall"])
+    roster = load("roster")["players"]
+    assert len(roster) == 17, f"roster.yaml holds {len(roster)} players"
+    for b, r in zip(josh_board, sorted(roster, key=lambda x: x["pick"])):
+        assert b["overall"] == r["pick"] and b["player"] == r["player"], \
+            f"board/roster mismatch at pick {b['overall']}: {b['player']!r} vs {r['player']!r}"
+    return "204 picks, 12x17, roster.yaml pinned to the real board"
+
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

@@ -1003,10 +1003,11 @@
     no name. (2) WILSON AT 44 - the W14 body bought 72 picks above measured price; same full-board
     question. (3) W7/W8/W11 each at three - manageable October pain, no zeros anywhere. Fifteen years
     of tilt, forty rehearsals, and the structure held when it was real. Now: full board capture,
-    ESPN grade when visible, and in-season mode begins.'
+    ESPN grade when visible, and in-season mode begins. | BOARD-RESOLVED 9/6, same night: (1) LAWRENCE WAS NOT FORCED - Burrow was sniped at 28 by LockDownGoon one pick ahead, but Caleb lasted to 41 and Stroud to 85; the card''s anchor order was available at 29. Habit, priced. (2) PICK 5: the ENTIRE WR tier 1 was available - Chase went 10, Nacua 11, JSN 12, ASB 13. Cook at 5 was off-card with the committed pick on the board. The two avoidable costs of the night both live in R1/R3. (3) WILSON AT 44: two rounds early (Higgins lasted to 70, McConkey 58) but bought W14. (4) THE VINDICATIONS: LOVELAND WENT 52 - ONE PICK BEFORE WARREN AT 53; the summer''s central call was exact to the pick. Ward went at 101, the 21-rep measured price to the pick. Purdy at 68 hit the QB2 floor. Downs at 92 = the original window price. Jag FLu took Herbert at 16 (as the card printed) and burned Aubrey at 112 + a DST again. (5) THE ROOM GOT FASTER: 12 QBs gone by pick 47 vs 8 in 2025, and Kleenex took Daniels 6 + Maye 19 - the no-QB-threat read is dead for 2027.'
   errors:
-  - qb1_off_tier_lawrence_r29_pending_board
-  - wilson_early_r4_pending_board
+  - qb1_off_tier_lawrence_r29_confirmed_not_forced
+  - r1_commitment_not_executed_asb_available
+  - wilson_early_r4_confirmed
   - bye_stack_w7
   - bye_stack_w8
   - bye_stack_w11
