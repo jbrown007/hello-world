@@ -1,0 +1,32 @@
+# THE 2026-27 CRUSHING DREAMS ROSTER - drafted live Sept 6 2026, slot 5.
+# In-season source of truth (open item 3 begins here). ff grade: 11/11,
+# the first eleven-for-eleven on a Josh-drafted board in 41 attempts.
+season: 2026
+drafted: '2026-09-06'
+grade_framework: 11/11
+grade_espn: pending - Josh to report
+players:
+- {round: 1, pick: 5, pos: RB, team: BUF, player: James Cook III, bye: 7}
+- {round: 2, pick: 20, pos: RB, team: 'NO', player: Travis Etienne Jr., bye: 8}
+- {round: 3, pick: 29, pos: QB, team: JAX, player: Trevor Lawrence, bye: 7}
+- {round: 4, pick: 44, pos: WR, team: ARI, player: Michael Wilson, bye: 14}
+- {round: 5, pick: 53, pos: TE, team: IND, player: Tyler Warren, bye: 13}
+- {round: 6, pick: 68, pos: QB, team: SF, player: Brock Purdy, bye: 8}
+- {round: 7, pick: 77, pos: RB, team: SEA, player: Jadarian Price, bye: 11}
+- {round: 8, pick: 92, pos: WR, team: IND, player: Josh Downs, bye: 13}
+- {round: 9, pick: 101, pos: QB, team: TEN, player: Cam Ward, bye: 9}
+- {round: 10, pick: 116, pos: WR, team: PHI, player: Makai Lemon, bye: 10}
+- {round: 11, pick: 125, pos: RB, team: LAR, player: Blake Corum, bye: 11}
+- {round: 12, pick: 140, pos: RB, team: WSH, player: Rachaad White, bye: 7}
+- {round: 13, pick: 149, pos: WR, team: CLE, player: KC Concepcion, bye: 11}
+- {round: 14, pick: 164, pos: RB, team: SF, player: Kaelon Black, bye: 8}
+- {round: 15, pick: 173, pos: WR, team: CAR, player: Jalen Coker, bye: 5}
+- {round: 16, pick: 188, pos: DST, team: DET, player: Lions D/ST, bye: 6}
+- {round: 17, pick: 197, pos: K, team: PIT, player: Chris Boswell, bye: 9}
+notes: >
+  W13 = Warren + Downs EXACT and W14 = Wilson EXACT - the two weeks the entire
+  framework was built around, executed live. QB byes W7/W8/W9, perfectly
+  distinct. Partition off 3 with no week at zero and none above three. The
+  known costs: Lawrence at 29 (QB1 quality - judge against the full board),
+  Wilson at 44 (the W14 body bought early), W7/W8/W11 each at three. WR room
+  is the thin spot: Downs + Wilson + three rookies - first waiver priority.
