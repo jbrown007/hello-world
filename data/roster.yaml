@@ -30,3 +30,17 @@ notes: >
   known costs: Lawrence at 29 (QB1 quality - judge against the full board),
   Wilson at 44 (the W14 body bought early), W7/W8/W11 each at three. WR room
   is the thin spot: Downs + Wilson + three rookies - first waiver priority.
+transactions:
+- date: '2026-09-08'
+  type: waiver_swap
+  add: {pos: DST, team: TEN, player: Titans D/ST, bye: 9}
+  drop: {pos: DST, team: DET, player: Lions D/ST, bye: 6}
+  why: >
+    Week 1 stream + wire read: Jacksonville (the board's No. 4 unit, undrafted)
+    was the target but Griddy grabbed them within hours - logged as a room
+    signal, the streaming market is LIVE this year. Titans were the next-best
+    free unit with the best remaining Week 1 spot (home vs the Jets and Geno
+    Smith). Lions (home vs 'NO') were startable but conflicted with Etienne's
+    offense. NOTE: the `players` list above stays the immutable DRAFT record
+    (check 59 pins it to draft_board_2026); the live roster = players plus
+    these transactions applied in order.
