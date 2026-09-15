@@ -88,7 +88,27 @@ than burying it in someone else's notes.
 - **Aug 29-30** — post-cuts sweep; depth charts finalize.
 - **Sept 4-5** — final sweep on every named target, then `ff sheet --all` and
   tell Josh to PRINT. Never draft off a stale sheet.
-- **Week 1** — switch to in-season mode (not built yet, see open items).
+- **Week 1+** — IN-SEASON MODE (live since 9/8, `data/roster.yaml` is the
+  source of truth: immutable draft record + transactions ledger + weekly
+  results). The weekly cadence, proven in week one:
+  - **Monday**: log the week's result in `roster.yaml` results (score, box,
+    what beat/missed projection and why). One commit.
+  - **Tuesday**: waiver run BEFORE the room wakes up — this league's streaming
+    market is live (Griddy sniped the Jags off the same wire read within
+    hours on 9/8). Sweep: DST stream for next week's matchup, injury fallout,
+    volume-based WR/RB adds (full-PPR: receptions and routes over TDs — a
+    2-catch-1-TD line is noise, an 8-target day is signal). Two-source the
+    role claims like camp watch. Log claims in the transactions ledger.
+  - **Wed-Fri**: practice-report checks on anyone tagged Q/O and on role
+    watches (currently: Downs vs the Keenan Allen share, Kamara's return
+    shrinking Etienne's volume).
+  - **Sunday AM**: lineup vs matchups + inactives pivots. Standing rules:
+    the two Q-pivot patterns are (1) a 1:00 starter with a 4:25 bench
+    alternative = automatic swap on inactives; (2) Warren has NO backup TE -
+    if he is ever doubtful, stream a TE Saturday, do not wait.
+  - **Trades**: Ward is the QB3 inventory (doctrine: sell to the desperate,
+    mapped customers Shaun DeNiro and Da LockDownGoon). Do not shop him
+    early - wait for a rival QB injury or bye-week squeeze (~October).
 
 ## Autonomy — sanctioned by Josh, 8/16
 

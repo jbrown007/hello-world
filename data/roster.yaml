@@ -44,6 +44,12 @@ transactions:
     offense. NOTE: the `players` list above stays the immutable DRAFT record
     (check 59 pins it to draft_board_2026); the live roster = players plus
     these transactions applied in order.
+- date: '2026-09-15'
+  type: waiver_claims_submitted
+  claims:
+  - {add: '49ers D/ST (SF, W8)', drop: 'Titans D/ST', priority: 2, note: 'Titans scored -1.0 vs the Jets; SF held the Rams to 7 and hosts MIA in a smash spot'}
+  - {add: 'Caleb Douglas (WR MIA, W6)', drop: 'KC Concepcion', priority: 1, note: 'Industry consensus Miami WR1 after 5-94; Josh drafted him in two mocks. Concepcion out - worst offense on the bench (CLE/Watson)'}
+  status: pending clears - confirm Wednesday morning
 results:
 - week: 1
   opponent: Jag FLu
