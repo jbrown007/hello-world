@@ -46,12 +46,40 @@ Every mock from here on is **slot 5**. Josh posts an ESPN results screenshot.
 4. Append a rep to `data/mocks.yaml` with honest `notes` and `errors` tags.
 5. Commit and push. One commit per rep.
 
+**FINAL-WEEK PROTOCOL (9/4, Josh-confirmed, through the Sept 6 draft):**
+quick-hit turnaround per rep — grade, then the top-3 fixes for the next rep,
+no card rebuilds unless something material changes. Log ESPN's letter grade
+in the rep as `espn_grade` alongside the framework score (Josh reports ~C
+average; his stated bar is B+). **The framework stays the north star when
+the two graders disagree** — ESPN grades value-vs-their-ADP and cannot see
+the partition, the seeding week or this room. The deliberate ESPN-negative
+picks are known and bounded (Hubbard at 44, the K/DST partition fillers);
+everything else that tanks the ESPN grade (reaches like Lawrence at 20) is
+an error by BOTH graders, so fixing framework errors should carry the ESPN
+grade to B+ on its own. If it doesn't converge by rep ~36, investigate
+rather than bend the structure.
+
 ### 2. Camp watch — on request ("camp watch")
 
 Sweep every **Trending/Unsettled** row in `data/watchlist.yaml`, searching that
 row's own `watch_for` trigger for last-48h news. **Two independent sources for
 any status flip.** Prepend a dated note to the row's `notes`; edit only
 `watchlist.yaml`. Single-source items get logged as directional, not acted on.
+
+**THEN SWEEP THE NAMED COMMITMENTS TOO — added 8/29 after a real miss.** The
+watchlist is not the board. Tyler Warren is taken at pick 53 in nine of nine
+reps and strained his groin on Aug 19; five sweeps ran before it was noticed on
+Aug 29, because he has no watchlist row. Neither did Kenneth Walker III, who
+was drafted in eight of nine reps and had a foot issue on Aug 25. Sweeping only
+watchlist rows structurally cannot see an injury to the most locked pick in the
+framework.
+
+So after the rows, run `ff targets` and health-check the **named** picks —
+at minimum every player taken in 3+ reps (`data/rep_rosters/`) and everything
+in the R1-R10 target lists. A player with no row who is drafted every single
+rep is the most dangerous blind spot there is, precisely because nothing
+prompts you to look. If one is hurt and has no row, **create the row** rather
+than burying it in someone else's notes.
 
 ### 3. The calendar
 
@@ -60,7 +88,27 @@ any status flip.** Prepend a dated note to the row's `notes`; edit only
 - **Aug 29-30** — post-cuts sweep; depth charts finalize.
 - **Sept 4-5** — final sweep on every named target, then `ff sheet --all` and
   tell Josh to PRINT. Never draft off a stale sheet.
-- **Week 1** — switch to in-season mode (not built yet, see open items).
+- **Week 1+** — IN-SEASON MODE (live since 9/8, `data/roster.yaml` is the
+  source of truth: immutable draft record + transactions ledger + weekly
+  results). The weekly cadence, proven in week one:
+  - **Monday**: log the week's result in `roster.yaml` results (score, box,
+    what beat/missed projection and why). One commit.
+  - **Tuesday**: waiver run BEFORE the room wakes up — this league's streaming
+    market is live (Griddy sniped the Jags off the same wire read within
+    hours on 9/8). Sweep: DST stream for next week's matchup, injury fallout,
+    volume-based WR/RB adds (full-PPR: receptions and routes over TDs — a
+    2-catch-1-TD line is noise, an 8-target day is signal). Two-source the
+    role claims like camp watch. Log claims in the transactions ledger.
+  - **Wed-Fri**: practice-report checks on anyone tagged Q/O and on role
+    watches (currently: Downs vs the Keenan Allen share, Kamara's return
+    shrinking Etienne's volume).
+  - **Sunday AM**: lineup vs matchups + inactives pivots. Standing rules:
+    the two Q-pivot patterns are (1) a 1:00 starter with a 4:25 bench
+    alternative = automatic swap on inactives; (2) Warren has NO backup TE -
+    if he is ever doubtful, stream a TE Saturday, do not wait.
+  - **Trades**: Ward is the QB3 inventory (doctrine: sell to the desperate,
+    mapped customers Shaun DeNiro and Da LockDownGoon). Do not shop him
+    early - wait for a rival QB injury or bye-week squeeze (~October).
 
 ## Autonomy — sanctioned by Josh, 8/16
 

@@ -1,0 +1,18 @@
+# slot 5 · rep 28 · 2026-08-23 · format: ROUND POS TEAM Player Name
+1 RB DET Jahmyr Gibbs
+2 RB BUF James Cook III
+3 QB CHI Caleb Williams
+4 WR CAR Tetairoa McMillan
+5 TE IND Tyler Warren
+6 QB NO Tyler Shough
+7 WR IND Josh Downs
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 WR GB Jayden Reed
+11 RB ARI Tyler Allgeier
+12 RB JAX Chris Rodriguez Jr.
+13 WR NO Jordyn Tyson
+14 RB MIA Ollie Gordon II
+15 WR PIT Germie Bernard
+16 DST JAX Jaguars D/ST
+17 K NO Charlie Smyth

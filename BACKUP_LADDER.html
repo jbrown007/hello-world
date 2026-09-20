@@ -1,0 +1,134 @@
+<title>The Back-Up Ladder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:16px;line-height:1.5;margin:0;padding:22px 16px 40px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+h1{font-size:34px;font-weight:700;letter-spacing:-.01em;margin:0;line-height:.95;text-transform:uppercase;
+  border-bottom:2px solid var(--ink);padding-bottom:8px}
+h1 em{font-style:normal;color:var(--accent)}
+
+.blk{background:var(--surface);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+.blk>h2{font-size:19px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin:0;
+  padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.blk>h2 .cnt{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:600;letter-spacing:0;color:var(--accent)}
+.blk>h2 .rds{font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:400;letter-spacing:0;
+  color:var(--ink-3);margin-left:auto;text-transform:none}
+.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:0}
+@media(max-width:620px){.grid{grid-template-columns:1fr}}
+.maincol{padding:12px 16px}
+.notecol{padding:12px 16px;background:var(--surface-2);border-left:1px solid var(--rule-2)}
+@media(max-width:620px){.notecol{border-left:0;border-top:1px solid var(--rule-2)}}
+
+ol{list-style:none;margin:0;padding:0}
+li{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule-2);
+  font-size:19px;flex-wrap:wrap}
+li:last-child{border-bottom:0}
+.slot{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;color:var(--ink-3);
+  width:34px;flex:none}
+.nm{font-weight:600}
+.or{color:var(--ink-3);font-size:15px;padding:0 2px}
+.tb{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);white-space:nowrap}
+.tb.w13{color:var(--stop);font-weight:600}
+
+.notecol h3{font-family:"Barlow Condensed",sans-serif;font-size:14px;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 6px}
+.notecol ul{list-style:none;margin:0;padding:0}
+.notecol li{font-size:17px;padding:7px 0}
+
+.foot{font-size:12px;color:var(--ink-3);text-align:center;padding-top:2px}
+@media print{
+  body{background:#fff;padding:0}
+  .blk{box-shadow:none;break-inside:avoid}
+  h1{font-size:28px}
+  @page{margin:12mm}
+}
+</style>
+
+<div class="wrap">
+  <h1>Back-Up <em>Ladder</em> <span style="font-family:'IBM Plex Sans';font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-3)">&nbsp;&nbsp;bold = first call · small number = bye</span></h1>
+
+  <section class="blk">
+    <h2>Back-Up RB <span class="cnt">__ / 6</span> <span class="rds">Rds 7 · 11 · 12 · 14</span></h2>
+    <div class="grid">
+      <div class="maincol">
+        <ol>
+          <li><span class="slot">3.</span><span class="nm">R. Stevenson</span><span class="tb">NE·11</span></li>
+          <li><span class="slot">4.</span><span class="nm">R. Dowdle</span><span class="tb">PIT·9</span></li>
+          <li><span class="slot">5.</span><span class="nm">B. Corum</span><span class="tb">LAR·11</span></li>
+          <li><span class="slot">6.</span><span class="nm">K. Black</span><span class="tb">SF·8</span>
+            <span class="or">or</span><span class="nm">Charbonnet</span><span class="tb">SEA·11</span></li>
+        </ol>
+      </div>
+      <div class="notecol">
+        <h3>Notable</h3>
+        <ul>
+          <li>J. Mason <span class="tb">MIN·6</span></li>
+          <li>M. Washington Jr <span class="tb w13">LV·13 &mdash; only if no Downs</span></li>
+          <li>R. Davis <span class="tb">BUF·7</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Back-Up WR <span class="cnt">__ / 5</span> <span class="rds">Rds 8 · 10 · 13 · 15</span></h2>
+    <div class="grid">
+      <div class="maincol">
+        <ol>
+          <li><span class="slot">3.</span><span class="nm">M. Wilson</span><span class="tb">ARI·14</span></li>
+          <li><span class="slot">4.</span><span class="nm">J. Downs</span><span class="tb w13">IND·13 &mdash; caps W13</span></li>
+          <li><span class="slot">5.</span><span class="nm">J. Tyson</span><span class="tb">NO·8</span>
+            <span class="or">or</span><span class="nm">KC Concepcion</span></li>
+        </ol>
+      </div>
+      <div class="notecol">
+        <h3>Count as you go</h3>
+        <ul>
+          <li class="mono" style="font-size:15px">RB &nbsp;&#9633;&#9633;&#9633;&#9633;&#9633;&#9633;</li>
+          <li class="mono" style="font-size:15px">WR &nbsp;&#9633;&#9633;&#9633;&#9633;&#9633;</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Your names, your slots &middot; the call sheet's partition and refusal rules still outrank
+  the ladder &middot; Sept 6, draft night.</p>
+</div>

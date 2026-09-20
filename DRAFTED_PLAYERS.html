@@ -1,0 +1,305 @@
+<title>Every Player You Have Drafted</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:13px; line-height:1.45; margin:0; padding:20px 16px 40px;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+
+h1,h2,h3,.lbl,th{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- masthead ---------- */
+.top{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;
+  border-bottom:2px solid var(--ink);padding-bottom:9px;
+}
+h1{font-size:38px;font-weight:700;letter-spacing:-.015em;margin:0;line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent)}
+.top dl{display:flex;gap:18px;margin:0 0 3px auto;flex-wrap:wrap}
+.top div{display:flex;flex-direction:column;gap:1px}
+.top dt{font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3)}
+.top dd{margin:0;font-size:13px;font-weight:600}
+
+.picks{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:7px 11px;font-size:12.5px;display:flex;flex-wrap:wrap;gap:3px 0;align-items:baseline;
+}
+.picks b{font-family:"Barlow Condensed",sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);margin-right:9px;font-weight:600}
+.picks span{padding:0 7px;border-right:1px solid var(--rule-2)}
+.picks span:last-child{border-right:0}
+.picks .key{color:var(--accent);font-weight:600}
+
+/* ---------- alert band ---------- */
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:9px}
+.alert{
+  background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--ink-3);
+  border-radius:3px;padding:9px 11px;box-shadow:var(--shadow);
+}
+.alert.stop{border-left-color:var(--stop)}
+.alert.warn{border-left-color:var(--warn)}
+.alert.go{border-left-color:var(--accent)}
+.alert h3{
+  font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  margin:0 0 3px;display:flex;align-items:center;gap:6px;
+}
+.alert.stop h3{color:var(--stop)} .alert.warn h3{color:var(--warn)} .alert.go h3{color:var(--accent)}
+.alert p{margin:0;font-size:12px;color:var(--ink-2)}
+.alert p+p{margin-top:4px}
+.alert strong{color:var(--ink);font-weight:600}
+.tick{font-size:10px;font-family:"IBM Plex Mono",monospace;color:var(--ink-3);font-weight:400;
+  letter-spacing:0;margin-left:auto;text-transform:none}
+
+/* ---------- columns ---------- */
+.cols{display:grid;grid-template-columns:1.32fr 1fr;gap:14px;align-items:start}
+@media(max-width:880px){.cols{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow:hidden}
+.card>h2{
+  font-size:13px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;margin:0;
+  padding:7px 11px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:8px;
+}
+.card>h2 .sub{font-family:"IBM Plex Sans",sans-serif;font-size:10.5px;font-weight:400;
+  letter-spacing:0;text-transform:none;color:var(--ink-3);margin-left:auto}
+.pad{padding:10px 11px}
+
+/* ---------- round table ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px}
+.wrap{overflow-x:auto}
+th{
+  font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  text-align:left;padding:5px 7px;border-bottom:1px solid var(--rule);white-space:nowrap;
+}
+td{padding:4px 7px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.r{white-space:nowrap;font-weight:600;width:1%}
+td.r .p{color:var(--ink-3);font-weight:400;font-size:11px;margin-left:3px}
+td.pos{white-space:nowrap;width:1%;font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:13px;letter-spacing:.03em}
+tr.key td{background:var(--accent-soft)}
+tr.key td.pos{color:var(--accent)}
+tr.stop td.pos{color:var(--stop)}
+td small{display:block;color:var(--ink-3);font-size:10.5px;line-height:1.35;margin-top:1px}
+td .no{color:var(--stop);font-weight:600}
+
+.chip{
+  display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;padding:1px 5px;border-radius:2px;
+  vertical-align:1px;margin-right:4px;white-space:nowrap;
+}
+.chip.gate{background:var(--warn-soft);color:var(--warn)}
+.chip.hard{background:var(--stop-soft);color:var(--stop)}
+.chip.dec{background:var(--accent-soft);color:var(--accent)}
+
+/* ---------- bye grid ---------- */
+.bye{width:100%;border-collapse:collapse;font-size:11.5px}
+.bye th{padding:4px 6px}
+.bye td{padding:3px 6px;border-bottom:1px solid var(--rule-2)}
+.bye td:first-child{font-family:"IBM Plex Mono",monospace;font-weight:600;width:1%;white-space:nowrap}
+.bye td:last-child{width:1%;white-space:nowrap;text-align:right}
+.bye .teams{color:var(--ink-2);font-size:11px}
+.bye tr.tight td:first-child{color:var(--warn)}
+.bye tr.seed td{background:var(--stop-soft)}
+.bye tr.seed td:first-child{color:var(--stop)}
+.box{display:inline-block;width:13px;height:13px;border:1px solid var(--ink-3);
+  border-radius:2px;vertical-align:-2px;margin-left:2px}
+
+ul{margin:0;padding-left:15px}
+li{margin-bottom:4px;color:var(--ink-2);font-size:12px}
+li:last-child{margin-bottom:0}
+li strong{color:var(--ink);font-weight:600}
+li .no{color:var(--stop);font-weight:600}
+
+.tally{display:flex;flex-wrap:wrap;gap:5px}
+.tally span{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;border:1px solid var(--rule);
+  border-radius:2px;padding:3px 7px;background:var(--surface-2);white-space:nowrap;
+}
+.rule{height:1px;background:var(--rule-2);margin:9px 0}
+.foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding-top:2px}
+.foot code{font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+
+@media print{
+  body{background:#fff;padding:0;font-size:10px}
+  .card,.alert,.picks{box-shadow:none}
+  .cols{gap:9px}
+  h1{font-size:30px}
+  @page{margin:11mm}
+}
+</style><style>
+.pl small{display:block;color:var(--ink-3);font-size:10.5px;line-height:1.35;margin-top:1px}
+.tm{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ink-3);margin-left:3px}
+td.pos,td.bye,td.n,td.seen{white-space:nowrap;width:1%;text-align:center}
+td.bye{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-2)}
+td.n{color:var(--ink-3);font-size:11px}
+td.seen{font-size:11px;color:var(--accent);font-weight:600}
+td.take{white-space:normal;font-size:11.5px;font-weight:600;width:23%}
+.vd{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:9.5px;font-weight:600;
+  letter-spacing:.08em;padding:1px 5px;border-radius:2px;white-space:nowrap}
+.vd.ok{background:var(--accent-soft);color:var(--accent)}
+.vd.promote{background:#DCE6F5;color:#1F4E85}
+.vd.cond,.vd.watch{background:var(--warn-soft);color:var(--warn)}
+.vd.no{background:var(--stop-soft);color:var(--stop)}
+tr.no td.pl strong{text-decoration:line-through;text-decoration-color:var(--stop)}
+tr.promote td{background:#F2F6FC}
+:root:not([data-theme="light"]) .vd.promote{background:#1B2A3E;color:#8FB6E8}
+:root:not([data-theme="light"]) tr.promote td{background:#151F2B}
+:root[data-theme="dark"] .vd.promote{background:#1B2A3E;color:#8FB6E8}
+:root[data-theme="dark"] tr.promote td{background:#151F2B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .vd.promote{background:#1B2A3E;color:#8FB6E8}
+  :root:not([data-theme="light"]) tr.promote td{background:#151F2B}}
+</style>
+<div class="sheet">
+  <header class="top">
+    <h1>Every Player <em>You</em> Have Drafted</h1>
+    <dl><div><dt>Source</dt><dd>9 slot-5 reps · Aug 18-25</dd></div>
+      <div><dt>Players</dt><dd class="mono">61 distinct · 153 picks</dd></div>
+      <div><dt>Draft</dt><dd>Sun Sep 6 · <strong>9 days</strong></dd></div></dl>
+  </header>
+
+  <section class="math">
+    <h2>Half of what you draft is on no board</h2>
+    <p style="margin:0 0 8px"><strong>30 of the 61 players you have actually taken appear on no board
+    in the repo.</strong> That is 49% — almost exactly the 62% figure from the original audit that
+    caused the depth board to be built in the first place. The gap was narrowed, not closed.</p>
+    <p style="margin:0"><strong>And the two most-drafted off-board names are the answer to the W5 supply
+    gap.</strong> <code>bye_rule.supply_gap</code> says the partition needs two W5 bodies and the boards
+    name none that are not a fade. You found them yourself: <strong>Kenneth Walker III (KC) eight
+    times and Tetairoa McMillan (CAR) five times.</strong> They belong on the board.</p>
+  </section>
+
+  <section class="band">
+    <div class="alert go"><h3>Reading this</h3>
+      <p><strong>Took</strong> is how many of the 9 reps you took him in. <strong>Last seen</strong> is
+      the latest pick he was demonstrably still on the board — a floor on availability, not a ceiling.</p></div>
+    <div class="alert warn"><h3>Add to board <span class="tick">7 names</span></h3>
+      <p>Off-board names you have taken repeatedly and that fill a week the build keeps leaving short.
+      These earn a place at the Sept 4-5 sweep.</p></div>
+    <div class="alert stop"><h3>Refuse <span class="tick">13 names</span></h3>
+      <p>Fades, off-tier arms, W6 trap bodies and the K/DST picks that tipped a week. Every one of them
+      cost a real error in a logged rep.</p></div>
+  </section>
+
+<section class="card"><h2>Rounds 1-4  ·  picks 5, 20, 29, 44</h2><div class="wrap"><table>
+<thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>Took</th><th>Last seen</th><th>Verdict</th><th>Take at</th></tr></thead><tbody>
+<tr class="ok"><td class="pl"><strong>Jahmyr Gibbs</strong> <span class="tm">DET</span><small>ADP 1.01 — plan on the WR, take him as a gift.</small></td><td class="pos">RB</td><td class="bye">W6</td><td class="mono n">8&times;</td><td class="mono seen">p5</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 5 if he falls</td></tr>
+<tr class="ok"><td class="pl"><strong>Drake Maye</strong> <span class="tm">NE</span><small>Elite six. The Branch B path.</small></td><td class="pos">QB</td><td class="bye">W11</td><td class="mono n">1&times;</td><td class="mono seen">p5</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 20</td></tr>
+<tr class="promote"><td class="pl"><strong>Kenneth Walker III</strong> <span class="tm">KC</span><small>W5 FILLER. Seen at 29 four times — no need at 20.</small></td><td class="pos">RB</td><td class="bye">W5</td><td class="mono n">8&times;</td><td class="mono seen">p29</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 29 (R3)</td></tr>
+<tr class="cond"><td class="pl"><strong>Trevor Lawrence</strong> <span class="tm">JAX</span><small>QB3 VET. Taken at 20 twice — reach by 7.</small></td><td class="pos">QB</td><td class="bye">W7</td><td class="mono n">2&times;</td><td class="mono seen">p20</td><td><span class="vd cond">LATE ONLY</span></td><td class="take">Pick 101</td></tr>
+<tr class="cond"><td class="pl"><strong>Bo Nix</strong> <span class="tm">DEN</span><small>QB2 window. Taken at 20 once — reach by 3.</small></td><td class="pos">QB</td><td class="bye">W10</td><td class="mono n">1&times;</td><td class="mono seen">p20</td><td><span class="vd cond">LATE ONLY</span></td><td class="take">Pick 68</td></tr>
+<tr class="no"><td class="pl"><strong>Jaxson Dart</strong> <span class="tm">NYG</span><small>Off every tier.</small></td><td class="pos">QB</td><td class="bye">W8</td><td class="mono n">1&times;</td><td class="mono seen">p20</td><td><span class="vd no">REFUSE</span></td><td class="take">Never at pick 20</td></tr>
+<tr class="ok"><td class="pl"><strong>James Cook III</strong> <span class="tm">BUF</span><small>RB tier 2.</small></td><td class="pos">RB</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p20</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 29</td></tr>
+<tr class="ok"><td class="pl"><strong>Caleb Williams</strong> <span class="tm">CHI</span><small>Branch C anchor. At market every time.</small></td><td class="pos">QB</td><td class="bye">W10</td><td class="mono n">3&times;</td><td class="mono seen">p29</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 29</td></tr>
+<tr class="watch"><td class="pl"><strong>Omarion Hampton</strong> <span class="tm">LAC</span><small>Off board, W7.</small></td><td class="pos">RB</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p29</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 29</td></tr>
+<tr class="ok"><td class="pl"><strong>Justin Herbert</strong> <span class="tm">LAC</span><small>Branch C anchor. At market.</small></td><td class="pos">QB</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p29</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 29</td></tr>
+<tr class="promote"><td class="pl"><strong>Tetairoa McMillan</strong> <span class="tm">CAR</span><small>W5 FILLER. Seen at 44 all five times.</small></td><td class="pos">WR</td><td class="bye">W5</td><td class="mono n">5&times;</td><td class="mono seen">p44</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 44 (R4)</td></tr>
+<tr class="ok"><td class="pl"><strong>Malik Nabers</strong> <span class="tm">NYG</span><small>R4 WR band.</small></td><td class="pos">WR</td><td class="bye">W8</td><td class="mono n">2&times;</td><td class="mono seen">p44</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 44</td></tr>
+<tr class="ok"><td class="pl"><strong>DJ Moore</strong> <span class="tm">BUF</span><small>R4 WR band.</small></td><td class="pos">WR</td><td class="bye">W7</td><td class="mono n">2&times;</td><td class="mono seen">p44</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 44</td></tr>
+</tbody></table></div></section>
+<section class="card"><h2>Rounds 5-8  ·  picks 53, 68, 77, 92</h2><div class="wrap"><table>
+<thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>Took</th><th>Last seen</th><th>Verdict</th><th>Take at</th></tr></thead><tbody>
+<tr class="ok"><td class="pl"><strong>Tyler Warren</strong> <span class="tm">IND</span><small>Available at 53 in 9 of 9. Never at R4.</small></td><td class="pos">TE</td><td class="bye">W13</td><td class="mono n">9&times;</td><td class="mono seen">p53</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 53</td></tr>
+<tr class="promote"><td class="pl"><strong>Jordan Love</strong> <span class="tm">GB</span><small>REPRICED 8/25. Seen at 101 five times. R6 wastes 3 rounds.</small></td><td class="pos">QB</td><td class="bye">W11</td><td class="mono n">8&times;</td><td class="mono seen">p101</td><td><span class="vd promote">REPRICED</span></td><td class="take">Pick 101 (R9)</td></tr>
+<tr class="ok"><td class="pl"><strong>Kyler Murray</strong> <span class="tm">MIN</span><small>QB2 window, at market.</small></td><td class="pos">QB</td><td class="bye">W6</td><td class="mono n">3&times;</td><td class="mono seen">p68</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 68</td></tr>
+<tr class="ok"><td class="pl"><strong>Jared Goff</strong> <span class="tm">DET</span><small>QB3 vet tier.</small></td><td class="pos">QB</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p68</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 101</td></tr>
+<tr class="ok"><td class="pl"><strong>Baker Mayfield</strong> <span class="tm">TB</span><small>QB2 window fallback.</small></td><td class="pos">QB</td><td class="bye">W10</td><td class="mono n">1&times;</td><td class="mono seen">p68</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 68</td></tr>
+<tr class="ok"><td class="pl"><strong>Tyler Shough</strong> <span class="tm">NO</span><small>QB3 vet. Also a rare W8 arm.</small></td><td class="pos">QB</td><td class="bye">W8</td><td class="mono n">1&times;</td><td class="mono seen">p68</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 101</td></tr>
+<tr class="promote"><td class="pl"><strong>Kenny Gainwell</strong> <span class="tm">TB</span><small>RB flex. Seen at 92 six times.</small></td><td class="pos">RB</td><td class="bye">W10</td><td class="mono n">7&times;</td><td class="mono seen">p92</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 92 (R8)</td></tr>
+<tr class="ok"><td class="pl"><strong>Josh Downs</strong> <span class="tm">IND</span><small>Window R7-R9. Reached 116 once; R10 is a real deadline.</small></td><td class="pos">WR</td><td class="bye">W13</td><td class="mono n">7&times;</td><td class="mono seen">p116</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 77 (R7)</td></tr>
+<tr class="watch"><td class="pl"><strong>Carnell Tate</strong> <span class="tm">TEN</span><small>W9 body, off board. Taken twice at 77.</small></td><td class="pos">WR</td><td class="bye">W9</td><td class="mono n">2&times;</td><td class="mono seen">p77</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 77 (R7)</td></tr>
+<tr class="watch"><td class="pl"><strong>Christian Watson</strong> <span class="tm">GB</span><small>Off board, W11.</small></td><td class="pos">WR</td><td class="bye">W11</td><td class="mono n">1&times;</td><td class="mono seen">p77</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 77</td></tr>
+<tr class="ok"><td class="pl"><strong>Rico Dowdle</strong> <span class="tm">PIT</span><small>Taken at 92 once — 33 picks early.</small></td><td class="pos">RB</td><td class="bye">W9</td><td class="mono n">1&times;</td><td class="mono seen">p92</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 125 (R11)</td></tr>
+<tr class="cond"><td class="pl"><strong>Rhamondre Stevenson</strong> <span class="tm">NE</span><small>Second NE body caps W11 and kills R14.</small></td><td class="pos">RB</td><td class="bye">W11</td><td class="mono n">1&times;</td><td class="mono seen">p92</td><td><span class="vd cond">CONDITIONAL</span></td><td class="take">Pick 77 — only if Maye is not your QB1</td></tr>
+</tbody></table></div></section>
+<section class="card"><h2>Rounds 9-12  ·  picks 101, 116, 125, 140</h2><div class="wrap"><table>
+<thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>Took</th><th>Last seen</th><th>Verdict</th><th>Take at</th></tr></thead><tbody>
+<tr class="no"><td class="pl"><strong>Bryce Young</strong> <span class="tm">CAR</span><small>Off every tier. Taken twice. W5 body that broke the week.</small></td><td class="pos">QB</td><td class="bye">W5</td><td class="mono n">2&times;</td><td class="mono seen">p116</td><td><span class="vd no">REFUSE</span></td><td class="take">Never as QB3</td></tr>
+<tr class="ok"><td class="pl"><strong>Cam Ward</strong> <span class="tm">TEN</span><small>Default QB2. Seen at 101 once — 53 only if the run fires.</small></td><td class="pos">QB</td><td class="bye">W9</td><td class="mono n">1&times;</td><td class="mono seen">p101</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 68 (R6)</td></tr>
+<tr class="no"><td class="pl"><strong>Malik Willis</strong> <span class="tm">MIA</span><small>Off every tier.</small></td><td class="pos">QB</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p101</td><td><span class="vd no">REFUSE</span></td><td class="take">Never as QB3</td></tr>
+<tr class="watch"><td class="pl"><strong>Jordan Addison</strong> <span class="tm">MIN</span><small>Off board, W6.</small></td><td class="pos">WR</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p101</td><td><span class="vd watch">WATCH</span></td><td class="take">R9+ only if W6 is open</td></tr>
+<tr class="ok"><td class="pl"><strong>Jordan Mason</strong> <span class="tm">MIN</span><small>W6 — check the tally first.</small></td><td class="pos">RB</td><td class="bye">W6</td><td class="mono n">4&times;</td><td class="mono seen">p125</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 125 (R11)</td></tr>
+<tr class="ok"><td class="pl"><strong>Blake Corum</strong> <span class="tm">LAR</span><small>W11 body.</small></td><td class="pos">RB</td><td class="bye">W11</td><td class="mono n">4&times;</td><td class="mono seen">p125</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 140 (R12)</td></tr>
+<tr class="ok"><td class="pl"><strong>Kyle Monangai</strong> <span class="tm">CHI</span><small>Bear #2 at most.</small></td><td class="pos">RB</td><td class="bye">W10</td><td class="mono n">3&times;</td><td class="mono seen">p125</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 125</td></tr>
+<tr class="ok"><td class="pl"><strong>Jayden Reed</strong> <span class="tm">GB</span><small>W11 body.</small></td><td class="pos">WR</td><td class="bye">W11</td><td class="mono n">2&times;</td><td class="mono seen">p116</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 116 (R10)</td></tr>
+<tr class="watch"><td class="pl"><strong>Quentin Johnston</strong> <span class="tm">LAC</span><small>Off board, W7.</small></td><td class="pos">WR</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p116</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 116</td></tr>
+<tr class="ok"><td class="pl"><strong>Tyler Allgeier</strong> <span class="tm">ARI</span><small>MANDATORY as the single W14 body. Never at R14. Seen at 149 five times.</small></td><td class="pos">RB</td><td class="bye">W14</td><td class="mono n">8&times;</td><td class="mono seen">p149</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 149 (R13)</td></tr>
+<tr class="no"><td class="pl"><strong>RJ Harvey</strong> <span class="tm">DEN</span><small>rb_board FADE at RB21, fell to RB30.</small></td><td class="pos">RB</td><td class="bye">W10</td><td class="mono n">1&times;</td><td class="mono seen">p125</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="promote"><td class="pl"><strong>De&#x27;Zhaun Stribling</strong> <span class="tm">SF</span><small>W8 body. Seen at 140 all three times.</small></td><td class="pos">WR</td><td class="bye">W8</td><td class="mono n">3&times;</td><td class="mono seen">p140</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 140 (R12)</td></tr>
+<tr class="watch"><td class="pl"><strong>Makai Lemon</strong> <span class="tm">PHI</span><small>Off board, W10.</small></td><td class="pos">WR</td><td class="bye">W10</td><td class="mono n">2&times;</td><td class="mono seen">p140</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 140</td></tr>
+<tr class="ok"><td class="pl"><strong>Zach Charbonnet</strong> <span class="tm">SEA</span><small>Speculative. Price still on PUP.</small></td><td class="pos">RB</td><td class="bye">W11</td><td class="mono n">1&times;</td><td class="mono seen">p140</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 164 (R14)</td></tr>
+<tr class="watch"><td class="pl"><strong>Chris Rodriguez Jr.</strong> <span class="tm">JAX</span><small>Off board, W7. Made W7 a three in rep 28.</small></td><td class="pos">RB</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p140</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 140</td></tr>
+</tbody></table></div></section>
+<section class="card"><h2>Rounds 13-15  ·  picks 149, 164, 173</h2><div class="wrap"><table>
+<thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>Took</th><th>Last seen</th><th>Verdict</th><th>Take at</th></tr></thead><tbody>
+<tr class="promote"><td class="pl"><strong>Jordyn Tyson</strong> <span class="tm">NO</span><small>W8 body — the week you keep leaving short.</small></td><td class="pos">WR</td><td class="bye">W8</td><td class="mono n">3&times;</td><td class="mono seen">p164</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 164 (R13-14)</td></tr>
+<tr class="watch"><td class="pl"><strong>Jalen McMillan</strong> <span class="tm">TB</span><small>Off board, W10.</small></td><td class="pos">WR</td><td class="bye">W10</td><td class="mono n">2&times;</td><td class="mono seen">p164</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 164</td></tr>
+<tr class="promote"><td class="pl"><strong>Denzel Boston</strong> <span class="tm">CLE</span><small>RETAGGED 8/25. W11 filler, floor pick. Watson caps him.</small></td><td class="pos">WR</td><td class="bye">W11</td><td class="mono n">1&times;</td><td class="mono seen">p149</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 149-173</td></tr>
+<tr class="no"><td class="pl"><strong>Ollie Gordon II</strong> <span class="tm">MIA</span><small>W6 trap. 7th RB, 4th WR, third W6 body — one pick, twice.</small></td><td class="pos">RB</td><td class="bye">W6</td><td class="mono n">3&times;</td><td class="mono seen">p173</td><td><span class="vd no">REFUSE</span></td><td class="take">Never at R14-R15</td></tr>
+<tr class="ok"><td class="pl"><strong>Kaelon Black</strong> <span class="tm">SF</span><small>The W11-preserving swap.</small></td><td class="pos">RB</td><td class="bye">W8</td><td class="mono n">2&times;</td><td class="mono seen">p164</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 140 — pull up to R7 if Maye is your QB1</td></tr>
+<tr class="no"><td class="pl"><strong>Malik Washington</strong> <span class="tm">MIA</span><small>W6 trap.</small></td><td class="pos">WR</td><td class="bye">W6</td><td class="mono n">2&times;</td><td class="mono seen">p173</td><td><span class="vd no">REFUSE</span></td><td class="take">At most one of the W6 three</td></tr>
+<tr class="no"><td class="pl"><strong>Jauan Jennings</strong> <span class="tm">MIN</span><small>W6 trap.</small></td><td class="pos">WR</td><td class="bye">W6</td><td class="mono n">2&times;</td><td class="mono seen">p173</td><td><span class="vd no">REFUSE</span></td><td class="take">At most one of the W6 three</td></tr>
+<tr class="no"><td class="pl"><strong>Rashod Bateman</strong> <span class="tm">BAL</span><small>Depth-board FADE and W13 is spent.</small></td><td class="pos">WR</td><td class="bye">W13</td><td class="mono n">1&times;</td><td class="mono seen">p164</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="watch"><td class="pl"><strong>Ray Davis</strong> <span class="tm">BUF</span><small>Off board, W7.</small></td><td class="pos">RB</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p164</td><td><span class="vd watch">WATCH</span></td><td class="take">Pick 164</td></tr>
+<tr class="promote"><td class="pl"><strong>Germie Bernard</strong> <span class="tm">PIT</span><small>W9 body. Seen at 173 all three times.</small></td><td class="pos">WR</td><td class="bye">W9</td><td class="mono n">3&times;</td><td class="mono seen">p173</td><td><span class="vd promote">ADD TO BOARD</span></td><td class="take">Pick 173 (R15)</td></tr>
+<tr class="watch"><td class="pl"><strong>Isiah Pacheco</strong> <span class="tm">DET</span><small>Off board, W6.</small></td><td class="pos">RB</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p173</td><td><span class="vd watch">WATCH</span></td><td class="take">R15 only if W6 is open</td></tr>
+<tr class="no"><td class="pl"><strong>Keenan Allen</strong> <span class="tm">IND</span><small>Third Colt — breaks the IND cap and W13.</small></td><td class="pos">WR</td><td class="bye">W13</td><td class="mono n">1&times;</td><td class="mono seen">p173</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+</tbody></table></div></section>
+<section class="card"><h2>Rounds 16-17  ·  picks 188, 197</h2><div class="wrap"><table>
+<thead><tr><th>Player</th><th>Pos</th><th>Bye</th><th>Took</th><th>Last seen</th><th>Verdict</th><th>Take at</th></tr></thead><tbody>
+<tr class="ok"><td class="pl"><strong>Chargers D/ST</strong> <span class="tm">LAC</span><small>On the board as LA Chargers. W7 — only if W7 is short.</small></td><td class="pos">DST</td><td class="bye">W7</td><td class="mono n">6&times;</td><td class="mono seen">p188</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 188 (R16)</td></tr>
+<tr class="no"><td class="pl"><strong>Vikings D/ST</strong> <span class="tm">MIN</span><small>Off board. Tipped W6.</small></td><td class="pos">DST</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p188</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="no"><td class="pl"><strong>Buccaneers D/ST</strong> <span class="tm">TB</span><small>Off board. Tipped W10.</small></td><td class="pos">DST</td><td class="bye">W10</td><td class="mono n">1&times;</td><td class="mono seen">p188</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="ok"><td class="pl"><strong>Jaguars D/ST</strong> <span class="tm">JAX</span><small>W7. Never with Dicker.</small></td><td class="pos">DST</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p188</td><td><span class="vd ok">TAKE</span></td><td class="take">Pick 188</td></tr>
+<tr class="cond"><td class="pl"><strong>Chris Boswell</strong> <span class="tm">PIT</span><small>CONDITIONAL REFUSE, not a ban. Correct in rep 29.</small></td><td class="pos">K</td><td class="bye">W9</td><td class="mono n">5&times;</td><td class="mono seen">p197</td><td><span class="vd cond">CONDITIONAL</span></td><td class="take">Pick 197 (R17) — only if W9 is short</td></tr>
+<tr class="cond"><td class="pl"><strong>Evan McPherson</strong> <span class="tm">CIN</span><small>W6 is usually crowded.</small></td><td class="pos">K</td><td class="bye">W6</td><td class="mono n">1&times;</td><td class="mono seen">p197</td><td><span class="vd cond">CONDITIONAL</span></td><td class="take">Pick 197 — only if W6 is short</td></tr>
+<tr class="no"><td class="pl"><strong>Chase McLaughlin</strong> <span class="tm">TB</span><small>Off board. Tipped W10 and was a third Buc.</small></td><td class="pos">K</td><td class="bye">W10</td><td class="mono n">1&times;</td><td class="mono seen">p197</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="no"><td class="pl"><strong>Tyler Bass</strong> <span class="tm">BUF</span><small>Off the kicker board.</small></td><td class="pos">K</td><td class="bye">W7</td><td class="mono n">1&times;</td><td class="mono seen">p197</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+<tr class="no"><td class="pl"><strong>Charlie Smyth</strong> <span class="tm">NO</span><small>Off board. Third Saint and tipped W8.</small></td><td class="pos">K</td><td class="bye">W8</td><td class="mono n">1&times;</td><td class="mono seen">p197</td><td><span class="vd no">REFUSE</span></td><td class="take">Never</td></tr>
+</tbody></table></div></section>
+
+  <p class="foot">Generated from <code>data/rep_rosters/</code> and cross-referenced against
+  <code>targets.yaml</code>, <code>depth_board.yaml</code>, <code>qb_board.yaml</code> and
+  <code>k_dst_board.yaml</code> · 57/57 checks green.<br>
+  Scope: the 9 stored slot-5 reps. Reps 1-20 spanned all twelve slots and their rosters were never
+  saved, so they cannot be included.</p>
+</div>
