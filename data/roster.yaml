@@ -58,6 +58,20 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-09-23'
+  type: waiver_swap
+  add: {pos: K, team: HOU, player: Ka'imi Fairbairn, bye: 8}
+  drop: {pos: K, team: PIT, player: Chris Boswell, bye: 9}
+  why: >
+    CLEARED 9/23. The k_dst_board CO-DEFAULT (rank 3) hit the wire at 94%
+    rostered after one quiet week - not kicker churn, the board's own answer
+    showing up free. Boswell's offense scored 23 points in TWO games; Fairbairn
+    kicks for Stroud and opens at IND (indoors, 31st vs kickers, proj 9.2).
+    Draft-time W8-bye objection is dead in-season - the K slot streams its bye.
+    SAME BATCH MISS: the Emanuel Wilson claim (Price chest insurance, drop
+    Lemon) did NOT clear - someone beat us to the RB insurance. Room signal
+    again: this wire moves fast. Price's Q status is now uncovered; Corum/White
+    are the internal fallbacks if he sits.
 results:
 - week: 2
   opponent: 4 Time 13
