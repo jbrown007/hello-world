@@ -103,9 +103,13 @@ than burying it in someone else's notes.
     watches (currently: Downs vs the Keenan Allen share, Kamara's return
     shrinking Etienne's volume).
   - **Sunday AM**: lineup vs matchups + inactives pivots. Standing rules:
-    the two Q-pivot patterns are (1) a 1:00 starter with a 4:25 bench
+    the three pivot patterns are (1) a 1:00 starter with a 4:25 bench
     alternative = automatic swap on inactives; (2) Warren has NO backup TE -
-    if he is ever doubtful, stream a TE Saturday, do not wait.
+    if he is ever doubtful, stream a TE Saturday, do not wait; (3) a player's
+    FIRST game back from injury caps his role - he does not start over a
+    healthy full-route pass catcher on projection alone (added 9/29: Price
+    1.2 flexed over Wilson's bench 25.9 in W3, an 11-point loss - returning
+    RBs get capped snaps and one mistake ends their day).
   - **Trades**: Ward is the QB3 inventory (doctrine: sell to the desperate,
     mapped customers Shaun DeNiro and Da LockDownGoon). Do not shop him
     early - wait for a rival QB injury or bye-week squeeze (~October).
