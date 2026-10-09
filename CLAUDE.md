@@ -179,7 +179,10 @@ the last market-price QB2** and the decision pick of the draft.
 3. **In-season scaffolding — nothing exists.** `data/roster.yaml`, a Tuesday
    waiver routine and a Sunday lineup routine. Week 1 lands days after the
    draft. `PREP.md` once wrongly claimed these were built; they are not.
-4. **Playoff team count** still unverified (likely 6). Sets what W14 is worth.
+4. **Playoff team count — RESOLVED 10/10** from the ESPN Playoffs tab: **6
+   teams, top-2 seeds get first-round byes.** The W14 seeding-week bet was
+   right. In-season implication: a bye (top-2 finish) is worth chasing, and
+   the 3-of-12 cut line keeps even 1-3 teams buying at the deadline.
 5. **Camp-watch Routine is broken.** Its trigger has no `sources`, so fired
    sessions clone no repo. `update_trigger` cannot add them — it needs
    recreating in the claude.ai Routines UI. Camp watch works fine on request.
