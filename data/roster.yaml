@@ -1,0 +1,187 @@
+# THE 2026-27 CRUSHING DREAMS ROSTER - drafted live Sept 6 2026, slot 5.
+# In-season source of truth (open item 3 begins here). ff grade: 11/11,
+# the first eleven-for-eleven on a Josh-drafted board in 41 attempts.
+season: 2026
+drafted: '2026-09-06'
+grade_framework: 11/11
+grade_espn: D (reported 9/6 - decomposition in mocks.yaml official entry)
+players:
+- {round: 1, pick: 5, pos: RB, team: BUF, player: James Cook III, bye: 7}
+- {round: 2, pick: 20, pos: RB, team: 'NO', player: Travis Etienne Jr., bye: 8}
+- {round: 3, pick: 29, pos: QB, team: JAX, player: Trevor Lawrence, bye: 7}
+- {round: 4, pick: 44, pos: WR, team: ARI, player: Michael Wilson, bye: 14}
+- {round: 5, pick: 53, pos: TE, team: IND, player: Tyler Warren, bye: 13}
+- {round: 6, pick: 68, pos: QB, team: SF, player: Brock Purdy, bye: 8}
+- {round: 7, pick: 77, pos: RB, team: SEA, player: Jadarian Price, bye: 11}
+- {round: 8, pick: 92, pos: WR, team: IND, player: Josh Downs, bye: 13}
+- {round: 9, pick: 101, pos: QB, team: TEN, player: Cam Ward, bye: 9}
+- {round: 10, pick: 116, pos: WR, team: PHI, player: Makai Lemon, bye: 10}
+- {round: 11, pick: 125, pos: RB, team: LAR, player: Blake Corum, bye: 11}
+- {round: 12, pick: 140, pos: RB, team: WSH, player: Rachaad White, bye: 7}
+- {round: 13, pick: 149, pos: WR, team: CLE, player: KC Concepcion, bye: 11}
+- {round: 14, pick: 164, pos: RB, team: SF, player: Kaelon Black, bye: 8}
+- {round: 15, pick: 173, pos: WR, team: CAR, player: Jalen Coker, bye: 5}
+- {round: 16, pick: 188, pos: DST, team: DET, player: Lions D/ST, bye: 6}
+- {round: 17, pick: 197, pos: K, team: PIT, player: Chris Boswell, bye: 9}
+notes: >
+  W13 = Warren + Downs EXACT and W14 = Wilson EXACT - the two weeks the entire
+  framework was built around, executed live. QB byes W7/W8/W9, perfectly
+  distinct. Partition off 3 with no week at zero and none above three. The
+  known costs: Lawrence at 29 (QB1 quality - judge against the full board),
+  Wilson at 44 (the W14 body bought early), W7/W8/W11 each at three. WR room
+  is the thin spot: Downs + Wilson + three rookies - first waiver priority.
+transactions:
+- date: '2026-09-08'
+  type: waiver_swap
+  add: {pos: DST, team: TEN, player: Titans D/ST, bye: 9}
+  drop: {pos: DST, team: DET, player: Lions D/ST, bye: 6}
+  why: >
+    Week 1 stream + wire read: Jacksonville (the board's No. 4 unit, undrafted)
+    was the target but Griddy grabbed them within hours - logged as a room
+    signal, the streaming market is LIVE this year. Titans were the next-best
+    free unit with the best remaining Week 1 spot (home vs the Jets and Geno
+    Smith). Lions (home vs 'NO') were startable but conflicted with Etienne's
+    offense. NOTE: the `players` list above stays the immutable DRAFT record
+    (check 59 pins it to draft_board_2026); the live roster = players plus
+    these transactions applied in order.
+- date: '2026-09-16'
+  type: waiver_swap
+  add: {pos: WR, team: MIA, player: Caleb Douglas, bye: 6}
+  drop: {pos: WR, team: CLE, player: KC Concepcion, bye: 11}
+  why: 'CLEARED 9/16 (submitted 9/15, priority 1). Industry consensus Miami WR1 after
+    5-94 in week one; Josh drafted him in two mocks before the market found him.
+    SITS week 2 - Miami plays AT the 49ers, his own team''s new defense. Debuts week 3.'
+- date: '2026-09-16'
+  type: waiver_swap
+  add: {pos: DST, team: SF, player: 49ers D/ST, bye: 8}
+  drop: {pos: DST, team: TEN, player: Titans D/ST, bye: 9}
+  why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
+    SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
+    DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-07'
+  type: waiver_swap
+  add: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
+  drop: {pos: RB, team: SEA, player: George Holani, bye: 11}
+  why: >
+    CLEARED 10/7. Barkley hamstring (week-to-week) + Bigsby hurt = Shipley the
+    only healthy RB on the PHI 53 - lead-back volume in an elite offense at 1%
+    rostered. Holani: passing-downs committee split with Emanuel Wilson even
+    with Price on IR, no path to a lead role. Shipley starts W5 flex in the
+    LONDON 9:30 AM game - confirm Barkley inactive ~8:00 AM ET Sunday.
+- date: '2026-09-30'
+  type: waiver_swap
+  add: {pos: RB, team: NYJ, player: Braelon Allen, bye: 10}
+  drop: {pos: WR, team: PHI, player: Makai Lemon, bye: 10}
+  why: >
+    CLEARED 9/30, priority claim. Breece Hall week-to-week (quad) - Allen is
+    the Jets lead back for 2+ weeks. Lemon: 9 receiving yards in three weeks,
+    losing a WR3 timeshare. Allen went straight into the W4 lineup (8.7).
+- date: '2026-09-30'
+  type: waiver_swap
+  add: {pos: RB, team: 'NO', player: Kendre Miller, bye: 11}
+  drop: {pos: RB, team: SF, player: Kaelon Black, bye: 8}
+  why: >
+    CLEARED 9/30. Etienne (hamstring, multi-week) to the IR slot same day.
+    Miller gets expanded work behind Kamara and is one injury from the 'NO'
+    lead. Black was a handcuff to a RIVAL's RB (CHAMP's McCaffrey) - zero
+    standalone touches. NOTE: the planned Browns DST claim was CANCELLED by
+    deep research - PIT hung 30 on CIN behind Rodgers on 9/27, killing the
+    broken-offense thesis; held the 49ers (home vs DEN, paid 5.0 in W4).
+- date: '2026-10-03'
+  type: waiver_swap
+  add: {pos: RB, team: SEA, player: George Holani, bye: 11}
+  drop: {pos: WR, team: MIA, player: Caleb Douglas, bye: 6}
+  why: >
+    INFERRED FROM 10/6 ROSTER SCREEN (Josh executed solo; confirm details).
+    Price re-aggravated the chest in practice, placed on NFL IR 10/3 (min 4
+    games) - moved to the fantasy IR slot; Holani added as the Seattle
+    passing-downs survivor. Douglas (ankle, out since W2, MIA bye W6 next)
+    was the cost - the Douglas repair project ends with 2.9 career points
+    scored for us.
+- date: '2026-09-23'
+  type: waiver_swap
+  add: {pos: K, team: HOU, player: Ka'imi Fairbairn, bye: 8}
+  drop: {pos: K, team: PIT, player: Chris Boswell, bye: 9}
+  why: >
+    CLEARED 9/23. The k_dst_board CO-DEFAULT (rank 3) hit the wire at 94%
+    rostered after one quiet week - not kicker churn, the board's own answer
+    showing up free. Boswell's offense scored 23 points in TWO games; Fairbairn
+    kicks for Stroud and opens at IND (indoors, 31st vs kickers, proj 9.2).
+    Draft-time W8-bye objection is dead in-season - the K slot streams its bye.
+    SAME BATCH MISS: the Emanuel Wilson claim (Price chest insurance, drop
+    Lemon) did NOT clear - someone beat us to the RB insurance. Room signal
+    again: this wire moves fast. Price's Q status is now uncovered; Corum/White
+    are the internal fallbacks if he sits.
+results:
+- week: 4
+  opponent: Easy money (confirmed by Josh 10/6)
+  score_for: 108.4
+  score_against: 86.28
+  result: W - 3-1
+  box: >
+    Comfortable win over a roster that lost Barkley to a hamstring on his
+    first carry (1.5). Our side: Purdy 22.12 (218, 2 TD in the DEN game),
+    FAIRBAIRN 16.0 (3/3 FG, 3/3 XP at Dallas - the 9/23 claim's statement
+    game), Cook 16.3 (75 + TD in the loss AT NE), Lawrence 14.58, Wilson 13.0
+    (7-95 at NYG - second straight double-digit target game since rule 3),
+    Allen 8.7 in his first start, 49ers DST 5.0 (FR, 14 PA - the HOLD
+    vindicated vs the cancelled Browns claim). Soft: Downs 3.1 (3-16 in the
+    London blowout loss - the Colts offense was the problem), Warren 6.6,
+    Holani 3.0 in the flex. W5 complications already visible: Coker on BYE
+    and tagged OUT, White OUT, Price AND Etienne both in IR slots, WR room
+    down to Wilson + Downs.
+- week: 3
+  opponent: Griddy Committee
+  score_for: 113.86
+  score_against: 124.88
+  result: L - 2-1. First loss, and the win was on the bench.
+  box: >
+    Beat projection nowhere it mattered. Lawrence 21.28 (3 TD), Cook 21.4
+    (154 + TD), Purdy 32.78 (297, 4 TD vs ARI) - the QB rooms did their job.
+    THE LOSS LIVES IN THREE LINES: (1) Price 1.2 in the FLEX (15 yards and a
+    fumble in his first game back from the chest injury - snap count capped,
+    benched after the fumble) while MICHAEL WILSON scored ~25.9 ON THE BENCH
+    (11-of-17 targets, 89, TD vs SF). Started the returning RB over the
+    full-route WR on projection alone - Sunday pivot rule 3 added to CLAUDE.md
+    from this. (2) 49ers DST 0.0 (won 36-30 but gave up 30 - shootout profile,
+    zero takeaway day). (3) Coker 2.8 and now tagged Q. ETIENNE left in Q3
+    with a hamstring - Moore says "time lost," multi-week, IR possible.
+    Kamara inherits the 'NO' backfield. Warren 9 REC (55 yds) - the PPR floor
+    is real. Downs 10.2 (5-77) - second straight usable week. Fairbairn 5.0
+    (1 FG - offense scored TDs not FGs). Griddy got JSN 30.36 and a 19.0
+    Vikings DST stream - he out-streamed us at the position we punted.
+- week: 2
+  opponent: 4 Time 13
+  score_for: 110.44
+  score_against: 106.8
+  result: W - 2-0 through two weeks
+  box: >
+    Survived a 3.6-point rock fight against a wounded roster (Nacua OUT, Darnold
+    OUT, Mason IR for them). Cook 22.4 (135 + TD) carried the week; Lawrence 7.66
+    with an INT at Denver (the matchup, as priced Wednesday); Etienne 6.6 on 25
+    yards - the Kamara-return shrink hit exactly as forecast; Wilson 2.8 and
+    Price 5.5-with-a-fumble in Seattle's 7-31 no-show (Price now tagged Q, and
+    Seattle's QB situation is hurting his whole environment); Boswell 4.0 in
+    Pittsburgh's 3-20 dud. BENCH NOTES THAT MATTER: WARD 21.02 (183 yards, TWO
+    rushing TDs vs PHI on national TV) - the trade-inventory showcase game the
+    doctrine has been waiting for. DOWNS 10.7 (7-72 at KC) - the rebound - but
+    he was BENCHED for Coker this week, an off-plan lineup call that happened to
+    not cost the game; Downs returns to the lineup. Douglas 2.9 vs SF as
+    expected and now tagged Q - check his practice status before the week-3
+    debut plan.
+- week: 1
+  opponent: Jag FLu
+  score_for: 109.3
+  score_against: 72.2
+  status: pending MNF (Walker III only remaining for Jag FLu; 99% win prob at capture)
+  box: >
+    Lawrence 27.6 (245 yds, 4 TD - the draft's biggest question mark was the
+    week's best pick), Purdy 24.1 (3 TD) - the QB room combined for 51.7 and
+    buried ESPN's D-grade argument for one week at least. Warren 8.8 with a TD
+    in his return, Etienne 11.8, Cook 9.4 (tough HOU spot as flagged), Price
+    7.8, Wilson 8.1, Boswell 8.0. THE TWO SOFT SPOTS, both already diagnosed:
+    Downs 4.7 (2-37 - the Keenan Allen target share is real, watch his role
+    before reaching R8-level expectations) and TITANS DST -1.0 (lost 10-23 to
+    the Jets - the stream bombed, Geno won at home; the Tuesday plan to swap
+    to the 49ers, who held the Rams to 7, was already written before this
+    result). Beat the room's 3rd-place finisher and top rival in week one.

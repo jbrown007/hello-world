@@ -1058,6 +1058,523 @@ def _():
     return f"{len(present)} status values, all counted"
 
 
+@check("no board note is silently truncated by an unquoted comma")
+def _():
+    """Regression, found 8/16. In a YAML FLOW mapping - {player: X, why: ...} -
+    an unquoted scalar ENDS at the first comma. Everything after it parses as a
+    second key with a null value, so the note is silently cut in half and the
+    printed board loses the reasoning. Twelve entries across targets.yaml and
+    k_dst_board.yaml were already truncated this way and all 48 checks passed on
+    them: Drake Maye's line lost 'ESPN has him SF QB2', the R4 second-TE refusal
+    lost 'Not here, not now'. A key with a null value and a space in it is never
+    legitimate in these files, which makes it a clean signature to assert on."""
+    import glob, yaml
+    orphans: list[str] = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if v is None and isinstance(k, str) and " " in k:
+                    orphans.append(f"{path} -> {k!r}")
+                walk(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]")
+
+    files = sorted(glob.glob(str(ROOT / "data" / "*.yaml")))
+    assert files, "no data files found to scan"
+    for f in files:
+        with open(f) as fh:
+            walk(yaml.safe_load(fh), Path(f).name)
+    assert not orphans, (
+        f"{len(orphans)} truncated note(s) - quote the value: " + "; ".join(orphans[:4])
+    )
+    # Same family, different trigger: YAML 1.1 reads a bare NO as boolean False,
+    # so New Orleans silently stops being a team. Found 8/18 on depth_board's
+    # swap_team. Any key naming a team must hold a real team code.
+    miscast: list[str] = []
+
+    def teams(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if isinstance(k, str) and "team" in k.lower() and isinstance(v, bool):
+                    miscast.append(f"{path}.{k} -> {v!r}")
+                teams(v, f"{path}.{k}")
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                teams(v, f"{path}[{i}]")
+
+    for f in files:
+        with open(f) as fh:
+            teams(yaml.safe_load(fh), Path(f).name)
+    assert not miscast, f"team field is not a team code (quote it): {'; '.join(miscast[:4])}"
+    return f"{len(files)} data files scanned, no truncated notes, team codes intact"
+
+
+@check("R11-R15 bye trap stays true to the boards it was derived from")
+def _():
+    """depth_board.bye_capacity documents a HARD trap: an on-plan R1-R10 caps
+    W6/W7/W11/W13, which makes ten of the sixteen R11-R15 names illegal and
+    leaves R14 with no legal option at all. Prose goes stale silently, so
+    nothing here is trusted - every count, name and choke-point claim is
+    RECOMPUTED from byes.yaml and targets.yaml and compared. If the Aug 25 pass
+    reprices a board and the trap moves, this fails and forces a re-derivation
+    instead of leaving a confident note that is quietly wrong."""
+    from ffcli.config import load, bye_of
+    import collections
+    bc = load("depth_board")["bye_capacity"]
+    rounds = {r["rnd"]: r for r in load("targets")["rounds"]}
+    base = bc["baseline"]["picks"]
+    assert len(base) == 10, f"baseline should cover R1-R10, found {len(base)}"
+
+    def capped(picks):
+        t = collections.Counter(bye_of(p["team"]) for p in picks)
+        return {w for w, n in t.items() if n >= 2}
+
+    def split(rnd, cap):
+        takes = [p for p in rounds[rnd]["take"] if p["team"] != "-"]
+        blocked = [p for p in takes if bye_of(p["team"]) in cap]
+        return blocked, len(takes) - len(blocked)
+
+    # the baseline must be real: byes agree, and it is legal on arrival at R11
+    for p in base:
+        assert bye_of(p["team"]) == p["bye"], \
+            f"baseline R{p['rnd']} {p['player']} tagged W{p['bye']}, byes.yaml disagrees"
+    cap0 = capped(base)
+    assert max(collections.Counter(bye_of(p["team"]) for p in base).values()) <= 2, \
+        "baseline itself breaks the 2-per-week cap - it cannot demonstrate anything"
+    assert sorted(cap0) == sorted(bc["weeks_at_cap_by_r11"]), \
+        f"weeks at cap recompute to {sorted(cap0)}, file says {bc['weeks_at_cap_by_r11']}"
+
+    # counts, names and the zero-option rounds all recompute
+    got_counts, got_names, dry = [], [], []
+    for rnd in range(11, 16):
+        blocked, n_legal = split(rnd, cap0)
+        got_counts.append({"rnd": rnd, "blocked": len(blocked), "of": len(blocked) + n_legal})
+        got_names += [{"rnd": rnd, "player": p["player"], "team": p["team"], "bye": p["bye"]}
+                      for p in blocked]
+        if n_legal == 0:
+            dry.append(rnd)
+    assert got_counts == bc["blocked"]["counts"], \
+        f"blocked counts recompute to {got_counts}, file says {bc['blocked']['counts']}"
+    assert got_names == bc["blocked"]["names"], \
+        f"{len(got_names)} blocked names recomputed, file lists {len(bc['blocked']['names'])}"
+    assert dry == bc["blocked"]["rounds_with_no_legal_option"], \
+        f"rounds with no legal option recompute to {dry}, file says " \
+        f"{bc['blocked']['rounds_with_no_legal_option']}"
+
+    # every choke point must actually do what it claims, and no more
+    for cp in bc["choke_points"]:
+        rnd = cp["round"]
+        assert any(p["rnd"] == rnd and p["team"] == cp["baseline_team"] for p in base), \
+            f"choke point {cp['id']} says R{rnd} is {cp['baseline_team']}, baseline disagrees"
+        swapped = [dict(p, team=cp["swap_team"]) if p["rnd"] == rnd else p for p in base]
+        cap1 = capped(swapped)
+        for wk in cp["frees_weeks"]:
+            assert wk in cap0 and wk not in cap1, \
+                f"{cp['id']} claims it frees W{wk}; recompute says otherwise"
+        for r in cp["fixes_rounds"]:
+            assert r in dry and split(r, cap1)[1] > 0, \
+                f"{cp['id']} claims it fixes R{r}; recompute says otherwise"
+        # an empty or partial fixes_rounds must be honest, not just unstated
+        for r in dry:
+            if r not in cp["fixes_rounds"]:
+                assert split(r, cap1)[1] == 0, \
+                    f"{cp['id']} silently fixes R{r} but does not claim it"
+    return (f"{len(got_names)} names blocked at baseline, R{dry} dry, "
+            f"{len(bc['choke_points'])} choke points verified")
+
+@check("grade runs the RB floor gates over the finished roster")
+def _():
+    """Regression from mock rep 21 (8/18). That roster ended 6/6 RB and scored
+    10/11, but the backs landed R2/R3/R8/R11/R13/R15 - four by R12 against a
+    floor of five - and NOTHING in the grade said so. ledger_report counts final
+    totals, commitments police individual picks, and neither watches the
+    accumulation curve that rb_rule actually specifies. A late-but-complete
+    backfield read as clean, which is the precise failure the floor exists to
+    prevent. Both directions are asserted so the report cannot be made
+    unconditional."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    gates = load("rb_rule")["rb_floor"]
+    late = ("1 QB NE Drake Maye\n2 RB KC Kenneth Walker III\n3 RB LAC Omarion Hampton\n"
+            "4 WR CAR Tetairoa McMillan\n5 TE IND Tyler Warren\n6 QB MIN Kyler Murray\n"
+            "7 WR GB Christian Watson\n8 RB PIT Rico Dowdle\n9 QB CAR Bryce Young\n"
+            "10 WR LAC Quentin Johnston\n11 RB CHI Kyle Monangai\n12 WR PHI Makai Lemon\n"
+            "13 RB ARI Tyler Allgeier\n14 WR NO Jordyn Tyson\n15 RB DET Isiah Pacheco\n"
+            "16 DST LAC Chargers\n17 K PIT Chris Boswell\n")
+    rep = grade(parse_picks(late), "MIDDLE")
+    assert "ledger met" in rep, "fixture should still satisfy the 17-spot ledger"
+    assert "RB FLOOR BREACH" in rep, \
+        "6/6 RB arriving late must not read as clean - this is rep 21's exact miss"
+    assert "R12: 4 held, floor is 5" in rep, f"breach not named precisely: {rep}"
+    assert "R2, R3, R8, R11, R13, R15" in rep, "the accumulation curve must be printed"
+
+    # moving one back inside the gate clears it, and every earlier gate still holds
+    ontime = late.replace("12 WR PHI Makai Lemon", "12 RB PHI Makai Lemon")
+    rep = grade(parse_picks(ontime), "MIDDLE")
+    assert "RB FLOOR BREACH" not in rep and "met at every gate" in rep, \
+        "a compliant curve must pass - the report cannot be unconditional"
+
+    # an early gate breaks on its own, not only the last one
+    early = late
+    for a, b in (("2 RB KC", "2 WR KC"), ("3 RB LAC", "3 WR LAC"),
+                 ("12 WR PHI", "12 RB PHI"), ("10 WR LAC", "10 RB LAC")):
+        early = early.replace(a, b)
+    rep = grade(parse_picks(early), "MIDDLE")
+    first = gates[0]["by_end_of_round"]
+    assert f"R{first}: 0 held" in rep, f"the first gate must fire on its own: {rep}"
+
+    # a partial script is NOT a finished roster. The 11-pick commitments fixture
+    # legitimately lists three backs, and inventing a breach there is exactly how
+    # this report first broke the suite.
+    partial = parse_picks("1 RB ATL Bijan Robinson\n3 RB DET Jahmyr Gibbs\n"
+                          "8 RB NE Rhamondre Stevenson\n17 DST TB Buccaneers\n")
+    assert "RB FLOOR" not in grade(partial, "MIDDLE"), \
+        "floor gates must stay silent on a script shorter than a full draft"
+    return f"{len(gates)} gates on finished rosters; breach, clean and partial covered"
+
+@check("bye partition is arithmetically forced and matches the roster size")
+def _():
+    """The finding of 8/19: nine bye weeks x cap 2 = 18 slots, minus W14's
+    banned second slot = 17 usable, against a 17-pick roster. SLACK IS ZERO, so
+    the cap is an exact partition rather than a ceiling. Every number is
+    recomputed from byes.yaml, bye_rule.yaml and league.yaml - if the bye map,
+    the cap or the roster size ever changes, the documented partition is wrong
+    and this fails instead of quietly lying. Also guards the direction of the
+    finding: a week at ZERO is as broken as a week at three, so the targets must
+    account for every pick."""
+    from ffcli.config import load
+    br, lg, by = load("bye_rule"), load("league"), load("byes")
+    cap = br["cap"]["max_per_week"]
+    sw = br["seeding_week"]
+    picks = lg["draft"]["rounds"]
+    assert sw["week"] in by, f"seeding week W{sw['week']} is not a real bye week"
+    usable = cap * len(by) - (cap - sw["max_players"])
+    assert usable == picks, (
+        f"partition broken: {len(by)} weeks x cap {cap} minus "
+        f"{cap - sw['max_players']} banned seeding slot(s) = {usable}, "
+        f"roster is {picks} picks")
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    assert set(tgt) == set(by), \
+        f"targets cover {sorted(tgt)}, byes.yaml has {sorted(by)}"
+    assert sum(tgt.values()) == picks, \
+        f"targets sum to {sum(tgt.values())}, roster is {picks} - every pick must land somewhere"
+    assert tgt[sw["week"]] == sw["max_players"], "seeding-week target contradicts the seeding rule"
+    for w, n in tgt.items():
+        assert 0 < n <= cap, f"W{w} target {n} is not between 1 and the cap"
+    return f"{len(by)} weeks x {cap} - 1 = {usable} slots = {picks} picks, slack 0"
+
+
+@check("board supply gaps match what the boards can actually field")
+def _():
+    """bye_rule.supply_gap says the named board cannot field the partition -
+    W5 needs two bodies and offers ZERO that are not a fade or a demoted arm,
+    which is why bye_stack_w5 is in five of six slot-5 reps and why Brooks has
+    been drafted seven times. Prose about a gap goes stale the moment a board is
+    repriced, so the supply is recomputed from targets.yaml the way a drafter
+    reads it - take entries only, less fades and the never list - and compared
+    against every short and thin week the file claims. Adding a real W5 name
+    closes the gap and fails this until the file is updated."""
+    from ffcli.config import load
+    import collections
+    br, T = load("bye_rule"), load("targets")
+    fades = {f["player"] for f in load("depth_board").get("fades", [])}
+    never = {e if isinstance(e, str) else e.get("player")
+             for e in load("qb_board").get("never", [])}
+    assert fades, "no fades loaded - the filter would be vacuous"
+    supply = collections.defaultdict(set)
+    for r in T["rounds"]:
+        for p in r["take"]:
+            if p["team"] == "-" or p["player"] in fades or p["player"] in never:
+                continue
+            supply[p["bye"]].add(p["player"])
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    claimed = {}
+    for key in ("short", "thin"):
+        for row in br["supply_gap"].get(key) or []:
+            w = row["week"]
+            claimed[w] = key
+            assert row["need"] == tgt[w], \
+                f"W{w} supply_gap says need {row['need']}, partition says {tgt[w]}"
+            got = len(supply.get(w, ()))
+            assert got == row["named_draftable"], \
+                f"W{w} recomputes to {got} draftable names, file says {row['named_draftable']}"
+            if key == "short":
+                assert got < row["need"], f"W{w} listed short but supply {got} meets need {row['need']}"
+            else:
+                assert row["need"] <= got <= row["need"] + 1, \
+                    f"W{w} listed thin but supply is {got} against need {row['need']}"
+    # nothing genuinely short may go unlisted
+    for w, need in tgt.items():
+        if len(supply.get(w, ())) < need:
+            assert claimed.get(w) == "short", f"W{w} is short and not listed in supply_gap"
+    return (f"{len(claimed)} weeks tracked, "
+            f"W5 supply {len(supply.get(5, ()))} vs need {tgt[5]}")
+
+@check("grade scores the finished roster against the bye partition")
+def _():
+    """Rep 23 (8/19) ran four weeks OVER cap and four weeks UNDER, balanced
+    exactly - one redistribution error, not four - and skipping W14 entirely is
+    what forced the first breach, since eight weeks at cap 2 hold only 16 of its
+    17 players. audit() reported the four overs and was silent on the four empty
+    slots and on the cause, because it was written when the cap read as a
+    ceiling. bye_rule.partition proves it is not one. Both directions are
+    asserted so the report cannot become unconditional, and the exact case is
+    pinned to data/ideal_roster.txt so a board reprice that breaks the ideal
+    line fails here too."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    from pathlib import Path
+    tgt = {t["week"]: t["exactly"] for t in load("bye_rule")["partition"]["targets"]}
+    seed = load("bye_rule")["seeding_week"]["week"]
+
+    ideal = parse_picks(Path(ROOT / "data" / "ideal_roster.txt").read_text())
+    assert len(ideal) == load("league")["draft"]["rounds"], "ideal roster is not a full draft"
+    rep = grade(ideal, "MIDDLE")
+    assert "BYE PARTITION: exact" in rep, \
+        f"the solved ideal roster must hit the partition exactly: {rep}"
+
+    # rep 23: four over, four under, W14 empty
+    r23 = parse_picks(
+        "1 RB DET Jahmyr Gibbs\n2 QB NYG Jaxson Dart\n3 RB KC Kenneth Walker III\n"
+        "4 WR NYG Malik Nabers\n5 TE IND Tyler Warren\n6 QB TB Baker Mayfield\n"
+        "7 WR TEN Carnell Tate\n8 RB NE Rhamondre Stevenson\n9 QB GB Jordan Love\n"
+        "10 WR IND Josh Downs\n11 RB MIN Jordan Mason\n12 RB SEA Zach Charbonnet\n"
+        "13 WR TB Jalen McMillan\n14 RB SF Kaelon Black\n15 WR IND Keenan Allen\n"
+        "16 DST LAC Chargers\n17 K TB Chase McLaughlin\n")
+    rep = grade(r23, "MIDDLE")
+    assert "BYE PARTITION OFF by 4" in rep, f"rep 23 is off by 4: {rep}"
+    assert "4 week(s) over, 4 week(s) under" in rep, "both directions must be counted"
+    assert f"W{seed}  0 held, target {tgt[seed]}" in rep, \
+        "an EMPTY seeding week must be reported - it is what forces the overflow"
+    assert "SAME error" in rep, "over and under must be tied together, not listed apart"
+    return f"exact and off-by-4 cases both covered, {len(tgt)} weeks targeted"
+
+@check("K/DST are flagged when they land off the partition")
+def _():
+    """Rule r16_r17_are_partition_fillers, added 8/21 on four consecutive reps
+    where one of the last two picks tipped a week over cap: McPherson made W6 a
+    four, McLaughlin made W10 a three, the Vikings D/ST made W6 a three, the
+    Chargers D/ST made W7 a three while W8 sat at ZERO. At R16 fifteen players
+    are held, so the short weeks are fully determined and these two fungible
+    picks should fill them. The grade must name it when they do not, and must
+    stay quiet when they do - a nag that always fires would be ignored by R17."""
+    from ffcli.draft import grade, parse_picks
+    from ffcli.config import load
+    from pathlib import Path
+    rules = {r["id"]: r for r in load("k_dst_board")["rules"]}
+    new = rules["r16_r17_are_partition_fillers"]
+    assert new["severity"] == "HARD", "the partition-filler rule must be HARD"
+    old = rules["bye_decides_among_equals"]
+    assert str(old["severity"]).startswith("SUPERSEDED"), \
+        "the weaker avoid-a-capped-week rule must be marked superseded, not left live"
+    assert old["superseded_by"] == "r16_r17_are_partition_fillers", \
+        "a superseded rule must name its replacement - never silently dropped"
+
+    # rep 25: the DST sat on an over-target week while three weeks were short
+    r25 = parse_picks(
+        "1 RB DET Jahmyr Gibbs\n2 QB JAX Trevor Lawrence\n3 RB KC Kenneth Walker III\n"
+        "4 WR BUF DJ Moore\n5 TE IND Tyler Warren\n6 QB MIN Kyler Murray\n"
+        "7 WR IND Josh Downs\n8 RB TB Kenny Gainwell\n9 QB GB Jordan Love\n"
+        "10 RB LAR Blake Corum\n11 RB CHI Kyle Monangai\n12 WR PHI Makai Lemon\n"
+        "13 RB ARI Tyler Allgeier\n14 WR MIA Malik Washington\n15 WR MIN Jauan Jennings\n"
+        "16 DST LAC Chargers\n17 K PIT Chris Boswell\n")
+    rep = grade(r25, "MIDDLE")
+    assert "partition fillers" in rep, f"the misplaced D/ST must be named: {rep}"
+    assert "R16 DST" in rep and "W7" in rep, "the offending pick and its week must be identified"
+
+    # The negative case must exercise the CONDITION, not the exact-partition
+    # early return. Same rep 25 roster, still off the partition, but with the
+    # defense moved onto a week that is short (HOU/W8) instead of one already
+    # over (LAC/W7). The flag must go quiet even though the roster is still
+    # wrong overall - an always-on nag would be ignored by R17.
+    fixed = parse_picks("\n".join(
+        ln.replace("16 DST LAC Chargers", "16 DST HOU Houston")
+        for ln in """1 RB DET Jahmyr Gibbs
+2 QB JAX Trevor Lawrence
+3 RB KC Kenneth Walker III
+4 WR BUF DJ Moore
+5 TE IND Tyler Warren
+6 QB MIN Kyler Murray
+7 WR IND Josh Downs
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 RB LAR Blake Corum
+11 RB CHI Kyle Monangai
+12 WR PHI Makai Lemon
+13 RB ARI Tyler Allgeier
+14 WR MIA Malik Washington
+15 WR MIN Jauan Jennings
+16 DST LAC Chargers
+17 K PIT Chris Boswell""".splitlines()))
+    rep = grade(fixed, "MIDDLE")
+    assert "BYE PARTITION OFF" in rep, "fixture must still be off the partition overall"
+    assert "partition fillers" not in rep, \
+        "a K and D/ST on short weeks must not be nagged even on an imperfect roster"
+
+    # and the solved ideal roster stays silent too
+    ideal = parse_picks(Path(ROOT / "data" / "ideal_roster.txt").read_text())
+    assert "partition fillers" not in grade(ideal, "MIDDLE"), "exact roster must be silent"
+    return "misplaced K/DST named, correct placement silent, superseded rule retained"
+
+@check("the R14-R15 W6 trap names real bodies on a real week")
+def _():
+    """Named 8/21 after reps 25 and 26 took the IDENTICAL two receivers at
+    R14/R15 with the rounds swapped - Jennings (MIN) and Washington (MIA), both
+    W6 - and rep 26 finished with five players on W6, the worst single-week hole
+    ever recorded at this slot. The trap is only worth stating if every claim in
+    it is still true, so the pair's byes, the week's crowding and the refusal
+    itself are all recomputed rather than trusted."""
+    from ffcli.config import load, bye_of
+    import collections
+    trap = load("depth_board")["w6_late_trap"]
+    tgt = {t["week"]: t["exactly"] for t in load("bye_rule")["partition"]["targets"]}
+    wk = trap["weeks"][0]
+    assert trap["severity"] == "HARD", "taking both must be a hard refuse"
+
+    # every named body must be real and must actually sit on the trap's week
+    names = trap["names"]
+    assert len(names) >= 2, "a trap about one player is just a fade"
+    for p in names:
+        real = bye_of(p["team"])
+        assert real == p["bye"] == wk, \
+            f"{p['player']} ({p['team']}) tagged W{p['bye']}, byes.yaml says W{real}, trap is W{wk}"
+    assert len({p["team"] for p in names}) > 1, \
+        "all from one club would be a stack-cap issue, not a bye trap"
+    assert trap["rounds"] == sorted(trap["rounds"]) and all(
+        1 <= r <= load("league")["draft"]["rounds"] for r in trap["rounds"]), \
+        "the trap must name real, ordered rounds"
+
+    # the week must genuinely be crowded on the boards, or the trap is folklore
+    supply = collections.Counter()
+    for r in load("targets")["rounds"]:
+        for e in r["take"]:
+            if e["team"] != "-":
+                supply[e["bye"]] += 1
+    assert supply[wk] > tgt[wk] * 2, \
+        f"W{wk} offers only {supply[wk]} named bodies against a target of {tgt[wk]} - not a crowded week"
+    busiest = max(supply, key=lambda w: supply[w])
+    assert supply[wk] >= supply[busiest] * 0.6, \
+        f"W{wk} is not among the crowded weeks (W{busiest} has {supply[busiest]})"
+    return f"{len(names)} names verified on W{wk}, board offers {supply[wk]} vs target {tgt[wk]}"
+
+@check("ADP pass measured-availability numbers recompute from the stored rosters")
+def _():
+    """The 8/25 pass is the first to carry MEASURED numbers rather than
+    estimates, and it drove three repricings - Love to a QB3 price, Allgeier to
+    R13, Boston onto the board. Those claims were unreproducible when written:
+    mocks.yaml stores scores and notes but never stored the picks. The rosters
+    now live in data/rep_rosters and every latest_pick in the pass is recomputed
+    from them here, so a claim cannot outlive the evidence for it. Also asserts
+    the rosters themselves are well formed, since a silently truncated roster
+    would quietly weaken every number above."""
+    from ffcli.config import load
+    from ffcli.draft import parse_picks, picks_for_slot
+    import glob
+    rows = sorted(glob.glob(str(ROOT / "data" / "rep_rosters" / "*_slot5_*.txt")))
+    ap = load("adp")["pass_2026_08_25"]
+    n_claimed = ap["measured_availability"]["n_reps"]
+    assert len(rows) == n_claimed, \
+        f"pass claims {n_claimed} reps, data/rep_rosters holds {len(rows)}"
+
+    rounds_per_draft = load("league")["draft"]["rounds"]
+    pick_of = dict(enumerate(picks_for_slot(5), start=1))
+    seen: dict[str, list[int]] = {}
+    for f in rows:
+        picks = parse_picks(Path(f).read_text())
+        assert len(picks) == rounds_per_draft, \
+            f"{Path(f).name} holds {len(picks)} picks, a draft is {rounds_per_draft}"
+        assert [p["round"] for p in picks] == list(range(1, rounds_per_draft + 1)), \
+            f"{Path(f).name} rounds are not 1..{rounds_per_draft} in order"
+        for p in picks:
+            seen.setdefault(p["player"], []).append(p["round"])
+
+    for row in ap["measured_availability"]["who"]:
+        name, claimed_pick, claimed_n = row["player"], row["latest_pick"], row["n"]
+        got = seen.get(name)
+        assert got, f"{name} is claimed in the pass but appears in no stored roster"
+        assert len(got) == claimed_n, \
+            f"{name}: pass says taken {claimed_n}x, rosters show {len(got)}"
+        real = pick_of[max(got)]
+        assert real == claimed_pick, \
+            f"{name}: pass says last seen at pick {claimed_pick}, rosters say {real}"
+    return f"{len(rows)} rosters, {len(ap['measured_availability']['who'])} claims recomputed"
+
+@check("2025 draft board recomputes the room model's QB-run curve")
+def _():
+    """room.yaml's manager profiles and the pick-53 QB2 trigger all lean on one
+    document: the full 2025 board. Until 8/31 that source was never committed -
+    the profiles cited a read of it. Now that data/draft_board_2025.yaml holds
+    the primary source (parsed from Josh's ESPN recap PDF), this check pins the
+    claims to it: exact snake shape (204 picks, 12 managers x 17 rounds, overall
+    arithmetic), the manager set matching room.yaml seat for seat, and the QB
+    curve the run math quotes - 8 QBs through R4, ZERO in R5, six in R6, 34
+    total. If a hand edit corrupts a pick or a manager name, this fails."""
+    from ffcli.config import load
+    import collections
+    board = load("draft_board_2025")
+    picks = board["picks"]
+    assert len(picks) == 204, f"board holds {len(picks)} picks, a 12x17 draft is 204"
+    for p in picks:
+        assert p["overall"] == (p["round"] - 1) * 12 + p["pick_in_round"], \
+            f"overall arithmetic broken at {p['player']}: {p['overall']}"
+        assert isinstance(p["team"], str), \
+            f"{p['player']} team parsed as {type(p['team']).__name__} - bare NO?"
+        assert p["team"] in NFL_TEAMS | {"FA"}, f"{p['player']} on unknown team {p['team']}"
+    mgr_counts = collections.Counter(p["manager"] for p in picks)
+    assert all(v == 17 for v in mgr_counts.values()) and len(mgr_counts) == 12, \
+        f"per-manager pick counts wrong: {dict(mgr_counts)}"
+    room = load("room")
+    room_names = {m["name"] for m in room["managers"]} | {"Crushing Dreams"}
+    assert set(mgr_counts) == room_names, \
+        f"board managers do not match room.yaml: {set(mgr_counts) ^ room_names}"
+    qb_by_round = collections.Counter(p["round"] for p in picks if p["pos"] == "QB")
+    assert sum(qb_by_round.values()) == 34, \
+        f"{sum(qb_by_round.values())} QBs on the board, room model says 34"
+    assert sum(qb_by_round[r] for r in (1, 2, 3, 4)) == 8, "QBs through R4 should be 8"
+    assert qb_by_round[5] == 0, f"R5 held {qb_by_round[5]} QBs - the dead zone claim says zero"
+    assert qb_by_round[6] == 6, f"R6 held {qb_by_round[6]} QBs - the run claim says six"
+    josh_9 = next(p for p in picks if p["manager"] == "Crushing Dreams" and p["round"] == 9)
+    assert josh_9["player"] == "Kaleb Johnson", \
+        f"Josh's 9.08 is {josh_9['player']} - the gap-closure note says Kaleb Johnson"
+    return "204 picks, 12x17, QB curve 8/0/6/34 recomputed"
+
+
+@check("2026 real board matches the official roster pick for pick")
+def _():
+    """The real draft's board (committed the night of Sept 6) is the measured
+    truth the 2027 cycle will be priced from, and roster.yaml is the in-season
+    source of truth. This pins them to each other: exact snake shape, the
+    manager set matching room.yaml, and Crushing Dreams' seventeen rows equal
+    to roster.yaml name for name and pick for pick."""
+    from ffcli.config import load
+    import collections
+    board = load("draft_board_2026")
+    picks = board["picks"]
+    assert len(picks) == 204, f"board holds {len(picks)} picks, a 12x17 draft is 204"
+    for p in picks:
+        assert p["overall"] == (p["round"] - 1) * 12 + p["pick_in_round"], \
+            f"overall arithmetic broken at {p['player']}"
+        assert isinstance(p["team"], str) and p["team"] in NFL_TEAMS | {"FA"}, \
+            f"{p['player']} team invalid: {p['team']!r}"
+    mgr_counts = collections.Counter(p["manager"] for p in picks)
+    assert all(v == 17 for v in mgr_counts.values()) and len(mgr_counts) == 12, \
+        f"per-manager counts wrong: {dict(mgr_counts)}"
+    room = load("room")
+    room_names = {m["name"] for m in room["managers"]} | {"Crushing Dreams"}
+    assert set(mgr_counts) == room_names, \
+        f"board managers do not match room.yaml: {set(mgr_counts) ^ room_names}"
+    josh_board = sorted((p for p in picks if p["manager"] == "Crushing Dreams"),
+                        key=lambda p: p["overall"])
+    roster = load("roster")["players"]
+    assert len(roster) == 17, f"roster.yaml holds {len(roster)} players"
+    for b, r in zip(josh_board, sorted(roster, key=lambda x: x["pick"])):
+        assert b["overall"] == r["pick"] and b["player"] == r["player"], \
+            f"board/roster mismatch at pick {b['overall']}: {b['player']!r} vs {r['player']!r}"
+    return "204 picks, 12x17, roster.yaml pinned to the real board"
+
+
 # --------------------------------------------------------------- report
 def report() -> int:
     width = max(len(n) for n, _, _ in results) + 2

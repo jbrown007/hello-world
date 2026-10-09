@@ -25,6 +25,156 @@ w14_trap:
     players dark for no reason. Both are replaceable at their cost. Check the
     bye before taking either.
 
+# ---------------------------------------------------------------------------
+# THE R11-R15 BYE TRAP. Found 8/18 while answering "what do I take at 11-15".
+# This board was built 8/9 as a flat ranked list and never checked against the
+# bye cap on a realistic roster. It does not survive one.
+# ---------------------------------------------------------------------------
+bye_capacity:
+  found: '8/18'
+  severity: HARD
+  headline: >
+    R11-R15 is not a discipline problem, it is a supply problem. A fully
+    on-plan R1-R10 spends W6, W7, W11 and W13 to the 2-per-week cap, and
+    THREE of the five R12-R15 names live on W11. Under that baseline TEN of
+    the sixteen names on this board's R11-R15 rounds are illegal, and R14 has
+    NO legal named option at all. The fix is upstream: see choke_points.
+  baseline:
+    note: >
+      The line this is derived from. Every entry is the top legal take on its
+      own round in targets.yaml, following the R1-WR knock-on (R1 goes WR so
+      R4 becomes RB2). It is a legal roster - no cap is broken reaching R11 -
+      which is the point: the trap does not need a mistake to fire.
+    picks:
+    - {rnd: 1, player: Amon-Ra St. Brown, team: DET, bye: 6}
+    - {rnd: 2, player: Drake Maye, team: NE, bye: 11}
+    - {rnd: 3, player: Chase Brown, team: CIN, bye: 6}
+    - {rnd: 4, player: James Cook III, team: BUF, bye: 7}
+    - {rnd: 5, player: Tyler Warren, team: IND, bye: 13}
+    - {rnd: 6, player: Cam Ward, team: TEN, bye: 9}
+    - {rnd: 7, player: Rhamondre Stevenson, team: NE, bye: 11}
+    - {rnd: 8, player: Rome Odunze, team: CHI, bye: 10}
+    - {rnd: 9, player: Trevor Lawrence, team: JAX, bye: 7}
+    - {rnd: 10, player: Josh Downs, team: IND, bye: 13}
+  weeks_at_cap_by_r11: [6, 7, 11, 13]
+  blocked:
+    note: >
+      Named take entries on targets.yaml R11-R15 that are ILLEGAL under the
+      baseline above - their team's bye is already at cap before the round
+      starts. Refusals already on an avoid list are not counted. These numbers
+      are RECOMPUTED by the suite, so they cannot drift away from the boards.
+    counts:
+    - {rnd: 11, blocked: 1, of: 3}
+    - {rnd: 12, blocked: 3, of: 5}
+    - {rnd: 13, blocked: 2, of: 5}
+    - {rnd: 14, blocked: 3, of: 3}
+    - {rnd: 15, blocked: 2, of: 3}
+    recomputed: >
+      REFRESHED 8/29 after seven names were promoted onto the target board. The
+      shape of the trap is UNCHANGED - R14 is still 3 of 3 with no legal option -
+      but the denominators grew, so R12, R13 and R15 now carry legal alternatives
+      they did not have when this was written. R13 gained two names and lost one
+      to the blocked column (Boston is CLE/W11, which the baseline already caps).
+    rounds_with_no_legal_option: [14]
+    names:
+    - {rnd: 11, player: Jordan Mason, team: MIN, bye: 6}
+    - {rnd: 12, player: Rachaad White, team: WSH, bye: 7}
+    - {rnd: 12, player: Jacory Croskey-Merritt, team: WSH, bye: 7}
+    - {rnd: 12, player: Blake Corum, team: LAR, bye: 11}
+    - {rnd: 13, player: Denzel Boston, team: CLE, bye: 11}
+    - {rnd: 13, player: Stefon Diggs, team: WSH, bye: 7}
+    - {rnd: 14, player: Zach Charbonnet, team: SEA, bye: 11}
+    - {rnd: 14, player: Blake Corum, team: LAR, bye: 11}
+    - {rnd: 14, player: Jordan Mason, team: MIN, bye: 6}
+    - {rnd: 15, player: Stefon Diggs, team: WSH, bye: 7}
+    - {rnd: 15, player: Jayden Reed, team: GB, bye: 11}
+  cascade: >
+    The counts above are measured at the baseline, before any R11-R15 pick is
+    made, so they are the FLOOR. Each pick you make in these rounds caps
+    another week and blocks more of what is left. Worked example: take Dowdle
+    (PIT W9) at R11 then Black (SF W8) at R12 then Higgins (HOU W8) at R13 and
+    W8 and W9 both close, which takes R15 from 2-of-3 blocked to 3-of-3 - the
+    only legal receiver left is Burden (CHI W10) off the R13 list.
+  choke_points:
+  - id: r7_second_w11_body
+    round: 7
+    baseline_team: NE
+    swap_team: SF
+    swap_name: Kaelon Black (SF W8) pulled up from R12
+    frees_weeks: [11]
+    fixes_rounds: [14]
+    rule: >
+      THE DECISIVE ONE. If Maye (NE W11) is your QB1 then Stevenson (NE W11)
+      at R7 is your second NE body and it caps W11 - which is where Corum
+      Charbonnet and Reed all live. Swapping R7 alone takes R14 from 3-of-3
+      blocked to 1-of-3. Note Jadarian Price (SEA W11) is NOT an escape: same
+      week, same problem.
+  - id: r9_qb3_bye
+    round: 9
+    baseline_team: JAX
+    swap_team: 'NO'
+    swap_name: Tyler Shough (NO W8)
+    frees_weeks: [7]
+    fixes_rounds: []
+    rule: >
+      Lawrence (JAX W7) as QB3 caps W7 alongside Cook and kills the whole
+      Washington cluster - White Croskey-Merritt and Diggs. Shough triangulates
+      fine against Maye W11 and Ward W9. This one does NOT rescue R14 on its
+      own - only R7 does - but it is what reopens R12 and R13.
+  rule: >
+    FROM R11 ON, PICK BY BYE SCARCITY AND NOT BY BOARD RANK. Spend the crowded
+    weeks while their names are still legal and keep at least two weeks open
+    going into R14. W5 and W9 hold only two teams each, so one body is half
+    that week's entire supply, and there is no W12 bye at all. If every other
+    week really is capped at R14 then Allgeier (ARI W14) stops being a CAUTION
+    and becomes the only named back left - take him as your FIRST W14 body and
+    never the second, and never with a W14 kicker.
+
+# ---------------------------------------------------------------------------
+# THE R14-R15 W6 TRAP. Named 8/21 after two consecutive reps took the SAME PAIR.
+# ---------------------------------------------------------------------------
+w6_late_trap:
+  found: '8/21'
+  severity: HARD
+  weeks: [6]
+  rounds: [14, 15]
+  names:
+  - {player: Jauan Jennings, team: MIN, bye: 6, pos: WR}
+  - {player: Malik Washington, team: MIA, bye: 6, pos: WR}
+  - {player: Ollie Gordon II, team: MIA, bye: 6, pos: RB}
+  note: >
+    THREE CONSECUTIVE REPS, 8/20 to 8/22, in which R14 or R15 put another body
+    on W6. Rep 25 took Washington at R14 and Jennings at R15. Rep 26 took the
+    identical pair with the rounds swapped. Rep 27 took Ollie Gordon II at R15 -
+    the exact pick rep 24 had already made, same player, same round. These are
+    evidently what the board surfaces at the tail of the skill lists, and every
+    one of them is W6.
+  gordon_is_the_worst_of_them: >
+    Gordon breaks THREE rules with one pick and did it twice, in reps 24 and 27
+    identically. He is the seventh back against a ledger of six, the reason the
+    roster finishes on four receivers instead of five, AND the third body on W6.
+    A single substitution at R15 fixes the ledger and the partition together -
+    verified with ff grade on both reps.
+  why_w6_is_the_crowded_one: >
+    W6 is CIN DET MIA MIN, and the default line already routes through it hard:
+    St. Brown or Gibbs at R1, Chase Brown or Achane as an early back, Goff or
+    Murray in the QB window, Jordan Mason at R11 or R14, McPherson on the kicker
+    board. By R14 W6 is usually at or past target, so the last two skill picks
+    are exactly where it tips.
+  evidence: >
+    Rep 26 finished with FIVE players on W6 - Gibbs, Willis, Mason, Jennings,
+    Washington - the worst single-week hole ever recorded at slot 5. It was
+    legal through R9 and then broke three times running at R11, R14 and R15.
+    Rep 25 finished with four on W6 off the same R14/R15 pair.
+  therefore: >
+    AT MOST ONE NAME FROM THIS LIST, and only if W6 is genuinely under target
+    when you get there - check the tally, do not assume. Taking two is a HARD
+    refuse. Gordon additionally requires that RB6 is still open, which at R15 it
+    usually is not. The partition says the last two skill picks belong on
+    whichever weeks are still short, which in this build is almost never W6.
+    Both reps left W8 at one with four teams available; that is where these
+    picks should have gone.
+
 rb:
 - player: Rico Dowdle
   team: PIT
@@ -87,7 +237,7 @@ wr:
   bye: 8
   adp: WR56 (~135-158 overall)
   rounds: 12-15
-  verdict: BUY
+  verdict: OUT FOR SEASON - torn ACL (9/4), removed from targets
   why: Best pure price-to-role gap left this late. Christian Kirk gone, the
     Texans room thinned, projections around 750 yards and 6-8 TDs at a
     mid-130s ADP. Drafted in 8 of 14 reps and correctly so.

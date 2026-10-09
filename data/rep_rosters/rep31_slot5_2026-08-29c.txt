@@ -1,0 +1,18 @@
+# slot 5 · rep 31 · 2026-08-29c · format: ROUND POS TEAM Player Name
+1 RB ATL Bijan Robinson
+2 QB JAX Trevor Lawrence
+3 RB KC Kenneth Walker III
+4 WR CAR Tetairoa McMillan
+5 TE CHI Colston Loveland
+6 QB MIN Kyler Murray
+7 WR JAX Parker Washington
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 RB HOU Woody Marks
+11 RB DEN RJ Harvey
+12 WR SF Deebo Samuel Sr.
+13 RB ARI Tyler Allgeier
+14 WR BAL Ja'Kobi Lane
+15 WR LV Tre Tucker
+16 K MIN Will Reichard
+17 DST CAR Panthers D/ST

@@ -1,0 +1,18 @@
+# slot 5 · rep 27 · 2026-08-22 · format: ROUND POS TEAM Player Name
+1 RB DET Jahmyr Gibbs
+2 RB KC Kenneth Walker III
+3 QB LAC Justin Herbert
+4 WR CAR Tetairoa McMillan
+5 TE IND Tyler Warren
+6 QB MIN Kyler Murray
+7 WR IND Josh Downs
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 WR GB Jayden Reed
+11 RB DEN RJ Harvey
+12 RB ARI Tyler Allgeier
+13 WR NO Jordyn Tyson
+14 RB SF Kaelon Black
+15 RB MIA Ollie Gordon II
+16 DST TB Buccaneers D/ST
+17 K PIT Chris Boswell
