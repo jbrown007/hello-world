@@ -58,6 +58,16 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-07'
+  type: waiver_swap
+  add: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
+  drop: {pos: RB, team: SEA, player: George Holani, bye: 11}
+  why: >
+    CLEARED 10/7. Barkley hamstring (week-to-week) + Bigsby hurt = Shipley the
+    only healthy RB on the PHI 53 - lead-back volume in an elite offense at 1%
+    rostered. Holani: passing-downs committee split with Emanuel Wilson even
+    with Price on IR, no path to a lead role. Shipley starts W5 flex in the
+    LONDON 9:30 AM game - confirm Barkley inactive ~8:00 AM ET Sunday.
 - date: '2026-09-30'
   type: waiver_swap
   add: {pos: RB, team: NYJ, player: Braelon Allen, bye: 10}
