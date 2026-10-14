@@ -58,6 +58,17 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-14'
+  type: waiver_swap
+  add: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
+  drop: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
+  why: >
+    CLEARED 10/14. Bernard: 6-80 on NINE targets vs IND in week 5 - the
+    full-PPR usage signal, and the WR room needed a body with Downs at three
+    straight single-digit weeks. Shipley: partial plantar fascia tear, out
+    multiple weeks, returns behind a healthy Barkley - the one-week lead-back
+    bet paid a TD (8.3) and closed. Ward-for-Jameson-Williams offer to Easy
+    money still pending at claim time.
 - date: '2026-10-07'
   type: waiver_swap
   add: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
