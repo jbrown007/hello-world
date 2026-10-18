@@ -58,6 +58,20 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-18'
+  type: waiver_swap
+  add: {pos: TE, team: LV, player: Michael Mayer, bye: 10}
+  drop: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
+  why: >
+    GAMEDAY EMERGENCY, executed before 1:00 per Sunday pivot rule 2: Warren
+    (groin, re-aggravated Friday) ruled out Sunday morning vs TEN - "bad
+    news" wires + Mallory activated from IR were the tell before the official
+    list indexed. Mayer was the pre-scouted stream (best healthy TE proj,
+    4:25 kickoff = execution cushion; Schultz rejected for the 9:30 lock,
+    Okonkwo for playing our own DST). Bernard the drop as planned - the
+    one-week 9-target bet loses to a guaranteed-zero TE slot. COST OF THE
+    WEEK: Warren's chronic groin (August Grade 2, now twice re-aggravated)
+    gets a watchlist-level eye going forward.
 - date: '2026-10-14'
   type: waiver_swap
   add: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
