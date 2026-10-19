@@ -75,7 +75,7 @@ transactions:
 - date: '2026-10-14'
   type: waiver_swap
   add: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
-  drop: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
+  drop: {pos: RB, team: PHI, player: Will Shipley, bye: 10}
   why: >
     CLEARED 10/14. Bernard: 6-80 on NINE targets vs IND in week 5 - the
     full-PPR usage signal, and the WR room needed a body with Downs at three
@@ -85,7 +85,7 @@ transactions:
     money still pending at claim time.
 - date: '2026-10-07'
   type: waiver_swap
-  add: {pos: RB, team: PHI, player: Will Shipley, bye: 9}
+  add: {pos: RB, team: PHI, player: Will Shipley, bye: 10}
   drop: {pos: RB, team: SEA, player: George Holani, bye: 11}
   why: >
     CLEARED 10/7. Barkley hamstring (week-to-week) + Bigsby hurt = Shipley the
@@ -103,7 +103,7 @@ transactions:
     losing a WR3 timeshare. Allen went straight into the W4 lineup (8.7).
 - date: '2026-09-30'
   type: waiver_swap
-  add: {pos: RB, team: 'NO', player: Kendre Miller, bye: 11}
+  add: {pos: RB, team: 'NO', player: Kendre Miller, bye: 8}
   drop: {pos: RB, team: SF, player: Kaelon Black, bye: 8}
   why: >
     CLEARED 9/30. Etienne (hamstring, multi-week) to the IR slot same day.
