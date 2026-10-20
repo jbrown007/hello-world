@@ -111,8 +111,13 @@ than burying it in someone else's notes.
     1.2 flexed over Wilson's bench 25.9 in W3, an 11-point loss - returning
     RBs get capped snaps and one mistake ends their day).
   - **Trades**: Ward is the QB3 inventory (doctrine: sell to the desperate,
-    mapped customers Shaun DeNiro and Da LockDownGoon). Do not shop him
-    early - wait for a rival QB injury or bye-week squeeze (~October).
+    mapped customers Shaun DeNiro and Da LockDownGoon; Easy money joined the
+    map 10/10 with the Lamar injury). **SUPERSEDED 10/20 by the bye-week
+    audit: Ward is OUR superflex starter in W7 (Lawrence bye) and W8 (Purdy
+    bye) - do NOT trade him before W9.** The sell window is W9 (his own bye:
+    zero carry cost, buyers see only his remaining schedule). The 10/13 offer
+    to Easy money (Ward for Jameson Williams) died unanswered - if they
+    revive it this week, decline or re-time delivery to after W8.
 
 ## Autonomy — sanctioned by Josh, 8/16
 
