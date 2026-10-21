@@ -58,10 +58,23 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-21'
+  type: waiver_swap
+  add: {pos: WR, team: PIT, player: Germie Bernard, bye: 9}
+  drop: {pos: WR, team: IND, player: Josh Downs, bye: 13}
+  why: >
+    CLEARED 10/21 at waiver priority 10 of 12 - nine teams passed on an
+    11-of-12, 87-yard, OT-game-winner week on 94% snaps and a team-high 54
+    routes, with Pittman and Roman Wilson both out multi-week. The re-claim
+    after the 10/18 emergency drop cost one week and Josh Downs. Downs
+    verdict after six weeks: four straight sub-11, capped by the Keenan
+    Allen share - the draft's R8 pick (92) and half the W13 partition,
+    superseded by in-season usage data. The backup DeMario Douglas claim
+    auto-voided (drop already gone), as designed.
 - date: '2026-10-18'
   type: waiver_swap
   add: {pos: TE, team: LV, player: Michael Mayer, bye: 10}
-  drop: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
+  drop: {pos: WR, team: PIT, player: Germie Bernard, bye: 9}
   why: >
     GAMEDAY EMERGENCY, executed before 1:00 per Sunday pivot rule 2: Warren
     (groin, re-aggravated Friday) ruled out Sunday morning vs TEN - "bad
@@ -74,7 +87,7 @@ transactions:
     gets a watchlist-level eye going forward.
 - date: '2026-10-14'
   type: waiver_swap
-  add: {pos: WR, team: PIT, player: Germie Bernard, bye: 5}
+  add: {pos: WR, team: PIT, player: Germie Bernard, bye: 9}
   drop: {pos: RB, team: PHI, player: Will Shipley, bye: 10}
   why: >
     CLEARED 10/14. Bernard: 6-80 on NINE targets vs IND in week 5 - the
