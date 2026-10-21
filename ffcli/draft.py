@@ -215,7 +215,7 @@ def bye_block(teams: list[str], board_teams: set[str] | None = None) -> list[str
     This puts the count on the pick screen, where the decision happens.
     """
     from .config import bye_of, byes as _byes
-    cap = named_caps()[0]["max_starters"] if named_caps() else 2
+    cap = load("bye_rule")["cap"]["max_per_week"]
     tally: dict[int, list[str]] = {}
     for t in teams:
         wk = bye_of(t)
@@ -577,6 +577,8 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
                f"most from one club {top}, {spread} club(s) at {flag_at}+")
 
     out.append(ledger_report(picks))
+    out += rb_floor_report(picks)
+    out += partition_report(picks)
     out += qb_tier_report(picks)
     qb_byes: dict[int, list[str]] = {}
     for p in picks:
@@ -591,8 +593,12 @@ def grade(picks: list[dict], label: str, oneqb: bool = False) -> str:
         out.append(f"QB triangulation ok: byes {', '.join(f'W{w}' for w in sorted(qb_byes))}.")
 
     # Full team list WITH duplicates - three Cardinals are three players out,
-    # not one. audit() counts occurrences.
-    res = audit([p["team"] for p in picks], max_per_week=cap["max_starters"])
+    # not one. audit() counts occurrences. The per-week cap comes from
+    # bye_rule, NOT from cap["max_starters"] - that is the INDIANAPOLIS team
+    # cap, and reading the league-wide bye cap out of one club's named cap was
+    # a latent bug (fixed 8/19): it only worked because both happen to be 2.
+    res = audit([p["team"] for p in picks],
+                max_per_week=load("bye_rule")["cap"]["max_per_week"])
     out.append("\nBYES")
     for wk, names in sorted(res["grouped"].items()):
         out.append(f"  W{wk:<3} {', '.join(names)}")
@@ -693,6 +699,99 @@ def team_counts(picks: list[dict]) -> dict[str, int]:
     for p in picks:
         counts[p["team"]] = counts.get(p["team"], 0) + 1
     return counts
+
+
+def partition_report(picks: list[dict]) -> list[str]:
+    """Score a finished roster against the zero-slack bye partition.
+
+    Added 8/19 after rep 23. audit() flags weeks OVER the cap and says nothing
+    about weeks under it, which was the right report when the cap read as a
+    ceiling. bye_rule.partition proves it is not one: nine weeks x cap 2 minus
+    W14's banned second slot is exactly 17 usable slots for 17 picks, so every
+    legal roster hits an exact partition and a week at ZERO is as broken as a
+    week at three. Rep 23 ran four weeks over and four weeks under - one
+    redistribution error, not four independent ones - and skipping W14 entirely
+    is what forced the first breach, since eight weeks at cap 2 hold only 16 of
+    its 17 players. None of that was visible in the grade.
+    """
+    from .config import bye_of
+    br = load("bye_rule")
+    tgt = {t["week"]: t["exactly"] for t in br["partition"]["targets"]}
+    tally: dict[int, int] = {}
+    for p in picks:
+        wk = bye_of(p["team"])
+        if wk:
+            tally[wk] = tally.get(wk, 0) + 1
+    over = [(w, tally.get(w, 0), n) for w, n in sorted(tgt.items()) if tally.get(w, 0) > n]
+    under = [(w, tally.get(w, 0), n) for w, n in sorted(tgt.items()) if tally.get(w, 0) < n]
+    if not over and not under:
+        return ["BYE PARTITION: exact - every week on target, zero slack spent."]
+    out = [f"BYE PARTITION OFF by {sum(h - n for _, h, n in over)}: "
+           f"{len(over)} week(s) over, {len(under)} week(s) under"]
+    for w, h, n in over:
+        out.append(f"  W{w:<3} {h} held, target {n}   +{h - n}")
+    for w, h, n in under:
+        note = "  <- SEEDING WEEK, and it still needs a body" if w == br["seeding_week"]["week"] else ""
+        out.append(f"  W{w:<3} {h} held, target {n}   {h - n}{note}")
+    if over and under:
+        out.append("  These are the SAME error. The cap is a partition, not a ceiling - "
+                   "an empty week is what makes some other week overflow.")
+    # The last two picks are the cheapest to get right and have been the most
+    # reliably wrong: one of R16/R17 tipped a week over cap in four straight
+    # reps, 8/19-8/21. At those picks fifteen players are known, so the short
+    # weeks are fully determined - k_dst_board.r16_r17_are_partition_fillers.
+    short = {w for w, _, _ in under}
+    for p in picks:
+        if p["pos"] not in ("K", "DST"):
+            continue
+        wk = bye_of(p["team"])
+        held = tally.get(wk, 0)
+        if wk and held > tgt.get(wk, 0) and short:
+            out.append(
+                f"  R{p['round']} {p['pos']} {p['player']} ({p['team']}) sits on W{wk}, "
+                f"already over target - and W{'/W'.join(str(w) for w in sorted(short))} "
+                f"needed a body. R16/R17 are partition fillers, not best-available.")
+    return out
+
+
+def rb_floor_report(picks: list[dict]) -> list[str]:
+    """Run the RB floor gates over a FINISHED roster.
+
+    Added 8/18 after rep 21 scored 10/11 with four backs by R12 against a floor
+    of five and nothing in the grade said so. ledger_report counts final totals,
+    so a roster that reaches 6/6 RB two rounds late is indistinguishable from
+    one that hit every gate - the exact failure the floor exists to prevent,
+    reported as clean. Commitments police WHEN individual picks happen and the
+    ledger polices WHAT the roster became; nothing polices the accumulation
+    CURVE in between, which is what rb_rule actually specifies.
+
+    Silent on anything shorter than a full draft - see the length guard below.
+    """
+    gates = load("rb_rule")["rb_floor"]
+    # Only a COMPLETE roster can be judged against the floor. A commitments-only
+    # script lists the picks that matter and skips the rest, so counting its
+    # backs would invent breaches that never happened.
+    if len(picks) < league()["draft"]["rounds"]:
+        return []
+    rounds = sorted(p["round"] for p in picks if p["pos"] == "RB")
+    out, broken = [], []
+    for g in gates:
+        by, need = g["by_end_of_round"], g["min_held"]
+        held = sum(1 for r in rounds if r <= by)
+        if held < need:
+            broken.append(f"R{by}: {held} held, floor is {need}")
+    if not broken:
+        marks = " / ".join(
+            f"{sum(1 for r in rounds if r <= g['by_end_of_round'])}by{g['by_end_of_round']}"
+            for g in gates
+        )
+        out.append(f"RB FLOOR: met at every gate ({marks})")
+        return out
+    out.append("RB FLOOR BREACH: " + "; ".join(broken))
+    out.append(f"  backs landed R{', R'.join(str(r) for r in rounds)}. "
+               "Rolling waivers plus zero IR make in-season RB repair expensive - "
+               "depth is drafted, not acquired.")
+    return out
 
 
 def ledger_report(picks: list[dict]) -> str:

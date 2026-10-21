@@ -1,0 +1,18 @@
+# slot 5 · rep 24 · 2026-08-20 · format: ROUND POS TEAM Player Name
+1 RB DET Jahmyr Gibbs
+2 QB JAX Trevor Lawrence
+3 RB KC Kenneth Walker III
+4 WR CAR Tetairoa McMillan
+5 TE IND Tyler Warren
+6 QB GB Jordan Love
+7 WR TEN Carnell Tate
+8 RB TB Kenny Gainwell
+9 QB TEN Cam Ward
+10 RB CHI Kyle Monangai
+11 RB LAR Blake Corum
+12 WR SF De'Zhaun Stribling
+13 RB ARI Tyler Allgeier
+14 WR BAL Rashod Bateman
+15 RB MIA Ollie Gordon II
+16 DST MIN Vikings D/ST
+17 K BUF Tyler Bass

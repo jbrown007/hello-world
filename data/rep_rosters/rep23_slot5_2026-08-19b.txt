@@ -1,0 +1,18 @@
+# slot 5 · rep 23 · 2026-08-19b · format: ROUND POS TEAM Player Name
+1 RB DET Jahmyr Gibbs
+2 QB NYG Jaxson Dart
+3 RB KC Kenneth Walker III
+4 WR NYG Malik Nabers
+5 TE IND Tyler Warren
+6 QB TB Baker Mayfield
+7 WR TEN Carnell Tate
+8 RB NE Rhamondre Stevenson
+9 QB GB Jordan Love
+10 WR IND Josh Downs
+11 RB MIN Jordan Mason
+12 RB SEA Zach Charbonnet
+13 WR TB Jalen McMillan
+14 RB SF Kaelon Black
+15 WR IND Keenan Allen
+16 DST LAC Chargers D/ST
+17 K TB Chase McLaughlin

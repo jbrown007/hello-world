@@ -1,0 +1,249 @@
+# THE 2025 DRAFT BOARD - all 204 picks, committed 8/31 from Josh's PDF upload.
+#
+# Why this file exists: room.yaml's manager profiles were built 8/2 from a
+# full-board read whose source document was never committed. Every claim in
+# the room model now has a checkable primary source. verify.py check 58
+# recomputes the shape and the QB-run curve from these picks.
+#
+# overall = (round-1)*12 + pick_in_round. Snake: odd rounds run seats 1->12,
+# even rounds 12->1. 'NO' (Saints) is quoted everywhere - bare NO is a YAML bool.
+meta:
+  source: 'ESPN league-history Draft Recap PDF (YMCMB), uploaded by Josh 8/31. Parsed by script, shape-asserted:
+    204 picks, 12 managers x 17 rounds. This is the PRIMARY SOURCE the 8/2 room-model read cited but never committed.'
+  draft_date: '2025-09-01'
+  draft_time: 9:00 PM
+  type: snake
+  seconds_per_pick: 60
+  note_2025_slots: 'R1 order = 2025 slots: 1 Griddy, 2 Easy money, 3 #TheMoneyTeam, 4 CHAMP, 5 Shaun DeNiro, 6 Da
+    LockDownGoon, 7 4 Time 13, 8 JOSH (Crushing Dreams), 9 Jag FLu, 10 Kleenex, 11 Trey Action Fake, 12 Olave. 2026
+    seats differ - see room.yaml.'
+picks:
+- {overall: 1, round: 1, pick_in_round: 1, player: Ja'Marr Chase, team: CIN, pos: WR, manager: Griddy Committee}
+- {overall: 2, round: 1, pick_in_round: 2, player: Bijan Robinson, team: ATL, pos: RB, manager: Easy money}
+- {overall: 3, round: 1, pick_in_round: 3, player: Saquon Barkley, team: PHI, pos: RB, manager: '#TheMoneyTeam'}
+- {overall: 4, round: 1, pick_in_round: 4, player: Josh Allen, team: BUF, pos: QB, manager: Just call me CHAMP}
+- {overall: 5, round: 1, pick_in_round: 5, player: Jahmyr Gibbs, team: DET, pos: RB, manager: Shaun DeNiro}
+- {overall: 6, round: 1, pick_in_round: 6, player: CeeDee Lamb, team: DAL, pos: WR, manager: Da LockDownGoon}
+- {overall: 7, round: 1, pick_in_round: 7, player: Christian McCaffrey, team: SF, pos: RB, manager: 4 Time 13}
+- {overall: 8, round: 1, pick_in_round: 8, player: Lamar Jackson, team: BAL, pos: QB, manager: Crushing Dreams}
+- {overall: 9, round: 1, pick_in_round: 9, player: Derrick Henry, team: BAL, pos: RB, manager: Jag FLu}
+- {overall: 10, round: 1, pick_in_round: 10, player: Justin Jefferson, team: MIN, pos: WR, manager: Kleenex Gang}
+- {overall: 11, round: 1, pick_in_round: 11, player: Malik Nabers, team: NYG, pos: WR, manager: Trey Action Fake}
+- {overall: 12, round: 1, pick_in_round: 12, player: Ashton Jeanty, team: LV, pos: RB, manager: Olave when you call
+    me big papa}
+- {overall: 13, round: 2, pick_in_round: 1, player: Nico Collins, team: HOU, pos: WR, manager: Olave when you call
+    me big papa}
+- {overall: 14, round: 2, pick_in_round: 2, player: De'Von Achane, team: MIA, pos: RB, manager: Trey Action Fake}
+- {overall: 15, round: 2, pick_in_round: 3, player: Josh Jacobs, team: GB, pos: RB, manager: Kleenex Gang}
+- {overall: 16, round: 2, pick_in_round: 4, player: Jayden Daniels, team: WSH, pos: QB, manager: Jag FLu}
+- {overall: 17, round: 2, pick_in_round: 5, player: Jalen Hurts, team: PHI, pos: QB, manager: Crushing Dreams}
+- {overall: 18, round: 2, pick_in_round: 6, player: Puka Nacua, team: LAR, pos: WR, manager: 4 Time 13}
+- {overall: 19, round: 2, pick_in_round: 7, player: Jonathan Taylor, team: IND, pos: RB, manager: Da LockDownGoon}
+- {overall: 20, round: 2, pick_in_round: 8, player: Patrick Mahomes, team: KC, pos: QB, manager: Shaun DeNiro}
+- {overall: 21, round: 2, pick_in_round: 9, player: A.J. Brown, team: PHI, pos: WR, manager: Just call me CHAMP}
+- {overall: 22, round: 2, pick_in_round: 10, player: Amon-Ra St. Brown, team: DET, pos: WR, manager: '#TheMoneyTeam'}
+- {overall: 23, round: 2, pick_in_round: 11, player: Joe Burrow, team: CIN, pos: QB, manager: Easy money}
+- {overall: 24, round: 2, pick_in_round: 12, player: Brian Thomas Jr., team: JAX, pos: WR, manager: Griddy Committee}
+- {overall: 25, round: 3, pick_in_round: 1, player: Brock Bowers, team: LV, pos: TE, manager: Griddy Committee}
+- {overall: 26, round: 3, pick_in_round: 2, player: Tee Higgins, team: CIN, pos: WR, manager: Easy money}
+- {overall: 27, round: 3, pick_in_round: 3, player: Bucky Irving, team: TB, pos: RB, manager: '#TheMoneyTeam'}
+- {overall: 28, round: 3, pick_in_round: 4, player: Chase Brown, team: CIN, pos: RB, manager: Just call me CHAMP}
+- {overall: 29, round: 3, pick_in_round: 5, player: James Cook III, team: BUF, pos: RB, manager: Shaun DeNiro}
+- {overall: 30, round: 3, pick_in_round: 6, player: Kyren Williams, team: LAR, pos: RB, manager: Da LockDownGoon}
+- {overall: 31, round: 3, pick_in_round: 7, player: Tyreek Hill, team: FA, pos: WR, manager: 4 Time 13}
+- {overall: 32, round: 3, pick_in_round: 8, player: Trey McBride, team: ARI, pos: TE, manager: Crushing Dreams}
+- {overall: 33, round: 3, pick_in_round: 9, player: Baker Mayfield, team: TB, pos: QB, manager: Jag FLu}
+- {overall: 34, round: 3, pick_in_round: 10, player: Drake London, team: ATL, pos: WR, manager: Kleenex Gang}
+- {overall: 35, round: 3, pick_in_round: 11, player: Alvin Kamara, team: 'NO', pos: RB, manager: Trey Action Fake}
+- {overall: 36, round: 3, pick_in_round: 12, player: George Kittle, team: SF, pos: TE, manager: Olave when you call
+    me big papa}
+- {overall: 37, round: 4, pick_in_round: 1, player: Bo Nix, team: DEN, pos: QB, manager: Olave when you call me
+    big papa}
+- {overall: 38, round: 4, pick_in_round: 2, player: Davante Adams, team: LAR, pos: WR, manager: Trey Action Fake}
+- {overall: 39, round: 4, pick_in_round: 3, player: Kenneth Walker III, team: SEA, pos: RB, manager: Kleenex Gang}
+- {overall: 40, round: 4, pick_in_round: 4, player: Terry McLaurin, team: WSH, pos: WR, manager: Jag FLu}
+- {overall: 41, round: 4, pick_in_round: 5, player: Ladd McConkey, team: LAC, pos: WR, manager: Crushing Dreams}
+- {overall: 42, round: 4, pick_in_round: 6, player: Chuba Hubbard, team: CAR, pos: RB, manager: 4 Time 13}
+- {overall: 43, round: 4, pick_in_round: 7, player: Marvin Harrison Jr., team: ARI, pos: WR, manager: Da LockDownGoon}
+- {overall: 44, round: 4, pick_in_round: 8, player: DK Metcalf, team: PIT, pos: WR, manager: Shaun DeNiro}
+- {overall: 45, round: 4, pick_in_round: 9, player: Breece Hall, team: NYJ, pos: RB, manager: Just call me CHAMP}
+- {overall: 46, round: 4, pick_in_round: 10, player: Jaxon Smith-Njigba, team: SEA, pos: WR, manager: '#TheMoneyTeam'}
+- {overall: 47, round: 4, pick_in_round: 11, player: RJ Harvey, team: DEN, pos: RB, manager: Easy money}
+- {overall: 48, round: 4, pick_in_round: 12, player: Omarion Hampton, team: LAC, pos: RB, manager: Griddy Committee}
+- {overall: 49, round: 5, pick_in_round: 1, player: TreVeyon Henderson, team: NE, pos: RB, manager: Griddy Committee}
+- {overall: 50, round: 5, pick_in_round: 2, player: Zay Flowers, team: BAL, pos: WR, manager: Easy money}
+- {overall: 51, round: 5, pick_in_round: 3, player: Mike Evans, team: TB, pos: WR, manager: '#TheMoneyTeam'}
+- {overall: 52, round: 5, pick_in_round: 4, player: D'Andre Swift, team: CHI, pos: RB, manager: Just call me CHAMP}
+- {overall: 53, round: 5, pick_in_round: 5, player: Travis Kelce, team: KC, pos: TE, manager: Shaun DeNiro}
+- {overall: 54, round: 5, pick_in_round: 6, player: Sam LaPorta, team: DET, pos: TE, manager: Da LockDownGoon}
+- {overall: 55, round: 5, pick_in_round: 7, player: James Conner, team: ARI, pos: RB, manager: 4 Time 13}
+- {overall: 56, round: 5, pick_in_round: 8, player: Calvin Ridley, team: TEN, pos: WR, manager: Crushing Dreams}
+- {overall: 57, round: 5, pick_in_round: 9, player: Xavier Worthy, team: KC, pos: WR, manager: Jag FLu}
+- {overall: 58, round: 5, pick_in_round: 10, player: Tyrone Tracy Jr., team: NYG, pos: RB, manager: Kleenex Gang}
+- {overall: 59, round: 5, pick_in_round: 11, player: David Montgomery, team: HOU, pos: RB, manager: Trey Action
+    Fake}
+- {overall: 60, round: 5, pick_in_round: 12, player: Garrett Wilson, team: NYJ, pos: WR, manager: Olave when you
+    call me big papa}
+- {overall: 61, round: 6, pick_in_round: 1, player: Tony Pollard, team: TEN, pos: RB, manager: Olave when you call
+    me big papa}
+- {overall: 62, round: 6, pick_in_round: 2, player: Justin Herbert, team: LAC, pos: QB, manager: Trey Action Fake}
+- {overall: 63, round: 6, pick_in_round: 3, player: Kyler Murray, team: ARI, pos: QB, manager: Kleenex Gang}
+- {overall: 64, round: 6, pick_in_round: 4, player: Travis Etienne Jr., team: JAX, pos: RB, manager: Jag FLu}
+- {overall: 65, round: 6, pick_in_round: 5, player: Isiah Pacheco, team: KC, pos: RB, manager: Crushing Dreams}
+- {overall: 66, round: 6, pick_in_round: 6, player: Brock Purdy, team: SF, pos: QB, manager: 4 Time 13}
+- {overall: 67, round: 6, pick_in_round: 7, player: Dak Prescott, team: DAL, pos: QB, manager: Da LockDownGoon}
+- {overall: 68, round: 6, pick_in_round: 8, player: DeVonta Smith, team: PHI, pos: WR, manager: Shaun DeNiro}
+- {overall: 69, round: 6, pick_in_round: 9, player: Tyler Warren, team: IND, pos: TE, manager: Just call me CHAMP}
+- {overall: 70, round: 6, pick_in_round: 10, player: Caleb Williams, team: CHI, pos: QB, manager: '#TheMoneyTeam'}
+- {overall: 71, round: 6, pick_in_round: 11, player: Courtland Sutton, team: DEN, pos: WR, manager: Easy money}
+- {overall: 72, round: 6, pick_in_round: 12, player: Drake Maye, team: NE, pos: QB, manager: Griddy Committee}
+- {overall: 73, round: 7, pick_in_round: 1, player: Jordan Love, team: GB, pos: QB, manager: Griddy Committee}
+- {overall: 74, round: 7, pick_in_round: 2, player: Mark Andrews, team: BAL, pos: TE, manager: Easy money}
+- {overall: 75, round: 7, pick_in_round: 3, player: C.J. Stroud, team: HOU, pos: QB, manager: '#TheMoneyTeam'}
+- {overall: 76, round: 7, pick_in_round: 4, player: Jameson Williams, team: DET, pos: WR, manager: Just call me
+    CHAMP}
+- {overall: 77, round: 7, pick_in_round: 5, player: George Pickens, team: DAL, pos: WR, manager: Shaun DeNiro}
+- {overall: 78, round: 7, pick_in_round: 6, player: Justin Fields, team: NYJ, pos: QB, manager: Da LockDownGoon}
+- {overall: 79, round: 7, pick_in_round: 7, player: Michael Pittman Jr., team: IND, pos: WR, manager: 4 Time 13}
+- {overall: 80, round: 7, pick_in_round: 8, player: Tetairoa McMillan, team: CAR, pos: WR, manager: Crushing Dreams}
+- {overall: 81, round: 7, pick_in_round: 9, player: Jaylen Waddle, team: MIA, pos: WR, manager: Jag FLu}
+- {overall: 82, round: 7, pick_in_round: 10, player: Jerry Jeudy, team: CLE, pos: WR, manager: Kleenex Gang}
+- {overall: 83, round: 7, pick_in_round: 11, player: Matthew Stafford, team: LAR, pos: QB, manager: Trey Action
+    Fake}
+- {overall: 84, round: 7, pick_in_round: 12, player: Matthew Golden, team: GB, pos: WR, manager: Olave when you
+    call me big papa}
+- {overall: 85, round: 8, pick_in_round: 1, player: J.J. McCarthy, team: MIN, pos: QB, manager: Olave when you call
+    me big papa}
+- {overall: 86, round: 8, pick_in_round: 2, player: Rashee Rice, team: KC, pos: WR, manager: Trey Action Fake}
+- {overall: 87, round: 8, pick_in_round: 3, player: T.J. Hockenson, team: MIN, pos: TE, manager: Kleenex Gang}
+- {overall: 88, round: 8, pick_in_round: 4, player: Texans D/ST, team: HOU, pos: D/ST, manager: Jag FLu}
+- {overall: 89, round: 8, pick_in_round: 5, player: Jaylen Warren, team: PIT, pos: RB, manager: Crushing Dreams}
+- {overall: 90, round: 8, pick_in_round: 6, player: David Njoku, team: CLE, pos: TE, manager: 4 Time 13}
+- {overall: 91, round: 8, pick_in_round: 7, player: Michael Penix Jr., team: ATL, pos: QB, manager: Da LockDownGoon}
+- {overall: 92, round: 8, pick_in_round: 8, player: Aaron Jones Sr., team: MIN, pos: RB, manager: Shaun DeNiro}
+- {overall: 93, round: 8, pick_in_round: 9, player: Tua Tagovailoa, team: MIA, pos: QB, manager: Just call me CHAMP}
+- {overall: 94, round: 8, pick_in_round: 10, player: Evan Engram, team: DEN, pos: TE, manager: '#TheMoneyTeam'}
+- {overall: 95, round: 8, pick_in_round: 11, player: DJ Moore, team: CHI, pos: WR, manager: Easy money}
+- {overall: 96, round: 8, pick_in_round: 12, player: Rome Odunze, team: CHI, pos: WR, manager: Griddy Committee}
+- {overall: 97, round: 9, pick_in_round: 1, player: Travis Hunter, team: JAX, pos: WR, manager: Griddy Committee}
+- {overall: 98, round: 9, pick_in_round: 2, player: Ravens D/ST, team: BAL, pos: D/ST, manager: Easy money}
+- {overall: 99, round: 9, pick_in_round: 3, player: Steelers D/ST, team: PIT, pos: D/ST, manager: '#TheMoneyTeam'}
+- {overall: 100, round: 9, pick_in_round: 4, player: Deebo Samuel, team: WSH, pos: WR, manager: Just call me CHAMP}
+- {overall: 101, round: 9, pick_in_round: 5, player: Jared Goff, team: DET, pos: QB, manager: Shaun DeNiro}
+- {overall: 102, round: 9, pick_in_round: 6, player: Packers D/ST, team: GB, pos: D/ST, manager: Da LockDownGoon}
+- {overall: 103, round: 9, pick_in_round: 7, player: Cam Ward, team: TEN, pos: QB, manager: 4 Time 13}
+- {overall: 104, round: 9, pick_in_round: 8, player: Kaleb Johnson, team: PIT, pos: RB, manager: Crushing Dreams}
+- {overall: 105, round: 9, pick_in_round: 9, player: Tucker Kraft, team: GB, pos: TE, manager: Jag FLu}
+- {overall: 106, round: 9, pick_in_round: 10, player: Geno Smith, team: LV, pos: QB, manager: Kleenex Gang}
+- {overall: 107, round: 9, pick_in_round: 11, player: Trevor Lawrence, team: JAX, pos: QB, manager: Trey Action
+    Fake}
+- {overall: 108, round: 9, pick_in_round: 12, player: Ricky Pearsall, team: SF, pos: WR, manager: Olave when you
+    call me big papa}
+- {overall: 109, round: 10, pick_in_round: 1, player: Javonte Williams, team: DAL, pos: RB, manager: Olave when
+    you call me big papa}
+- {overall: 110, round: 10, pick_in_round: 2, player: Bryce Young, team: CAR, pos: QB, manager: Trey Action Fake}
+- {overall: 111, round: 10, pick_in_round: 3, player: Rhamondre Stevenson, team: NE, pos: RB, manager: Kleenex Gang}
+- {overall: 112, round: 10, pick_in_round: 4, player: J.K. Dobbins, team: DEN, pos: RB, manager: Jag FLu}
+- {overall: 113, round: 10, pick_in_round: 5, player: Jacory Croskey-Merritt, team: WSH, pos: RB, manager: Crushing
+    Dreams}
+- {overall: 114, round: 10, pick_in_round: 6, player: Daniel Jones, team: IND, pos: QB, manager: 4 Time 13}
+- {overall: 115, round: 10, pick_in_round: 7, player: Emeka Egbuka, team: TB, pos: WR, manager: Da LockDownGoon}
+- {overall: 116, round: 10, pick_in_round: 8, player: Aaron Rodgers, team: PIT, pos: QB, manager: Shaun DeNiro}
+- {overall: 117, round: 10, pick_in_round: 9, player: Khalil Shakir, team: BUF, pos: WR, manager: Just call me CHAMP}
+- {overall: 118, round: 10, pick_in_round: 10, player: Austin Ekeler, team: WSH, pos: RB, manager: '#TheMoneyTeam'}
+- {overall: 119, round: 10, pick_in_round: 11, player: Nick Chubb, team: HOU, pos: RB, manager: Easy money}
+- {overall: 120, round: 10, pick_in_round: 12, player: Chris Olave, team: 'NO', pos: WR, manager: Griddy Committee}
+- {overall: 121, round: 11, pick_in_round: 1, player: Colston Loveland, team: CHI, pos: TE, manager: Griddy Committee}
+- {overall: 122, round: 11, pick_in_round: 2, player: Jakobi Meyers, team: JAX, pos: WR, manager: Easy money}
+- {overall: 123, round: 11, pick_in_round: 3, player: Cooper Kupp, team: SEA, pos: WR, manager: '#TheMoneyTeam'}
+- {overall: 124, round: 11, pick_in_round: 4, player: Sam Darnold, team: SEA, pos: QB, manager: Just call me CHAMP}
+- {overall: 125, round: 11, pick_in_round: 5, player: Chris Godwin Jr., team: TB, pos: WR, manager: Shaun DeNiro}
+- {overall: 126, round: 11, pick_in_round: 6, player: Trey Benson, team: ARI, pos: RB, manager: Da LockDownGoon}
+- {overall: 127, round: 11, pick_in_round: 7, player: Dalton Kincaid, team: BUF, pos: TE, manager: 4 Time 13}
+- {overall: 128, round: 11, pick_in_round: 8, player: Stefon Diggs, team: NE, pos: WR, manager: Crushing Dreams}
+- {overall: 129, round: 11, pick_in_round: 9, player: Joe Mixon, team: HOU, pos: RB, manager: Jag FLu}
+- {overall: 130, round: 11, pick_in_round: 10, player: Chase McLaughlin, team: TB, pos: K, manager: Kleenex Gang}
+- {overall: 131, round: 11, pick_in_round: 11, player: Jauan Jennings, team: SF, pos: WR, manager: Trey Action Fake}
+- {overall: 132, round: 11, pick_in_round: 12, player: Jordan Addison, team: MIN, pos: WR, manager: Olave when you
+    call me big papa}
+- {overall: 133, round: 12, pick_in_round: 1, player: Jordan Mason, team: MIN, pos: RB, manager: Olave when you
+    call me big papa}
+- {overall: 134, round: 12, pick_in_round: 2, player: Hunter Henry, team: NE, pos: TE, manager: Trey Action Fake}
+- {overall: 135, round: 12, pick_in_round: 3, player: Cam Skattebo, team: NYG, pos: RB, manager: Kleenex Gang}
+- {overall: 136, round: 12, pick_in_round: 4, player: Brandon Aubrey, team: DAL, pos: K, manager: Jag FLu}
+- {overall: 137, round: 12, pick_in_round: 5, player: Bhayshul Tuten, team: JAX, pos: RB, manager: Crushing Dreams}
+- {overall: 138, round: 12, pick_in_round: 6, player: Amari Cooper, team: LV, pos: WR, manager: 4 Time 13}
+- {overall: 139, round: 12, pick_in_round: 7, player: Kyle Pitts Sr., team: ATL, pos: TE, manager: Da LockDownGoon}
+- {overall: 140, round: 12, pick_in_round: 8, player: Broncos D/ST, team: DEN, pos: D/ST, manager: Shaun DeNiro}
+- {overall: 141, round: 12, pick_in_round: 9, player: Buccaneers D/ST, team: TB, pos: D/ST, manager: Just call me
+    CHAMP}
+- {overall: 142, round: 12, pick_in_round: 10, player: Keenan Allen, team: LAC, pos: WR, manager: '#TheMoneyTeam'}
+- {overall: 143, round: 12, pick_in_round: 11, player: Tyler Loop, team: BAL, pos: K, manager: Easy money}
+- {overall: 144, round: 12, pick_in_round: 12, player: Keon Coleman, team: BUF, pos: WR, manager: Griddy Committee}
+- {overall: 145, round: 13, pick_in_round: 1, player: Josh Downs, team: IND, pos: WR, manager: Griddy Committee}
+- {overall: 146, round: 13, pick_in_round: 2, player: Dallas Goedert, team: PHI, pos: TE, manager: Easy money}
+- {overall: 147, round: 13, pick_in_round: 3, player: Russell Wilson, team: NYG, pos: QB, manager: '#TheMoneyTeam'}
+- {overall: 148, round: 13, pick_in_round: 4, player: Jake Bates, team: DET, pos: K, manager: Just call me CHAMP}
+- {overall: 149, round: 13, pick_in_round: 5, player: Zach Ertz, team: WSH, pos: TE, manager: Shaun DeNiro}
+- {overall: 150, round: 13, pick_in_round: 6, player: Darnell Mooney, team: ATL, pos: WR, manager: Da LockDownGoon}
+- {overall: 151, round: 13, pick_in_round: 7, player: Cameron Dicker, team: LAC, pos: K, manager: 4 Time 13}
+- {overall: 152, round: 13, pick_in_round: 8, player: Rashid Shaheed, team: SEA, pos: WR, manager: Crushing Dreams}
+- {overall: 153, round: 13, pick_in_round: 9, player: Jayden Reed, team: GB, pos: WR, manager: Jag FLu}
+- {overall: 154, round: 13, pick_in_round: 10, player: Eagles D/ST, team: PHI, pos: D/ST, manager: Kleenex Gang}
+- {overall: 155, round: 13, pick_in_round: 11, player: Tank Bigsby, team: PHI, pos: RB, manager: Trey Action Fake}
+- {overall: 156, round: 13, pick_in_round: 12, player: Zach Charbonnet, team: SEA, pos: RB, manager: Olave when
+    you call me big papa}
+- {overall: 157, round: 14, pick_in_round: 1, player: Vikings D/ST, team: MIN, pos: D/ST, manager: Olave when you
+    call me big papa}
+- {overall: 158, round: 14, pick_in_round: 2, player: Xavier Legette, team: CAR, pos: WR, manager: Trey Action Fake}
+- {overall: 159, round: 14, pick_in_round: 3, player: Joe Flacco, team: CIN, pos: QB, manager: Kleenex Gang}
+- {overall: 160, round: 14, pick_in_round: 4, player: Kareem Hunt, team: KC, pos: RB, manager: Jag FLu}
+- {overall: 161, round: 14, pick_in_round: 5, player: Jake Ferguson, team: DAL, pos: TE, manager: Crushing Dreams}
+- {overall: 162, round: 14, pick_in_round: 6, player: Ollie Gordon II, team: MIA, pos: RB, manager: 4 Time 13}
+- {overall: 163, round: 14, pick_in_round: 7, player: 49ers D/ST, team: SF, pos: D/ST, manager: Da LockDownGoon}
+- {overall: 164, round: 14, pick_in_round: 8, player: Jake Elliott, team: PHI, pos: K, manager: Shaun DeNiro}
+- {overall: 165, round: 14, pick_in_round: 9, player: Jerome Ford, team: CLE, pos: RB, manager: Just call me CHAMP}
+- {overall: 166, round: 14, pick_in_round: 10, player: Tyler Bass, team: BUF, pos: K, manager: '#TheMoneyTeam'}
+- {overall: 167, round: 14, pick_in_round: 11, player: Rashod Bateman, team: BAL, pos: WR, manager: Easy money}
+- {overall: 168, round: 14, pick_in_round: 12, player: Rachaad White, team: TB, pos: RB, manager: Griddy Committee}
+- {overall: 169, round: 15, pick_in_round: 1, player: Jaydon Blue, team: DAL, pos: RB, manager: Griddy Committee}
+- {overall: 170, round: 15, pick_in_round: 2, player: Najee Harris, team: LAC, pos: RB, manager: Easy money}
+- {overall: 171, round: 15, pick_in_round: 3, player: Tyler Allgeier, team: ATL, pos: RB, manager: '#TheMoneyTeam'}
+- {overall: 172, round: 15, pick_in_round: 4, player: Cade Otton, team: TB, pos: TE, manager: Just call me CHAMP}
+- {overall: 173, round: 15, pick_in_round: 5, player: Harrison Butker, team: KC, pos: K, manager: Shaun DeNiro}
+- {overall: 174, round: 15, pick_in_round: 6, player: Brandon Aiyuk, team: SF, pos: WR, manager: Da LockDownGoon}
+- {overall: 175, round: 15, pick_in_round: 7, player: Brian Robinson Jr., team: SF, pos: RB, manager: 4 Time 13}
+- {overall: 176, round: 15, pick_in_round: 8, player: Jaxson Dart, team: NYG, pos: QB, manager: Crushing Dreams}
+- {overall: 177, round: 15, pick_in_round: 9, player: Darren Waller, team: MIA, pos: TE, manager: Jag FLu}
+- {overall: 178, round: 15, pick_in_round: 10, player: Braelon Allen, team: NYJ, pos: RB, manager: Kleenex Gang}
+- {overall: 179, round: 15, pick_in_round: 11, player: Matt Gay, team: FA, pos: K, manager: Trey Action Fake}
+- {overall: 180, round: 15, pick_in_round: 12, player: Chris Boswell, team: PIT, pos: K, manager: Olave when you
+    call me big papa}
+- {overall: 181, round: 16, pick_in_round: 1, player: Spencer Rattler, team: 'NO', pos: QB, manager: Olave when
+    you call me big papa}
+- {overall: 182, round: 16, pick_in_round: 2, player: Cedric Tillman, team: CLE, pos: WR, manager: Trey Action Fake}
+- {overall: 183, round: 16, pick_in_round: 3, player: Brenton Strange, team: JAX, pos: TE, manager: Kleenex Gang}
+- {overall: 184, round: 16, pick_in_round: 4, player: Christian Kirk, team: HOU, pos: WR, manager: Jag FLu}
+- {overall: 185, round: 16, pick_in_round: 5, player: Lions D/ST, team: DET, pos: D/ST, manager: Crushing Dreams}
+- {overall: 186, round: 16, pick_in_round: 6, player: Seahawks D/ST, team: SEA, pos: D/ST, manager: 4 Time 13}
+- {overall: 187, round: 16, pick_in_round: 7, player: Brandon McManus, team: GB, pos: K, manager: Da LockDownGoon}
+- {overall: 188, round: 16, pick_in_round: 8, player: Hollywood Brown, team: KC, pos: WR, manager: Shaun DeNiro}
+- {overall: 189, round: 16, pick_in_round: 9, player: Jayden Higgins, team: HOU, pos: WR, manager: Just call me
+    CHAMP}
+- {overall: 190, round: 16, pick_in_round: 10, player: Quinshon Judkins, team: CLE, pos: RB, manager: '#TheMoneyTeam'}
+- {overall: 191, round: 16, pick_in_round: 11, player: Luther Burden III, team: CHI, pos: WR, manager: Easy money}
+- {overall: 192, round: 16, pick_in_round: 12, player: Patriots D/ST, team: NE, pos: D/ST, manager: Griddy Committee}
+- {overall: 193, round: 17, pick_in_round: 1, player: Cairo Santos, team: CHI, pos: K, manager: Griddy Committee}
+- {overall: 194, round: 17, pick_in_round: 2, player: Elijah Arroyo, team: SEA, pos: TE, manager: Easy money}
+- {overall: 195, round: 17, pick_in_round: 3, player: Shedeur Sanders, team: CLE, pos: QB, manager: '#TheMoneyTeam'}
+- {overall: 196, round: 17, pick_in_round: 4, player: Wan'Dale Robinson, team: NYG, pos: WR, manager: Just call
+    me CHAMP}
+- {overall: 197, round: 17, pick_in_round: 5, player: Marvin Mims Jr., team: DEN, pos: WR, manager: Shaun DeNiro}
+- {overall: 198, round: 17, pick_in_round: 6, player: DeMario Douglas, team: NE, pos: WR, manager: Da LockDownGoon}
+- {overall: 199, round: 17, pick_in_round: 7, player: Tyler Higbee, team: LAR, pos: TE, manager: 4 Time 13}
+- {overall: 200, round: 17, pick_in_round: 8, player: Ka'imi Fairbairn, team: HOU, pos: K, manager: Crushing Dreams}
+- {overall: 201, round: 17, pick_in_round: 9, player: Adam Thielen, team: PIT, pos: WR, manager: Jag FLu}
+- {overall: 202, round: 17, pick_in_round: 10, player: Dylan Sampson, team: CLE, pos: RB, manager: Kleenex Gang}
+- {overall: 203, round: 17, pick_in_round: 11, player: Bills D/ST, team: BUF, pos: D/ST, manager: Trey Action Fake}
+- {overall: 204, round: 17, pick_in_round: 12, player: Will Shipley, team: PHI, pos: RB, manager: Olave when you
+    call me big papa}

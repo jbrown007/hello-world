@@ -3,7 +3,7 @@ me:
   slot_2025: 8
   slot_2026: 5
   draft_2025: Lamar (1.08), Hurts (2.05), McBride (3.08), McConkey (4.05), Ridley (5.08), Pacheco (6.05), T.McMillan
-    (7.08), J.Warren (8.05), R9 unknown, JCM (10.05), Diggs (11.08), Tuten (12.05), Shaheed (13.08), Ferguson TE
+    (7.08), J.Warren (8.05), Kaleb Johnson (9.08 - CLOSED 8/31 by the recap PDF), JCM (10.05), Diggs (11.08), Tuten (12.05), Shaheed (13.08), Ferguson TE
     (14.05), JAXSON DART QB (15.08 - the disqualified QB3 profile QB_LADDER is built on), Lions DST (16.05), Fairbairn
     K (17.08)
   self_scout: Only team with two QBs by pick 17. Hurts at 2.05 cost Puka (2.06) or Jonathan Taylor (2.07). In a
@@ -82,7 +82,17 @@ managers:
   notes: 'Rep fully busted 8/2 with the complete R1-17 board: Burrow was his only QB all draft. Zero threat in any
     QB window; if anything he is a QB2/QB3 trade customer by midseason. 2025 full: Bijan, Burrow, Higgins, Harvey,
     Flowers, Sutton, Andrews, DJ Moore, Ravens DST R9, Chubb, Meyers, Loop K R12, Goedert, Bateman, Najee, Burden,
-    Arroyo.'
+    Arroyo.
+
+    10/10 FULL ROSTER CAPTURE (1-3, co-managed "+1", WAIVER ORDER 12 OF 12):
+    QBs = Lamar (QUES, ankle boot, multi-week risk) + Jameis Winston (4% rost
+    streamer IN THE SFLX) + Caleb Williams (OUT). The August prediction landed:
+    QB crisis, worst wire position in the league, must-win-now record. WR
+    SURPLUS is the complementary fit: Burden III, Jameson Williams (DET),
+    D.Moore (BUF, Q), Deebo, DeVonta Smith (Q hamstring), Meyers - six bodies
+    for three slots. Also starting Butker ON HIS BYE in W5 = low-attention
+    management; pitch trades simply and follow up. WARD ASK, in order:
+    Jameson Williams > healthy DeVonta Smith > D.Moore. Deebo only as a floor.'
   slot_2026: 8
 - name: Jag FLu
   slot_2025: 9
@@ -114,7 +124,17 @@ managers:
   attention: sharp
   trades: active
   notes: 'RIVAL, veteran. Volatile roster by design - strong buy-low candidate when early picks bust, sell-high
-    customer when they hit. 2025: CMC, Puka, Tyreek, Hubbard, Conner, Purdy R6, Pittman, Njoku.'
+    customer when they hit. 2025: CMC, Puka, Tyreek, Hubbard, Conner, Purdy R6, Pittman, Njoku.
+
+    10/10 FULL ROSTER CAPTURE (0-4, waiver order 2 of 12, proj 134.2 - the
+    UNLUCKIEST roster in the league, not the worst): Darnold (back from
+    injury) + Watson SFLX + Mayfield OUT at QB; Hampton, Skattebo Q, A.Jones,
+    Charbonnet OUT, Mason IR at RB; NACUA + JEFFERSON (Q, BENCHED at 100%
+    rost) + OLAVE Q + Jeudy + Pittman OUT at WR. SUPERSEDES the September
+    Ward-customer read IN WRITING: Darnold returned, so he has three QBs and
+    is NOT a Ward buyer. New role: the buy-low WR source if 0-4 turns him
+    apathetic - Jefferson on a bench is the tell to watch. He picks 2nd on
+    waivers, so he beats us to any claim he wants; trades are the only lane.'
   slot_2026: 11
 - name: Griddy Committee
   slot_2025: 1
@@ -216,8 +236,20 @@ league:
       are information about how you are perceived, not about your roster.
 
       '
-  gaps:
-  - Josh's own 9.08 pick (only R9 picks 1-4 captured)
+  gaps: []
+  gaps_closed:
+  - 'ALL CLOSED 8/31: Josh uploaded the ESPN league-history Draft Recap PDF - the
+    complete 2025 board, all 204 picks, now committed as data/draft_board_2025.yaml
+    (verify.py check 58 recomputes the QB curve from it). The 9.08 pick was Kaleb
+    Johnson. Every 8/2 profile claim checked out against the primary source: QB
+    curve exact (8 by R4, 0 in R5, 6 in R6, 34 total), Warren to CHAMP at 69,
+    Jag FLu DST at 88 + Aubrey at 136, Griddy QB double at 72-73, Easy money one
+    QB, Kleenex seven RBs + K at 130, Olave turn-QB at 37, Herbert at 62.'
+  draft_clock: 'SIXTY SECONDS PER PICK (from the 2025 recap header; assume 2026
+    matches). This decides open item 2: sixty seconds is not enough time to type
+    an ff draft call, read it and decide. The terminal is prep-between-picks, not
+    on-the-clock; the printed sheet makes the pick. Pre-compute the two or three
+    live branches during the picks before each of Josh''s turns.'
   slot5_neighbors:
   - 'ADDED 8/16 once the 2026 order was posted. Josh sits at 5, between Da LockDownGoon (4) and Kleenex Gang (6).
     Four reads that only exist now that the seats are known:'
