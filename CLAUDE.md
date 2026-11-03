@@ -118,6 +118,12 @@ than burying it in someone else's notes.
     zero carry cost, buyers see only his remaining schedule). The 10/13 offer
     to Easy money (Ward for Jameson Williams) died unanswered - if they
     revive it this week, decline or re-time delivery to after W8.
+    **VOID 11/3: Ward was released ~10/28 for bye-week K/DST/TE2 cover and
+    claimed elsewhere; there is no QB to sell.** Rule added from it:
+    **in superflex, a starting NFL QB is never the drop to cover a K, DST
+    or TE2 slot.** Kickers and defenses are streamable every week; mid-season
+    starting QBs are not, because QB-needy rivals sweep the wire first. Cut
+    the redundant K/DST the week their bye ends instead.
 
 ## Autonomy — sanctioned by Josh, 8/16
 

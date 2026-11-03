@@ -58,6 +58,32 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-10-28'
+  type: waiver_swap
+  add: {pos: K, team: TB, player: Chase McLaughlin, bye: 9}
+  drop: {pos: TE, team: LV, player: Michael Mayer, bye: 10}
+  why: >
+    CLEARED 10/28 as queued - Fairbairn's W8 bye cover.
+- date: '2026-10-28'
+  type: waiver_swap
+  add: {pos: DST, team: DET, player: Lions D/ST, bye: 6}
+  drop: {pos: RB, team: 'NO', player: Kendre Miller, bye: 8}
+  why: >
+    W8 DST cover for the 49ers bye. Miller's expanded-role thesis ended at
+    6 yards in W7.
+- date: '2026-10-28'
+  type: release
+  add: {pos: TE, team: NE, player: Hunter Henry, bye: 14}
+  drop: {pos: QB, team: TEN, player: Cam Ward, bye: 9}
+  why: >
+    Josh released Ward to make room for bye-week K/DST/TE2 cover (exact
+    add/drop pairing approximate - the three adds were McLaughlin, Lions
+    D/ST and Henry; the three drops Mayer, Miller and Ward). Henry is the
+    Warren-groin insurance. COST: Ward threw for a career-high 304 + 2 TD in
+    W8 and was claimed by another team before he could be re-added - the
+    planned W9 sale to CHAMP or Easy money is void, and the roster is down
+    to two QBs in a superflex. Josh's verdict 11/3: "looks like a mistake."
+    Rule added to CLAUDE.md from it.
 - date: '2026-10-21'
   type: waiver_swap
   add: {pos: WR, team: PIT, player: Germie Bernard, bye: 9}
@@ -164,8 +190,7 @@ results:
     10/27 was rightly abandoned). ROSTER NOTE: as of the 11/3 screenshots Ward
     is no longer on the roster (he threw for a career-high 304 + 2 TD in W8);
     Mayer, Miller and the Commanders claim are also gone, with McLaughlin,
-    Hunter Henry and Lions D/ST added. Transactions pending Josh's
-    confirmation before they are logged.
+    Hunter Henry and Lions D/ST added (logged 10/28 in transactions).
 - week: 7
   opponent: Shaun DeNiro (Any Given Sunday)
   score_for: 86.22
