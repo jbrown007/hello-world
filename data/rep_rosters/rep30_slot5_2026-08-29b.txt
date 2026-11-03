@@ -1,0 +1,18 @@
+# slot 5 · rep 30 · 2026-08-29b · format: ROUND POS TEAM Player Name
+1 RB ATL Bijan Robinson
+2 RB LAC Omarion Hampton
+3 QB CHI Caleb Williams
+4 RB LAR Kyren Williams
+5 TE CHI Colston Loveland
+6 WR BUF DJ Moore
+7 WR JAX Parker Washington
+8 RB TB Kenny Gainwell
+9 QB GB Jordan Love
+10 QB TEN Cam Ward
+11 WR CLE KC Concepcion
+12 WR SF Deebo Samuel Sr.
+13 RB GB MarShawn Lloyd
+14 DST CLE Browns D/ST
+15 K HOU Ka'imi Fairbairn
+16 QB LV Fernando Mendoza
+17 RB BUF Ray Davis

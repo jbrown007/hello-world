@@ -1,0 +1,18 @@
+# slot 5 · rep 21 · 2026-08-18 · format: ROUND POS TEAM Player Name
+1 QB NE Drake Maye
+2 RB KC Kenneth Walker III
+3 RB LAC Omarion Hampton
+4 WR CAR Tetairoa McMillan
+5 TE IND Tyler Warren
+6 QB MIN Kyler Murray
+7 WR GB Christian Watson
+8 RB PIT Rico Dowdle
+9 QB CAR Bryce Young
+10 WR LAC Quentin Johnston
+11 RB CHI Kyle Monangai
+12 WR PHI Makai Lemon
+13 RB ARI Tyler Allgeier
+14 WR NO Jordyn Tyson
+15 RB DET Isiah Pacheco
+16 DST LAC Chargers D/ST
+17 K PIT Chris Boswell

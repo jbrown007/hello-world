@@ -1,0 +1,256 @@
+<title>Ideal Seventeen, Priced</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECEF; --surface:#FFFFFF; --surface-2:#F4F6F8;
+  --ink:#12171E; --ink-2:#4A5563; --ink-3:#6E7A88;
+  --rule:#C8D0D8; --rule-2:#DDE3E9;
+  --accent:#14524A; --accent-soft:#DCEAE6;
+  --stop:#A3231B; --stop-soft:#F7E0DE;
+  --warn:#8A5A00; --warn-soft:#F7EBD4;
+  --shadow:0 1px 2px rgba(18,23,30,.07),0 4px 14px rgba(18,23,30,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+    --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+    --rule:#2A343E; --rule-2:#232C35;
+    --accent:#5FBFA9; --accent-soft:#16302C;
+    --stop:#F0817A; --stop-soft:#3A1D1B;
+    --warn:#E0A64A; --warn-soft:#372A12;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151A; --surface:#171E25; --surface-2:#1C242C;
+  --ink:#E7ECF1; --ink-2:#9DAAB8; --ink-3:#7C8896;
+  --rule:#2A343E; --rule-2:#232C35;
+  --accent:#5FBFA9; --accent-soft:#16302C;
+  --stop:#F0817A; --stop-soft:#3A1D1B;
+  --warn:#E0A64A; --warn-soft:#372A12;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:13px;line-height:1.45;margin:0;padding:20px 16px 40px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3,th{font-family:"Barlow Condensed","IBM Plex Sans",sans-serif;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 22px;border-bottom:2px solid var(--ink);padding-bottom:9px}
+h1{font-size:36px;font-weight:700;letter-spacing:-.015em;margin:0;line-height:.95;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--accent)}
+.top p{margin:0 0 3px auto;font-size:12px;color:var(--ink-2);max-width:540px}
+
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:9px}
+.alert{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--ink-3);
+  border-radius:3px;padding:9px 11px;box-shadow:var(--shadow)}
+.alert.stop{border-left-color:var(--stop)}
+.alert.warn{border-left-color:var(--warn)}
+.alert.go{border-left-color:var(--accent)}
+.alert h3{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin:0 0 3px}
+.alert.stop h3{color:var(--stop)}.alert.warn h3{color:var(--warn)}.alert.go h3{color:var(--accent)}
+.alert p{margin:0;font-size:12px;color:var(--ink-2)}
+.alert strong{color:var(--ink)}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:3px;box-shadow:var(--shadow);overflow:hidden}
+.card>h2{font-size:13px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;margin:0;
+  padding:7px 11px;background:var(--surface-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:8px}
+.card>h2 .sub{font-family:"IBM Plex Sans",sans-serif;font-size:10.5px;font-weight:400;letter-spacing:0;
+  text-transform:none;color:var(--ink-3);margin-left:auto}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  text-align:left;padding:5px 8px;border-bottom:1px solid var(--rule);white-space:nowrap}
+th.n,td.n{text-align:right}
+td{padding:4px 8px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.pk{white-space:nowrap;font-family:"IBM Plex Mono",monospace;font-weight:600;width:1%;font-size:11px}
+td.pl{white-space:nowrap;font-weight:600}
+td.pl small{display:block;font-weight:400;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:10px}
+td.n{font-family:"IBM Plex Mono",monospace;white-space:nowrap;font-variant-numeric:tabular-nums}
+td.vd{color:var(--ink-2);font-size:11.5px;min-width:230px}
+td .est{color:var(--ink-3);font-size:10px}
+tr.flag td{background:var(--warn-soft)}
+tr.hot td{background:var(--stop-soft)}
+.chip{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;padding:0 5px;border-radius:2px;white-space:nowrap;margin-right:4px}
+.chip.ok{background:var(--accent-soft);color:var(--accent)}
+.chip.wf{background:var(--warn-soft);color:var(--warn)}
+.chip.no{background:var(--stop-soft);color:var(--stop)}
+.foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding-top:2px;line-height:1.6}
+.foot code{font-family:"IBM Plex Mono",monospace;color:var(--ink-2)}
+@media print{body{background:#fff;padding:0;font-size:10px}.card,.alert{box-shadow:none}h1{font-size:26px}@page{margin:10mm}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Ideal Seventeen, <em>Priced</em></h1>
+    <p>Every ideal pick against last season's full-PPR total and the 2026 web consensus
+    (ESPN Clay/Yates, FantasyPros, PFN &mdash; gathered Sept 4, tagged <span class="mono">est</span>
+    where derived). The point of this sheet is the right-hand column: the edge cases.</p>
+  </header>
+
+  <section class="band">
+    <div class="alert stop">
+      <h3>Edge case No. 1 — found &amp; fixed</h3>
+      <p><strong>Jayden Higgins is OUT for the season</strong> (torn ACL in the Raiders joint
+      practice, IR). He was your R13 buy. This cross-check caught it, the boards and the printed
+      sheet are corrected, and <strong>R13 is now Jordyn Tyson</strong> (same W8 slot, partition
+      unchanged).</p>
+    </div>
+    <div class="alert warn">
+      <h3>Edge case No. 2 — Downs got company</h3>
+      <p>The Colts signed <strong>Keenan Allen</strong> (1yr, ~$8M; 22.4% target share last
+      season). The +15 value gap that made Downs a lock is thinner &mdash; hold the R8-9 window
+      but <strong>don't reach</strong>; if his price sags past 92, he's a better pick at 101.</p>
+    </div>
+    <div class="alert warn">
+      <h3>Edge case No. 3 — consensus likes Loveland</h3>
+      <p>The web projects Loveland TE3 <em>above</em> Warren TE4 (~260 vs ~227 est PPR).
+      <strong>Warren still wins at this seat</strong>: he's on the board at 53 (Loveland's TE3
+      price isn't), and Loveland unravels the Bears cap + W10 with Caleb. Talent call: closer
+      than the old sheet said. Structure call: unchanged.</p>
+    </div>
+    <div class="alert go">
+      <h3>Edge case No. 4 — the kicker fallback was wrong</h3>
+      <p>If Dicker (W7) is gone at 197 &mdash; likely, the room took him at 151 last year &mdash;
+      the listed fallback Fairbairn is <strong>W8, which this roster fills at cap</strong> (Black +
+      Tyson). The right fallback is <strong>Cam Little (JAX, W7)</strong>. Caught by this sheet's
+      partition column.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>The seventeen <span class="sub">full PPR · 2025 actual vs 2026 consensus</span></h2>
+    <div class="tw">
+    <table>
+      <thead><tr><th>Pick</th><th>Player</th><th class="n">2025 PPR</th><th class="n">2026 proj</th><th>Edge read</th></tr></thead>
+      <tbody>
+        <tr><td class="pk">R1·5</td><td class="pl">Amon-Ra St. Brown<small>WR DET·W6</small></td>
+          <td class="n">323 <span class="est">est</span></td><td class="n">~275 · WR4</td>
+          <td class="vd"><span class="chip wf">Watch</span>Consensus has <strong>Nacua WR2 at ~307</strong>, above him.
+          Hold ASB anyway: three straight top-3 years, 29% share &mdash; and Nacua is W11, which this
+          roster fills at cap (Stevenson + Love). Partition decides the tie.</td></tr>
+        <tr><td class="pk">R2·20</td><td class="pl">Kenneth Walker III<small>RB KC·W5</small></td>
+          <td class="n">192 <span class="est">est</span></td><td class="n">RB12 (Clay)</td>
+          <td class="vd"><span class="chip ok">Clean</span>RB22 total last year at 11.3/gm; consensus buys the KC
+          workload leap. Cleat scare resolved with a full practice. Kleenex picks at 30 &mdash; 20 is the price of certainty.</td></tr>
+        <tr><td class="pk">R3·29</td><td class="pl">Caleb Williams<small>QB CHI·W10</small></td>
+          <td class="n">~318 <span class="est">est</span></td><td class="n">QB14-15</td>
+          <td class="vd"><span class="chip ok">Clean</span>18.7/gm in year two, top-8 in the industry tiers. Bookkeeping:
+          he spends a Bear and a W10 slot &mdash; at most one more of Odunze/Burden/Loveland.</td></tr>
+        <tr class="flag"><td class="pk">R4·44</td><td class="pl">Chuba Hubbard<small>RB CAR·W5</small></td>
+          <td class="n">down yr</td><td class="n">RB33 · ADP 81</td>
+          <td class="vd"><span class="chip wf">Premium</span>The one pick paying over market: ~37 picks above national ADP,
+          bought for the W5 partition, with a hamstring and a stated committee (Dowdle led CAR rushing
+          last year and left). If the room lets him slide, take the discount at no cost &mdash; nobody else needs W5 like you do.</td></tr>
+        <tr><td class="pk">R5·53</td><td class="pl">Tyler Warren<small>TE IND·W13</small></td>
+          <td class="n">182</td><td class="n">~227 <span class="est">est</span> · TE4</td>
+          <td class="vd"><span class="chip wf">Watch</span>See edge case 3. TE5 rookie year (76-817-4, 112 targets),
+          Pittman's targets vacated, cleared 9/3. The run trigger stays the escape hatch.</td></tr>
+        <tr><td class="pk">R6·68</td><td class="pl">Kyler Murray<small>QB MIN·W6</small></td>
+          <td class="n">inj yr</td><td class="n">QB16-19</td>
+          <td class="vd"><span class="chip wf">Durability</span>Missed most of 2025 (foot). The ceiling case is the
+          weapons; the risk is real and Ward (QB27) sits behind him at the same pick. Ward is the safer floor, Murray
+          the league-winning ceiling &mdash; your posture says Murray.</td></tr>
+        <tr><td class="pk">R7·77</td><td class="pl">Rhamondre Stevenson<small>RB NE·W11</small></td>
+          <td class="n">RB2-range</td><td class="n">RB26 · ADP 61</td>
+          <td class="vd"><span class="chip ok">Discount</span>National ADP is 61 and your pick is 77 &mdash; a 16-pick
+          discount on a back who currently leads his backfield (Henderson sidelined). The regression warnings are
+          priced in at 77 in a way they are not at 61.</td></tr>
+        <tr class="flag"><td class="pk">R8·92</td><td class="pl">Josh Downs<small>WR IND·W13</small></td>
+          <td class="n">solid slot yr</td><td class="n">WR39-46</td>
+          <td class="vd"><span class="chip wf">Thesis thinner</span>See edge case 2. Keenan Allen takes the Pittman
+          role; Downs keeps the slot but the target math tightened. Window holds R8-R9; the R10 deadline softens to
+          best-WR if the room reads the same news.</td></tr>
+        <tr><td class="pk">R9·101</td><td class="pl">Jordan Love<small>QB GB·W11</small></td>
+          <td class="n">235</td><td class="n">QB17-23</td>
+          <td class="vd"><span class="chip ok">Clean</span>The most measured pick on the roster: on the board at 101 in
+          eleven straight reps, VALUE seven times. QB15 by 2025 points as your third arm.</td></tr>
+        <tr><td class="pk">R10·116</td><td class="pl">Michael Wilson<small>WR ARI·W14</small></td>
+          <td class="n">career yr</td><td class="n">WR35-49</td>
+          <td class="vd"><span class="chip wf">Wide spread</span>Biggest projection disagreement on the sheet (Clay 40th
+          overall vs an analyst at WR49). You hold him for two reasons the web doesn't price: the +14 gap and the
+          mandatory single W14 body. Fine at 116, not before.</td></tr>
+        <tr><td class="pk">R11·125</td><td class="pl">Rico Dowdle<small>RB PIT·W9</small></td>
+          <td class="n">strong finish</td><td class="n">RB28</td>
+          <td class="vd"><span class="chip ok">Clean at window</span>Six games of 12.4+ down the stretch; now a stated
+          committee with Jaylen Warren (snaps split ~even in preseason). RB28 consensus at pick 125 is fair &mdash; the
+          rep that took him at R8 was the error, not the player.</td></tr>
+        <tr><td class="pk">R12·140</td><td class="pl">Kaelon Black<small>RB SF·W8</small></td>
+          <td class="n mono">rookie</td><td class="n">handcuff</td>
+          <td class="vd"><span class="chip ok">Ceiling bet</span>Third-round rookie behind a 30-year-old who led the NFL
+          in touches. No 2025 stats by definition &mdash; that's the point. Highest handcuff EV on the board.</td></tr>
+        <tr class="hot"><td class="pk">R13·149</td><td class="pl">Jordyn Tyson<small>WR 'NO'·W8</small></td>
+          <td class="n mono">rookie</td><td class="n">unpriced</td>
+          <td class="vd"><span class="chip no">Replaced Higgins 9/4</span>In for the season-ended Higgins &mdash; same W8
+          slot, so the partition holds without a reshuffle. Measured available at 149-164 in your reps. Stribling (SF·W8,
+          Pearsall's vacated targets) is the alternate.</td></tr>
+        <tr><td class="pk">R14·164</td><td class="pl">Ray Davis<small>RB BUF·W7</small></td>
+          <td class="n">thin (4.7 ypc)</td><td class="n">handcuff</td>
+          <td class="vd"><span class="chip ok">Ceiling bet</span>Zero standalone value &mdash; and a top-15 weekly RB if
+          Cook misses time in the league's best rushing offense. Exactly what R14 is for.</td></tr>
+        <tr><td class="pk">R15·173</td><td class="pl">Germie Bernard<small>WR PIT·W9</small></td>
+          <td class="n mono">rookie</td><td class="n">unpriced</td>
+          <td class="vd"><span class="chip ok">Scarce week</span>Second-round rookie flashing in preseason. Fills W9 &mdash;
+          only PIT and TEN live there, so the body matters as much as the player.</td></tr>
+        <tr><td class="pk">R16·188</td><td class="pl">Denver D/ST<small>DST·W10</small></td>
+          <td class="n">8.2/gm · #2</td><td class="n">top-3 unit</td>
+          <td class="vd"><span class="chip wf">May be gone</span>Went at pick 140 in this room last year. Fallback is
+          any defense on W10 or the last short week &mdash; the partition picks the unit.</td></tr>
+        <tr class="flag"><td class="pk">R17·197</td><td class="pl">Cameron Dicker<small>K LAC·W7</small></td>
+          <td class="n">93.5% career</td><td class="n">K2</td>
+          <td class="vd"><span class="chip wf">Fallback fixed</span>Went at 151 in this room last year, so plan on the
+          fallback &mdash; and see edge case 4: it's <strong>Cam Little (W7)</strong>, NOT Fairbairn (W8, capped on this
+          roster).</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>The fallbacks <span class="sub">is the plan B actually close?</span></h2>
+    <div class="tw">
+    <table>
+      <thead><tr><th>Behind</th><th>Player</th><th class="n">2025 PPR</th><th class="n">2026 proj</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td class="pk">R1</td><td class="pl">Puka Nacua<small>WR LAR·W11</small></td>
+          <td class="n">19.4/gm</td><td class="n">~307 · WR2</td>
+          <td class="vd">Projects ABOVE the starter &mdash; the fallback costs you nothing on talent, only a W11 reshuffle.</td></tr>
+        <tr><td class="pk">R2</td><td class="pl">Drake Maye<small>QB NE·W11</small></td>
+          <td class="n">351 · QB2</td><td class="n">QB3 · ADP 57</td>
+          <td class="vd">If an elite arm is at 20, Branch B fires and Walker moves to 29. Maye at 20 is fully priced-in value.</td></tr>
+        <tr><td class="pk">R2</td><td class="pl">Jayden Daniels<small>QB WSH·W7</small></td>
+          <td class="n">7 games</td><td class="n">Clay's QB2</td>
+          <td class="vd">The ceiling arm of the tier off an injury discount &mdash; your posture's pick if both are there.</td></tr>
+        <tr><td class="pk">R4</td><td class="pl">Tetairoa McMillan<small>WR CAR·W5</small></td>
+          <td class="n">213 <span class="est">est</span> · OROY</td><td class="n">WR19-ish</td>
+          <td class="vd">70-1014-7 as a rookie. Only on the RB-first line (Gibbs/Bijan fell) &mdash; on the ASB line R4 must be a back.</td></tr>
+        <tr><td class="pk">R5</td><td class="pl">Cam Ward<small>QB TEN·W9</small></td>
+          <td class="n">rookie yr</td><td class="n">QB27</td>
+          <td class="vd">The run-trigger arm at 53 and the safety net behind Murray at 68.</td></tr>
+        <tr><td class="pk">R5-8</td><td class="pl">Colston Loveland<small>TE CHI·W10</small></td>
+          <td class="n">~190 <span class="est">est</span></td><td class="n">~260 <span class="est">est</span> · TE3</td>
+          <td class="vd">63 targets in his last 10 games. The backfill if Warren is released &mdash; at R7-8 price, never 53, and
+          he spends your last Bear.</td></tr>
+        <tr><td class="pk">R8</td><td class="pl">Kenny Gainwell<small>RB TB·W10</small></td>
+          <td class="n">~223 <span class="est">est</span> · RB20/gm</td><td class="n">RB32</td>
+          <td class="vd">73 catches last year &mdash; the PPR floor play if Downs is gone at 92.</td></tr>
+        <tr><td class="pk">R17</td><td class="pl">Cam Little<small>K JAX·W7</small></td>
+          <td class="n">&mdash;</td><td class="n">K9</td>
+          <td class="vd">The corrected kicker fallback: same W7 slot as Dicker, no partition damage.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <p class="foot">Full PPR. <code>est</code> = derived from stat lines, not a published total.
+  Consensus: ESPN (Clay, Yates) · FantasyPros · PFN · Yahoo, gathered Sept 4 · 2025 totals from the
+  same sources and repo data · projections are third-party estimates, not the framework's own ·
+  the partition and refusal rules on the call sheet always outrank a projection.</p>
+</div>
