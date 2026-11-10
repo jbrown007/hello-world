@@ -58,6 +58,21 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-11-04'
+  type: waiver_swap
+  add: {pos: WR, team: NYJ, player: Adonai Mitchell, bye: 10}
+  drop: {pos: K, team: TB, player: Chase McLaughlin, bye: 9}
+  why: >
+    INFERRED FROM THE 11/10 ROSTER (exact pairing approximate). The Minshew
+    QB3 claim did not land and the Antonio Williams claim did not either;
+    Mitchell came through as the WR fallback. Minshew has since been reported
+    hurt, so the miss cost nothing. Roster is still at two QBs.
+- date: '2026-11-04'
+  type: waiver_swap
+  add: {pos: DST, team: BUF, player: Bills D/ST, bye: 7}
+  drop: {pos: DST, team: DET, player: Lions D/ST, bye: 6}
+  why: >
+    INFERRED FROM THE 11/10 ROSTER. Bills scored 15.0 at MIN in W9.
 - date: '2026-10-28'
   type: waiver_swap
   add: {pos: K, team: TB, player: Chase McLaughlin, bye: 9}
@@ -177,6 +192,18 @@ transactions:
     again: this wire moves fast. Price's Q status is now uncovered; Corum/White
     are the internal fallbacks if he sits.
 results:
+- week: 9
+  opponent: Da LockDownGoon (Thoran Tyner, the 1 seed, now 8-1)
+  score_for: 128.66
+  score_against: 141.6
+  result: L - 6-3, tied for 2nd-4th with Griddy, Olave and Belt Boyz.
+  box: >
+    Purdy 27.28 (232, 3 TD vs LV), Cook 19.7, Fairbairn 17.0, Bills DST 15.0
+    (2 INT, FR at MIN), Lawrence 15.08, Corum 12.8. The losing lines: ADONAI
+    MITCHELL 0.0 (zero catches at KC - my game-day upgrade from coin flip to
+    yes over Coker was wrong), White 6.4 (28 yds + a fumble), Warren 6.4.
+    WILSON 9.0 and then a NECK FRACTURE - out for the season, released.
+    Burrow 31.5 and CeeDee Lamb 28.5 were the opponent's whole margin.
 - week: 8
   opponent: Trey Action Fake (Trey Gorman, 1-7)
   score_for: 147.3
