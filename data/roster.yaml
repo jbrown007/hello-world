@@ -58,6 +58,17 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-11-11'
+  type: waiver_swap
+  add: {pos: WR, team: MIA, player: Caleb Douglas, bye: 6}
+  drop: {pos: WR, team: ARI, player: Michael Wilson, bye: 14}
+  why: >
+    CLEARED 11/11. Wilson's neck fracture (W9) ended his season. Douglas is
+    back for a second stint: 17 targets over the prior three weeks as Malik
+    Willis's top read, healthy after the ankle that got him dropped 10/3.
+    The Tank Dell claim (for the 49ers D/ST) missed, so the redundant
+    second DST stays for now. Side effect: Wilson's exit clears the W14
+    seeding week of starters entirely.
 - date: '2026-11-04'
   type: waiver_swap
   add: {pos: WR, team: NYJ, player: Adonai Mitchell, bye: 10}
