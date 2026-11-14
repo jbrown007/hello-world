@@ -58,6 +58,17 @@ transactions:
   why: 'CLEARED 9/16 (submitted 9/15, priority 2). Titans scored -1.0 vs the Jets;
     SF held the Rams to 7 and hosts Miami in the week''s best defensive spot. Second
     DST stream in two weeks - the slot is a weekly rental as planned.'
+- date: '2026-11-14'
+  type: free_agent_swap
+  add: {pos: WR, team: SF, player: Deebo Samuel, bye: 8}
+  drop: {pos: WR, team: MIA, player: Caleb Douglas, bye: 6}
+  why: >
+    Josh's call. Douglas lost his QB (Willis to IR through W13, rookie Kyle
+    McCord starting). Deebo returns from a W5 hamstring: full practice Friday
+    11/13, no designation, and Mike Evans is out week-to-week, so the SF WR
+    room is thin. W10 is his FIRST GAME BACK - Sunday pivot rule 3 keeps him
+    behind healthy full-route Coker this week; his 4:25 kickoff at DAL makes
+    him the late-swap cover for Coker's 1:00 game. Stacks with Purdy.
 - date: '2026-11-11'
   type: waiver_swap
   add: {pos: WR, team: MIA, player: Caleb Douglas, bye: 6}
